@@ -235,7 +235,7 @@ class BasicLayout extends React.PureComponent {
                   title: 'APP下载',
                   href: '#',
                   blankTarget: true,
-                }/* ,
+                } /* ,
                 {
                   key: 'github',
                   title: <Icon type="github" />,

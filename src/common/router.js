@@ -170,14 +170,13 @@ export const getRouterData = app => {
     },
     '/user-manage/doctor-list': {
       component: dynamicWrapper(app, ['kfUser'], () => import('../routes/UserManage/DoctorList')),
-    }
-    ,
+    },
     '/user-manage/patient-list': {
       component: dynamicWrapper(app, ['kfUser'], () => import('../routes/UserManage/PatientList')),
-    } ,
+    },
     '/user-manage/admin-list': {
       component: dynamicWrapper(app, ['kfUser'], () => import('../routes/UserManage/AdminList')),
-    }
+    },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },

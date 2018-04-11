@@ -33,9 +33,7 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 
-
-
-@connect(({ rule, loading,kfUser }) => ({
+@connect(({ rule, loading, kfUser }) => ({
   kfUser,
   rule,
   loading: loading.models.rule,
@@ -47,24 +45,24 @@ export default class AdminList extends PureComponent {
     expandForm: false,
     selectedRows: [],
     formValues: {},
-    currentObj:{},
+    currentObj: {},
   };
 
   componentDidMount() {
-  this.getPage(1)
+    this.getPage(1);
   }
-  getPage=(pageNo,search)=>{
+  getPage = (pageNo, search) => {
     const { dispatch } = this.props;
     dispatch({
       type: 'kfUser/fetch',
-      payload:{
-        groupId:1,
-        pageSize:20,
-        pageNo:pageNo,
-        ...search
-      }
+      payload: {
+        groupId: 1,
+        pageSize: 20,
+        pageNo: pageNo,
+        ...search,
+      },
     });
-  }
+  };
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
@@ -86,7 +84,7 @@ export default class AdminList extends PureComponent {
       params.sorter = `${sorter.field}_${sorter.order}`;
     }
 
-    this.getPage(1)
+    this.getPage(1);
   };
 
   handleFormReset = () => {
@@ -95,7 +93,7 @@ export default class AdminList extends PureComponent {
     this.setState({
       formValues: {},
     });
-    this.getPage(1)
+    this.getPage(1);
   };
 
   toggleForm = () => {
@@ -112,12 +110,12 @@ export default class AdminList extends PureComponent {
 
     switch (e.key) {
       case 'remove':
-      this.batchDelete(e)
+        this.batchDelete(e);
         break;
       default:
         break;
     }
-  }
+  };
 
   handleSelectRows = rows => {
     this.setState({
@@ -134,23 +132,23 @@ export default class AdminList extends PureComponent {
       if (err) return;
 
       const values = {
-        ...fieldsValue
+        ...fieldsValue,
       };
 
       this.setState({
         formValues: values,
       });
-      
-      this.getPage(1,values)
+
+      this.getPage(1, values);
     });
   };
 
   handleModalVisible = flag => {
-    if(flag){
+    if (flag) {
       this.setState({
         modalVisible: !!flag,
       });
-    }else{
+    } else {
       this.setState({
         modalVisible: !!flag,
         currentObj: {},
@@ -159,26 +157,25 @@ export default class AdminList extends PureComponent {
   };
 
   handleAdd = fields => {
-    var params ={
+    var params = {
       realname: fields.realname,
-      username: this.state.currentObj.id?this.state.currentObj.username:fields.username,
-      groupId:1
-    } 
-    if(this.state.currentObj.id){
-      params.id=this.state.currentObj.id
+      username: this.state.currentObj.id ? this.state.currentObj.username : fields.username,
+      groupId: 1,
+    };
+    if (this.state.currentObj.id) {
+      params.id = this.state.currentObj.id;
     }
     this.props.dispatch({
       type: 'kfUser/add',
       payload: params,
-      callback:()=>{
-        message.success(this.state.currentObj.id?'修改成功':'添加成功');
+      callback: () => {
+        message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
         this.setState({
           modalVisible: false,
         });
-        this.getPage(1)
-      }
+        this.getPage(1);
+      },
     });
-
   };
 
   renderSimpleForm() {
@@ -191,7 +188,7 @@ export default class AdminList extends PureComponent {
               {getFieldDecorator('realname')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          
+
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
@@ -225,9 +222,6 @@ export default class AdminList extends PureComponent {
               {getFieldDecorator('username')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-         
-        
-       
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -249,25 +243,25 @@ export default class AdminList extends PureComponent {
   renderForm() {
     return this.state.expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
   }
-  modify=(record)=>{
+  modify = record => {
     this.setState({
-      currentObj:record,
+      currentObj: record,
       modalVisible: true,
     });
-  }
-  delete=(id)=>{
+  };
+  delete = id => {
     const { dispatch } = this.props;
     dispatch({
       type: 'kfUser/remove',
       payload: {
-        ids: [id]
+        ids: [id],
       },
       callback: () => {
-        this.getPage(1)
+        this.getPage(1);
       },
     });
-  }
-  batchDelete= (e) => {
+  };
+  batchDelete = e => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
 
@@ -281,10 +275,10 @@ export default class AdminList extends PureComponent {
         this.setState({
           selectedRows: [],
         });
-        this.getPage(1)
+        this.getPage(1);
       },
     });
-  }
+  };
   render() {
     const { kfUser: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -304,11 +298,11 @@ export default class AdminList extends PureComponent {
       },
       {
         title: '操作',
-        render: (record) => (
+        render: record => (
           <Fragment>
-            <a onClick={this.modify.bind(this,record)}>修改</a>
+            <a onClick={this.modify.bind(this, record)}>修改</a>
             <Divider type="vertical" />
-            <a onClick={this.delete.bind(this,record.id)}>删除</a>
+            <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
         ),
       },
@@ -317,7 +311,6 @@ export default class AdminList extends PureComponent {
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
         <Menu.Item key="remove">删除</Menu.Item>
-       
       </Menu>
     );
 
@@ -341,30 +334,20 @@ export default class AdminList extends PureComponent {
           onOk={okHandle}
           onCancel={() => handleModalVisible()}
         >
-          <FormItem
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 15 }}
-                label="登录名"
-              >
-                {this.state.currentObj.id?this.state.currentObj.username:form.getFieldDecorator('username', {initialValue: this.state.currentObj.username,
+          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="登录名">
+            {this.state.currentObj.id
+              ? this.state.currentObj.username
+              : form.getFieldDecorator('username', {
+                  initialValue: this.state.currentObj.username,
                   rules: [{ required: true, message: '请输入登录名...' }],
-                })(
-                  <Input placeholder="请输入登录名" />
-                )}
-              </FormItem>
-              <FormItem
-                labelCol={{ span: 5 }}
-                wrapperCol={{ span: 15 }}
-                label="姓名"
-              >
-                {form.getFieldDecorator('realname', { initialValue: this.state.currentObj.realname,
-                  rules: [{ required: true, message: '请输入姓名...' }],
-                   })(
-                  <Input placeholder="请输入姓名" />
-                )}
-              </FormItem>
-            
-          
+                })(<Input placeholder="请输入登录名" />)}
+          </FormItem>
+          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="姓名">
+            {form.getFieldDecorator('realname', {
+              initialValue: this.state.currentObj.realname,
+              rules: [{ required: true, message: '请输入姓名...' }],
+            })(<Input placeholder="请输入姓名" />)}
+          </FormItem>
         </Modal>
       );
     });

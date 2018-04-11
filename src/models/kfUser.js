@@ -15,14 +15,14 @@ export default {
       const response = yield call(queryUser, payload);
       yield put({
         type: 'suc',
-        payload:{
-            list: response.body.list,
-            pagination: {
-              pageSize:response.body.pageSize,
-              current:response.body.pageNo,
-              total:response.body.totalCount
-            }, 
-        } ,
+        payload: {
+          list: response.body.list,
+          pagination: {
+            pageSize: response.body.pageSize,
+            current: response.body.pageNo,
+            total: response.body.totalCount,
+          },
+        },
       });
     },
     *add({ payload, callback }, { call, put }) {
