@@ -33,8 +33,8 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 
-@connect(({ rule, loading, kfUser }) => ({
-  kfUser,
+@connect(({ rule, loading, fyUser }) => ({
+  fyUser,
   rule,
   loading: loading.models.rule,
 }))
@@ -54,7 +54,7 @@ export default class AdminList extends PureComponent {
   getPage = (pageNo, search) => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'kfUser/fetch',
+      type: 'fyUser/fetch',
       payload: {
         groupId: 1,
         pageSize: 20,
@@ -166,7 +166,7 @@ export default class AdminList extends PureComponent {
       params.id = this.state.currentObj.id;
     }
     this.props.dispatch({
-      type: 'kfUser/add',
+      type: 'fyUser/add',
       payload: params,
       callback: () => {
         message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
@@ -252,7 +252,7 @@ export default class AdminList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'kfUser/remove',
+      type: 'fyUser/remove',
       payload: {
         ids: [id],
       },
@@ -267,7 +267,7 @@ export default class AdminList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'kfUser/remove',
+      type: 'fyUser/remove',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
@@ -280,7 +280,7 @@ export default class AdminList extends PureComponent {
     });
   };
   render() {
-    const { kfUser: { data }, loading } = this.props;
+    const { fyUser: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
@@ -293,8 +293,8 @@ export default class AdminList extends PureComponent {
         dataIndex: 'realname',
       },
       {
-        title: '账号',
-        dataIndex: 'username',
+        title: '手机号',
+        dataIndex: 'mobile',
       },
       {
         title: '操作',

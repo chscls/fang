@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
 import config from '../config';
-const ad = config.server + '/soa/services/KfUserMngSvc';
+const ad = config.server + '/services/FyUserMngSvc';
 export async function queryUser(params) {
   return request(`${ad}/queryUser?${stringify(params)}`);
 }

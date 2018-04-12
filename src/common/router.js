@@ -169,13 +169,13 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
     },
     '/user-manage/doctor-list': {
-      component: dynamicWrapper(app, ['kfUser'], () => import('../routes/UserManage/DoctorList')),
+      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/DoctorList')),
     },
     '/user-manage/patient-list': {
-      component: dynamicWrapper(app, ['kfUser'], () => import('../routes/UserManage/PatientList')),
+      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/PatientList')),
     },
     '/user-manage/admin-list': {
-      component: dynamicWrapper(app, ['kfUser'], () => import('../routes/UserManage/AdminList')),
+      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/AdminList')),
     },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),

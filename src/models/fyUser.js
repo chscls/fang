@@ -1,7 +1,7 @@
-import { queryUser, removeUser, addUser } from '../services/KfUserMngSvc';
+import { queryUser, removeUser, addUser } from '../services/FyUserMngSvc';
 
 export default {
-  namespace: 'kfUser',
+  namespace: 'fyUser',
 
   state: {
     data: {
@@ -16,11 +16,11 @@ export default {
       yield put({
         type: 'suc',
         payload: {
-          list: response.body.list,
+          list: response.list,
           pagination: {
-            pageSize: response.body.pageSize,
-            current: response.body.pageNo,
-            total: response.body.totalCount,
+            pageSize: response.pageSize,
+            current: response.pageNo,
+            total: response.totalCount,
           },
         },
       });
