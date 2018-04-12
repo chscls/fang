@@ -352,7 +352,7 @@ export default class MemberList extends PureComponent {
       );
     });
     return (
-      <PageHeaderLayout title="医生管理">
+      <PageHeaderLayout title="会员管理">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
