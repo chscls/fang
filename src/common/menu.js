@@ -39,7 +39,7 @@ const menuData = [
   },
   {
     name: '题库管理',
-    icon: 'user',
+    icon: 'copy',
     path: 'question-manage',
     children: [
       {
