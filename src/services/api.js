@@ -1,12 +1,15 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
-
+import config from '../config';
+const ad = config.server + '/services/FyUserMngSvc';
 export async function queryProjectNotice() {
-  return request('/api/project/notice');
+  return request(`${ad}/notice`);
+  
+  
 }
 
 export async function queryActivities() {
-  return request('/api/activities');
+  return request(`${ad}/activities`);
 }
 
 export async function queryRule(params) {
@@ -41,11 +44,13 @@ export async function fakeSubmitForm(params) {
 }
 
 export async function fakeChartData() {
-  return request('/api/fake_chart_data');
+  return request(`${ad}/fake_chart_data`);
+
 }
 
 export async function queryTags() {
-  return request('/api/tags');
+  return request(`${ad}/tags`);
+ 
 }
 
 export async function queryBasicProfile() {
