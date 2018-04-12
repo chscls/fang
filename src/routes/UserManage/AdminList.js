@@ -159,8 +159,8 @@ export default class AdminList extends PureComponent {
   handleAdd = fields => {
     var params = {
       realname: fields.realname,
-      username: this.state.currentObj.id ? this.state.currentObj.username : fields.username,
-      groupId: 1,
+      mobile: this.state.currentObj.id ? this.state.currentObj.mobile : fields.mobile,
+      type: "admin",
     };
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
@@ -336,9 +336,9 @@ export default class AdminList extends PureComponent {
         >
           <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="登录名">
             {this.state.currentObj.id
-              ? this.state.currentObj.username
-              : form.getFieldDecorator('username', {
-                  initialValue: this.state.currentObj.username,
+              ? this.state.currentObj.mobile
+              : form.getFieldDecorator('mobile', {
+                  initialValue: this.state.currentObj.mobile,
                   rules: [{ required: true, message: '请输入登录名...' }],
                 })(<Input placeholder="请输入登录名" />)}
           </FormItem>
