@@ -37,6 +37,21 @@ const menuData = [
       },
     ],
   },
+  {
+    name: '题库管理',
+    icon: 'user',
+    path: 'question-manage',
+    children: [
+      {
+        name: '题库管理',
+        path: 'admin-list2',
+      },
+      {
+        name: '试卷管理',
+        path: 'member-list2',
+      },
+    ],
+  },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
