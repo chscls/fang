@@ -56,7 +56,7 @@ export default class AdminList extends PureComponent {
     dispatch({
       type: 'fyUser/fetch',
       payload: {
-        groupId: 1,
+        type: "admin",
         pageSize: 20,
         pageNo: pageNo,
         ...search,

@@ -22,7 +22,7 @@ import {
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
-import styles from './DoctorList.less';
+import styles from './MemberList.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -33,13 +33,13 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 
-@connect(({ rule, loading, kfUser }) => ({
-  kfUser,
+@connect(({ rule, loading, fyUser }) => ({
+  fyUser,
   rule,
   loading: loading.models.rule,
 }))
 @Form.create()
-export default class DoctorList extends PureComponent {
+export default class MemberList extends PureComponent {
   state = {
     modalVisible: false,
     expandForm: false,
@@ -54,9 +54,9 @@ export default class DoctorList extends PureComponent {
   getPage = (pageNo, search) => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'kfUser/fetch',
+      type: 'fyUser/fetch',
       payload: {
-        groupId: 2,
+        type: "user",
         pageSize: 20,
         pageNo: pageNo,
         ...search,
@@ -166,7 +166,7 @@ export default class DoctorList extends PureComponent {
       params.id = this.state.currentObj.id;
     }
     this.props.dispatch({
-      type: 'kfUser/add',
+      type: 'fyUser/add',
       payload: params,
       callback: () => {
         message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
@@ -252,7 +252,7 @@ export default class DoctorList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'kfUser/remove',
+      type: 'fyUser/remove',
       payload: {
         ids: [id],
       },
@@ -267,7 +267,7 @@ export default class DoctorList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'kfUser/remove',
+      type: 'fyUser/remove',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
@@ -280,7 +280,7 @@ export default class DoctorList extends PureComponent {
     });
   };
   render() {
-    const { kfUser: { data }, loading } = this.props;
+    const { fyUser: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [

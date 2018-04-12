@@ -31,6 +31,10 @@ const menuData = [
         name: '管理员管理',
         path: 'admin-list',
       },
+      {
+        name: '会员管理',
+        path: 'member-list',
+      },
     ],
   },
 ];
