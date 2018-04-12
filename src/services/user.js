@@ -1,9 +1,11 @@
 import request from '../utils/request';
-
+import config from '../config';
+const ad = config.server + '/services/FyUserMngSvc';
 export async function query() {
   return request('/api/users');
 }
 
 export async function queryCurrent() {
-  return request('/api/currentUser');
+  return request(`${ad}/currentUser`);
+
 }
