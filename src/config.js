@@ -1,5 +1,5 @@
 const config = {
-  server:  'http://localhost:8081',
+  server:  'http://www.zymoocs.com:52000',
 };
 
 export default config;
