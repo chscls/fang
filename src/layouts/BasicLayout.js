@@ -241,17 +241,11 @@ class BasicLayout extends React.PureComponent {
                   title: <Icon type="github" />,
                   href: 'https://github.com/ant-design/ant-design-pro',
                   blankTarget: true,
-                } */,
-                {
-                  key: '知用科技',
-                  title: '知用科技',
-                  href: 'http://www.cdzhiyong.com/',
-                  blankTarget: true,
-                },
+                } */
               ]}
               copyright={
                 <Fragment>
-                  Copyright <Icon type="copyright" /> 2018 知用科技技术支持
+                  Copyright <Icon type="copyright" /> 2018 智兔工作室
                 </Fragment>
               }
             />
