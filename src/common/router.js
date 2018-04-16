@@ -174,6 +174,9 @@ export const getRouterData = app => {
     '/user-manage/admin-list': {
       component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/AdminList')),
     },
+    '/system-manage/sensitive-list': {
+      component: dynamicWrapper(app, ['fySensitive'], () => import('../routes/SystemManage/SensitiveList')),
+    },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
