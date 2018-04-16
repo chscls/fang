@@ -38,6 +38,17 @@ const menuData = [
     ],
   },
   {
+    name: '系统管理',
+    icon: 'setting',
+    path: 'system-manage',
+    children: [
+      {
+        name: '敏感词管理',
+        path: 'admin-list',
+      }
+    ],
+  },
+  {
     name: '题库管理',
     icon: 'copy',
     path: 'question-manage',
