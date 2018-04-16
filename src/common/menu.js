@@ -44,7 +44,7 @@ const menuData = [
     children: [
       {
         name: '敏感词管理',
-        path: 'admin-list',
+        path: 'sensitive-list',
       }
     ],
   },

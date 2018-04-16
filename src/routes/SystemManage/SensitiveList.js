@@ -157,9 +157,7 @@ export default class SensitiveList extends PureComponent {
 
   handleAdd = fields => {
     var params = {
-      realname: fields.realname,
-      mobile: this.state.currentObj.id ? this.state.currentObj.mobile : fields.mobile,
-      type: "admin",
+      word: fields.word,
     };
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
@@ -183,8 +181,8 @@ export default class SensitiveList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="姓名">
-              {getFieldDecorator('realname')(<Input placeholder="请输入" />)}
+            <FormItem label="单词">
+              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
 
@@ -212,15 +210,11 @@ export default class SensitiveList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="姓名">
-              {getFieldDecorator('realname')(<Input placeholder="请输入" />)}
+            <FormItem label="单词">
+              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="账号">
-              {getFieldDecorator('username')(<Input placeholder="请输入" />)}
-            </FormItem>
-          </Col>
+         
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -279,7 +273,7 @@ export default class SensitiveList extends PureComponent {
     });
   };
   render() {
-    const { fyUser: { data }, loading } = this.props;
+    const { fySensitive: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
@@ -288,12 +282,8 @@ export default class SensitiveList extends PureComponent {
         dataIndex: 'id',
       },
       {
-        title: '姓名',
-        dataIndex: 'realname',
-      },
-      {
-        title: '手机号',
-        dataIndex: 'mobile',
+        title: '单词',
+        dataIndex: 'word',
       },
       {
         title: '操作',
@@ -333,17 +323,10 @@ export default class SensitiveList extends PureComponent {
           onOk={okHandle}
           onCancel={() => handleModalVisible()}
         >
-          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="登录名">
-            {this.state.currentObj.id
-              ? this.state.currentObj.mobile
-              : form.getFieldDecorator('mobile', {
-                  initialValue: this.state.currentObj.mobile,
-                  rules: [{ required: true, message: '请输入登录名...' }],
-                })(<Input placeholder="请输入登录名" />)}
-          </FormItem>
-          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="姓名">
-            {form.getFieldDecorator('realname', {
-              initialValue: this.state.currentObj.realname,
+        
+          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
+            {form.getFieldDecorator('word', {
+              initialValue: this.state.currentObj.word,
               rules: [{ required: true, message: '请输入姓名...' }],
             })(<Input placeholder="请输入姓名" />)}
           </FormItem>
