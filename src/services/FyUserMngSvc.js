@@ -3,7 +3,7 @@ import request from '../utils/request';
 import config from '../config';
 const ad = config.server + '/services/FyUserMngSvc';
 export async function queryUser(params) {
-  return request(`${ad}/queryUser?${stringify(params)}`);
+  return request(`${ad}/queryUser`,params);
 }
 
 export async function removeUser(params) {
@@ -17,7 +17,6 @@ export async function removeUser(params) {
 }
 
 export async function addUser(params) {
-  console.log(params);
   return request(`${ad}/addUser`, {
     method: 'POST',
     body: {

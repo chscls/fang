@@ -1,8 +1,10 @@
 import fetch from 'dva/fetch';
+import { stringify } from 'qs';
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
 import FormdataWrapper from './object-to-formdata-custom';
+import { EILSEQ } from 'constants';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -45,17 +47,28 @@ function checkStatus(response) {
 export default function request(url, options) {
   const defaultOptions = {
     credentials: 'omit',
-    mode: 'cors',
+    mode:'cors',
   };
+
   const newOptions = { ...defaultOptions, ...options };
+
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
+    if(options){
+      options.body.domain=document.domain;
+      var token = localStorage.getItem('token');
+      if(token){
+      options.body.token = token;
+    }
+      }
     if (!(newOptions.body instanceof FormData)) {
+      
       newOptions.headers = {
         Accept: 'application/json',
         ...newOptions.headers,
       };
       newOptions.body = FormdataWrapper(newOptions.body);
     } else {
+      
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: 'application/json',
@@ -63,17 +76,32 @@ export default function request(url, options) {
         ...newOptions.headers,
       };
     }
+  }else{
+    if(options){
+    options.domain=document.domain;
+    var token = localStorage.getItem('token');
+      if(token){
+      options.token = token;
+    }
+    url=url+'?'+stringify(options)
+    }
   }
-
   return fetch(url, newOptions)
     .then(checkStatus)
-    .then(response => {
+    .then((response) => {
       if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text();
       }
-      return response.json();
+      const  x = response.json();
+      if(x.errorCode&&x.errorCode=="auth"){
+        dispatch({
+          type: 'login/logout',
+        });
+        return;
+      }
+      return x;
     })
-    .catch(e => {
+    .catch((e) => {
       const { dispatch } = store;
       const status = e.name;
       if (status === 401) {
