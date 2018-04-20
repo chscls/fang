@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Select, Divider } from 'antd';
+import { Form, Input, Button, Select, Divider,Switch } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
+
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -17,6 +18,15 @@ const formItemLayout = {
 
 @Form.create()
 class Step1 extends React.PureComponent {
+  constructor(props){
+    super(props)
+    this.state={
+      isRich:false
+    }
+  }
+  onChange=(checked)=>{
+    this.setState({isRich:checked})
+  }
   render() {
     const { form, dispatch, data } = this.props;
     const { getFieldDecorator, validateFields } = form;
@@ -46,7 +56,11 @@ class Step1 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
-         
+          <Form.Item {...formItemLayout} label="标题富文本">
+            {getFieldDecorator('title1', {
+              initialValue: false
+            })(<Switch checked={this.state.isRich} onChange={this.onChange} />)}
+          </Form.Item>
           <Form.Item {...formItemLayout} label="标题">
             {getFieldDecorator('title', {
               initialValue: "",
