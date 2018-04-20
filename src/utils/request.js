@@ -4,7 +4,7 @@ import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
 import FormdataWrapper from './object-to-formdata-custom';
-import { EILSEQ } from 'constants';
+import { getToken } from '../utils/authority';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -23,7 +23,8 @@ const codeMessage = {
   504: '网关超时。',
 };
 function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
+  
+  if(response.status >= 200 && response.status < 300) {
     return response;
   }
   const errortext = codeMessage[response.status] || response.statusText;
@@ -49,26 +50,25 @@ export default function request(url, options) {
     credentials: 'omit',
     mode:'cors',
   };
-
+  const token = getToken();
   const newOptions = { ...defaultOptions, ...options };
-
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
     if(options){
-      options.body.domain=document.domain;
-      var token = localStorage.getItem('token');
+      
+     
       if(token){
       options.body.token = token;
     }
       }
+   
+   
     if (!(newOptions.body instanceof FormData)) {
-      
       newOptions.headers = {
         Accept: 'application/json',
         ...newOptions.headers,
       };
       newOptions.body = FormdataWrapper(newOptions.body);
     } else {
-      
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: 'application/json',
@@ -78,30 +78,33 @@ export default function request(url, options) {
     }
   }else{
     if(options){
-    options.domain=document.domain;
-    var token = localStorage.getItem('token');
-      if(token){
-      options.token = token;
-    }
-    url=url+'?'+stringify(options)
-    }
+    
+        if(token){
+        options.token = token;
+      }
+      url=url+'?'+stringify(options)
+      }
   }
+
   return fetch(url, newOptions)
     .then(checkStatus)
-    .then((response) => {
-      if (newOptions.method === 'DELETE' || response.status === 204) {
+    .then(response => {
+      if (response.status === 202) {
+     
         return response.text();
       }
-      const  x = response.json();
-      if(x.errorCode&&x.errorCode=="auth"){
-        dispatch({
-          type: 'login/logout',
+      return response.json();
+    }).then(response => {
+      if(typeof(response) == 'string'){
+        notification.error({
+          message: `请求错误`,
+          description: response,
         });
-        return;
-      }
-      return x;
+        }
+        return  response
+
     })
-    .catch((e) => {
+    .catch(e => {
       const { dispatch } = store;
       const status = e.name;
       if (status === 401) {
