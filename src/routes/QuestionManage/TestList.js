@@ -282,6 +282,10 @@ export default class TestList extends PureComponent {
         dataIndex: 'id',
       },
       {
+        title: '唯一码',
+        dataIndex: 'code',
+      },
+      {
         title: '标题',
         dataIndex: 'title',
       },

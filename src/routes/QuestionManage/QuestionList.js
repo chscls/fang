@@ -157,7 +157,7 @@ export default class QuestionList extends PureComponent {
 
   handleAdd = fields => {
     var params = {
-      word: fields.word,
+      title: fields.title,
     };
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
@@ -181,8 +181,8 @@ export default class QuestionList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="单词">
-              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
+            <FormItem label="标题">
+              {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
 
@@ -210,8 +210,8 @@ export default class QuestionList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="单词">
-              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
+            <FormItem label="标题">
+              {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
          
@@ -282,8 +282,14 @@ export default class QuestionList extends PureComponent {
         dataIndex: 'id',
       },
       {
-        title: '题目',
+        title: '标题',
         dataIndex: 'title',
+      },
+      {
+        title: "创建时间",
+        render: record => (
+          new Date(record.createTime).toLocaleDateString()
+        )
       },
       {
         title: '操作',
@@ -324,17 +330,17 @@ export default class QuestionList extends PureComponent {
           onCancel={() => handleModalVisible()}
         >
         
-          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
-            {form.getFieldDecorator('word', {
-              initialValue: this.state.currentObj.word,
-              rules: [{ required: true, message: '请输入姓名...' }],
-            })(<Input placeholder="请输入姓名" />)}
+          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="标题">
+            {form.getFieldDecorator('title', {
+              initialValue: this.state.currentObj.title,
+              rules: [{ required: true, message: '请输入标题...' }],
+            })(<Input placeholder="请输入标题" />)}
           </FormItem>
         </Modal>
       );
     });
     return (
-      <PageHeaderLayout title="管理员管理">
+      <PageHeaderLayout title="题目管理">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
