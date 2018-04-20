@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
+import { Link } from 'dva/router';
 import moment from 'moment';
 import {
   Row,
@@ -348,9 +349,9 @@ export default class QuestionList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+             <Link to="/question-manage/question-add/info"> <Button icon="plus" type="primary" >
                 新建
-              </Button>
+              </Button></Link>
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>

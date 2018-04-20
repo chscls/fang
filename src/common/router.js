@@ -188,6 +188,21 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
       
     },
+    '/question-manage/question-add': {
+      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm')),
+    },
+    '/question-manage/question-add/info': {
+      name: '分步表单（填写转账信息）',
+      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step1')),
+    },
+    '/question-manage/question-add/confirm': {
+      name: '分步表单（确认转账信息）',
+      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step2')),
+    },
+    '/question-manage/question-add/result': {
+      name: '分步表单（完成）',
+      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step3')),
+    },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
