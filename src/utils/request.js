@@ -23,8 +23,8 @@ const codeMessage = {
   504: '网关超时。',
 };
 function checkStatus(response) {
-  
-  if(response.status >= 200 && response.status < 300) {
+
+  if (response.status >= 200 && response.status < 300) {
     return response;
   }
   const errortext = codeMessage[response.status] || response.statusText;
@@ -48,20 +48,21 @@ function checkStatus(response) {
 export default function request(url, options) {
   const defaultOptions = {
     credentials: 'omit',
-    mode:'cors',
+    mode: 'cors',
   };
   const token = getToken();
+
   const newOptions = { ...defaultOptions, ...options };
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
-    if(options){
-      
-     
-      if(token){
-      options.body.token = token;
-    }
+    if (options) {
+
+
+      if (token) {
+        options.body.token = token;
       }
-   
-   
+    }
+
+
     if (!(newOptions.body instanceof FormData)) {
       newOptions.headers = {
         Accept: 'application/json',
@@ -76,32 +77,34 @@ export default function request(url, options) {
         ...newOptions.headers,
       };
     }
-  }else{
-    if(options){
-    
-        if(token){
+  } else {
+    if (options) {
+
+      if (token) {
         options.token = token;
       }
-      url=url+'?'+stringify(options)
-      }
+      url = url + '?' + stringify(options)
+    } else {
+      url = url + '?token=' + token
+    }
   }
 
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => {
       if (response.status === 202) {
-     
+
         return response.text();
       }
       return response.json();
     }).then(response => {
-      if(typeof(response) == 'string'){
+      if (typeof (response) == 'string') {
         notification.error({
           message: `请求错误`,
           description: response,
         });
-        }
-        return  response
+      }
+      return response
 
     })
     .catch(e => {
