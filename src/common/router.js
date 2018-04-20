@@ -180,6 +180,14 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['fySensitive'], () => import('../routes/SystemManage/SensitiveList')),
       authority: 'admin',
     },
+    '/question-manage/question-list': {
+      component: dynamicWrapper(app, ['fyQuestion'], () => import('../routes/QuestionManage/QuestionList')),
+      authority: 'admin',
+    },
+    '/question-manage/test-list': {
+      component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
+      authority: 'admin',
+    },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },

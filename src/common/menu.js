@@ -58,11 +58,11 @@ const menuData = [
     children: [
       {
         name: '题库管理',
-        path: 'admin-list2',
+        path: 'question-list',
       },
       {
         name: '试卷管理',
-        path: 'member-list2',
+        path: 'test-list',
       },
     ],
   },
