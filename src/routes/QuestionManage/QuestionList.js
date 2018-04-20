@@ -284,6 +284,9 @@ export default class QuestionList extends PureComponent {
       {
         title: '标题',
         dataIndex: 'title',
+      },{
+        title: '难度等级',
+        dataIndex: 'level',
       },
       {
         title: "创建时间",
