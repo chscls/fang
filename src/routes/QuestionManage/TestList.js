@@ -304,6 +304,13 @@ export default class TestList extends PureComponent {
         render: record => (
           record.status=="create"?"创建中":record.status=="process"?"进行中":"已结束"
         )
+      }
+      ,
+      {
+        title: "创建时间",
+        render: record => (
+          new Date(record.createTime).toLocaleDateString()
+        )
       },
       {
         title: '操作',
