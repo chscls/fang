@@ -30,10 +30,12 @@ const menuData = [
       {
         name: '管理员管理',
         path: 'admin-list',
+        authority: 'admin',
       },
       {
         name: '会员管理',
         path: 'member-list',
+        authority: 'admin',
       },
     ],
   },
@@ -45,6 +47,7 @@ const menuData = [
       {
         name: '敏感词管理',
         path: 'sensitive-list',
+        authority: 'admin',
       }
     ],
   },
@@ -79,6 +82,7 @@ function formatter(data, parentPath = '/', parentAuthority) {
     if (item.children) {
       result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
     }
+  
     return result;
   });
 }

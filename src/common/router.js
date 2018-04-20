@@ -170,12 +170,15 @@ export const getRouterData = app => {
     },
     '/user-manage/member-list': {
       component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/MemberList')),
+      authority: 'admin',
     },
     '/user-manage/admin-list': {
       component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/AdminList')),
+      authority: 'admin',
     },
     '/system-manage/sensitive-list': {
       component: dynamicWrapper(app, ['fySensitive'], () => import('../routes/SystemManage/SensitiveList')),
+      authority: 'admin',
     },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
