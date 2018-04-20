@@ -182,11 +182,11 @@ export const getRouterData = app => {
     },
     '/question-manage/question-list': {
       component: dynamicWrapper(app, ['fyQuestion'], () => import('../routes/QuestionManage/QuestionList')),
-      authority: 'admin',
+     
     },
     '/question-manage/test-list': {
       component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
-      authority: 'admin',
+      
     },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
