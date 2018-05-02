@@ -20,6 +20,7 @@ import {
   Badge,
   Divider,
 } from 'antd';
+import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
@@ -284,7 +285,11 @@ export default class QuestionList extends PureComponent {
       },
       {
         title: '标题',
-        dataIndex: 'title',
+        width:400,
+        render: record => (
+          <Ellipsis tooltip lines={3}>{record.title}</Ellipsis>
+        )
+       
       },{
         title: '难度等级',
         dataIndex: 'level',
