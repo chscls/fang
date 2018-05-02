@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Slider,Button, Select, Divider,Switch } from 'antd';
+import { Form,Icon, Input, Slider,Button, Select, Divider,Switch,Tag } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
 
@@ -29,9 +29,41 @@ class Step1 extends React.PureComponent {
     this.state={
       isRich:false,
       isReady:false,
-      loading:false
+      loading:false,
+      tags: [],
+      inputVisible: false,
+      inputValue: '',
     }
   }
+  handleClose = (removedTag) => {
+    const tags = this.state.tags.filter(tag => tag !== removedTag);
+    console.log(tags);
+    this.setState({ tags });
+  }
+
+  showInput = () => {
+    this.setState({ inputVisible: true }, () => this.input.focus());
+  }
+
+  handleInputChange = (e) => {
+    this.setState({ inputValue: e.target.value });
+  }
+
+  handleInputConfirm = () => {
+    const state = this.state;
+    const inputValue = state.inputValue;
+    let tags = state.tags;
+    if (inputValue && tags.indexOf(inputValue) === -1) {
+      tags = [...tags, inputValue];
+    }
+    console.log(tags);
+    this.setState({
+      tags,
+      inputVisible: false,
+      inputValue: '',
+    });
+  }
+  saveInputRef = input => this.input = input
   onChange=(checked)=>{
     this.setState({isRich:checked})
   }
@@ -52,14 +84,16 @@ class Step1 extends React.PureComponent {
   }
   
   render() {
+    const { tags, inputVisible, inputValue } = this.state;
     const { form, dispatch, data,fyQuestion: { question } } = this.props;
     const { getFieldDecorator, validateFields } = form;
   
     const onValidateForm = () => {
       validateFields((err, values) => {
-        if(question.id){
+        if(question){
           values = {...values,id:question.id}
         }
+        values = {...values,tags:tags}
         if (!err) {
           dispatch({
             type: 'fyQuestion/add',
@@ -88,10 +122,42 @@ class Step1 extends React.PureComponent {
               </Select>
             )}
           </Form.Item>
+
+            <Form.Item {...formItemLayout} label="标签">
+        {tags.map((tag, index) => {
+          const isLongTag = tag.length > 20;
+          const tagElem = (
+            <Tag key={tag} closable={true} afterClose={() => this.handleClose(tag)}>
+              {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+            </Tag>
+          );
+          return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem;
+        })}
+        {inputVisible && (
+          <Input
+            ref={this.saveInputRef}
+            type="text"
+            size="small"
+            style={{ width: 78 }}
+            value={inputValue}
+            onChange={this.handleInputChange}
+            onBlur={this.handleInputConfirm}
+            onPressEnter={this.handleInputConfirm}
+          />
+        )}
+        {!inputVisible && (
+          <Tag
+            onClick={this.showInput}
+            style={{ background: '#fff', borderStyle: 'dashed' }}
+          >
+            <Icon type="plus" /> New Tag
+          </Tag>
+        )}
+       </Form.Item>
           <Form.Item {...formItemLayout} label="标题富文本">
             {getFieldDecorator('isRich', {
               initialValue: question?question.isRich:false,
-            })(<Switch checked={this.state.isRich} onChange={this.onChange} />)}
+            })(<Switch  onChange={this.onChange} />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="标题">
             {getFieldDecorator('title', {

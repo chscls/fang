@@ -4,7 +4,7 @@ export default {
   namespace: 'fyQuestion',
 
   state: {
-    question:{},
+    question:null,
     data: {
       list: [],
       pagination: {},
