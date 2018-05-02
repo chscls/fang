@@ -191,15 +191,15 @@ export const getRouterData = app => {
     '/question-manage/question-add': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm')),
     },
-    '/question-manage/question-add/info': {
+    '/question-manage/question-add/info/:id': {
       name: '分步建题（填写题目基本信息）',
-      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step1')),
+      component: dynamicWrapper(app, ['form','fyQuestion'], () => import('../routes/QuestionManage/QuestionStepForm/Step1')),
     },
-    '/question-manage/question-add/confirm': {
+    '/question-manage/question-add/confirm/:id': {
       name: '分步建题（填写题目详情）',
       component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step2')),
     },
-    '/question-manage/question-add/result': {
+    '/question-manage/question-add/result/:id': {
       name: '分步建题（完成）',
       component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step3')),
     },

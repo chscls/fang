@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Select, Divider,Switch } from 'antd';
+import { Form, Input, Slider,Button, Select, Divider,Switch } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
 
@@ -15,7 +15,13 @@ const formItemLayout = {
     span: 19,
   },
 };
-
+const marks = {
+  0: '易',
+  25: '偏易',
+  50: '适中',
+  75: '偏难',
+  100:  '难'
+};
 @Form.create()
 class Step1 extends React.PureComponent {
   constructor(props){
@@ -28,16 +34,19 @@ class Step1 extends React.PureComponent {
     this.setState({isRich:checked})
   }
   render() {
-    const { form, dispatch, data } = this.props;
+    const { form, dispatch, data,fyQuestion } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onValidateForm = () => {
       validateFields((err, values) => {
         if (!err) {
           dispatch({
-            type: 'form/saveStepFormData',
+            type: 'fyQuestion/add',
             payload: values,
+            callback:(question)=>{
+              dispatch(routerRedux.push('/question-manage/question-add/confirm'));
+            }
           });
-          dispatch(routerRedux.push('/question-manage/question-add/confirm'));
+         
         }
       });
     };
@@ -57,7 +66,7 @@ class Step1 extends React.PureComponent {
             )}
           </Form.Item>
           <Form.Item {...formItemLayout} label="标题富文本">
-            {getFieldDecorator('title1', {
+            {getFieldDecorator('isRich', {
               initialValue: false
             })(<Switch checked={this.state.isRich} onChange={this.onChange} />)}
           </Form.Item>
@@ -68,7 +77,7 @@ class Step1 extends React.PureComponent {
             })(<TextArea rows={4} placeholder="请输入标题" />)}
           </Form.Item>
           <Form.Item {...formItemLayout} label="分数">
-            {getFieldDecorator('amount', {
+            {getFieldDecorator('score', {
               initialValue: 1,
               rules: [
                 { required: true, message: '请输入分数' },
@@ -79,7 +88,14 @@ class Step1 extends React.PureComponent {
               ],
             })(<Input  placeholder="请输入分数" />)}
           </Form.Item>
-        
+          <Form.Item {...formItemLayout} label="难度">
+            {getFieldDecorator('diff', {
+              initialValue: 0,
+              rules: [{ required: true, message: '难度' }],
+            })(<Slider marks={marks} step={null}/>)}
+          </Form.Item>
+       
+
           <Form.Item
             wrapperCol={{
               xs: { span: 24, offset: 0 },
@@ -109,6 +125,6 @@ class Step1 extends React.PureComponent {
   }
 }
 
-export default connect(({ form }) => ({
-  data: form.step,
+export default connect(({ form,fyQuestion }) => ({
+  data: form.step,fyQuestion
 }))(Step1);
