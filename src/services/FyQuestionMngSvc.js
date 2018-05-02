@@ -5,6 +5,9 @@ const ad = config.server + '/services/FyQuestionMngSvc';
 export async function queryQuestion(params) {
   return request(`${ad}/queryQuestion`,params);
 }
+export async function findQuestion(params) {
+  return request(`${ad}/findQuestion`,params);
+}
 
 export async function removeQuestion(params) {
   return request(`${ad}/removeQuestion`, {

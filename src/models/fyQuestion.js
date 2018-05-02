@@ -1,9 +1,10 @@
-import { queryQuestion, removeQuestion, addQuestion } from '../services/FyQuestionMngSvc';
+import { queryQuestion, removeQuestion, addQuestion,findQuestion } from '../services/FyQuestionMngSvc';
 
 export default {
   namespace: 'fyQuestion',
 
   state: {
+    question:{},
     data: {
       list: [],
       pagination: {},
@@ -25,13 +26,23 @@ export default {
         },
       });
     },
-    *add({ payload, callback }, { call, put }) {
-      const response = yield call(addQuestion, payload);
+    *find({ payload, callback  }, { call, put }) {
+      const response = yield call(findQuestion, payload);
       yield put({
-        type: 'suc',
+        type: 'find',
         payload: response,
       });
       if (callback) callback();
+      
+    },
+    
+    *add({ payload, callback }, { call, put }) {
+      const response = yield call(addQuestion, payload);
+      yield put({
+        type: 'find',
+        payload: response,
+      });
+      if (callback) callback(response.id);
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeQuestion, payload);
@@ -48,6 +59,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    find(state, action) {
+      return {
+        ...state,
+        question: action.payload,
       };
     },
   },

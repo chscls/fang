@@ -19,6 +19,7 @@ import {
   message,
   Badge,
   Divider,
+  Rate
 } from 'antd';
 import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
@@ -282,6 +283,9 @@ export default class QuestionList extends PureComponent {
       {
         title: 'id',
         dataIndex: 'id',
+      },{
+        title: '题型',
+        dataIndex: 'type',
       },
       {
         title: '标题',
@@ -292,7 +296,13 @@ export default class QuestionList extends PureComponent {
        
       },{
         title: '难度等级',
-        dataIndex: 'level',
+        render: record => (
+         
+          <Rate disabled={true} value={record.difficulty/25+1} />
+        )
+      },{
+        title: '分数',
+        dataIndex: 'score',
       },
       {
         title: "创建时间",
