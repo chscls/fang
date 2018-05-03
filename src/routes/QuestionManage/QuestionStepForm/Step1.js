@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form,Icon, Input, Slider,Button, Select, Divider,Switch,Tag } from 'antd';
+import { Form,Icon, Input, Slider,Button, Select, Divider,Switch,Tag,Radio  } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
 
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -119,11 +121,16 @@ class Step1 extends React.PureComponent {
               initialValue: question?question.type:"single",
               rules: [{ required: true, message: '请选择题型' }],
             })(
-              <Select placeholder="单选">
-                <Option value="single">单选</Option>
-                <Option value="mutiply">多选</Option>
-                <Option value="judge">判断</Option>
-              </Select>
+
+
+              <RadioGroup>
+              <RadioButton value="single">单选</RadioButton>
+              <RadioButton value="mutiply">多选</RadioButton>
+              <RadioButton value="judge">判断</RadioButton>
+              <RadioButton value="fill">填空</RadioButton>
+              <RadioButton value="ask">问答</RadioButton>
+            </RadioGroup>
+            
             )}
           </Form.Item>
 
