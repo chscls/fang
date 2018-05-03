@@ -29,7 +29,7 @@ export default {
     *find({ payload, callback  }, { call, put }) {
       const response = yield call(findQuestion, payload);
       yield put({
-        type: 'find',
+        type: 'ok',
         payload: response,
       });
       if (callback) callback();
@@ -39,10 +39,16 @@ export default {
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addQuestion, payload);
       yield put({
-        type: 'find',
+        type: 'ok',
         payload: response,
       });
       if (callback) callback(response.id);
+    },
+    *clear({ payload, callback }, { call, put }) {
+      yield put({
+        type: 'clearQ',
+        payload: null,
+      });
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeQuestion, payload);
@@ -61,11 +67,19 @@ export default {
         data: action.payload,
       };
     },
-    find(state, action) {
+    ok(state, action) {
       return {
         ...state,
         question: action.payload,
       };
     },
+
+    clearQ(state, action) {
+      return {
+        ...state,
+        question: action.payload,
+      };
+    },
+
   },
 };

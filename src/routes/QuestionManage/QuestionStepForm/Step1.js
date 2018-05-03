@@ -69,6 +69,10 @@ class Step1 extends React.PureComponent {
   }
   componentDidMount(){
     const id=this.props.match.params.id
+    this.props.dispatch({
+      type: 'fyQuestion/clear',
+      payload: null
+    });
     if(id==0){
       this.setState({isReady:true})
     }else{
