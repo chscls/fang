@@ -56,7 +56,7 @@ class Step1 extends React.PureComponent {
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
-    console.log(tags);
+ 
     this.setState({
       tags,
       inputVisible: false,
@@ -79,8 +79,8 @@ class Step1 extends React.PureComponent {
       this.props.dispatch({
         type: 'fyQuestion/find',
         payload: {id:id},
-        callback:()=>{
-         this.setState({isReady:true})
+        callback:(question)=>{
+         this.setState({isReady:true,tags:question.tags})
          
         }
       });

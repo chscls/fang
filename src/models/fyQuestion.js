@@ -32,7 +32,7 @@ export default {
         type: 'ok',
         payload: response,
       });
-      if (callback) callback();
+      if (callback) callback(response);
       
     },
     
