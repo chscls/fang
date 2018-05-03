@@ -52,17 +52,22 @@ export default class QuestionList extends PureComponent {
   };
 
   componentDidMount() {
-    this.getPage(1);
+   
+    this.getPage();
   }
-  getPage = (pageNo, search) => {
+  getPage = (params) => {
+    const pagination = this.props.fyQuestion.data.pagination
+    if(params==null){
+      params={
+        pageNo:pagination.current?pagination.current:1,
+        pageSize:pagination.pageSize?pagination.pageSize:10,
+        ...this.state.formValues
+      }
+    }
     const { dispatch } = this.props;
     dispatch({
       type: 'fyQuestion/fetch',
-      payload: {
-        pageSize: 20,
-        pageNo: pageNo,
-        ...search,
-      },
+      payload: params,
     });
   };
 
@@ -77,7 +82,7 @@ export default class QuestionList extends PureComponent {
     }, {});
 
     const params = {
-      currentPage: pagination.current,
+      pageNo: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
       ...filters,
@@ -86,7 +91,7 @@ export default class QuestionList extends PureComponent {
       params.sorter = `${sorter.field}_${sorter.order}`;
     }
 
-    this.getPage(1);
+    this.getPage(params);
   };
 
   handleFormReset = () => {
@@ -95,7 +100,8 @@ export default class QuestionList extends PureComponent {
     this.setState({
       formValues: {},
     });
-    this.getPage(1);
+  
+    this.getPage();
   };
 
   toggleForm = () => {
@@ -141,7 +147,7 @@ export default class QuestionList extends PureComponent {
         formValues: values,
       });
 
-      this.getPage(1, values);
+      this.getPage();
     });
   };
 
@@ -173,7 +179,7 @@ export default class QuestionList extends PureComponent {
         this.setState({
           modalVisible: false,
         });
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
