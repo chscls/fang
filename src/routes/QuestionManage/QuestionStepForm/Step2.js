@@ -20,7 +20,9 @@ class Step2 extends React.PureComponent {
   constructor(props){
     super(props)
     this.state={
-     
+      id:0,
+      isRich:false,
+      title:"",
       isReady:false,
       items:[],
     }
@@ -38,7 +40,7 @@ class Step2 extends React.PureComponent {
         type: 'fyQuestion/find',
         payload: {id:id},
         callback:(question)=>{
-          this.setState({isReady:true,items:question.items});
+          this.setState({isReady:true,id:question.id,items:question.items,isRich:question.isRich,title:question.title});
         }
       });
     }
@@ -48,7 +50,7 @@ class Step2 extends React.PureComponent {
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
     const onPrev = () => {
-      dispatch(routerRedux.push('/question-manage/question-add/info'));
+      dispatch(routerRedux.push(`/question-manage/question-add/info/${this.state.id}`));
     };
     const onValidateForm = e => {
       e.preventDefault();
@@ -73,6 +75,11 @@ class Step2 extends React.PureComponent {
           message="请选择一个正确答案,并保证至少有2个选项"
           style={{ marginBottom: 24 }}
         />
+      <Form.Item {...formItemLayout} label="标题">
+        {this.state.isRich?<div  dangerouslySetInnerHTML={{__html: this.state.title}}></div>:
+         <div > {this.state.title}</div>}
+          </Form.Item>
+
         <Form.Item {...formItemLayout} label="选项">
           {getFieldDecorator('price', {
             initialValue: { items:items},

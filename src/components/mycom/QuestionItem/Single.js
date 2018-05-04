@@ -18,7 +18,7 @@ const RadioGroup = Radio.Group;
         const r = this.props.item
         return<div><Button type="primary" onClick={this.props.delete} >删除</Button> <Switch onChange={this.onChange} defaultChecked={false} checkedChildren="富文本" unCheckedChildren="常规" />
         
-        {this.state.isRich?<RichEditor/>:
+        {this.state.isRich?<RichEditor className="ant-row ant-form-item"/>:
         <Input addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</div>
          
     }
