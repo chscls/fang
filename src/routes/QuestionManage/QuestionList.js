@@ -291,9 +291,34 @@ export default class QuestionList extends PureComponent {
         dataIndex: 'id',
       },{
         title: '题型',
-        render: record => (
-         <span> {record.type=="single"?"单选":record.type=="mutiply"?"多选":record.type=="judge"?"判断":record.type=="fill"?"填空":"问答"}</span>
-        )
+        dataIndex: 'type',
+        filters: [
+          {
+            text: "单选",
+            value: "single",
+          },
+          {
+            text: "多选",
+            value: "mutiply",
+          },
+          {
+            text: "判断",
+            value: "judge",
+          },
+          {
+            text: "填空",
+            value: "fill",
+          },
+          {
+            text: "问答",
+            value: "ask",
+          }
+          
+        ],
+        onFilter: (value, record) => record.type == value,
+        render (val) {
+          return  <span> {val=="single"?"单选":val=="mutiply"?"多选":val=="judge"?"判断":val=="fill"?"填空":"问答"}</span>
+        }
         
       },
       {
