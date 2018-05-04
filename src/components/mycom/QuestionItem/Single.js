@@ -1,26 +1,26 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select, message, Button, Radio ,Switch} from 'antd';
+import { Form, Input, Select, message, Button, Radio, Switch } from 'antd';
 import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
- class SingleItem extends PureComponent {
+class SingleItem extends PureComponent {
     constructor(props) {
         super(props);
-        this.state={isRich:false}
+        this.state = { isRich: false }
     }
-    onChange=(checked)=>{
-        this.setState({isRich:checked})
+    onChange = (checked) => {
+        this.setState({ isRich: checked })
     }
-    render(){
+    render() {
         const i = this.props.index
         const r = this.props.item
-        return<div style={{margin:"auto"}}><Button style={{margin:"auto"}} type="primary" onClick={this.props.delete} >删除</Button> <Switch style={{margin:"auto"}} onChange={this.onChange} defaultChecked={false} checkedChildren="富文本" unCheckedChildren="常规" />
-        
-        {this.state.isRich?<RichEditor className="ant-row ant-form-item"/>:
-        <Input style={{margin:"auto"}} addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</div>
-         
+        return <div><Button type="primary" onClick={this.props.delete} >删除</Button> <Switch onChange={this.onChange} defaultChecked={false} checkedChildren="富文本" unCheckedChildren="常规" />
+
+            {this.state.isRich ? <RichEditor className="ant-row ant-form-item" /> :
+                <Input addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</div>
+
     }
 
 }
@@ -72,6 +72,14 @@ export default class Single extends PureComponent {
         }
         this.triggerChange({ items });
     }
+    changeRich=(index) =>{
+        var items = this.state.items;
+        items[index].isRich=!items[index].isRich
+        if (!('value' in this.props)) {
+            this.setState({ items });
+        }
+        this.triggerChange({ items });
+    }
     triggerChange = (changedValue) => {
         // Should provide an event to pass value to Form.
         const onChange = this.props.onChange;
@@ -85,11 +93,27 @@ export default class Single extends PureComponent {
 
         return (
             <div>
-               
+               <div> <Button type="primary" onClick={this.add} >新增选项</Button></div>
                 <RadioGroup>
                     {state.items.map((r, i) => {
 
-                        return (<p><Radio style={{margin:"auto"}} value={i} key={i}/><SingleItem item={r}  index={i} delete={this.delete.bind(this,i)}/></p>)
+                        return (<ul>
+
+                            <li style={{ display: "inline" }}> <Radio value={i} key={i} /></li>
+                            <li style={{ display: "inline" }}>
+                                {r.isRich ? <RichEditor className="ant-row ant-form-item" /> :
+                                    <Input style={{width:400}} addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</li>
+
+
+                            <li style={{ display: "inline" }}>
+                                <Button type="primary" onClick={this.props.delete} >删除</Button></li>
+
+                            <li style={{ display: "inline" }}> <Switch onChange={this.changeRich.bind(this,i)} checked={r.isRich} checkedChildren="富文本" unCheckedChildren="常规" /></li>
+
+
+                        
+
+                        </ul>)
                     })
                     }
                 </RadioGroup>
