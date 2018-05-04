@@ -33,8 +33,8 @@ const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
-const statusMap = ['default', 'processing', 'success', 'error'];
-const status = ['关闭', '运行中', '已上线', '异常'];
+const statusMap = ['create', 'check', 'complete'];
+const status = ['创建中', '审核中', '已上线'];
 
 @connect(({ rule, loading, fyQuestion }) => ({
   fyQuestion,
@@ -300,24 +300,79 @@ export default class QuestionList extends PureComponent {
         title: '标题',
         width:400,
         render: record => (
+          record.isRich?<div  dangerouslySetInnerHTML={{__html: record.title}}></div>:
           <Ellipsis tooltip lines={3}>{record.title}</Ellipsis>
         )
        
       },{
         title: '难度等级',
-        render: record => (
+        dataIndex: 'difficulty',
+        filters: [
+          {
+            text: "易",
+            value: 0,
+          },
+          {
+            text: "偏易",
+            value: 25,
+          },
+          {
+            text: "中等",
+            value: 50,
+          },
+          {
+            text: "偏难",
+            value: 75,
+          },
+          {
+            text: "难",
+            value: 100,
+          }
+          
+        ],
+        onFilter: (value, record) => record.difficulty == value,
+        render(val) {
          
-          <Rate disabled={true} value={record.difficulty/25+1} />
-        )
+          return <Rate disabled={true} value={val/25+1} />
+      }
       },{
         title: '分数',
         dataIndex: 'score',
       },
       {
         title: "创建时间",
-        render: record => (
-          new Date(record.createTime).toLocaleDateString()
-        )
+        dataIndex: 'createTime',
+        render(val) {
+         
+          return  new Date(val).toLocaleDateString()
+      }
+        
+      }, {
+        title: '状态',
+        dataIndex: 'status',
+        filters: [
+          {
+            text: status[0],
+            value: "create",
+          },
+          {
+            text: status[1],
+            value: "check",
+          },
+          {
+            text: status[2],
+            value: "complete",
+          }
+          
+        ],
+        onFilter: (value, record) => record.status == value,
+        render(val) {
+          var x = 0;
+          if(val=="check") x=1;
+          if(val=="complete") x=2;
+
+          return <Badge status={statusMap[x]} text={status[x]} />;
+        },
       },
       {
         title: '操作',
