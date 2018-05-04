@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Form, Input, Button, Alert, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
+import  Single  from '../../../components/mycom/QuestionItem/Single';
 import styles from './style.less';
 
 const formItemLayout = {
@@ -16,9 +17,36 @@ const formItemLayout = {
 
 @Form.create()
 class Step2 extends React.PureComponent {
+  constructor(props){
+    super(props)
+    this.state={
+     
+      isReady:false,
+      items:[],
+    }
+  }
+  componentDidMount(){
+    const id=this.props.match.params.id
+    this.props.dispatch({
+      type: 'fyQuestion/clear',
+      payload: null
+    });
+    if(id==0){
+      this.setState({isReady:true})
+    }else{
+      this.props.dispatch({
+        type: 'fyQuestion/find',
+        payload: {id:id},
+        callback:(question)=>{
+          this.setState({isReady:true,items:question.items});
+        }
+      });
+    }
+  }
   render() {
     const { form, data, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFields } = form;
+    const items = this.state.items;
     const onPrev = () => {
       dispatch(routerRedux.push('/question-manage/question-add/info'));
     };
@@ -37,38 +65,21 @@ class Step2 extends React.PureComponent {
       });
     };
     return (
-      <Form layout="horizontal" className={styles.stepForm}>
+      <div>
+      {this.state.isReady? <Form layout="horizontal" className={styles.stepForm}>
         <Alert
           closable
           showIcon
-          message="确认转账后，资金将直接打入对方账户，无法退回。"
+          message="请选择一个正确答案,并保证至少有2个选项"
           style={{ marginBottom: 24 }}
         />
-        <Form.Item {...formItemLayout} className={styles.stepFormText} label="付款账户">
-          {data.payAccount}
+        <Form.Item {...formItemLayout} label="选项">
+          {getFieldDecorator('price', {
+            initialValue: { items:items},
+            rules: [{ validator: this.checkPrice }],
+          })(<Single />)}
         </Form.Item>
-        <Form.Item {...formItemLayout} className={styles.stepFormText} label="收款账户">
-          {data.receiverAccount}
-        </Form.Item>
-        <Form.Item {...formItemLayout} className={styles.stepFormText} label="收款人姓名">
-          {data.receiverName}
-        </Form.Item>
-        <Form.Item {...formItemLayout} className={styles.stepFormText} label="转账金额">
-          <span className={styles.money}>{data.amount}</span>
-          <span className={styles.uppercase}>（{digitUppercase(data.amount)}）</span>
-        </Form.Item>
-        <Divider style={{ margin: '24px 0' }} />
-        <Form.Item {...formItemLayout} label="支付密码" required={false}>
-          {getFieldDecorator('password', {
-            initialValue: '123456',
-            rules: [
-              {
-                required: true,
-                message: '需要支付密码才能进行支付',
-              },
-            ],
-          })(<Input type="password" autoComplete="off" style={{ width: '80%' }} />)}
-        </Form.Item>
+    
         <Form.Item
           style={{ marginBottom: 8 }}
           wrapperCol={{
@@ -87,12 +98,13 @@ class Step2 extends React.PureComponent {
             上一步
           </Button>
         </Form.Item>
-      </Form>
+      </Form>:""}
+      </div>
     );
   }
 }
 
-export default connect(({ form, loading }) => ({
+export default connect(({ form, loading,fyQuestion }) => ({
   submitting: loading.effects['form/submitStepForm'],
-  data: form.step,
+  data: form.step,fyQuestion
 }))(Step2);

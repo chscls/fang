@@ -197,7 +197,7 @@ export const getRouterData = app => {
     },
     '/question-manage/question-add/confirm/:id': {
       name: '分步建题（填写题目详情）',
-      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step2')),
+      component: dynamicWrapper(app, ['form','fyQuestion'], () => import('../routes/QuestionManage/QuestionStepForm/Step2')),
     },
     '/question-manage/question-add/result/:id': {
       name: '分步建题（完成）',
