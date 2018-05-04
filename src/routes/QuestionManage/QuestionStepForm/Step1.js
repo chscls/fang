@@ -3,6 +3,8 @@ import { connect } from 'dva';
 import { Form,Icon, Input, Slider,Button, Select, Divider,Switch,Tag,Radio  } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
+import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
+
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -88,7 +90,7 @@ class Step1 extends React.PureComponent {
       });
     }
   }
-  
+  handleChange(){}
   render() {
     const { tags, inputVisible, inputValue } = this.state;
     const { form, dispatch, data,fyQuestion: { question } } = this.props;
@@ -170,8 +172,11 @@ class Step1 extends React.PureComponent {
               initialValue: question?question.isRich:false,
             })(<Switch  onChange={this.onChange} />)}
           </Form.Item>
+          
           <Form.Item {...formItemLayout} label="标题">
-            {getFieldDecorator('title', {
+          {this.state.isRich? <RichEditor className="ant-row ant-form-item" />
+
+            :getFieldDecorator('title', {
               initialValue: question?question.title:"",
               rules: [{ required: true, message: '请输入标题' }],
             })(<TextArea rows={4} placeholder="请输入标题" />)}
