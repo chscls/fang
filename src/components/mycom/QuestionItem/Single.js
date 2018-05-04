@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select, message, Button, Radio, Switch } from 'antd';
+import { Form, Input, Select, Alert, message, Button, Radio, Switch } from 'antd';
 import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -10,9 +10,10 @@ class SingleItem extends PureComponent {
     super(props);
     this.state = { isRich: false };
   }
-  onChange = checked => {
+  onChange = (checked) => {
     this.setState({ isRich: checked });
   };
+
   render() {
     const i = this.props.index;
     const r = this.props.item;
@@ -20,7 +21,7 @@ class SingleItem extends PureComponent {
       <div>
         <Button type="primary" onClick={this.props.delete}>
           删除
-        </Button>{' '}
+        </Button>
         <Switch
           onChange={this.onChange}
           defaultChecked={false}
@@ -55,8 +56,12 @@ export default class Single extends PureComponent {
     }
     this.state = {
       items: x,
+      isQuestionnaire: false
     };
   }
+  onChange = checked => {
+    this.setState({ isQuestionnaire: checked });
+  };
   componentWillReceiveProps(nextProps) {
     // Should be a controlled component.
     if ('value' in nextProps) {
@@ -103,88 +108,171 @@ export default class Single extends PureComponent {
   render() {
     const { size } = this.props;
     const state = this.state;
+    const isQuestionnaire = state.isQuestionnaire;
 
     return (
       <div>
-        <div>
-          <Button type="primary" onClick={this.add}>
-            新增选项
-          </Button>
-          <Switch
-                      checkedChildren="有答案"
-                      unCheckedChildren="无答案"
-                    />
-        </div>
-        <RadioGroup>
+        <Alert
+          closable
+          showIcon
+          message="请选择一个正确答案,并保证至少有2个选项"
+          style={{ marginBottom: 24 }}
+        />
+        {!isQuestionnaire ? <RadioGroup>
           {state.items.map((r, i) => {
             return (
               <ul>
                 <li style={{ display: 'inline' }}>
-               <Radio value={i} key={i} />
-                  {r.isRich ? 
+                  <Radio value={i} key={i} />
+                  {r.isRich ?
                     <span style={{ width: 30 }}>{String.fromCharCode(i + 65)} </span>
-                   : 
-                      ''
-                    }
+                    :
+                    ''
+                  }
                 </li>
 
-                {r.isRich ? 
+                {r.isRich ?
                   <li style={{ display: 'inline' }}>
                     <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
                   </li>
-                 : 
-                    '' }
-                {r.isRich ? 
+                  :
+                  ''}
+                {r.isRich ?
                   <li style={{ display: 'inline' }}>
-                    
+
                     <Switch
                       onChange={this.changeRich.bind(this, i)}
                       checked={r.isRich}
-                      checkedChildren="常规文本"
-                      unCheckedChildren="富文本"
+                      checkedChildren="富"
+                      unCheckedChildren="常"
                     />
                   </li>
-                : 
-                    ''
-                  }
+                  :
+                  ''
+                }
                 <li style={{ display: 'inline' }}>
-                  {r.isRich ? 
+                  {r.isRich ?
                     <div>
 
                       <RichEditor style={{ width: 500 }} className="ant-row ant-form-item" />
                     </div>
-                   : 
-                      <Input
-                        style={{ width: 500 }}
-                        addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
-                        defaultValue={r.content}
-                        placeholder="请输入选项"
-                      />
-                    }
+                    :
+                    <Input
+                      style={{ width: 500 }}
+                      addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
+                      defaultValue={r.content}
+                      placeholder="请输入选项"
+                    />
+                  }
                 </li>
 
-                {r.isRich ? 
-                  '': 
-                    <li style={{ display: 'inline' }}>
-                      <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
-                    </li>
-                  }
+                {r.isRich ?
+                  '' :
+                  <li style={{ display: 'inline' }}>
+                    <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
+                  </li>
+                }
 
-                {r.isRich ?  '' : 
-                    <li style={{ display: 'inline' }}>
+                {r.isRich ? '' :
+                  <li style={{ display: 'inline' }}>
 
-                      <Switch
-                        onChange={this.changeRich.bind(this, i)}
-                        checked={r.isRich}
-                        checkedChildren="常规文本"
-                        unCheckedChildren="富文本"
-                      />
-                    </li>
-                  }
+                    <Switch
+                      onChange={this.changeRich.bind(this, i)}
+                      checked={r.isRich}
+                      checkedChildren="富"
+                      unCheckedChildren="常"
+                    />
+                  </li>
+                }
               </ul>
             );
           })}
-        </RadioGroup>
+        </RadioGroup> : 
+      
+      <div>
+
+    {state.items.map((r, i) => {
+            return (
+              <ul>
+                <li style={{ display: 'inline' }}>
+                
+                  {r.isRich ?
+                    <span style={{ width: 30 }}>{String.fromCharCode(i + 65)} </span>
+                    :
+                    ''
+                  }
+                </li>
+
+                {r.isRich ?
+                  <li style={{ display: 'inline' }}>
+                    <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
+                  </li>
+                  :
+                  ''}
+                {r.isRich ?
+                  <li style={{ display: 'inline' }}>
+
+                    <Switch
+                      onChange={this.changeRich.bind(this, i)}
+                      checked={r.isRich}
+                      checkedChildren="富"
+                      unCheckedChildren="常"
+                    />
+                  </li>
+                  :
+                  ''
+                }
+                <li style={{ display: 'inline' }}>
+                  {r.isRich ?
+                    <div>
+
+                      <RichEditor style={{ width: 500 }} className="ant-row ant-form-item" />
+                    </div>
+                    :
+                    <Input
+                      style={{ width: 500 }}
+                      addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
+                      defaultValue={r.content}
+                      placeholder="请输入选项"
+                    />
+                  }
+                </li>
+
+                {r.isRich ?
+                  '' :
+                  <li style={{ display: 'inline' }}>
+                    <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
+                  </li>
+                }
+
+                {r.isRich ? '' :
+                  <li style={{ display: 'inline' }}>
+
+                    <Switch
+                      onChange={this.changeRich.bind(this, i)}
+                      checked={r.isRich}
+                      checkedChildren="富"
+                      unCheckedChildren="常"
+                    />
+                  </li>
+                }
+              </ul>
+            );
+          })}
+
+        </div>
+      
+      
+      }
+        <div>
+          <Button type="primary" icon="plus" onClick={this.add}>
+            新增选项
+          </Button> &nbsp;&nbsp;&nbsp;
+          <Switch onChange={this.onChange}
+            checkedChildren="试卷题"
+            unCheckedChildren="问卷题"
+          />
+        </div>
       </div>
     );
   }

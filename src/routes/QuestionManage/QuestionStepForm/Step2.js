@@ -76,12 +76,7 @@ class Step2 extends React.PureComponent {
       <div>
         {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
-            <Alert
-              closable
-              showIcon
-              message="请选择一个正确答案,并保证至少有2个选项"
-              style={{ marginBottom: 24 }}
-            />
+            
             <Form.Item {...formItemLayout} label="标题">
               {this.state.isRich ? (
                 <div dangerouslySetInnerHTML={{ __html: this.state.title }} />
