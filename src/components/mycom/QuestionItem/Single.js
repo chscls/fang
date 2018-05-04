@@ -105,7 +105,7 @@ export default class Single extends PureComponent {
       onChange(Object.assign({}, this.state, changedValue));
     }
   };
-  render() { 
+  render() {
     const { size } = this.props;
     const state = this.state;
     const isQuestionnaire = state.isQuestionnaire;
