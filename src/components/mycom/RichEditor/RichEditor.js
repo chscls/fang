@@ -61,7 +61,7 @@ export default class RichEditor extends PureComponent {
 
     return (
 
-      <div className={this.props.className}>
+      <div className={this.props.className} style={this.props.style}>
         <div id={this.id} >
         <select className="ql-header" defaultValue={""} onChange={e => e.persist()}>
       <option value="1"></option>
