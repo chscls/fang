@@ -3,10 +3,10 @@ import request from '../utils/request';
 import config from '../config';
 const ad = config.server + '/services/FyQuestionMngSvc';
 export async function queryQuestion(params) {
-  return request(`${ad}/queryQuestion`,params);
+  return request(`${ad}/queryQuestion`, params);
 }
 export async function findQuestion(params) {
-  return request(`${ad}/findQuestion`,params);
+  return request(`${ad}/findQuestion`, params);
 }
 
 export async function removeQuestion(params) {
@@ -20,7 +20,6 @@ export async function removeQuestion(params) {
 }
 
 export async function addQuestion(params) {
-
   return request(`${ad}/addQuestion`, {
     method: 'POST',
     body: {

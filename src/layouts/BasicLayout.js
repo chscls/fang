@@ -241,7 +241,7 @@ class BasicLayout extends React.PureComponent {
                   title: <Icon type="github" />,
                   href: 'https://github.com/ant-design/ant-design-pro',
                   blankTarget: true,
-                } */
+                } */,
               ]}
               copyright={
                 <Fragment>

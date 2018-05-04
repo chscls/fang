@@ -48,7 +48,7 @@ const menuData = [
         name: '敏感词管理',
         path: 'sensitive-list',
         authority: 'admin',
-      }
+      },
     ],
   },
   {
@@ -82,7 +82,7 @@ function formatter(data, parentPath = '/', parentAuthority) {
     if (item.children) {
       result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
     }
-  
+
     return result;
   });
 }

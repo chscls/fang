@@ -214,7 +214,6 @@ export default class SensitiveList extends PureComponent {
               {getFieldDecorator('word')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-         
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -323,7 +322,6 @@ export default class SensitiveList extends PureComponent {
           onOk={okHandle}
           onCancel={() => handleModalVisible()}
         >
-        
           <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
             {form.getFieldDecorator('word', {
               initialValue: this.state.currentObj.word,

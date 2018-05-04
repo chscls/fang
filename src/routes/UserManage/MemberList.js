@@ -56,7 +56,7 @@ export default class MemberList extends PureComponent {
     dispatch({
       type: 'fyUser/fetch',
       payload: {
-        type: "user",
+        type: 'user',
         pageSize: 20,
         pageNo: pageNo,
         ...search,
@@ -280,21 +280,21 @@ export default class MemberList extends PureComponent {
     });
   };
 
-  formatDateTime(inputTime) {    
-    var date = new Date(inputTime);  
-    var y = date.getFullYear();    
-    var m = date.getMonth() + 1;    
-    m = m < 10 ? ('0' + m) : m;    
-    var d = date.getDate();    
-    d = d < 10 ? ('0' + d) : d;    
-    var h = date.getHours();  
-    h = h < 10 ? ('0' + h) : h;  
-    var minute = date.getMinutes();  
-    var second = date.getSeconds();  
-    minute = minute < 10 ? ('0' + minute) : minute;    
-    second = second < 10 ? ('0' + second) : second;   
-    return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;    
-}; 
+  formatDateTime(inputTime) {
+    var date = new Date(inputTime);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? '0' + m : m;
+    var d = date.getDate();
+    d = d < 10 ? '0' + d : d;
+    var h = date.getHours();
+    h = h < 10 ? '0' + h : h;
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    minute = minute < 10 ? '0' + minute : minute;
+    second = second < 10 ? '0' + second : second;
+    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+  }
   render() {
     const { fyUser: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -322,10 +322,8 @@ export default class MemberList extends PureComponent {
       },
       {
         title: '注册时间',
-      
-        render: record => (
-          <span>{new Date(record.createTime).toLocaleString()}</span>
-        )
+
+        render: record => <span>{new Date(record.createTime).toLocaleString()}</span>,
       },
       {
         title: '操作',

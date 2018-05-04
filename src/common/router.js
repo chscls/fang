@@ -177,31 +177,41 @@ export const getRouterData = app => {
       authority: 'admin',
     },
     '/system-manage/sensitive-list': {
-      component: dynamicWrapper(app, ['fySensitive'], () => import('../routes/SystemManage/SensitiveList')),
+      component: dynamicWrapper(app, ['fySensitive'], () =>
+        import('../routes/SystemManage/SensitiveList')
+      ),
       authority: 'admin',
     },
     '/question-manage/question-list': {
-      component: dynamicWrapper(app, ['fyQuestion'], () => import('../routes/QuestionManage/QuestionList')),
-     
+      component: dynamicWrapper(app, ['fyQuestion'], () =>
+        import('../routes/QuestionManage/QuestionList')
+      ),
     },
     '/question-manage/test-list': {
       component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
-      
     },
     '/question-manage/question-add': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm')),
+      component: dynamicWrapper(app, ['form'], () =>
+        import('../routes/QuestionManage/QuestionStepForm')
+      ),
     },
     '/question-manage/question-add/info/:id': {
       name: '分步建题（填写题目基本信息）',
-      component: dynamicWrapper(app, ['form','fyQuestion'], () => import('../routes/QuestionManage/QuestionStepForm/Step1')),
+      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
+        import('../routes/QuestionManage/QuestionStepForm/Step1')
+      ),
     },
     '/question-manage/question-add/confirm/:id': {
       name: '分步建题（填写题目详情）',
-      component: dynamicWrapper(app, ['form','fyQuestion'], () => import('../routes/QuestionManage/QuestionStepForm/Step2')),
+      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
+        import('../routes/QuestionManage/QuestionStepForm/Step2')
+      ),
     },
     '/question-manage/question-add/result/:id': {
       name: '分步建题（完成）',
-      component: dynamicWrapper(app, ['form'], () => import('../routes/QuestionManage/QuestionStepForm/Step3')),
+      component: dynamicWrapper(app, ['form'], () =>
+        import('../routes/QuestionManage/QuestionStepForm/Step3')
+      ),
     },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),

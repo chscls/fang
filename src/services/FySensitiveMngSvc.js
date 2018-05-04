@@ -3,7 +3,7 @@ import request from '../utils/request';
 import config from '../config';
 const ad = config.server + '/services/FySensitiveMngSvc';
 export async function querySensitive(params) {
-  return request(`${ad}/querySensitive`,params);
+  return request(`${ad}/querySensitive`, params);
 }
 
 export async function removeSensitive(params) {
@@ -17,7 +17,6 @@ export async function removeSensitive(params) {
 }
 
 export async function addSensitive(params) {
-
   return request(`${ad}/addSensitive`, {
     method: 'POST',
     body: {

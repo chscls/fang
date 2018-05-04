@@ -23,7 +23,6 @@ const codeMessage = {
   504: '网关超时。',
 };
 function checkStatus(response) {
-
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -55,13 +54,10 @@ export default function request(url, options) {
   const newOptions = { ...defaultOptions, ...options };
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
     if (options) {
-
-
       if (token) {
         options.body.token = token;
       }
     }
-
 
     if (!(newOptions.body instanceof FormData)) {
       newOptions.headers = {
@@ -79,13 +75,12 @@ export default function request(url, options) {
     }
   } else {
     if (options) {
-
       if (token) {
         options.token = token;
       }
-      url = url + '?' + stringify(options)
+      url = url + '?' + stringify(options);
     } else {
-      url = url + '?token=' + token
+      url = url + '?token=' + token;
     }
   }
 
@@ -93,19 +88,18 @@ export default function request(url, options) {
     .then(checkStatus)
     .then(response => {
       if (response.status === 202) {
-
         return response.text();
       }
       return response.json();
-    }).then(response => {
-      if (typeof (response) == 'string') {
+    })
+    .then(response => {
+      if (typeof response == 'string') {
         notification.error({
           message: `请求错误`,
           description: response,
         });
       }
-      return response
-
+      return response;
     })
     .catch(e => {
       const { dispatch } = store;

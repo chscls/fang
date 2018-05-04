@@ -214,7 +214,6 @@ export default class TestList extends PureComponent {
               {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-         
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -292,29 +291,26 @@ export default class TestList extends PureComponent {
       ,
       {
         title: '是否问卷',
-        render: record => (
-          record.isQuestionnaire?"是":"否"
-        )
+        render: record => (record.isQuestionnaire ? '是' : '否'),
       },
       ,
       {
-        title: "答题模式",
-        render: record => (
-          record.mode=="free"?"自由":record.mode=="singleLimit"?"单题限时":record.mode=="totalLimit"?"总限时":"竞赛"
-        )
+        title: '答题模式',
+        render: record =>
+          record.mode == 'free'
+            ? '自由'
+            : record.mode == 'singleLimit'
+              ? '单题限时'
+              : record.mode == 'totalLimit' ? '总限时' : '竞赛',
       },
       {
-        title: "试卷状态",
-        render: record => (
-          record.status=="create"?"创建中":record.status=="process"?"进行中":"已结束"
-        )
-      }
-      ,
+        title: '试卷状态',
+        render: record =>
+          record.status == 'create' ? '创建中' : record.status == 'process' ? '进行中' : '已结束',
+      },
       {
-        title: "创建时间",
-        render: record => (
-          new Date(record.createTime).toLocaleDateString()
-        )
+        title: '创建时间',
+        render: record => new Date(record.createTime).toLocaleDateString(),
       },
       {
         title: '操作',
@@ -354,7 +350,6 @@ export default class TestList extends PureComponent {
           onOk={okHandle}
           onCancel={() => handleModalVisible()}
         >
-        
           <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="标题">
             {form.getFieldDecorator('title', {
               initialValue: this.state.currentObj.title,

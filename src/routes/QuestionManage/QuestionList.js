@@ -19,7 +19,7 @@ import {
   message,
   Badge,
   Divider,
-  Rate
+  Rate,
 } from 'antd';
 import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
@@ -52,17 +52,16 @@ export default class QuestionList extends PureComponent {
   };
 
   componentDidMount() {
-   
     this.getPage();
   }
-  getPage = (params) => {
-    const pagination = this.props.fyQuestion.data.pagination
-    if(params==null){
-      params={
-        pageNo:pagination.current?pagination.current:1,
-        pageSize:pagination.pageSize?pagination.pageSize:10,
-        ...this.state.formValues
-      }
+  getPage = params => {
+    const pagination = this.props.fyQuestion.data.pagination;
+    if (params == null) {
+      params = {
+        pageNo: pagination.current ? pagination.current : 1,
+        pageSize: pagination.pageSize ? pagination.pageSize : 10,
+        ...this.state.formValues,
+      };
     }
     const { dispatch } = this.props;
     dispatch({
@@ -100,7 +99,7 @@ export default class QuestionList extends PureComponent {
     this.setState({
       formValues: {},
     });
-  
+
     this.getPage();
   };
 
@@ -223,7 +222,6 @@ export default class QuestionList extends PureComponent {
               {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-         
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -289,112 +287,121 @@ export default class QuestionList extends PureComponent {
       {
         title: 'id',
         dataIndex: 'id',
-      },{
+      },
+      {
         title: '题型',
         dataIndex: 'type',
         filters: [
           {
-            text: "单选",
-            value: "single",
+            text: '单选',
+            value: 'single',
           },
           {
-            text: "多选",
-            value: "mutiply",
+            text: '多选',
+            value: 'mutiply',
           },
           {
-            text: "判断",
-            value: "judge",
+            text: '判断',
+            value: 'judge',
           },
           {
-            text: "填空",
-            value: "fill",
+            text: '填空',
+            value: 'fill',
           },
           {
-            text: "问答",
-            value: "ask",
-          }
-          
+            text: '问答',
+            value: 'ask',
+          },
         ],
         onFilter: (value, record) => record.type == value,
-        render (val) {
-          return  <span> {val=="single"?"单选":val=="mutiply"?"多选":val=="judge"?"判断":val=="fill"?"填空":"问答"}</span>
-        }
-        
+        render(val) {
+          return (
+            <span>
+              {' '}
+              {val == 'single'
+                ? '单选'
+                : val == 'mutiply'
+                  ? '多选'
+                  : val == 'judge' ? '判断' : val == 'fill' ? '填空' : '问答'}
+            </span>
+          );
+        },
       },
       {
         title: '标题',
-        width:400,
-        render: record => (
-          record.isRich?<div  dangerouslySetInnerHTML={{__html: record.title}}></div>:
-          <Ellipsis tooltip lines={3}>{record.title}</Ellipsis>
-        )
-       
-      },{
+        width: 400,
+        render: record =>
+          record.isRich ? (
+            <div dangerouslySetInnerHTML={{ __html: record.title }} />
+          ) : (
+            <Ellipsis tooltip lines={3}>
+              {record.title}
+            </Ellipsis>
+          ),
+      },
+      {
         title: '难度等级',
         dataIndex: 'difficulty',
         filters: [
           {
-            text: "易",
+            text: '易',
             value: 0,
           },
           {
-            text: "偏易",
+            text: '偏易',
             value: 25,
           },
           {
-            text: "中等",
+            text: '中等',
             value: 50,
           },
           {
-            text: "偏难",
+            text: '偏难',
             value: 75,
           },
           {
-            text: "难",
+            text: '难',
             value: 100,
-          }
-          
+          },
         ],
         onFilter: (value, record) => record.difficulty == value,
         render(val) {
-         
-          return <Rate disabled={true} value={val/25+1} />
-      }
-      },{
+          return <Rate disabled={true} value={val / 25 + 1} />;
+        },
+      },
+      {
         title: '分数',
         dataIndex: 'score',
       },
       {
-        title: "创建时间",
+        title: '创建时间',
         dataIndex: 'createTime',
         render(val) {
-         
-          return  new Date(val).toLocaleDateString()
-      }
-        
-      }, {
+          return new Date(val).toLocaleDateString();
+        },
+      },
+      {
         title: '状态',
         dataIndex: 'status',
         filters: [
           {
             text: status[0],
-            value: "create",
+            value: 'create',
           },
           {
             text: status[1],
-            value: "check",
+            value: 'check',
           },
           {
             text: status[2],
-            value: "complete",
-          }
-          
+            value: 'complete',
+          },
         ],
         onFilter: (value, record) => record.status == value,
         render(val) {
           var x = 0;
-          if(val=="check") x=1;
-          if(val=="complete") x=2;
+          if (val == 'check') x = 1;
+          if (val == 'complete') x = 2;
 
           return <Badge status={statusMap[x]} text={status[x]} />;
         },
@@ -403,7 +410,7 @@ export default class QuestionList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-             <Link to={`/question-manage/question-add/info/${record.id}`}>修改</Link>
+            <Link to={`/question-manage/question-add/info/${record.id}`}>修改</Link>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
@@ -437,7 +444,6 @@ export default class QuestionList extends PureComponent {
           onOk={okHandle}
           onCancel={() => handleModalVisible()}
         >
-        
           <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="标题">
             {form.getFieldDecorator('title', {
               initialValue: this.state.currentObj.title,
@@ -453,9 +459,12 @@ export default class QuestionList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-             <Link to="/question-manage/question-add/info/0"> <Button icon="plus" type="primary" >
-                新建
-              </Button></Link>
+              <Link to="/question-manage/question-add/info/0">
+                {' '}
+                <Button icon="plus" type="primary">
+                  新建
+                </Button>
+              </Link>
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>

@@ -56,7 +56,7 @@ export default class AdminList extends PureComponent {
     dispatch({
       type: 'fyUser/fetch',
       payload: {
-        type: "admin",
+        type: 'admin',
         pageSize: 20,
         pageNo: pageNo,
         ...search,
@@ -160,7 +160,7 @@ export default class AdminList extends PureComponent {
     var params = {
       realname: fields.realname,
       mobile: this.state.currentObj.id ? this.state.currentObj.mobile : fields.mobile,
-      type: "admin",
+      type: 'admin',
     };
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;

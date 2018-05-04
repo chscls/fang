@@ -4,8 +4,6 @@ import config from '../config';
 const ad = config.server + '/services/FyUserMngSvc';
 export async function queryProjectNotice() {
   return request(`${ad}/notice`);
-  
-  
 }
 
 export async function queryActivities() {
@@ -45,12 +43,10 @@ export async function fakeSubmitForm(params) {
 
 export async function fakeChartData() {
   return request(`${ad}/fake_chart_data`);
-
 }
 
 export async function queryTags() {
   return request(`${ad}/tags`);
- 
 }
 
 export async function queryBasicProfile() {
@@ -66,7 +62,6 @@ export async function queryFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-
   return request(`${ad}/account`, {
     method: 'POST',
     body: params,

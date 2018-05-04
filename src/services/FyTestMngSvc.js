@@ -3,7 +3,7 @@ import request from '../utils/request';
 import config from '../config';
 const ad = config.server + '/services/FyTestMngSvc';
 export async function queryTest(params) {
-  return request(`${ad}/queryTest`,params);
+  return request(`${ad}/queryTest`, params);
 }
 
 export async function removeTest(params) {
@@ -17,7 +17,6 @@ export async function removeTest(params) {
 }
 
 export async function addTest(params) {
-
   return request(`${ad}/addTest`, {
     method: 'POST',
     body: {

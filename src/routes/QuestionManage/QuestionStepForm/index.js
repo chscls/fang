@@ -27,10 +27,7 @@ export default class StepForm extends PureComponent {
   render() {
     const { match, routerData } = this.props;
     return (
-      <PageHeaderLayout
-        title="分步建题"
-        content="3步建题"
-      >
+      <PageHeaderLayout title="分步建题" content="3步建题">
         <Card bordered={false}>
           <Fragment>
             <Steps current={this.getCurrentStep()} className={styles.steps}>
