@@ -16,10 +16,10 @@ const RadioGroup = Radio.Group;
     render(){
         const i = this.props.index
         const r = this.props.item
-        return<div><Button type="primary" onClick={this.props.delete} >删除</Button> <Switch onChange={this.onChange} defaultChecked={false} checkedChildren="富文本" unCheckedChildren="常规" />
+        return<div style={{margin:"auto"}}><Button style={{margin:"auto"}} type="primary" onClick={this.props.delete} >删除</Button> <Switch style={{margin:"auto"}} onChange={this.onChange} defaultChecked={false} checkedChildren="富文本" unCheckedChildren="常规" />
         
         {this.state.isRich?<RichEditor className="ant-row ant-form-item"/>:
-        <Input addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</div>
+        <Input style={{margin:"auto"}} addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</div>
          
     }
 
@@ -85,11 +85,11 @@ export default class Single extends PureComponent {
 
         return (
             <div>
-                <Button type="primary" onClick={this.add} >新增选项</Button>
+               
                 <RadioGroup>
                     {state.items.map((r, i) => {
 
-                        return (<p><Radio  value={i} key={i}/><SingleItem item={r}  index={i} delete={this.delete.bind(this,i)}/></p>)
+                        return (<p><Radio style={{margin:"auto"}} value={i} key={i}/><SingleItem item={r}  index={i} delete={this.delete.bind(this,i)}/></p>)
                     })
                     }
                 </RadioGroup>

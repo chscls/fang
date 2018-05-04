@@ -8,10 +8,10 @@ import styles from './style.less';
 
 const formItemLayout = {
   labelCol: {
-    span: 5,
+    span: 1,
   },
   wrapperCol: {
-    span: 19,
+    span: 23,
   },
 };
 
@@ -68,7 +68,7 @@ class Step2 extends React.PureComponent {
     };
     return (
       <div>
-      {this.state.isReady? <Form layout="horizontal" className={styles.stepForm}>
+      {this.state.isReady? <Form layout="horizontal" className={styles.stepForm} style={{maxWidth:1000}}>
         <Alert
           closable
           showIcon
@@ -80,7 +80,7 @@ class Step2 extends React.PureComponent {
          <div > {this.state.title}</div>}
           </Form.Item>
 
-        <Form.Item {...formItemLayout} label="选项">
+        <Form.Item  style={{maxWidth:1000}}{...formItemLayout} label="选项">
           {getFieldDecorator('price', {
             initialValue: { items:items},
             rules: [{ validator: this.checkPrice }],
