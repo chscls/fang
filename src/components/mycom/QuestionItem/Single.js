@@ -121,20 +121,20 @@ export default class Single extends PureComponent {
               <ul>
                 <li style={{ display: 'inline' }}>
                <Radio value={i} key={i} />
-                  {r.isRich ? (
+                  {r.isRich ? 
                     <span style={{ width: 30 }}>{String.fromCharCode(i + 65)} </span>
-                  ) : (
+                   : 
                       ''
-                    )}
+                    }
                 </li>
 
-                {r.isRich ? (
+                {r.isRich ? 
                   <li style={{ display: 'inline' }}>
                     <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
                   </li>
-                ) : (
-                    '' )}
-                {r.isRich ? (
+                 : 
+                    '' }
+                {r.isRich ? 
                   <li style={{ display: 'inline' }}>
                     
                     <Switch
@@ -144,36 +144,33 @@ export default class Single extends PureComponent {
                       unCheckedChildren="富文本"
                     />
                   </li>
-                ) : (
+                : 
                     ''
-                  )}
+                  }
                 <li style={{ display: 'inline' }}>
-                  {r.isRich ? (
+                  {r.isRich ? 
                     <div>
 
                       <RichEditor style={{ width: 500 }} className="ant-row ant-form-item" />
                     </div>
-                  ) : (
+                   : 
                       <Input
                         style={{ width: 500 }}
                         addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
                         defaultValue={r.content}
                         placeholder="请输入选项"
                       />
-                    )}
+                    }
                 </li>
 
-                {r.isRich ? (
-                  ''
-                ) : (
+                {r.isRich ? 
+                  '': 
                     <li style={{ display: 'inline' }}>
                       <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
                     </li>
-                  )}
+                  }
 
-                {r.isRich ? (
-                  ''
-                ) : (
+                {r.isRich ?  '' : 
                     <li style={{ display: 'inline' }}>
 
                       <Switch
@@ -183,7 +180,7 @@ export default class Single extends PureComponent {
                         unCheckedChildren="富文本"
                       />
                     </li>
-                  )}
+                  }
               </ul>
             );
           })}
