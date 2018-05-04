@@ -30,12 +30,12 @@ class SingleItem extends PureComponent {
         {this.state.isRich ? (
           <RichEditor className="ant-row ant-form-item" />
         ) : (
-          <Input
-            addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
-            defaultValue={r.content}
-            placeholder="请输入选项"
-          />
-        )}
+            <Input
+              addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
+              defaultValue={r.content}
+              placeholder="请输入选项"
+            />
+          )}
       </div>
     );
   }
@@ -107,23 +107,25 @@ export default class Single extends PureComponent {
     return (
       <div>
         <div>
-          {' '}
           <Button type="primary" onClick={this.add}>
             新增选项
           </Button>
+          <Switch
+                      checkedChildren="有答案"
+                      unCheckedChildren="无答案"
+                    />
         </div>
         <RadioGroup>
           {state.items.map((r, i) => {
             return (
               <ul>
                 <li style={{ display: 'inline' }}>
-                  {' '}
-                  <Radio value={i} key={i} />{' '}
+               <Radio value={i} key={i} />
                   {r.isRich ? (
                     <span style={{ width: 30 }}>{String.fromCharCode(i + 65)} </span>
                   ) : (
-                    ''
-                  )}
+                      ''
+                    )}
                 </li>
 
                 {r.isRich ? (
@@ -131,58 +133,57 @@ export default class Single extends PureComponent {
                     <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
                   </li>
                 ) : (
-                  ''
-                )}
+                    '' )}
                 {r.isRich ? (
                   <li style={{ display: 'inline' }}>
-                    {' '}
+                    
                     <Switch
                       onChange={this.changeRich.bind(this, i)}
                       checked={r.isRich}
-                      checkedChildren="富文本"
-                      unCheckedChildren="常规文本"
-                    />{' '}
+                      checkedChildren="常规文本"
+                      unCheckedChildren="富文本"
+                    />
                   </li>
                 ) : (
-                  ''
-                )}
+                    ''
+                  )}
                 <li style={{ display: 'inline' }}>
                   {r.isRich ? (
                     <div>
-                      {' '}
+
                       <RichEditor style={{ width: 500 }} className="ant-row ant-form-item" />
                     </div>
                   ) : (
-                    <Input
-                      style={{ width: 500 }}
-                      addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
-                      defaultValue={r.content}
-                      placeholder="请输入选项"
-                    />
-                  )}
+                      <Input
+                        style={{ width: 500 }}
+                        addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
+                        defaultValue={r.content}
+                        placeholder="请输入选项"
+                      />
+                    )}
                 </li>
 
                 {r.isRich ? (
                   ''
                 ) : (
-                  <li style={{ display: 'inline' }}>
-                    <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
-                  </li>
-                )}
+                    <li style={{ display: 'inline' }}>
+                      <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
+                    </li>
+                  )}
 
                 {r.isRich ? (
                   ''
                 ) : (
-                  <li style={{ display: 'inline' }}>
-                    {' '}
-                    <Switch
-                      onChange={this.changeRich.bind(this, i)}
-                      checked={r.isRich}
-                      checkedChildren="富文本"
-                      unCheckedChildren="常规文本"
-                    />{' '}
-                  </li>
-                )}
+                    <li style={{ display: 'inline' }}>
+
+                      <Switch
+                        onChange={this.changeRich.bind(this, i)}
+                        checked={r.isRich}
+                        checkedChildren="常规文本"
+                        unCheckedChildren="富文本"
+                      />
+                    </li>
+                  )}
               </ul>
             );
           })}
