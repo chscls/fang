@@ -48,23 +48,11 @@ export default class RichEditor extends PureComponent {
     }
 
   }
-
-
-
-
-  setEditorValue(value) {
-    this.setState({ editorHtml: value })
-  }
-
   handleChange(content, delta, source, editor) {
     this.setState({ editorHtml: content })
     if (this.props.onChangeValue) {
       this.props.onChangeValue(content);
-
     }
-
-
-
   }
 
 

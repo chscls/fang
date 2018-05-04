@@ -31,6 +31,7 @@ class Step1 extends React.PureComponent {
   constructor(props){
     super(props)
     this.state={
+      text:"",
       isRich:false,
       isReady:false,
       loading:false,
@@ -90,7 +91,10 @@ class Step1 extends React.PureComponent {
       });
     }
   }
-  handleChange(){}
+  onChangeValue=(text)=>{
+    this.setState({text:text})
+  }
+
   render() {
     const { tags, inputVisible, inputValue } = this.state;
     const { form, dispatch, data,fyQuestion: { question } } = this.props;
@@ -100,6 +104,9 @@ class Step1 extends React.PureComponent {
       validateFields((err, values) => {
         if(question){
           values = {...values,id:question.id}
+        }
+        if(this.state.isRich){
+          values = {...values,title:this.state.text}
         }
         values = {...values,tags:tags}
         if (!err) {
@@ -174,7 +181,7 @@ class Step1 extends React.PureComponent {
           </Form.Item>
           
           <Form.Item {...formItemLayout} label="标题">
-          {this.state.isRich? <RichEditor className="ant-row ant-form-item" />
+          {this.state.isRich? <RichEditor value={question?question.title:""} className="ant-row ant-form-item" onChangeValue={this.onChangeValue}/>
 
             :getFieldDecorator('title', {
               initialValue: question?question.title:"",
