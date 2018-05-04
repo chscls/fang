@@ -100,10 +100,7 @@ export default class Single extends PureComponent {
                         return (<ul>
 
                             <li style={{ display: "inline" }}> <Radio value={i} key={i} /></li>
-                            <li style={{ display: "inline" }}>
-                                {r.isRich ? <RichEditor className="ant-row ant-form-item" /> :
-                                    <Input style={{width:400}} addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</li>
-
+                            
 
                             <li style={{ display: "inline" }}>
                                 <Button type="primary" onClick={this.props.delete} >删除</Button></li>
@@ -111,7 +108,10 @@ export default class Single extends PureComponent {
                             <li style={{ display: "inline" }}> <Switch onChange={this.changeRich.bind(this,i)} checked={r.isRich} checkedChildren="富文本" unCheckedChildren="常规" /></li>
 
 
-                        
+                        <li style={{ display: "inline" }}>
+                                {r.isRich ? <RichEditor className="ant-row ant-form-item" /> :
+                                    <Input style={{width:400}} addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>} defaultValue={r.content} placeholder="请输入选项" />}</li>
+
 
                         </ul>)
                     })
