@@ -85,7 +85,7 @@ class Step1 extends React.PureComponent {
         type: 'fyQuestion/find',
         payload: {id:id},
         callback:(question)=>{
-         this.setState({isReady:true,tags:question.tags})
+         this.setState({isReady:true,tags:question.tags,text:question.title,isRich:question.isRich})
          
         }
       });
@@ -96,7 +96,8 @@ class Step1 extends React.PureComponent {
   }
 
   render() {
-    const { tags, inputVisible, inputValue } = this.state;
+    console.log(this.state.isRich)
+    const { tags, inputVisible, inputValue,isRich } = this.state;
     const { form, dispatch, data,fyQuestion: { question } } = this.props;
     const { getFieldDecorator, validateFields } = form;
   
@@ -170,14 +171,14 @@ class Step1 extends React.PureComponent {
             onClick={this.showInput}
             style={{ background: '#fff', borderStyle: 'dashed' }}
           >
-            <Icon type="plus" /> New Tag
+            <Icon type="plus" /> 新标签
           </Tag>
         )}
        </Form.Item>
           <Form.Item {...formItemLayout} label="标题富文本">
             {getFieldDecorator('isRich', {
-              initialValue: question?question.isRich:false,
-            })(<Switch  onChange={this.onChange} />)}
+              initialValue: isRich,
+            })(<Switch defaultChecked={isRich}  onChange={this.onChange} />)}
           </Form.Item>
           
           <Form.Item {...formItemLayout} label="标题">
