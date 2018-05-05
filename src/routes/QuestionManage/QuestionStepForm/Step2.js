@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Fragment } from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Alert, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -73,8 +73,8 @@ class Step2 extends React.PureComponent {
       });
     };
     return (
-      <div>
-        {this.state.isReady ? (
+      <Fragment>
+        {this.state.isReady ? 
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
             
             <Form.Item {...formItemLayout} label="标题">
@@ -103,18 +103,26 @@ class Step2 extends React.PureComponent {
               }}
               label=""
             >
-              <Button type="primary" onClick={onValidateForm} loading={submitting}>
+            <div style={{ margin:"auto",width:200 }}>
+              <Button   type="primary" onClick={onValidateForm} loading={submitting}>
                 提交
               </Button>
               <Button onClick={onPrev} style={{ marginLeft: 8 }}>
                 上一步
               </Button>
+              </div>
             </Form.Item>
           </Form>
-        ) : (
+         : 
           ''
-        )}
-      </div>
+        }
+         <Divider style={{ margin: '40px 0 24px' }} />
+        <div className={styles.desc}>
+          <h3>说明</h3>
+          <h4>问卷模式</h4>
+          <p>问卷模式无需选择或填写正确答案</p>
+        </div>
+      </Fragment>
     );
   }
 }

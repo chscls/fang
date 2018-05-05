@@ -126,7 +126,7 @@ class Step1 extends React.PureComponent {
     };
     return (
       <Fragment>
-        {this.state.isReady ? (
+        {this.state.isReady ? 
           <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
             <Form.Item {...formItemLayout} label="题型">
               {getFieldDecorator('type', {
@@ -231,9 +231,7 @@ class Step1 extends React.PureComponent {
               </Button>
             </Form.Item>
           </Form>
-        ) : (
-          ''
-        )}
+         : ''}
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
           <h3>说明</h3>

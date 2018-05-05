@@ -269,8 +269,8 @@ export default class Single extends PureComponent {
             新增选项
           </Button> &nbsp;&nbsp;&nbsp;
           <Switch onChange={this.onChange}
-            checkedChildren="试卷题"
-            unCheckedChildren="问卷题"
+            checkedChildren="问卷模式"
+            unCheckedChildren="试卷模式"
           />
         </div>
       </div>

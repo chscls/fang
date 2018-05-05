@@ -13,7 +13,7 @@ export default class StepForm extends PureComponent {
     const { location } = this.props;
     const { pathname } = location;
     const pathList = pathname.split('/');
-    switch (pathList[pathList.length - 1]) {
+    switch (pathList[pathList.length - 2]) {
       case 'info':
         return 0;
       case 'confirm':
