@@ -3,6 +3,7 @@ import {
   removeQuestion,
   addQuestion,
   findQuestion,
+  updateOptions,
 } from '../services/FyQuestionMngSvc';
 
 export default {
@@ -39,7 +40,15 @@ export default {
       });
       if (callback) callback(response);
     },
-
+    *updateOptions({ payload, callback }, { call, put }) {
+      const response = yield call(updateOptions, payload);
+      yield put({
+        type: 'ok',
+        payload: response,
+      });
+      if (callback) callback(response.id);
+    },
+    
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addQuestion, payload);
       yield put({

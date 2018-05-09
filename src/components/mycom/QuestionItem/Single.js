@@ -48,12 +48,7 @@ export default class Single extends PureComponent {
     const value = props.value || {};
     var x = value.items;
 
-    if (x.length == 0) {
-      x.push({ content: '', isSolution: false });
-      x.push({ content: '', isSolution: false });
-    } else if (x.length == 1) {
-      x.push({ content: '', isSolution: false });
-    }
+    
     this.state = {
       items: x,
       isQuestionnaire: false

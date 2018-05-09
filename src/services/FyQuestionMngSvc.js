@@ -19,6 +19,16 @@ export async function removeQuestion(params) {
   });
 }
 
+export async function updateOptions(params) {
+  return request(`${ad}/updateOptions`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
+
 export async function addQuestion(params) {
   return request(`${ad}/addQuestion`, {
     method: 'POST',

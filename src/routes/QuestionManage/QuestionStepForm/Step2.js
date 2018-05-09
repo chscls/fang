@@ -40,10 +40,20 @@ class Step2 extends React.PureComponent {
         type: 'fyQuestion/find',
         payload: { id: id },
         callback: question => {
+
+         const items =  question.items
+          if (items.length == 0) {
+            items.push({ content: '', isSolution: false });
+            items.push({ content: '', isSolution: false });
+          } else if (x.length == 1) {
+            items.push({ content: '', isSolution: false });
+          }
+
+
           this.setState({
             isReady: true,
             id: question.id,
-            items: question.items,
+            items: items,
             isRich: question.isRich,
             title: question.title,
           });
@@ -55,18 +65,26 @@ class Step2 extends React.PureComponent {
     const { form, data, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
+
+
+  
+
+
+
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/question-add/info/${this.state.id}`));
     };
     const onValidateForm = e => {
+      
       e.preventDefault();
       validateFields((err, values) => {
+        
         if (!err) {
           dispatch({
-            type: 'form/submitStepForm',
+            type: 'fyQuestion/updateOptions',
             payload: {
-              ...data,
-              ...values,
+              id:this.state.id,
+              options:JSON.stringify(values.options),
             },
           });
         }
@@ -86,9 +104,8 @@ class Step2 extends React.PureComponent {
             </Form.Item>
 
             <Form.Item style={{ maxWidth: 1000 }} {...formItemLayout} label="选项">
-              {getFieldDecorator('price', {
-                initialValue: { items: items },
-                rules: [{ validator: this.checkPrice }],
+              {getFieldDecorator('options', {
+                initialValue: { items: items,isQuestionnaire:false }
               })(<Single />)}
             </Form.Item>
 
