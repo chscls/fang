@@ -186,7 +186,7 @@ class Step1 extends React.PureComponent {
             <Form.Item {...formItemLayout} label="标题">
               {this.state.isRich ? (
                 <RichEditor
-                  value={question ? question.title : ''}
+                 defaultValue={question ? question.title : ''}
                   className="ant-row ant-form-item"
                   onChangeValue={this.onChangeValue}
                 />

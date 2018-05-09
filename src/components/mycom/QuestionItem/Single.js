@@ -32,7 +32,7 @@ export default class Single extends PureComponent {
   }
   add = () => {
     var items = this.state.items;
-    items.push({ content: '', isSolution: false });
+    items.push({ content: '', isSolution: false,isRich:false });
     if (!('value' in this.props)) {
       this.setState({ items });
     }
@@ -51,9 +51,9 @@ export default class Single extends PureComponent {
     }
     this.triggerChange({ items });
   };
-  changeRich = index => {
+  changeRich =( index,e) => {
     var items = this.state.items;
-    items[index].isRich = !items[index].isRich;
+    items[index].isRich =e;
     if (!('value' in this.props)) {
       this.setState({ items });
     }
@@ -87,6 +87,15 @@ export default class Single extends PureComponent {
     }
     this.triggerChange({ items });
   }
+  onChangeEditor=(i,value)=>{
+
+    var items = this.state.items;
+    items[i].content=value
+    if (!('value' in this.props)) {
+      this.setState({ items });
+    }
+    this.triggerChange({ items });
+  }
   render() {
     const { size } = this.props;
     const state = this.state;
@@ -103,7 +112,7 @@ export default class Single extends PureComponent {
         {!isQuestionnaire ? <RadioGroup onChange={this.onChangeRadio}>
           {state.items.map((r, i) => {
             return (
-              <ul>
+              <ul key={i}>
                 <li style={{ display: 'inline' }}>
                   <Radio value={i} key={i} />
                   {r.isRich ?
@@ -134,10 +143,10 @@ export default class Single extends PureComponent {
                 }
                 <li style={{ display: 'inline' }}>
                   {r.isRich ?
-                    <div>
+                    
 
-                      <RichEditor style={{ width: 500 }} className="ant-row ant-form-item" />
-                    </div>
+                      <RichEditor defaultValue={r.content} style={{ width: 500 }} onChangeValue={this.onChangeEditor.bind(this,i)} className="ant-row ant-form-item" />
+                    
                     :
                     <Input onChange={this.onChangeInput.bind(this,i)}
                       style={{ width: 500 }}

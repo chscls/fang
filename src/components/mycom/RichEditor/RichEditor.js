@@ -39,7 +39,7 @@ export default class RichEditor extends PureComponent {
     };
 
     this.state = {
-      editorHtml: this.props.value == null ? '' : this.props.value,
+      editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue,
     };
   }
   handleChange(content, delta, source, editor) {
