@@ -44,10 +44,10 @@ class Step2 extends React.PureComponent {
 
          const items =  question.items
           if (items.length == 0) {
-            items.push({ content: '', isSolution: false });
-            items.push({ content: '', isSolution: false });
+            items.push({ content: '', isSolution: false,isRich:false });
+            items.push({ content: '', isSolution: false,isRich:false });
           } else if (x.length == 1) {
-            items.push({ content: '', isSolution: false });
+            items.push({ content: '', isSolution: false,isRich:false });
           }
 
 

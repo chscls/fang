@@ -6,42 +6,7 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-class SingleItem extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = { isRich: false };
-  }
-  onChange = (checked) => {
-    this.setState({ isRich: checked });
-  };
 
-  render() {
-    const i = this.props.index;
-    const r = this.props.item;
-    return (
-      <div>
-        <Button type="primary" onClick={this.props.delete}>
-          删除
-        </Button>
-        <Switch
-          onChange={this.onChange}
-          defaultChecked={false}
-          checkedChildren="富文本"
-          unCheckedChildren="常规"
-        />
-        {this.state.isRich ? (
-          <RichEditor className="ant-row ant-form-item" />
-        ) : (
-            <Input
-              addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
-              defaultValue={r.content}
-              placeholder="请输入选项"
-            />
-          )}
-      </div>
-    );
-  }
-}
 export default class Single extends PureComponent {
   constructor(props) {
     super(props);
@@ -114,6 +79,14 @@ export default class Single extends PureComponent {
     }
     this.triggerChange({ items });
   }
+  onChangeInput=(i,e)=>{
+    var items = this.state.items;
+    items[i].content=e.target.value
+    if (!('value' in this.props)) {
+      this.setState({ items });
+    }
+    this.triggerChange({ items });
+  }
   render() {
     const { size } = this.props;
     const state = this.state;
@@ -166,7 +139,7 @@ export default class Single extends PureComponent {
                       <RichEditor style={{ width: 500 }} className="ant-row ant-form-item" />
                     </div>
                     :
-                    <Input
+                    <Input onChange={this.onChangeInput.bind(this,i)}
                       style={{ width: 500 }}
                       addonBefore={<span style={{ width: 30 }}>{String.fromCharCode(i + 65)}</span>}
                       defaultValue={r.content}
