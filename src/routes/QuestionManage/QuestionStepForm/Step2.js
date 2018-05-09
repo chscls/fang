@@ -86,7 +86,8 @@ class Step2 extends React.PureComponent {
             type: 'fyQuestion/updateOptions',
             payload: {
               id:this.state.id,
-              options:JSON.stringify(values.options),
+              options:JSON.stringify(values.options.items),
+              isQuestionnaire:values.options.isQuestionnaire
             },
           });
         }
