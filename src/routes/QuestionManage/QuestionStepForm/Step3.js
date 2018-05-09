@@ -43,10 +43,10 @@ class Step3 extends React.PureComponent {
     );
     const actions = (
       <Fragment>
-        <Button type="primary" onClick={onFinish}>
-          再转一笔
-        </Button>
-        <Button>查看账单</Button>
+        <Link to={"/question-manage/question-add/info/0"}><Button type="primary" onClick={onFinish}>
+          再建一题
+        </Button></Link>
+        <Link to={"/question-manage/question-list"}><Button>查看题库</Button></Link>
       </Fragment>
     );
     return (

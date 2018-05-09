@@ -46,7 +46,7 @@ class Step2 extends React.PureComponent {
           if (items.length == 0) {
             items.push({ content: '', isSolution: false,isRich:false });
             items.push({ content: '', isSolution: false,isRich:false });
-          } else if (x.length == 1) {
+          } else if (items.length == 1) {
             items.push({ content: '', isSolution: false,isRich:false });
           }
 
@@ -87,7 +87,10 @@ class Step2 extends React.PureComponent {
             payload: {
               id:this.state.id,
               options:JSON.stringify(values.options.items),
-              isQuestionnaire:values.options.isQuestionnaire
+              isQuestionnaire:values.options.isQuestionnaire,     
+            },
+            callback: id => {
+              dispatch(routerRedux.push(`/question-manage/question-add/result/${id}`));
             },
           });
         }

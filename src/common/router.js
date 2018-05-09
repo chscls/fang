@@ -209,7 +209,7 @@ export const getRouterData = app => {
     },
     '/question-manage/question-add/result/:id': {
       name: '分步建题（完成）',
-      component: dynamicWrapper(app, ['form'], () =>
+      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
         import('../routes/QuestionManage/QuestionStepForm/Step3')
       ),
     },
