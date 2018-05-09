@@ -4,10 +4,13 @@ import { Button, Row, Col } from 'antd';
 import { routerRedux,Link } from 'dva/router';
 import Result from 'components/Result';
 import styles from './style.less';
-
+import { single } from 'rxjs/operators';
+import SingleView from '../../../components/mycom/QuestionItem/SingleView';
 class Step3 extends React.PureComponent {
+ 
   render() {
-    const { dispatch, data } = this.props;
+    const { dispatch, data ,fyQuestion} = this.props;
+    const question = fyQuestion.question
     const onFinish = () => {
       dispatch(routerRedux.push('/question-manage/question-add/info/0'));
     };
@@ -16,32 +19,7 @@ class Step3 extends React.PureComponent {
     };
     const information = (
       <div className={styles.information}>
-        <Row>
-          <Col span={8} className={styles.label}>
-            付款账户：
-          </Col>
-          <Col span={16}>{data.payAccount}</Col>
-        </Row>
-        <Row>
-          <Col span={8} className={styles.label}>
-            收款账户：
-          </Col>
-          <Col span={16}>{data.receiverAccount}</Col>
-        </Row>
-        <Row>
-          <Col span={8} className={styles.label}>
-            收款人姓名：
-          </Col>
-          <Col span={16}>{data.receiverName}</Col>
-        </Row>
-        <Row>
-          <Col span={8} className={styles.label}>
-            转账金额：
-          </Col>
-          <Col span={16}>
-            <span className={styles.money}>{data.amount}</span> 元
-          </Col>
-        </Row>
+        <SingleView question={question}/>
       </div>
     );
     const actions = (
@@ -56,7 +34,7 @@ class Step3 extends React.PureComponent {
       <Result
         type="success"
         title="操作成功"
-        description="预计两小时通过审核"
+        description={question.status=="check"?"预计两小时通过审核":""}
         extra={information}
         actions={actions}
         className={styles.result}
@@ -65,6 +43,6 @@ class Step3 extends React.PureComponent {
   }
 }
 
-export default connect(({ form }) => ({
-  data: form.step,
+export default connect(({ form , fyQuestion}) => ({
+  data: form.step, fyQuestion
 }))(Step3);
