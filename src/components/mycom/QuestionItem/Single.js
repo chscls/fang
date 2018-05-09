@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Select, Alert, message, Button, Radio, Switch } from 'antd';
 import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
+import { truncate } from 'fs';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
@@ -47,11 +48,11 @@ export default class Single extends PureComponent {
 
     const value = props.value || {};
     var x = value.items;
-
+    var y = value.isQuestionnaire
     
     this.state = {
       items: x,
-      isQuestionnaire: false
+      isQuestionnaire: y
     };
   }
   onChange = checked => {
@@ -100,6 +101,19 @@ export default class Single extends PureComponent {
       onChange(Object.assign({}, this.state, changedValue));
     }
   };
+  onChangeRadio = e => {
+    var items = this.state.items;
+    for(var i=0;i<items.length;i++){
+      items[i].isSolution=false
+      if(i==e.target.value){
+        items[i].isSolution=true
+      }
+    }
+    if (!('value' in this.props)) {
+      this.setState({ items });
+    }
+    this.triggerChange({ items });
+  }
   render() {
     const { size } = this.props;
     const state = this.state;
@@ -113,7 +127,7 @@ export default class Single extends PureComponent {
           message="请选择一个正确答案,并保证至少有2个选项"
           style={{ marginBottom: 24 }}
         />
-        {!isQuestionnaire ? <RadioGroup>
+        {!isQuestionnaire ? <RadioGroup onChange={this.onChangeRadio}>
           {state.items.map((r, i) => {
             return (
               <ul>

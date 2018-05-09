@@ -22,6 +22,7 @@ class Step2 extends React.PureComponent {
     this.state = {
       id: 0,
       isRich: false,
+      isQuestionnaire:false,
       title: '',
       isReady: false,
       items: [],
@@ -55,6 +56,7 @@ class Step2 extends React.PureComponent {
             id: question.id,
             items: items,
             isRich: question.isRich,
+            isQuestionnaire:question.isQuestionnaire,
             title: question.title,
           });
         },
@@ -65,7 +67,7 @@ class Step2 extends React.PureComponent {
     const { form, data, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
-
+    const isQuestionnaire = this.state.isQuestionnaire
 
   
 
@@ -105,7 +107,7 @@ class Step2 extends React.PureComponent {
 
             <Form.Item style={{ maxWidth: 1000 }} {...formItemLayout} label="选项">
               {getFieldDecorator('options', {
-                initialValue: { items: items,isQuestionnaire:false }
+                initialValue: { items: items,isQuestionnaire:isQuestionnaire }
               })(<Single />)}
             </Form.Item>
 
