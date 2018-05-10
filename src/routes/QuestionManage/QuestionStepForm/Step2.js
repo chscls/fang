@@ -31,6 +31,9 @@ class Step2 extends React.PureComponent {
       type:"single"
     };
   }
+  preHandle=(question)=>{
+
+  }
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.dispatch({
