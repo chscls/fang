@@ -295,16 +295,16 @@ export default class QuestionList extends PureComponent {
         width: 400,
         render: record =>
 
-<Tooltip overlayStyle={{minWidth:400}} title={<SingleView style={{backgroundColor:"white",color:"black"}} question={record}/>}>
-{record.isRich ? 
-            <div dangerouslySetInnerHTML={{ __html: record.title }} />
-           : 
-            <Ellipsis  lines={3}>
-              {record.title}
-            </Ellipsis>}
-  </Tooltip>
-         
-          ,
+          <Tooltip overlayStyle={{ minWidth: 400 }} title={<SingleView style={{ backgroundColor: "white", color: "black" }} question={record} />}>
+            {record.isRich ?
+              <div dangerouslySetInnerHTML={{ __html: record.title }} />
+              :
+              <Ellipsis lines={3}>
+                {record.title}
+              </Ellipsis>}
+          </Tooltip>
+
+        ,
       },
       {
         title: '题型',
