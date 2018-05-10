@@ -30,9 +30,7 @@ export default class Single extends PureComponent {
       this.setState(value);
     }
   }
-  componentDidMount() {
-
-  }
+ 
   add = () => {
     var items = this.state.items;
     items.push({ content: '', isSolution: false, isRich: false });

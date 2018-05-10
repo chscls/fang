@@ -41,7 +41,7 @@ class Step1 extends React.PureComponent {
   }
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
-    console.log(tags);
+
     this.setState({ tags });
   };
 
@@ -99,7 +99,7 @@ class Step1 extends React.PureComponent {
   };
 
   render() {
-    console.log(this.state.isRich);
+    
     const { tags, inputVisible, inputValue, isRich } = this.state;
     const { form, dispatch, data, fyQuestion: { question } } = this.props;
     const { getFieldDecorator, validateFields } = form;
