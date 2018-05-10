@@ -7,7 +7,7 @@ const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
-export default class Fill extends PureComponent {
+export default class Ask extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -31,27 +31,8 @@ export default class Fill extends PureComponent {
     }
   }
  
-  add = () => {
-    var items = this.state.items;
-    items.push({ content: '', isSolution: false, isRich: false });
-    if (!('value' in this.props)) {
-      this.setState({ items });
-    }
-    this.triggerChange({ items });
-  };
-  delete = index => {
-    var items = this.state.items;
-    if (items.length <= 1) {
-      message.error('至少保留1个空');
-      return;
-    }
-    items.splice(index, 1);
-
-    if (!('value' in this.props)) {
-      this.setState({ items });
-    }
-    this.triggerChange({ items });
-  };
+ 
+ 
   changeRich = (index, e) => {
     var items = this.state.items;
     items[index].isRich = e;
@@ -121,21 +102,9 @@ export default class Fill extends PureComponent {
           state.items.map((r, i) => {
             return (
               <ul key={i}>
-                <li style={{ display: 'inline' }}>
-                 
-                  {r.isRich ?
-                    <span style={{ width: 30 }}>{i + 1} </span>
-                    :
-                    ''
-                  }
-                </li>
+               
 
-                {r.isRich ?
-                  <li style={{ display: 'inline' }}>
-                    <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
-                  </li>
-                  :
-                  ''}
+              
                 {r.isRich ?
                   <li style={{ display: 'inline' }}>
 
@@ -158,20 +127,13 @@ export default class Fill extends PureComponent {
                     :
                     <Input onChange={this.onChangeInput.bind(this, i)}
                       style={{ width: 500 }}
-                      addonBefore={<span style={{ width: 30 }}>{i + 1}</span>}
                       defaultValue={r.content}
-                      placeholder="请输入选项"
+                      placeholder="请输入答案"
                     />
                   }
                 </li>
 
-                {r.isRich ?
-                  '' :
-                  <li style={{ display: 'inline' }}>
-                    <Button type="primary" icon="delete" onClick={this.delete.bind(this, i)} />
-                  </li>
-                }
-
+                
                 {r.isRich ? '' :
                   <li style={{ display: 'inline' }}>
 
@@ -263,9 +225,7 @@ export default class Fill extends PureComponent {
 
         }
         <div>
-          <Button type="primary" icon="plus" onClick={this.add}>
-            新增选项
-          </Button> &nbsp;&nbsp;&nbsp;
+          
           <Switch onChange={this.onChange}
             checkedChildren="问卷模式"
             unCheckedChildren="试卷模式"
