@@ -8,6 +8,7 @@ import { single } from 'rxjs/operators';
 import SingleView from '../../../components/mycom/QuestionItem/SingleView';
 import JudgeView from '../../../components/mycom/QuestionItem/JudgeView';
 import MutiplyView from '../../../components/mycom/QuestionItem/MutiplyView';
+import FillView from '../../../components/mycom/QuestionItem/FillView';
 class Step3 extends React.PureComponent {
  
   render() {
@@ -23,7 +24,9 @@ class Step3 extends React.PureComponent {
       <div className={styles.information}>
         {question.type=="single"?<SingleView question={question}/>
         :question.type=="mutiply"?<MutiplyView question={question}/>
-        :question.type=="judge"?<JudgeView question={question}/>:
+        :question.type=="judge"?<JudgeView question={question}/>
+        :question.type=="fill"?<FillView question={question}/>:
+        
         <SingleView question={question}/>}
       </div>
     );

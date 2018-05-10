@@ -28,6 +28,7 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import SingleView from '../../components/mycom/QuestionItem/SingleView';
 import JudgeView from '../../components/mycom/QuestionItem/JudgeView';
 import MutiplyView from '../../components/mycom/QuestionItem/MutiplyView';
+import FillView from '../../components/mycom/QuestionItem/FillView';
 import styles from './QuestionList.less';
 
 const FormItem = Form.Item;
@@ -303,7 +304,8 @@ export default class QuestionList extends PureComponent {
             
             <SingleView style={{ backgroundColor: "white", color: "black" }} question={record} />
           :record.type=="mutiply"?<MutiplyView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="judge"?<JudgeView style={{ backgroundColor: "white", color: "black" }} question={record} />:""
+          :record.type=="judge"?<JudgeView style={{ backgroundColor: "white", color: "black" }} question={record} />
+          :record.type=="fill"?<FillView style={{ backgroundColor: "white", color: "black" }} question={record} />:""
           }>
             {record.isRich ?
               <div dangerouslySetInnerHTML={{ __html: record.title }} />

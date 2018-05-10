@@ -6,6 +6,7 @@ import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
 import Judge from '../../../components/mycom/QuestionItem/Judge';
 import Mutiply from '../../../components/mycom/QuestionItem/Mutiply';
+import Fill from '../../../components/mycom/QuestionItem/Fill';
 import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 
@@ -150,7 +151,10 @@ class Step2 extends React.PureComponent {
               {getFieldDecorator('options', {
                 initialValue: { items: items,isQuestionnaire:isQuestionnaire }
               })(type=="single"?
-                  <Single />:type=="judge"? <Judge />:type=="mutiply"? <Mutiply/>:<Single />
+                  <Single />:type=="judge"? <Judge />:type=="mutiply"? <Mutiply/>
+                  
+                  :type=="fill"? <Fill/>:
+                  <Single />
                  
                 
               
