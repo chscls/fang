@@ -7,14 +7,12 @@ const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
-export default class SingleView extends PureComponent {
+export default class Judge extends PureComponent {
   constructor(props) {
     super(props);
 
-    
-    
+   
   }
- 
 
   render() {
     const { size,question } = this.props;
@@ -30,42 +28,23 @@ export default class SingleView extends PureComponent {
       }
     }
     return (
-      <div style={this.props.style}>
-        { question.isRich ? (
+        <div style={this.props.style}>
+         { question.isRich ? (
                 <div dangerouslySetInnerHTML={{ __html:  question.title }} />
               ) : (
                 <div> { question.title}</div>
               )}
-        {!isQuestionnaire ? <RadioGroup  defaultValue={defaultValue}>
+         <RadioGroup defaultValue={defaultValue}>
           {items.map((r, i) => {
             return (
-              <div key={i}>
-               {String.fromCharCode(i + 65)}、 <Radio value={i} key={i} disabled={i!=defaultValue}/>
-                
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content}} /> :r.content }
-                </div>
-             
+            
+            <div><Radio value={i} key={i} disabled={i!=defaultValue}/>{r.content}</div>
+               
             );
           })}
-        </RadioGroup> :
-
-          <div>
-
-            {state.items.map((r, i) => {
-              return (
-                <div key={i}>
-           
-                {String.fromCharCode(i + 65)}、
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content}} /> :r.content }
-                </div>
-              );
-            })}
-
-          </div>
-
-
-        }
-      
+        </RadioGroup> 
+       
+        
       </div>
     );
   }

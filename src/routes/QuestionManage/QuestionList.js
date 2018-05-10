@@ -26,6 +26,8 @@ import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import SingleView from '../../components/mycom/QuestionItem/SingleView';
+import JudgeView from '../../components/mycom/QuestionItem/JudgeView';
+
 import styles from './QuestionList.less';
 
 const FormItem = Form.Item;
@@ -295,7 +297,13 @@ export default class QuestionList extends PureComponent {
         width: 400,
         render: record =>
 
-          <Tooltip overlayStyle={{ minWidth: 400 }} title={<SingleView style={{ backgroundColor: "white", color: "black" }} question={record} />}>
+          <Tooltip overlayStyle={{ minWidth: 400 }} title={record.type=="single"?
+            
+            
+            
+            <SingleView style={{ backgroundColor: "white", color: "black" }} question={record} />
+          :record.type=="judge"?<JudgeView style={{ backgroundColor: "white", color: "black" }} question={record} />:""
+          }>
             {record.isRich ?
               <div dangerouslySetInnerHTML={{ __html: record.title }} />
               :
