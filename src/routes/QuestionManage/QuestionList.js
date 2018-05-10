@@ -57,6 +57,7 @@ export default class QuestionList extends PureComponent {
   }
   getPage = params => {
     const pagination = this.props.fyQuestion.data.pagination;
+
     if (params == null) {
       params = {
         pageNo: pagination.current ? pagination.current : 1,
@@ -258,7 +259,7 @@ export default class QuestionList extends PureComponent {
         ids: [id],
       },
       callback: () => {
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
@@ -276,7 +277,7 @@ export default class QuestionList extends PureComponent {
         this.setState({
           selectedRows: [],
         });
-        this.getPage(1);
+        this.getPage();
       },
     });
   };

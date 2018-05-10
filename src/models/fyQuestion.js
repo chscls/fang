@@ -59,14 +59,14 @@ export default {
     },
     *clear({ payload, callback }, { call, put }) {
       yield put({
-        type: 'clearQ',
+        type: 'ok',
         payload: null,
       });
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeQuestion, payload);
       yield put({
-        type: 'suc',
+        type: 'nom',
         payload: response,
       });
       if (callback) callback();
@@ -86,12 +86,11 @@ export default {
         question: action.payload,
       };
     },
-
-    clearQ(state, action) {
+    nom(state, action) {
       return {
         ...state,
-        question: action.payload,
       };
     },
+  
   },
 };

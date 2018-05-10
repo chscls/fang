@@ -24,9 +24,9 @@ class Step3 extends React.PureComponent {
     );
     const actions = (
       <Fragment>
-      <Button type="primary" onClick={onFinish}>
+     {/*  <Button type="primary" onClick={onFinish}>
           再建一题
-        </Button>
+        </Button> */}
         <Button onClick={onViewList}>查看题库</Button>
       </Fragment>
     );
