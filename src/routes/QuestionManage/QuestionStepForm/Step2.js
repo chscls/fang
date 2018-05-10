@@ -5,6 +5,7 @@ import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
 import Judge from '../../../components/mycom/QuestionItem/Judge';
+import Mutiply from '../../../components/mycom/QuestionItem/Mutiply';
 import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 
@@ -49,7 +50,7 @@ class Step2 extends React.PureComponent {
         callback: question => {
 
          const items =  question.items
-         if(question.type=="single"){
+         if(question.type=="single"||question.type=="mutiply"){
           if (items.length == 0) {
             items.push({ content: '', isSolution: false,isRich:false });
             items.push({ content: '', isSolution: false,isRich:false });
@@ -79,6 +80,10 @@ class Step2 extends React.PureComponent {
               items.push({ content: '对', isSolution: false,isRich:false });
               items.push({ content: '错', isSolution: false,isRich:false });
             }
+          }
+        }else{
+          if (items.length == 0) {
+            items.push({ content: '', isSolution: false,isRich:false });
           }
         }
 
@@ -145,7 +150,7 @@ class Step2 extends React.PureComponent {
               {getFieldDecorator('options', {
                 initialValue: { items: items,isQuestionnaire:isQuestionnaire }
               })(type=="single"?
-                  <Single />:type=="judge"? <Judge />:""
+                  <Single />:type=="judge"? <Judge />:type=="mutiply"? <Mutiply/>:<Single />
                  
                 
               
