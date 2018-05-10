@@ -291,6 +291,22 @@ export default class QuestionList extends PureComponent {
         dataIndex: 'id',
       },
       {
+        title: '标题',
+        width: 400,
+        render: record =>
+
+<Tooltip overlayStyle={{minWidth:400}} title={<SingleView style={{backgroundColor:"white",color:"black"}} question={record}/>}>
+{record.isRich ? 
+            <div dangerouslySetInnerHTML={{ __html: record.title }} />
+           : 
+            <Ellipsis  lines={3}>
+              {record.title}
+            </Ellipsis>}
+  </Tooltip>
+         
+          ,
+      },
+      {
         title: '题型',
         dataIndex: 'type',
         filters: [
@@ -328,22 +344,6 @@ export default class QuestionList extends PureComponent {
             </span>
           );
         },
-      },
-      {
-        title: '标题',
-        width: 400,
-        render: record =>
-
-<Tooltip overlayStyle={{minWidth:400}} title={<SingleView style={{backgroundColor:"white",color:"black"}} question={record}/>}>
-{record.isRich ? 
-            <div dangerouslySetInnerHTML={{ __html: record.title }} />
-           : 
-            <Ellipsis  lines={3}>
-              {record.title}
-            </Ellipsis>}
-  </Tooltip>
-         
-          ,
       },
       {
         title: '难度等级',
