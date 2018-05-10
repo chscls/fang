@@ -33,7 +33,7 @@ export default class FillView extends PureComponent {
           items.map((r, i) => {
             return (
               <div key={i}>
-               {i + 1}、
+               {"空"+(i + 1)}、
                 
                   {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content}} /> :r.content }
                 </div>
