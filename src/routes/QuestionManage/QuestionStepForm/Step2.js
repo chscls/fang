@@ -4,7 +4,9 @@ import { Form, Input, Button, Alert, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
+import Judge from '../../../components/mycom/QuestionItem/Judge';
 import styles from './style.less';
+import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 
 const formItemLayout = {
   labelCol: {
@@ -26,6 +28,7 @@ class Step2 extends React.PureComponent {
       title: '',
       isReady: false,
       items: [],
+      type:"single"
     };
   }
   componentDidMount() {
@@ -43,13 +46,38 @@ class Step2 extends React.PureComponent {
         callback: question => {
 
          const items =  question.items
+         if(question.type=="single"){
           if (items.length == 0) {
             items.push({ content: '', isSolution: false,isRich:false });
             items.push({ content: '', isSolution: false,isRich:false });
           } else if (items.length == 1) {
             items.push({ content: '', isSolution: false,isRich:false });
           }
+        }else if(question.type=="judge"){
+          
+          if (items.length == 0) {
+            items.push({ content: '对', isSolution: false,isRich:false });
+            items.push({ content: '错', isSolution: false,isRich:false });
+          }else if(items.length == 1) {
+            items[0].content=="对"
+            items.push({ content: '错', isSolution: false,isRich:false });
 
+          }else if(items.length >= 2) {
+            if( items[0].isSolution){
+              items.splice(0,items.length);
+              items.push({ content: '对', isSolution: true,isRich:false });
+              items.push({ content: '错', isSolution: false,isRich:false });
+            }else if(items[1].isSolution){
+              items.splice(0,items.length);
+              items.push({ content: '对', isSolution: true,isRich:false });
+              items.push({ content: '错', isSolution: false,isRich:false });
+            }else{
+              items.splice(0,items.length);
+              items.push({ content: '对', isSolution: false,isRich:false });
+              items.push({ content: '错', isSolution: false,isRich:false });
+            }
+          }
+        }
 
           this.setState({
             isReady: true,
@@ -58,6 +86,7 @@ class Step2 extends React.PureComponent {
             isRich: question.isRich,
             isQuestionnaire:question.isQuestionnaire,
             title: question.title,
+            type:question.type,
           });
         },
       });
@@ -68,7 +97,7 @@ class Step2 extends React.PureComponent {
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
     const isQuestionnaire = this.state.isQuestionnaire
-
+    const type=this.state.type
   
 
 
@@ -112,7 +141,12 @@ class Step2 extends React.PureComponent {
             <Form.Item style={{ maxWidth: 1000 }} {...formItemLayout} label="选项">
               {getFieldDecorator('options', {
                 initialValue: { items: items,isQuestionnaire:isQuestionnaire }
-              })(<Single />)}
+              })(type=="single"?
+                  <Single />:type=="judge"? <Judge />:""
+                 
+                
+              
+              )}
             </Form.Item>
 
             <Form.Item
