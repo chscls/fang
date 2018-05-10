@@ -334,7 +334,7 @@ export default class QuestionList extends PureComponent {
         width: 400,
         render: record =>
 
-<Tooltip overlayStyle={{minWidth:400}} title={<SingleView color="white" question={record}/>}>
+<Tooltip overlayStyle={{minWidth:400}} title={<SingleView style={{backgroundColor:"white",color:"black"}} question={record}/>}>
 {record.isRich ? 
             <div dangerouslySetInnerHTML={{ __html: record.title }} />
            : 
