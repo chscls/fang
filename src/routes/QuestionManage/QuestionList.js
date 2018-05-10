@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
 import {
+  Tooltip,
   Row,
   Col,
   Card,
@@ -24,7 +25,7 @@ import {
 import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-
+import SingleView from '../../components/mycom/QuestionItem/SingleView';
 import styles from './QuestionList.less';
 
 const FormItem = Form.Item;
@@ -331,13 +332,17 @@ export default class QuestionList extends PureComponent {
         title: '标题',
         width: 400,
         render: record =>
-          record.isRich ? (
+
+<Tooltip overlayStyle={{minWidth:400}} title={<SingleView color="white" question={record}/>}>
+{record.isRich ? 
             <div dangerouslySetInnerHTML={{ __html: record.title }} />
-          ) : (
-            <Ellipsis tooltip lines={3}>
+           : 
+            <Ellipsis  lines={3}>
               {record.title}
-            </Ellipsis>
-          ),
+            </Ellipsis>}
+  </Tooltip>
+         
+          ,
       },
       {
         title: '难度等级',

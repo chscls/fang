@@ -33,7 +33,7 @@ export default class SingleView extends PureComponent {
       }
     }
     return (
-      <div>
+      <div style={{backgroundColor:"white",color:"black"}}>
         { question.isRich ? (
                 <div dangerouslySetInnerHTML={{ __html:  question.title }} />
               ) : (
