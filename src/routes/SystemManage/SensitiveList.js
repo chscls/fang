@@ -49,20 +49,25 @@ export default class SensitiveList extends PureComponent {
   };
 
   componentDidMount() {
-    this.getPage(1);
+    this.getPage();
   }
-  getPage = (pageNo, search) => {
+
+  getPage = params => {
+    const pagination = this.props.fySensitive.data.pagination;
+
+    if (params == null) {
+      params = {
+        pageNo: pagination.current ? pagination.current : 1,
+        pageSize: pagination.pageSize ? pagination.pageSize : 10,
+        ...this.state.formValues,
+      };
+    }
     const { dispatch } = this.props;
     dispatch({
       type: 'fySensitive/fetch',
-      payload: {
-        pageSize: 20,
-        pageNo: pageNo,
-        ...search,
-      },
+      payload: params,
     });
   };
-
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
     const { formValues } = this.state;
@@ -74,7 +79,7 @@ export default class SensitiveList extends PureComponent {
     }, {});
 
     const params = {
-      currentPage: pagination.current,
+      pageNo: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
       ...filters,
@@ -83,7 +88,7 @@ export default class SensitiveList extends PureComponent {
       params.sorter = `${sorter.field}_${sorter.order}`;
     }
 
-    this.getPage(1);
+    this.getPage(params);
   };
 
   handleFormReset = () => {
@@ -92,7 +97,7 @@ export default class SensitiveList extends PureComponent {
     this.setState({
       formValues: {},
     });
-    this.getPage(1);
+    this.getPage();
   };
 
   toggleForm = () => {
@@ -138,7 +143,7 @@ export default class SensitiveList extends PureComponent {
         formValues: values,
       });
 
-      this.getPage(1, values);
+      this.getPage();
     });
   };
 
@@ -170,7 +175,7 @@ export default class SensitiveList extends PureComponent {
         this.setState({
           modalVisible: false,
         });
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
