@@ -255,7 +255,7 @@ export default class TestList extends PureComponent {
         ids: [id],
       },
       callback: () => {
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
@@ -273,7 +273,7 @@ export default class TestList extends PureComponent {
         this.setState({
           selectedRows: [],
         });
-        this.getPage(1);
+        this.getPage();
       },
     });
   };

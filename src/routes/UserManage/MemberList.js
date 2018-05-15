@@ -264,7 +264,7 @@ export default class MemberList extends PureComponent {
         ids: [id],
       },
       callback: () => {
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
@@ -282,7 +282,7 @@ export default class MemberList extends PureComponent {
         this.setState({
           selectedRows: [],
         });
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
