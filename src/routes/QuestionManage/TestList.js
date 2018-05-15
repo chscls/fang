@@ -49,19 +49,25 @@ export default class TestList extends PureComponent {
   };
 
   componentDidMount() {
-    this.getPage(1);
+    this.getPage();
   }
-  getPage = (pageNo, search) => {
+  getPage = params => {
+    const pagination = this.props.fyTest.data.pagination;
+
+    if (params == null) {
+      params = {
+        pageNo: pagination.current ? pagination.current : 1,
+        pageSize: pagination.pageSize ? pagination.pageSize : 10,
+        ...this.state.formValues,
+      };
+    }
     const { dispatch } = this.props;
     dispatch({
       type: 'fyTest/fetch',
-      payload: {
-        pageSize: 20,
-        pageNo: pageNo,
-        ...search,
-      },
+      payload: params,
     });
   };
+ 
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
@@ -74,7 +80,7 @@ export default class TestList extends PureComponent {
     }, {});
 
     const params = {
-      currentPage: pagination.current,
+      pageNo: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
       ...filters,
@@ -83,7 +89,7 @@ export default class TestList extends PureComponent {
       params.sorter = `${sorter.field}_${sorter.order}`;
     }
 
-    this.getPage(1);
+    this.getPage(params);
   };
 
   handleFormReset = () => {
@@ -92,7 +98,7 @@ export default class TestList extends PureComponent {
     this.setState({
       formValues: {},
     });
-    this.getPage(1);
+    this.getPage();
   };
 
   toggleForm = () => {
@@ -138,7 +144,7 @@ export default class TestList extends PureComponent {
         formValues: values,
       });
 
-      this.getPage(1, values);
+      this.getPage();
     });
   };
 
@@ -170,7 +176,7 @@ export default class TestList extends PureComponent {
         this.setState({
           modalVisible: false,
         });
-        this.getPage(1);
+        this.getPage();
       },
     });
   };
