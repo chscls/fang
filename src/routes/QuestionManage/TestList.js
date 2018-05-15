@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
+import { Link } from 'dva/router';
 import moment from 'moment';
 import {
   Row,
@@ -322,7 +323,7 @@ export default class TestList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-            <a onClick={this.modify.bind(this, record)}>修改</a>
+             <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
@@ -371,9 +372,11 @@ export default class TestList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
+            <Link to="/question-manage/test-add/info/0">
+             <Button icon="plus" type="primary" >
                 新建
               </Button>
+              </Link>
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>

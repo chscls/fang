@@ -479,7 +479,6 @@ export default class QuestionList extends PureComponent {
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
               <Link to="/question-manage/question-add/info/0">
-                {' '}
                 <Button icon="plus" type="primary">
                   新建
                 </Button>

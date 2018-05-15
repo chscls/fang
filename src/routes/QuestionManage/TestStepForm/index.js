@@ -27,12 +27,12 @@ export default class TestStepForm extends PureComponent {
   render() {
     const { match, routerData } = this.props;
     return (
-      <PageHeaderLayout title="分步建题" content="3步建题">
+      <PageHeaderLayout title="分步建试卷" content="3步建试卷">
         <Card bordered={false}>
           <Fragment>
             <Steps current={this.getCurrentStep()} className={styles.steps}>
-              <Step title="填写题目基本信息" />
-              <Step title="填写题目详情" />
+              <Step title="填写试卷基本信息" />
+              <Step title="填写试卷详情" />
               <Step title="完成" />
             </Steps>
             <Switch>
