@@ -26,7 +26,7 @@ const marks = {
   100: '难',
 };
 @Form.create()
-class QuestionStep1 extends React.PureComponent {
+class TestStep1 extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -246,4 +246,4 @@ class QuestionStep1 extends React.PureComponent {
 export default connect(({ form, fyQuestion }) => ({
   data: form.step,
   fyQuestion,
-}))(QuestionStep1);
+}))(TestStep1);

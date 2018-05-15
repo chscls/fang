@@ -21,7 +21,7 @@ const formItemLayout = {
 };
 
 @Form.create()
-class QuestionStep2 extends React.PureComponent {
+class TestStep2 extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -202,4 +202,4 @@ export default connect(({ form, loading, fyQuestion }) => ({
   submitting: loading.effects['form/submitStepForm'],
   data: form.step,
   fyQuestion,
-}))(QuestionStep2);
+}))(TestStep2);

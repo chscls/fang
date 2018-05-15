@@ -10,7 +10,7 @@ import JudgeView from '../../../components/mycom/QuestionItem/JudgeView';
 import MutiplyView from '../../../components/mycom/QuestionItem/MutiplyView';
 import FillView from '../../../components/mycom/QuestionItem/FillView';
 import AskView from '../../../components/mycom/QuestionItem/AskView';
-class QuestionStep3 extends React.PureComponent {
+class TestStep3 extends React.PureComponent {
  
   render() {
     const { dispatch, data ,fyQuestion} = this.props;
@@ -54,4 +54,4 @@ class QuestionStep3 extends React.PureComponent {
 
 export default connect(({ form , fyQuestion}) => ({
   data: form.step, fyQuestion
-}))(QuestionStep3);
+}))(TestStep3);

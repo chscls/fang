@@ -190,6 +190,29 @@ export const getRouterData = app => {
     '/question-manage/test-list': {
       component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
     },
+    '/question-manage/test-add': {
+      component: dynamicWrapper(app, ['form'], () =>
+        import('../routes/QuestionManage/TestStepForm')
+      ),
+    },
+    '/question-manage/test-add/info/:id': {
+      name: '分步建试卷（填写试卷基本信息）',
+      component: dynamicWrapper(app, ['form', 'fyTest'], () =>
+        import('../routes/QuestionManage/TestStepForm/Step1')
+      ),
+    },
+    '/question-manage/test-add/confirm/:id': {
+      name: '分步建试卷（填写试卷详情）',
+      component: dynamicWrapper(app, ['form', 'fyTest'], () =>
+        import('../routes/QuestionManage/TestStepForm/Step2')
+      ),
+    },
+    '/question-manage/test-add/result/:id': {
+      name: '分步建试卷（完成）',
+      component: dynamicWrapper(app, ['form', 'fyTest'], () =>
+        import('../routes/QuestionManage/TestStepForm/Step3')
+      ),
+    },
     '/question-manage/question-add': {
       component: dynamicWrapper(app, ['form'], () =>
         import('../routes/QuestionManage/QuestionStepForm')

@@ -8,7 +8,7 @@ import styles from '../style.less';
 
 const { Step } = Steps;
 
-export default class QuestionStepForm extends PureComponent {
+export default class TestStepForm extends PureComponent {
   getCurrentStep() {
     const { location } = this.props;
     const { pathname } = location;
