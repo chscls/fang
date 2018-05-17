@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Form, Icon, Input, Slider, Button, Select, Divider, Switch, Tag, Radio } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
-import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -128,94 +127,38 @@ class TestStep1 extends React.PureComponent {
       <Fragment>
         {this.state.isReady ? 
           <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-            <Form.Item {...formItemLayout} label="题型">
+           
+           <Form.Item {...formItemLayout} label="标题">
+              {
+                getFieldDecorator('title', {
+                  initialValue: question ? question.title : '',
+                  rules: [{ required: true, message: '请输入标题' }],
+                })(<Input  placeholder="请输入标题" />)
+              }
+            </Form.Item>
+            <Form.Item {...formItemLayout} label="模式">
               {getFieldDecorator('type', {
                 initialValue: question ? question.type : 'single',
-                rules: [{ required: true, message: '请选择题型' }],
+                rules: [{ required: true, message: '请选择模式' }],
               })(
                 <RadioGroup>
-                  <RadioButton value="single">单选</RadioButton>
-                  <RadioButton value="mutiply">多选</RadioButton>
-                  <RadioButton value="judge">判断</RadioButton>
-                  <RadioButton value="fill">填空</RadioButton>
-                  <RadioButton value="ask">问答</RadioButton>
+                  <RadioButton value="single">自由</RadioButton>
+                  <RadioButton value="mutiply">单题限时</RadioButton>
+                  <RadioButton value="judge">总限时</RadioButton>
+                  <RadioButton value="fill">竞赛</RadioButton>
+                
                 </RadioGroup>
               )}
             </Form.Item>
-
-            <Form.Item {...formItemLayout} label="标签">
-              {tags.map((tag, index) => {
-                const isLongTag = tag.length > 20;
-                const tagElem = (
-                  <Tag key={tag} closable={true} afterClose={() => this.handleClose(tag)}>
-                    {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-                  </Tag>
-                );
-                return isLongTag ? (
-                  <Tooltip title={tag} key={tag}>
-                    {tagElem}
-                  </Tooltip>
-                ) : (
-                  tagElem
-                );
-              })}
-              {inputVisible && (
-                <Input
-                  ref={this.saveInputRef}
-                  type="text"
-                  size="small"
-                  style={{ width: 78 }}
-                  value={inputValue}
-                  onChange={this.handleInputChange}
-                  onBlur={this.handleInputConfirm}
-                  onPressEnter={this.handleInputConfirm}
-                />
-              )}
-              {!inputVisible && (
-                <Tag onClick={this.showInput} style={{ background: '#fff', borderStyle: 'dashed' }}>
-                  <Icon type="plus" /> 新标签
-                </Tag>
-              )}
-            </Form.Item>
-            <Form.Item {...formItemLayout} label="标题富文本">
-              {getFieldDecorator('isRich', {
+            <Form.Item {...formItemLayout} label="是否问卷">
+              {getFieldDecorator('isQuestionnaire', {
                 initialValue: isRich,
               })(<Switch defaultChecked={isRich} onChange={this.onChange} />)}
             </Form.Item>
 
-            <Form.Item {...formItemLayout} label="标题">
-              {this.state.isRich ? (
-                <RichEditor
-                defaultValue={question ? question.title : ''}
-                  className="ant-row ant-form-item"
-                  onChangeValue={this.onChangeValue}
-                />
-              ) : (
-                getFieldDecorator('title', {
-                  initialValue: question ? question.title : '',
-                  rules: [{ required: true, message: '请输入标题' }],
-                })(<TextArea rows={4} placeholder="请输入标题" />)
-              )}
-            </Form.Item>
-            <Form.Item {...formItemLayout} label="分数">
-              {getFieldDecorator('score', {
-                initialValue: question ? question.score : 1,
-                rules: [
-                  { required: true, message: '请输入分数' },
-                  {
-                    pattern: /^(\d+)((?:\.\d+)?)$/,
-                    message: '请输入合法数字',
-                  },
-                ],
-              })(<Input placeholder="请输入分数" />)}
-            </Form.Item>
-            <Form.Item {...formItemLayout} label="难度">
-              {getFieldDecorator('difficulty', {
-                initialValue: question ? question.difficulty : 0,
-                rules: [{ required: true, message: '难度' }],
-              })(<Slider marks={marks} step={null} />)}
-            </Form.Item>
-
+           
+           
+           
             <Form.Item
               wrapperCol={{
                 xs: { span: 24, offset: 0 },
