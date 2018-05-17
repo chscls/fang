@@ -34,86 +34,42 @@ class TestStep2 extends React.PureComponent {
       type:"single"
     };
   }
-  preHandle=(question)=>{
 
-  }
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.dispatch({
-      type: 'fyQuestion/clear',
+      type: 'fyTest/clear',
       payload: null,
     });
     if (id == 0) {
       this.setState({ isReady: true });
     } else {
       this.props.dispatch({
-        type: 'fyQuestion/find',
+        type: 'fyTest/find',
         payload: { id: id },
-        callback: question => {
+        callback: test => {
 
-         const items =  question.items
-         if(question.type=="single"||question.type=="mutiply"){
-          if (items.length == 0) {
-            items.push({ content: '', isSolution: false,isRich:false });
-            items.push({ content: '', isSolution: false,isRich:false });
-          } else if (items.length == 1) {
-            items.push({ content: '', isSolution: false,isRich:false });
-          }
-        }else if(question.type=="judge"){
-          
-          if (items.length == 0) {
-            items.push({ content: '对', isSolution: false,isRich:false });
-            items.push({ content: '错', isSolution: false,isRich:false });
-          }else if(items.length == 1) {
-            items[0].content=="对"
-            items.push({ content: '错', isSolution: false,isRich:false });
-
-          }else if(items.length >= 2) {
-            if( items[0].isSolution){
-              items.splice(0,items.length);
-              items.push({ content: '对', isSolution: true,isRich:false });
-              items.push({ content: '错', isSolution: false,isRich:false });
-            }else if(items[1].isSolution){
-              items.splice(0,items.length);
-              items.push({ content: '对', isSolution: true,isRich:false });
-              items.push({ content: '错', isSolution: false,isRich:false });
-            }else{
-              items.splice(0,items.length);
-              items.push({ content: '对', isSolution: false,isRich:false });
-              items.push({ content: '错', isSolution: false,isRich:false });
-            }
-          }
-        }else{
-          if (items.length == 0) {
-            items.push({ content: '', isSolution: false,isRich:false });
-          }
-        }
+        
 
           this.setState({
             isReady: true,
-            id: question.id,
-            items: items,
-            isRich: question.isRich,
-            isQuestionnaire:question.isQuestionnaire,
-            title: question.title,
-            type:question.type,
+            id: test.id,
+            isQuestionnaire:test.isQuestionnaire,
           });
         },
       });
     }
   }
   render() {
-    const { form, data, dispatch, submitting } = this.props;
+    const { form, data, dispatch, submitting ,fyTest: { test } } = this.props;
     const { getFieldDecorator, validateFields } = form;
-    const items = this.state.items;
-    const isQuestionnaire = this.state.isQuestionnaire
-    const type=this.state.type
-  
+
+
 
 
 
     const onPrev = () => {
-      dispatch(routerRedux.push(`/question-manage/question-add/info/${this.state.id}`));
+      dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
     };
     const onValidateForm = e => {
       
@@ -122,14 +78,13 @@ class TestStep2 extends React.PureComponent {
         
         if (!err) {
           dispatch({
-            type: 'fyQuestion/updateOptions',
+            type: 'fyTest/updateQuestions',
             payload: {
               id:this.state.id,
-              options:JSON.stringify(values.options.items),
-              isQuestionnaire:values.options.isQuestionnaire,     
+             
             },
             callback: id => {
-              dispatch(routerRedux.push(`/question-manage/question-add/result/${id}`));
+              dispatch(routerRedux.push(`/question-manage/test-add/result/${id}`));
             },
           });
         }
@@ -141,28 +96,12 @@ class TestStep2 extends React.PureComponent {
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
             
             <Form.Item {...formItemLayout} label="标题">
-              {this.state.isRich ? (
-                <div dangerouslySetInnerHTML={{ __html: this.state.title }} />
-              ) : (
-                <div> {this.state.title}</div>
-              )}
+            
+                <div> {test.title}</div>
+            
             </Form.Item>
 
-            <Form.Item style={{ maxWidth: 1000 }} {...formItemLayout} label="选项">
-              {getFieldDecorator('options', {
-                initialValue: { items: items,isQuestionnaire:isQuestionnaire }
-              })(type=="single"?
-                  <Single />:type=="judge"? <Judge />:type=="mutiply"? <Mutiply/>
-                  
-                  :type=="fill"? <Fill/>
-                  :type=="ask"? <Ask/>:
-                  <Single />
-                 
-                
-              
-              )}
-            </Form.Item>
-
+            
             <Form.Item
               style={{ marginBottom: 8 }}
               wrapperCol={{
@@ -198,8 +137,8 @@ class TestStep2 extends React.PureComponent {
   }
 }
 
-export default connect(({ form, loading, fyQuestion }) => ({
+export default connect(({ form, loading, fyTest }) => ({
   submitting: loading.effects['form/submitStepForm'],
   data: form.step,
-  fyQuestion,
+  fyTest,
 }))(TestStep2);

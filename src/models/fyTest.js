@@ -39,7 +39,7 @@ export default {
         payload: null,
       });
     }, *find({ payload, callback }, { call, put }) {
-      const response = yield call(findQuestion, payload);
+      const response = yield call(findTest, payload);
       yield put({
         type: 'ok',
         payload: response,
