@@ -1,6 +1,6 @@
 import React,{ Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Alert, Divider ,List,Avatar,Checkbox} from 'antd';
+import { Form,Icon, Input, Button, Alert, Divider ,List,Avatar,Checkbox} from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
@@ -138,7 +138,7 @@ class TestStep2 extends React.PureComponent {
             onChange={this.onCheckAllChange}
             checked={this.state.checkAll}
           >
-            Check all
+            全选
           </Checkbox>
             <Checkbox.Group style={{ width: '100%' }} options={this.state.plainOptions} value={this.state.checkedList} onChange={this.onChange}>
             <List
@@ -147,7 +147,7 @@ class TestStep2 extends React.PureComponent {
     renderItem={item => (
      
       <List.Item>
-     <Checkbox value="D"> {item.title}</Checkbox>
+     <Checkbox value="D"/><span > {item.title}<Icon type="close" /><Icon type="pause" /></span>
       </List.Item>
      
     )}
