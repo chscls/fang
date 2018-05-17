@@ -1,9 +1,10 @@
-import { queryTest, removeTest, addTest } from '../services/FyTestMngSvc';
+import { queryTest, removeTest, addTest,findTest } from '../services/FyTestMngSvc';
 
 export default {
   namespace: 'fyTest',
 
   state: {
+    test: null,
     data: {
       list: [],
       pagination: {},
@@ -31,7 +32,19 @@ export default {
         type: 'suc',
         payload: response,
       });
-      if (callback) callback();
+      if (callback) callback(response.id);
+    },*clear({ payload, callback }, { call, put }) {
+      yield put({
+        type: 'ok',
+        payload: null,
+      });
+    }, *find({ payload, callback }, { call, put }) {
+      const response = yield call(findQuestion, payload);
+      yield put({
+        type: 'ok',
+        payload: response,
+      });
+      if (callback) callback(response);
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeTest, payload);
@@ -50,5 +63,17 @@ export default {
         data: action.payload,
       };
     },
+    ok(state, action) {
+      return {
+        ...state,
+        test: action.payload,
+      };
+    },
+    nom(state, action) {
+      return {
+        ...state,
+      };
+    },
+  
   },
 };

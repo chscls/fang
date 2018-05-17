@@ -29,13 +29,12 @@ class TestStep1 extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
-      isRich: false,
+      isQuestionnaire: false,
       isReady: false,
       loading: false,
-      tags: [],
       inputVisible: false,
       inputValue: '',
+      mode:'free',
     };
   }
   handleClose = removedTag => {
@@ -68,56 +67,54 @@ class TestStep1 extends React.PureComponent {
   };
   saveInputRef = input => (this.input = input);
   onChange = checked => {
-    this.setState({ isRich: checked });
+    this.setState({  isQuestionnaire : checked });
   };
+  onChangeMode= e =>{
+    
+    this.setState({mode:e.target.value})
+
+  }
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.dispatch({
-      type: 'fyQuestion/clear',
+      type: 'fyTest/clear',
       payload: null,
     });
     if (id == 0) {
       this.setState({ isReady: true });
     } else {
       this.props.dispatch({
-        type: 'fyQuestion/find',
+        type: 'fyTest/find',
         payload: { id: id },
-        callback: question => {
+        callback: test => {
           this.setState({
             isReady: true,
-            tags: question.tags,
-            text: question.title,
-            isRich: question.isRich,
+            isQuestionnaire: test.isQuestionnaire,
+            mode:test.mode
           });
         },
       });
     }
   }
-  onChangeValue = text => {
-    this.setState({ text: text });
-  };
+ 
 
   render() {
     
-    const { tags, inputVisible, inputValue, isRich } = this.state;
-    const { form, dispatch, data, fyQuestion: { question } } = this.props;
+    const {  inputVisible, inputValue, isQuestionnaire } = this.state;
+    const { form, dispatch, data, fyTest: { test } } = this.props;
     const { getFieldDecorator, validateFields } = form;
 
     const onValidateForm = () => {
       validateFields((err, values) => {
-        if (question) {
-          values = { ...values, id: question.id };
+        if (test) {
+          values = { ...values, id: test.id };
         }
-        if (this.state.isRich) {
-          values = { ...values, title: this.state.text };
-        }
-        values = { ...values, tags: tags };
         if (!err) {
           dispatch({
-            type: 'fyQuestion/add',
+            type: 'fyTest/add',
             payload: values,
             callback: id => {
-              dispatch(routerRedux.push(`/question-manage/question-add/confirm/${id}`));
+              dispatch(routerRedux.push(`/question-manage/test-add/confirm/${id}`));
             },
           });
         }
@@ -131,29 +128,41 @@ class TestStep1 extends React.PureComponent {
            <Form.Item {...formItemLayout} label="标题">
               {
                 getFieldDecorator('title', {
-                  initialValue: question ? question.title : '',
+                  initialValue: test ? test.title : '',
                   rules: [{ required: true, message: '请输入标题' }],
                 })(<Input  placeholder="请输入标题" />)
               }
             </Form.Item>
             <Form.Item {...formItemLayout} label="模式">
-              {getFieldDecorator('type', {
-                initialValue: question ? question.type : 'single',
+              {getFieldDecorator('mode', {
+                initialValue: test ? test.mode : 'free',
                 rules: [{ required: true, message: '请选择模式' }],
               })(
-                <RadioGroup>
-                  <RadioButton value="single">自由</RadioButton>
-                  <RadioButton value="mutiply">单题限时</RadioButton>
-                  <RadioButton value="judge">总限时</RadioButton>
-                  <RadioButton value="fill">竞赛</RadioButton>
+                <RadioGroup onChange={this.onChangeMode}>
+                  <RadioButton value="free">自由</RadioButton>
+                  <RadioButton value="singleLimit">单题限时</RadioButton>
+                  <RadioButton value="totalLimit">总限时</RadioButton>
+                  <RadioButton value="race">竞赛</RadioButton>
                 
                 </RadioGroup>
               )}
             </Form.Item>
+            {this.state.mode=='singleLimit'||this.state.mode=='totalLimit'?<Form.Item {...formItemLayout} label="限时秒数">
+              {getFieldDecorator('limitSecond', {
+                initialValue: test ? test.limitSecond : -1,
+                rules: [
+                  { required: true, message: '请输入秒数' },
+                  {
+                    pattern: /^(\d+)((?:\.\d+)?)$/,
+                    message: '请输入合法数字',
+                  },
+                ],
+              })(<Input placeholder="请输入分数" />)}
+            </Form.Item>:""}
             <Form.Item {...formItemLayout} label="是否问卷">
               {getFieldDecorator('isQuestionnaire', {
-                initialValue: isRich,
-              })(<Switch defaultChecked={isRich} onChange={this.onChange} />)}
+                initialValue:  isQuestionnaire ,
+              })(<Switch defaultChecked={ isQuestionnaire } onChange={this.onChange} />)}
             </Form.Item>
 
            
@@ -186,7 +195,7 @@ class TestStep1 extends React.PureComponent {
   }
 }
 
-export default connect(({ form, fyQuestion }) => ({
+export default connect(({ form, fyTest }) => ({
   data: form.step,
-  fyQuestion,
+  fyTest,
 }))(TestStep1);

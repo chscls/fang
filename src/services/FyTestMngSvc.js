@@ -5,7 +5,9 @@ const ad = config.server + '/services/FyTestMngSvc';
 export async function queryTest(params) {
   return request(`${ad}/queryTest`, params);
 }
-
+export async function findTest(params) {
+  return request(`${ad}/findTest`, params);
+}
 export async function removeTest(params) {
   return request(`${ad}/removeTest`, {
     method: 'POST',
