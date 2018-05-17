@@ -1,6 +1,6 @@
 import React,{ Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Alert, Divider } from 'antd';
+import { Form, Input, Button, Alert, Divider ,List,Avatar,Checkbox} from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
@@ -19,7 +19,8 @@ const formItemLayout = {
     span: 23,
   },
 };
-
+const plainOptions=[]
+const defaultCheckedList = [];
 @Form.create()
 class TestStep2 extends React.PureComponent {
   constructor(props) {
@@ -31,7 +32,11 @@ class TestStep2 extends React.PureComponent {
       title: '',
       isReady: false,
       items: [],
-      type:"single"
+      type:"single",
+      checkedList: [],
+      indeterminate: true,
+      checkAll: false,
+     
     };
   }
 
@@ -60,13 +65,40 @@ class TestStep2 extends React.PureComponent {
       });
     }
   }
+  onChange = (checkedList) => {
+    this.setState({
+      checkedList,
+      indeterminate: !!checkedList.length && (checkedList.length < plainOptions.length),
+      checkAll: checkedList.length === plainOptions.length,
+    });
+  }
+  onCheckAllChange = (e) => {
+    this.setState({
+      checkedList: e.target.checked ? plainOptions : [],
+      indeterminate: false,
+      checkAll: e.target.checked,
+    });
+  }
   render() {
     const { form, data, dispatch, submitting ,fyTest: { test } } = this.props;
     const { getFieldDecorator, validateFields } = form;
 
 
 
-
+    const data2 = [
+      {
+        title: 'Ant Design Title 1',
+      },
+      {
+        title: 'Ant Design Title 2',
+      },
+      {
+        title: 'Ant Design Title 3',
+      },
+      {
+        title: 'Ant Design Title 4',
+      },
+    ];
 
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
@@ -100,8 +132,28 @@ class TestStep2 extends React.PureComponent {
                 <div> {test.title}</div>
             
             </Form.Item>
-
-            
+            <Form.Item {...formItemLayout} label="题目">
+            <Checkbox
+            indeterminate={this.state.indeterminate}
+            onChange={this.onCheckAllChange}
+            checked={this.state.checkAll}
+          >
+            Check all
+          </Checkbox>
+            <Checkbox.Group style={{ width: '100%' }} options={this.state.plainOptions} value={this.state.checkedList} onChange={this.onChange}>
+            <List
+    itemLayout="horizontal"
+    dataSource={data2}
+    renderItem={item => (
+     
+      <List.Item>
+     <Checkbox value="D"> {item.title}</Checkbox>
+      </List.Item>
+     
+    )}
+  />
+   </Checkbox.Group>
+          </Form.Item>  
             <Form.Item
               style={{ marginBottom: 8 }}
               wrapperCol={{
