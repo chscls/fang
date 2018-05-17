@@ -49,7 +49,7 @@ export default {
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeTest, payload);
       yield put({
-        type: 'suc',
+        type: 'nom',
         payload: response,
       });
       if (callback) callback();

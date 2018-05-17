@@ -54,7 +54,6 @@ export default class TestList extends PureComponent {
   }
   getPage = params => {
     const pagination = this.props.fyTest.data.pagination;
-
     if (params == null) {
       params = {
         pageNo: pagination.current ? pagination.current : 1,
