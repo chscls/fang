@@ -21,7 +21,7 @@ const formItemLayout = {
     span: 23,
   },
 };
-const plainOptions=[]
+
 const defaultCheckedList = [];
 
 @DragDropContext(HTML5Backend)
@@ -37,10 +37,10 @@ class TestStep2 extends React.PureComponent {
       isReady: false,
       items: [],
       type:"single",
-      checkedList: [],
+      checkedList: new Set(),
       indeterminate: true,
       checkAll: false,
-     
+     plainOptions:new Set(),
     };
   }
 
@@ -58,28 +58,41 @@ class TestStep2 extends React.PureComponent {
         payload: { id: id },
         callback: test => {
 
-        
+          const plainOptions=new Set()
 
+          for(var i=0;i<test.questions.length;i++){
+            plainOptions.add(test.questions[i].id)
+          }
+          console.log(plainOptions)
           this.setState({
             isReady: true,
             id: test.id,
             isQuestionnaire:test.isQuestionnaire,
+            plainOptions,
+            items:test.questions
           });
         },
       });
     }
   }
-  onChange = (checkedList) => {
-    console.log(checkedList)
+  onChange = (id,e) => {
+   
+    var checkedList=this.state.checkedList
+    if(e.target.checked){
+      checkedList.add(id)
+    }else{
+      checkedList.delete(id)
+    }
+    
     this.setState({
       checkedList,
-      indeterminate: !!checkedList.length && (checkedList.length < plainOptions.length),
-      checkAll: checkedList.length === plainOptions.length,
-    });
+      indeterminate: !!checkedList.length && (checkedList.length < this.state.plainOptions.length),
+      checkAll: checkedList.length === this.state.plainOptions.length,
+    }); 
   }
   onCheckAllChange = (e) => {
     this.setState({
-      checkedList: e.target.checked ? plainOptions : [],
+      checkedList: e.target.checked ? this.state.plainOptions : new Set(),
       indeterminate: false,
       checkAll: e.target.checked,
     });
@@ -90,24 +103,8 @@ class TestStep2 extends React.PureComponent {
 
 
 
-    const data2 = [
-      {
-        title: 'Ant Design Title 1',
-        id:1
-      },
-      {
-        title: 'Ant Design Title 2',
-        id:2
-      },
-      {
-        title: 'Ant Design Title 3',
-        id:3
-      },
-      {
-        title: 'Ant Design Title 4',
-        id:4
-      },
-    ];
+    const data2 = this.props.items
+      
 
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
@@ -156,7 +153,7 @@ class TestStep2 extends React.PureComponent {
     renderItem={item => (
      
       <List.Item key={item.id}>
-     <Card qid={item.id} content={item.title}/>
+     <Card onChange={this.onChange.bind(this,item.id)} qid={item.id} content={item.title}/>
       </List.Item>
      
     )}

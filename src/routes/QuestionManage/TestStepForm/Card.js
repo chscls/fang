@@ -70,7 +70,7 @@ const cardSource = {
     
         return (
             <div style={{width:'100%',opacity:opacity}}>
-             <Checkbox value={this.props.qid}/>
+             <Checkbox value={this.props.qid} onChange={this.props.onChange} />
             {this.props.content}
   { connectDragSource(connectDropTarget(<a title="按住不放可拖住调整顺序"><Icon type="retweet"  style={{fontSize:'15px',color:'#1FC8AE'}} /></a>))}
             </div>
