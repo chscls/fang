@@ -22,7 +22,7 @@ const formItemLayout = {
   },
 };
 
-const defaultCheckedList = [];
+
 
 @DragDropContext(HTML5Backend)
 @Form.create()
@@ -37,10 +37,9 @@ class TestStep2 extends React.PureComponent {
       isReady: false,
       items: [],
       type:"single",
-      checkedList: new Set(),
       indeterminate: true,
       checkAll: false,
-     plainOptions:new Set(),
+      flag:false,
     };
   }
 
@@ -58,41 +57,66 @@ class TestStep2 extends React.PureComponent {
         payload: { id: id },
         callback: test => {
 
-          const plainOptions=new Set()
+          const items = []
 
           for(var i=0;i<test.questions.length;i++){
-            plainOptions.add(test.questions[i].id)
+            items[i]={index:i,q:test.questions[i],checked:false}
           }
-          
+        
           this.setState({
             isReady: true,
             id: test.id,
             isQuestionnaire:test.isQuestionnaire,
-            plainOptions,
-            items:test.questions
+            items
           });
         },
       });
     }
   }
-  onChange = (id,e) => {
+  handle = (index,e) => {
    
-    var checkedList=this.state.checkedList
-    if(e.target.checked){
-      checkedList.add(id)
+   
+    const items=this.state.items
+ 
+    items[index].checked =e.target.checked
+    
+    this.setState({
+      items,
+      flag: !this.state.flag,
+      indeterminate: this.checkLength(items)< items.length,
+      checkAll: this.checkLength(items) === items.length,
+    }); 
+   
+  }
+  checkLength(items){
+    var count = 0;
+    for(var i=0;i<items.length;i++){
+      if(items[i].checked){
+        count++;
+      }
+    }
+  
+    return count
+  }
+  onCheckAllChange = (e) => {
+    const items=this.state.items
+   
+    if(!e.target.checked){
+     
+
+      for(var i=0;i<items.length;i++){
+        items[i]={index:items[i].index,q:items[i].q,checked:false}
+      }
     }else{
-      checkedList.delete(id)
+      
+
+      for(var i=0;i<items.length;i++){
+        items[i]={index:items[i].index,q:items[i].q,checked:true}
+      }
     }
     
     this.setState({
-      checkedList,
-      indeterminate: !!checkedList.length && (checkedList.length < this.state.plainOptions.length),
-      checkAll: checkedList.length === this.state.plainOptions.length,
-    }); 
-  }
-  onCheckAllChange = (e) => {
-    this.setState({
-      checkedList: e.target.checked ? this.state.plainOptions : new Set(),
+      items,
       indeterminate: false,
       checkAll: e.target.checked,
     });
@@ -105,7 +129,6 @@ class TestStep2 extends React.PureComponent {
 
     const data2 = this.state.items
       
-
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
     };
@@ -150,10 +173,10 @@ class TestStep2 extends React.PureComponent {
             <List
     itemLayout="horizontal"
     dataSource={data2}
-    renderItem={item => (
-     
-      <List.Item key={item.id}>
-     <Card onChange={this.onChange.bind(this,item.id)} question={item} />
+    renderItem={ item => (
+    
+      <List.Item key={item.index}>
+     <Card  checked={item.checked} handle={this.handle} item={item} />
       </List.Item>
      
     )}

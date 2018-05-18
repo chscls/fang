@@ -64,14 +64,18 @@ const cardTarget = {
     isDragging: monitor.isDragging(),
 }))
 export default class Card extends React.PureComponent {
+    constructor(props){
+        super(props)
+       
+    }
     render() {
-        const { text, isDragging, connectDragSource, connectDropTarget, id, unit, classNum } = this.props;
+        const { text, isDragging, connectDragSource, connectDropTarget, id, unit, classNum,item } = this.props;
         const opacity = isDragging ? 0 : 1;
-
+        const question = item.q
         return (
             <div style={{ width: '100%', opacity: opacity }}>
-                <Checkbox value={this.props.question.id} onChange={this.props.onChange} />
-                {this.props.question.title}
+                <Checkbox  value={question.id} checked={item.checked} onChange={this.props.handle.bind(this,item.index)} />
+                {question.isRich?<div dangerouslySetInnerHTML={{ __html:question.title }} />:question.title}
                 {connectDragSource(connectDropTarget(<a title="按住不放可拖住调整顺序"><Icon type="retweet" style={{ fontSize: '15px', color: '#1FC8AE' }} /></a>))}
             </div>
 
