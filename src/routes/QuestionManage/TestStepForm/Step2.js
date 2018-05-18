@@ -89,6 +89,16 @@ class TestStep2 extends React.PureComponent {
    
   }
   checkLength(items){
+    var ids=[]
+    for(var i=0;i<items.length;i++){
+      if(items[i].checked){
+      ids.push(items[i].id)
+      }
+    }
+  
+    return ids;
+  }
+  checkLength(items){
     var count = 0;
     for(var i=0;i<items.length;i++){
       if(items[i].checked){
@@ -96,7 +106,7 @@ class TestStep2 extends React.PureComponent {
       }
     }
   
-    return count
+    return count;
   }
   onCheckAllChange = (e) => {
     const items=this.state.items
