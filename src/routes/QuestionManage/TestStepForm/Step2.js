@@ -63,7 +63,7 @@ class TestStep2 extends React.PureComponent {
           for(var i=0;i<test.questions.length;i++){
             plainOptions.add(test.questions[i].id)
           }
-          console.log(plainOptions)
+          
           this.setState({
             isReady: true,
             id: test.id,
@@ -103,7 +103,7 @@ class TestStep2 extends React.PureComponent {
 
 
 
-    const data2 = this.props.items
+    const data2 = this.state.items
       
 
     const onPrev = () => {
@@ -153,7 +153,7 @@ class TestStep2 extends React.PureComponent {
     renderItem={item => (
      
       <List.Item key={item.id}>
-     <Card onChange={this.onChange.bind(this,item.id)} qid={item.id} content={item.title}/>
+     <Card onChange={this.onChange.bind(this,item.id)} question={item} />
       </List.Item>
      
     )}
