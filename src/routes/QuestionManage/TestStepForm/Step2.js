@@ -70,7 +70,7 @@ class TestStep2 extends React.PureComponent {
     }
   }
   onChange = (checkedList) => {
-    console.log("xxxxxxxxx")
+    console.log(checkedList)
     this.setState({
       checkedList,
       indeterminate: !!checkedList.length && (checkedList.length < plainOptions.length),
@@ -93,15 +93,19 @@ class TestStep2 extends React.PureComponent {
     const data2 = [
       {
         title: 'Ant Design Title 1',
+        id:1
       },
       {
         title: 'Ant Design Title 2',
+        id:2
       },
       {
         title: 'Ant Design Title 3',
+        id:3
       },
       {
         title: 'Ant Design Title 4',
+        id:4
       },
     ];
 
@@ -145,19 +149,19 @@ class TestStep2 extends React.PureComponent {
           >
             全选
           </Checkbox>
-            <Checkbox.Group style={{ width: '100%' }} options={this.state.plainOptions} value={this.state.checkedList} onChange={this.onChange}>
+          
             <List
     itemLayout="horizontal"
     dataSource={data2}
     renderItem={item => (
      
-      <List.Item>
-     <Card content={item.title}/>
+      <List.Item key={item.id}>
+     <Card qid={item.id} content={item.title}/>
       </List.Item>
      
     )}
   />
-   </Checkbox.Group>
+  
           </Form.Item>  
             <Form.Item
               style={{ marginBottom: 8 }}
