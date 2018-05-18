@@ -10,7 +10,9 @@ import Fill from '../../../components/mycom/QuestionItem/Fill';
 import Ask from '../../../components/mycom/QuestionItem/Ask';
 import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
-
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import Card from './Card';
 const formItemLayout = {
   labelCol: {
     span: 1,
@@ -21,6 +23,8 @@ const formItemLayout = {
 };
 const plainOptions=[]
 const defaultCheckedList = [];
+
+@DragDropContext(HTML5Backend)
 @Form.create()
 class TestStep2 extends React.PureComponent {
   constructor(props) {
@@ -66,6 +70,7 @@ class TestStep2 extends React.PureComponent {
     }
   }
   onChange = (checkedList) => {
+    console.log("xxxxxxxxx")
     this.setState({
       checkedList,
       indeterminate: !!checkedList.length && (checkedList.length < plainOptions.length),
@@ -147,7 +152,7 @@ class TestStep2 extends React.PureComponent {
     renderItem={item => (
      
       <List.Item>
-     <Checkbox value="D"/><span > {item.title}<Icon type="close" /><Icon type="pause" /></span>
+     <Card content={item.title}/>
       </List.Item>
      
     )}
