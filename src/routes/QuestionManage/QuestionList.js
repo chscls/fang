@@ -134,6 +134,9 @@ export default class QuestionList extends PureComponent {
     this.setState({
       selectedRows: rows,
     });
+    if(this.props.handleSelect){
+      this.props.handleSelect(rows.map(row => row.id).join(','),)
+    }
   };
 
   handleSearch = e => {
@@ -281,10 +284,15 @@ export default class QuestionList extends PureComponent {
         this.setState({
           selectedRows: [],
         });
+        if(this.props.handleSelect){
+          this.props.handleSelect([])
+        }
         this.getPage();
       },
     });
   };
+
+ 
   render() {
     const { fyQuestion: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;

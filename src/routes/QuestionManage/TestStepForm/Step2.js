@@ -42,6 +42,7 @@ class TestStep2 extends React.PureComponent {
       indeterminate: true,
       checkAll: false,
       flag:false,
+      selectQuestionIds:[],
       questionModal:false
     };
   }
@@ -145,7 +146,12 @@ class TestStep2 extends React.PureComponent {
      });
   }
   okHandle=()=>{
-
+    const x = this.refs;
+    console.log(x)
+  }
+  handleSelect=(ids)=>{
+    console.log(ids)
+    this.setState({selectQuestionIds:ids})
   }
   render() {
     const { form, data, dispatch, submitting ,fyTest: { test } } = this.props;
@@ -247,7 +253,7 @@ class TestStep2 extends React.PureComponent {
           width={1800}
           onCancel={() => this.handleModalVisible()}
         >
-         <QuestionList isSelect={true} />
+         <QuestionList isSelect={true} handleSelect={this.handleSelect} />
         </Modal>
       </Fragment>
     );
