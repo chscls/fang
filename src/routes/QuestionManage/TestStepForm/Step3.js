@@ -28,7 +28,7 @@ class TestStep3 extends React.PureComponent {
       <ul>
         {
           questions.map((question,i)=> {
-            console.log(question)
+          
               return <li key={i}>{question.type=="single"?<SingleView question={question}/>
               :question.type=="mutiply"?<MutiplyView question={question}/>
               :question.type=="judge"?<JudgeView question={question}/>

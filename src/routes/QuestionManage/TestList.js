@@ -53,7 +53,7 @@ export default class TestList extends PureComponent {
     this.getPage();
   }
   getPage = params => {
-   
+  
     const pagination = this.props.fyTest.data.pagination;
     if (params == null) {
       params = {
