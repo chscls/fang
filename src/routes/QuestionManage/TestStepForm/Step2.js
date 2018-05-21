@@ -247,7 +247,7 @@ class TestStep2 extends React.PureComponent {
           width={1800}
           onCancel={() => this.handleModalVisible()}
         >
-         <QuestionList/>
+         <QuestionList isSelect={true} />
         </Modal>
       </Fragment>
     );

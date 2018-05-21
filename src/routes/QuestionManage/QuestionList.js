@@ -299,15 +299,15 @@ export default class QuestionList extends PureComponent {
         width: 400,
         render: record =>
 
-          <Tooltip overlayStyle={{ minWidth: 400 }} title={record.type=="single"?
-            
-            
-            
+          <Tooltip overlayStyle={{ minWidth: 400 }} title={record.type == "single" ?
+
+
+
             <SingleView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="mutiply"?<MutiplyView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="judge"?<JudgeView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="fill"?<FillView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="ask"?<AskView style={{ backgroundColor: "white", color: "black" }} question={record} />:""
+            : record.type == "mutiply" ? <MutiplyView style={{ backgroundColor: "white", color: "black" }} question={record} />
+              : record.type == "judge" ? <JudgeView style={{ backgroundColor: "white", color: "black" }} question={record} />
+                : record.type == "fill" ? <FillView style={{ backgroundColor: "white", color: "black" }} question={record} />
+                  : record.type == "ask" ? <AskView style={{ backgroundColor: "white", color: "black" }} question={record} /> : ""
           }>
             {record.isRich ?
               <div dangerouslySetInnerHTML={{ __html: record.title }} />
@@ -472,41 +472,47 @@ export default class QuestionList extends PureComponent {
         </Modal>
       );
     });
-    return (
-      <PageHeaderLayout title="题目管理">
-        <Card bordered={false}>
-          <div className={styles.tableList}>
-            <div className={styles.tableListForm}>{this.renderForm()}</div>
-            <div className={styles.tableListOperator}>
-              <Link to="/question-manage/question-add/info/0">
-                <Button icon="plus" type="primary">
-                  新建
+
+    const x = <Card bordered={false}>
+      <div className={styles.tableList}>
+        <div className={styles.tableListForm}>{this.renderForm()}</div>
+        <div className={styles.tableListOperator}>
+          <Link to="/question-manage/question-add/info/0">
+            <Button icon="plus" type="primary">
+              新建
+          </Button>
+          </Link>
+          {selectedRows.length > 0 && (
+            <span>
+              <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
+              <Dropdown overlay={menu}>
+                <Button>
+                  更多操作 <Icon type="down" />
                 </Button>
-              </Link>
-              {selectedRows.length > 0 && (
-                <span>
-                  <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
-                  <Dropdown overlay={menu}>
-                    <Button>
-                      更多操作 <Icon type="down" />
-                    </Button>
-                  </Dropdown>
-                </span>
-              )}
-            </div>
-            <StandardTable
-              selectedRows={selectedRows}
-              loading={loading}
-              data={data}
-              columns={columns}
-              rowKey="id"
-              onSelectRow={this.handleSelectRows}
-              onChange={this.handleStandardTableChange}
-            />
-          </div>
-        </Card>
+              </Dropdown>
+            </span>
+          )}
+        </div>
+        <StandardTable
+          selectedRows={selectedRows}
+          loading={loading}
+          data={data}
+          columns={columns}
+          rowKey="id"
+          onSelectRow={this.handleSelectRows}
+          onChange={this.handleStandardTableChange}
+        />
+      </div>
+    </Card>
+    return (
+      this.props.isSelect ? <div>
+        {x}
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
-      </PageHeaderLayout>
-    );
+
+      </div> : <PageHeaderLayout title="题目管理">
+          {x}
+          <CreateForm {...parentMethods} modalVisible={modalVisible} />
+        </PageHeaderLayout>
+    )
   }
 }
