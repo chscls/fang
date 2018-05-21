@@ -147,10 +147,10 @@ class TestStep2 extends React.PureComponent {
   }
   okHandle=()=>{
     const x = this.refs;
-    console.log(x)
+   
   }
   handleSelect=(ids)=>{
-    console.log(ids)
+    
     this.setState({selectQuestionIds:ids})
   }
   render() {
@@ -160,7 +160,8 @@ class TestStep2 extends React.PureComponent {
 
 
     const data2 = this.state.items
-      
+    const alreadyIds =  data2.map(row => row.q.id).join(',')
+   
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
     };
@@ -253,7 +254,7 @@ class TestStep2 extends React.PureComponent {
           width={1800}
           onCancel={() => this.handleModalVisible()}
         >
-         <QuestionList isSelect={true} handleSelect={this.handleSelect} />
+         <QuestionList alreadyIds={alreadyIds} isSelect={true} handleSelect={this.handleSelect} />
         </Modal>
       </Fragment>
     );

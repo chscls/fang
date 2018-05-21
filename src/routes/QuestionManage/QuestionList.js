@@ -61,11 +61,12 @@ export default class QuestionList extends PureComponent {
   }
   getPage = params => {
     const pagination = this.props.fyQuestion.data.pagination;
-
+    
     if (params == null) {
       params = {
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
+        alreadyIds:this.props.alreadyIds?this.props.alreadyIds:[],
         ...this.state.formValues,
       };
     }
@@ -89,6 +90,7 @@ export default class QuestionList extends PureComponent {
     const params = {
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
+      alreadyIds:this.props.alreadyIds?this.props.alreadyIds:[],
       ...formValues,
       ...filters,
     };
@@ -135,7 +137,7 @@ export default class QuestionList extends PureComponent {
       selectedRows: rows,
     });
     if(this.props.handleSelect){
-      this.props.handleSelect(rows.map(row => row.id).join(','),)
+      this.props.handleSelect(rows.map(row => row.id).join(','))
     }
   };
 
