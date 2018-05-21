@@ -146,12 +146,24 @@ class TestStep2 extends React.PureComponent {
      });
   }
   okHandle=()=>{
-    const x = this.refs;
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id:this.state.id,
+        qids:this.state.selectQuestionIds
+      },
+      callback: id => {
+        this.setState({
+          questionModal:false
+         });
+      },
+    });
    
   }
   handleSelect=(ids)=>{
     
     this.setState({selectQuestionIds:ids})
+    
   }
   render() {
     const { form, data, dispatch, submitting ,fyTest: { test } } = this.props;

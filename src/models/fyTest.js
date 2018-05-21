@@ -1,4 +1,4 @@
-import { queryTest, removeTest, addTest,findTest } from '../services/FyTestMngSvc';
+import { queryTest, removeTest, addTest,findTest ,updateTestQuestions} from '../services/FyTestMngSvc';
 
 export default {
   namespace: 'fyTest',
@@ -12,6 +12,16 @@ export default {
   },
 
   effects: {
+    *updateTestQuestions({ payload,callback }, { call, put }) {
+      const response = yield call(updateTestQuestions, payload);
+      yield put({
+        type: 'nom',
+      })
+      if (callback) callback(response);
+
+
+    },
+    
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryTest, payload);
       yield put({

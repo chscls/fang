@@ -18,6 +18,18 @@ export async function removeTest(params) {
   });
 }
 
+
+
+export async function updateTestQuestions(params) {
+  return request(`${ad}/updateTestQuestions`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
+
 export async function addTest(params) {
   return request(`${ad}/addTest`, {
     method: 'POST',
