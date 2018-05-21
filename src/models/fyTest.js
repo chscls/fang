@@ -40,7 +40,7 @@ export default {
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addTest, payload);
       yield put({
-        type: 'suc',
+        type: 'ok',
         payload: response,
       });
       if (callback) callback(response.id);
