@@ -15,7 +15,8 @@ export default {
     *updateTestQuestions({ payload,callback }, { call, put }) {
       const response = yield call(updateTestQuestions, payload);
       yield put({
-        type: 'nom',
+        type: 'ok',
+        payload:response
       })
       if (callback) callback(response);
 
