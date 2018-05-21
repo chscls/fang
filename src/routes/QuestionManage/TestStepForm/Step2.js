@@ -184,6 +184,9 @@ class TestStep2 extends React.PureComponent {
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
     };
+    const onPreview = () => {
+      dispatch(routerRedux.push(`/question-manage/test-add/result/${this.state.id}`));
+    };
     const onValidateForm = e => {
       
       e.preventDefault();
@@ -247,8 +250,8 @@ class TestStep2 extends React.PureComponent {
               label=""
             >
             <div style={{ margin:"auto",width:200 }}>
-              <Button   type="primary" onClick={onValidateForm} loading={submitting}>
-                提交
+              <Button   type="primary" onClick={onPreview} loading={submitting}>
+                预览
               </Button>
               <Button onClick={onPrev} style={{ marginLeft: 8 }}>
                 上一步

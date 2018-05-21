@@ -33,7 +33,7 @@ export default class TestStepForm extends PureComponent {
             <Steps current={this.getCurrentStep()} className={styles.steps}>
               <Step title="填写试卷基本信息" />
               <Step title="填写试卷详情" />
-              <Step title="完成" />
+              <Step title="预览" />
             </Steps>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
