@@ -1,6 +1,6 @@
 import React,{ Fragment } from 'react';
 import { connect } from 'dva';
-import { Form,Icon, Input, Button, Alert, Divider ,List,Avatar,Checkbox} from 'antd';
+import { Form,Icon, Input, Button, Alert, Divider ,List,Avatar,Checkbox,Modal} from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
@@ -13,6 +13,8 @@ import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
+import QuestionList from '../QuestionList';
+
 const formItemLayout = {
   labelCol: {
     span: 1,
@@ -40,6 +42,7 @@ class TestStep2 extends React.PureComponent {
       indeterminate: true,
       checkAll: false,
       flag:false,
+      questionModal:false
     };
   }
 
@@ -131,6 +134,19 @@ class TestStep2 extends React.PureComponent {
       checkAll: e.target.checked,
     });
   }
+  openQuestions=()=>{
+    this.setState({
+     questionModal:true
+    });
+  }
+  handleModalVisible=()=>{
+    this.setState({
+      questionModal:false
+     });
+  }
+  okHandle=()=>{
+
+  }
   render() {
     const { form, data, dispatch, submitting ,fyTest: { test } } = this.props;
     const { getFieldDecorator, validateFields } = form;
@@ -179,7 +195,7 @@ class TestStep2 extends React.PureComponent {
           >
             全选
           </Checkbox>
-          
+          <Button type="primary" onClick={this.openQuestions} >插入题目</Button>
             <List
     itemLayout="horizontal"
     dataSource={data2}
@@ -223,6 +239,16 @@ class TestStep2 extends React.PureComponent {
           <h4>问卷模式</h4>
           <p>问卷模式无需选择或填写正确答案</p>
         </div>
+
+          <Modal
+          title="插入题目"
+          visible={this.state.questionModal}
+          onOk={this.okHandle}
+          width={1800}
+          onCancel={() => this.handleModalVisible()}
+        >
+         <QuestionList/>
+        </Modal>
       </Fragment>
     );
   }
