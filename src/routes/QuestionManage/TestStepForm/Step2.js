@@ -24,7 +24,7 @@ const formItemLayout = {
   },
 };
 
-
+var key=1;
 
 @DragDropContext(HTML5Backend)
 @Form.create()
@@ -152,9 +152,16 @@ class TestStep2 extends React.PureComponent {
         id:this.state.id,
         qids:this.state.selectQuestionIds
       },
-      callback: id => {
+      callback: test => {
+        key=key+1
+        const items = []
+
+          for(var i=0;i<test.questions.length;i++){
+            items[i]={index:i,q:test.questions[i],checked:false}
+          }
         this.setState({
-          questionModal:false
+          questionModal:false,
+          items 
          });
       },
     });
@@ -266,7 +273,7 @@ class TestStep2 extends React.PureComponent {
           width={1800}
           onCancel={() => this.handleModalVisible()}
         >
-         <QuestionList alreadyIds={alreadyIds} isSelect={true} handleSelect={this.handleSelect} />
+         <QuestionList key={key} alreadyIds={alreadyIds} isSelect={true} handleSelect={this.handleSelect} />
         </Modal>
       </Fragment>
     );
