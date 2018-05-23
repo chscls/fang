@@ -410,7 +410,7 @@ export default class MemberList extends PureComponent {
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
-              data={data}
+              data={mdata}
               columns={columns}
               rowKey="id"
               onSelectRow={this.handleSelectRows}
