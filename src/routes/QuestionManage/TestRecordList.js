@@ -324,9 +324,7 @@ export default class TestList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-             <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
-            <Divider type="vertical" />
-            <a onClick={this.delete.bind(this, record.id)}>删除</a>
+             <Link to={`/question-manage/test-add/info/${record.id}`}>查看详情</Link>
           </Fragment>
         ),
       },
