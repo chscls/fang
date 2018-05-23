@@ -4,6 +4,10 @@ export default {
   namespace: 'fyUser',
 
   state: {
+    mdata: {
+      list: [],
+      pagination: {},
+    },
     data: {
       list: [],
       pagination: {},
@@ -14,7 +18,7 @@ export default {
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryUser, payload);
       yield put({
-        type: 'suc',
+        type: payload.type,
         payload: {
           list: response.list,
           pagination: {
@@ -28,7 +32,7 @@ export default {
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addUser, payload);
       yield put({
-        type: 'suc',
+        type: 'nom',
         payload: response,
       });
       if (callback) callback();
@@ -36,7 +40,7 @@ export default {
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeUser, payload);
       yield put({
-        type: 'suc',
+        type: 'nom',
         payload: response,
       });
       if (callback) callback();
@@ -44,10 +48,22 @@ export default {
   },
 
   reducers: {
-    suc(state, action) {
+    admin(state, action) {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+     user(state, action) {
+      return {
+        ...state,
+        mdata: action.payload,
+      };
+    },
+   
+    nom(state, action) {
+      return {
+        ...state,
       };
     },
   },

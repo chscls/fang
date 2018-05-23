@@ -52,7 +52,7 @@ export default class MemberList extends PureComponent {
     this.getPage();
   }
   getPage = params => {
-    const pagination = this.props.fyUser.data.pagination;
+    const pagination = this.props.fyUser.mdata.pagination;
 
     if (params == null) {
       params = {
