@@ -288,10 +288,6 @@ export default class TestList extends PureComponent {
         dataIndex: 'orgId',
       },
       {
-        title: '唯一码',
-        render: record => record.test.code
-      },
-      {
         title: '标题',
         render: record => record.test.title
       },
@@ -323,10 +319,6 @@ export default class TestList extends PureComponent {
         title: '试卷状态',
         render: record =>
           record.test.status == 'create' ? '创建中' : record.test.status == 'process' ? '进行中' : '已结束',
-      },
-      {
-        title: '完成人数',
-        dataIndex: 'count',
       },
       {
         title: '操作',
