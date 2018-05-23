@@ -303,7 +303,7 @@ export default class MemberList extends PureComponent {
     return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
   }
   render() {
-    const { fyUser: { data }, loading } = this.props;
+    const { fyUser: { mdata }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
