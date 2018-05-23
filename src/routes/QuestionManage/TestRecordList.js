@@ -284,40 +284,49 @@ export default class TestList extends PureComponent {
 
     const columns = [
       {
-        title: 'id',
-        dataIndex: 'id',
+        title: '试卷id',
+        dataIndex: 'orgId',
       },
       {
         title: '唯一码',
-        dataIndex: 'code',
+        render: record => record.test.code
       },
       {
         title: '标题',
-        dataIndex: 'title',
+        render: record => record.test.title
       },
-      ,
       {
-        title: '是否问卷',
-        render: record => (record.isQuestionnaire ? '是' : '否'),
+        title: '完成人数',
+        dataIndex: 'count',
       },
-      ,
+      {
+        title: '最小得分',
+        dataIndex: 'minScore',
+      },{
+        title: '平均分',
+        dataIndex: 'avgScore',
+      },
+      {
+        title: '最大得分',
+        dataIndex: 'maxScore',
+      },
       {
         title: '答题模式',
         render: record =>
-          record.mode == 'free'
+          record.test.mode == 'free'
             ? '自由'
-            : record.mode == 'singleLimit'
+            : record.test.mode == 'singleLimit'
               ? '单题限时'
-              : record.mode == 'totalLimit' ? '总限时' : '竞赛',
+              : record.test.mode == 'totalLimit' ? '总限时' : '竞赛',
       },
       {
         title: '试卷状态',
         render: record =>
-          record.status == 'create' ? '创建中' : record.status == 'process' ? '进行中' : '已结束',
+          record.test.status == 'create' ? '创建中' : record.test.status == 'process' ? '进行中' : '已结束',
       },
       {
-        title: '创建时间',
-        render: record => new Date(record.createTime).toLocaleDateString(),
+        title: '完成人数',
+        dataIndex: 'count',
       },
       {
         title: '操作',
