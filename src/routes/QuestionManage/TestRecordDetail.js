@@ -81,18 +81,18 @@ export default class TestRecordDetail extends PureComponent {
       }
     };
 
-    const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
+    const ListContent = ({ data: { score, createTime, percent, status } }) => (
       <div className={styles.listContent}>
         <div className={styles.listContentItem}>
-          <span>Owner</span>
-          <p>{owner}</p>
+          <span>得分</span>
+          <p>{score}</p>
         </div>
         <div className={styles.listContentItem}>
-          <span>开始时间</span>
-          <p>{moment(createdAt).format('YYYY-MM-DD HH:mm')}</p>
+          <span>完成时间</span>
+          <p>{moment(createTime).format('YYYY-MM-DD HH:mm')}</p>
         </div>
         <div className={styles.listContentItem}>
-          <Progress percent={percent} status={status} strokeWidth={6} style={{ width: 180 }} />
+          <Progress percent={100} status={status} strokeWidth={6} style={{ width: 180 }} />
         </div>
       </div>
     );
@@ -149,10 +149,10 @@ export default class TestRecordDetail extends PureComponent {
               pagination={paginationProps}
               dataSource={detailData.list}
               renderItem={item => (
-                <List.Item actions={[<a>编辑</a>, <MoreBtn />]}>
+                <List.Item  key= {item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
+                    avatar={<Avatar src={item.headImg} shape="square" size="large" />}
+                    title={<a href={item.href}>{item.user.realname}</a>}
                     description={item.subDescription}
                   />
                   <ListContent data={item} />
