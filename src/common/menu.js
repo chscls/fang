@@ -64,6 +64,10 @@ const menuData = [
         name: '试卷管理',
         path: 'test-list',
       },
+      {
+        name: '做题记录',
+        path: 'testRecord-list',
+      },
     ],
   },
 ];

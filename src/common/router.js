@@ -190,6 +190,10 @@ export const getRouterData = app => {
     '/question-manage/test-list': {
       component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
     },
+    '/question-manage/testRecord-list': {
+      component: dynamicWrapper(app, ['fyTestRecord'], () => import('../routes/QuestionManage/TestRecordList')),
+    },
+    
     '/question-manage/test-add': {
       component: dynamicWrapper(app, ['form'], () =>
         import('../routes/QuestionManage/TestStepForm')
