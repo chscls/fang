@@ -324,7 +324,7 @@ export default class TestList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-             <Link to={`/question-manage/testRecord-detail/${record.id}`}>查看详情</Link>
+             <Link to={`/question-manage/testRecord-detail/${record.orgId}`}>查看详情</Link>
           </Fragment>
         ),
       },

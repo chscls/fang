@@ -5,6 +5,10 @@ const ad = config.server + '/services/FyTestRecordMngSvc';
 export async function queryTestRecord(params) {
   return request(`${ad}/queryTestRecord`, params);
 }
+export async function queryTestRecordDetail(params) {
+  return request(`${ad}/queryTestRecordDetail`, params);
+}
+
 export async function findTestRecord(params) {
   return request(`${ad}/findTestRecord`, params);
 }

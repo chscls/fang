@@ -193,7 +193,7 @@ export const getRouterData = app => {
     '/question-manage/testRecord-list': {
       component: dynamicWrapper(app, ['fyTestRecord'], () => import('../routes/QuestionManage/TestRecordList')),
     },
-    '/question-manage/testRecord-detail/:id': {
+    '/question-manage/testRecord-detail/:orgId': {
       component: dynamicWrapper(app, ['fyTestRecord'], () => import('../routes/QuestionManage/TestRecordDetail')),
     },
     

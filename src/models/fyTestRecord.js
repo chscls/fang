@@ -1,10 +1,14 @@
-import { queryTestRecord, removeTestRecord, addTestRecord,findTestRecord } from '../services/FyTestRecordMngSvc';
+import { queryTestRecord, removeTestRecord, addTestRecord,findTestRecord,queryTestRecordDetail } from '../services/FyTestRecordMngSvc';
 
 export default {
   namespace: 'fyTestRecord',
 
   state: {
     testRecord: null,
+    detailData: {
+      list: [],
+      pagination: {},
+    },
     data: {
       list: [],
       pagination: {},
@@ -12,7 +16,20 @@ export default {
   },
 
   effects: {
-    
+    *detail({ payload }, { call, put }) {
+      const response = yield call(queryTestRecordDetail, payload);
+      yield put({
+        type: 'suc2',
+        payload: {
+          list: response.list,
+          pagination: {
+            pageSize: response.pageSize,
+            current: response.pageNo,
+            total: response.totalCount,
+          },
+        },
+      });
+    },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryTestRecord, payload);
       yield put({
@@ -62,6 +79,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    suc2(state, action) {
+      return {
+        ...state,
+        detailData: action.payload,
       };
     },
     ok(state, action) {

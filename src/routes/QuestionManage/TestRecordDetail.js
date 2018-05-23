@@ -24,22 +24,29 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 
-@connect(({ list, loading }) => ({
+@connect(({ list, loading,fyTestRecord }) => ({
   list,
   loading: loading.models.list,
+  fyTestRecord
 }))
 export default class TestRecordDetail extends PureComponent {
   componentDidMount() {
+    this.getPage(1)
+  }
+  getPage=(page,pageSize)=>{
+    const detailData  = this.props.fyTestRecord.detailData
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'fyTestRecord/detail',
       payload: {
-        count: 5,
+        orgId: this.props.match.params.orgId,
+        pageSize:pageSize?pageSize:detailData.pagination.pageSizepageSize?detailData.pagination.pageSize:10,
+        pageNo:page?page:detailData.pagination.current,
       },
     });
   }
 
   render() {
-    const { list: { list }, loading } = this.props;
+    const { fyTestRecord: { detailData }, loading } = this.props;
 
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
@@ -63,8 +70,15 @@ export default class TestRecordDetail extends PureComponent {
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
-      pageSize: 5,
-      total: 50,
+      pageSize: detailData.pagination.pageSize,
+      total: detailData.pagination.total,
+      current:detailData.pagination.current,
+      onChange:(page, pageSize)=>{
+        this.getPage(page,pageSize)
+      },
+      onShowSizeChange:(current, size)=>{
+        this.getPage(current,size)
+      }
     };
 
     const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
@@ -133,7 +147,7 @@ export default class TestRecordDetail extends PureComponent {
               rowKey="id"
               loading={loading}
               pagination={paginationProps}
-              dataSource={list}
+              dataSource={detailData.list}
               renderItem={item => (
                 <List.Item actions={[<a>编辑</a>, <MoreBtn />]}>
                   <List.Item.Meta
