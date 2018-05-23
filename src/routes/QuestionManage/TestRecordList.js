@@ -64,7 +64,7 @@ export default class TestList extends PureComponent {
     }
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyTest/fetch',
+      type: 'fyTestRecord/fetch',
       payload: params,
     });
   };
@@ -170,7 +170,7 @@ export default class TestList extends PureComponent {
       params.id = this.state.currentObj.id;
     }
     this.props.dispatch({
-      type: 'fyTest/add',
+      type: 'fyTestRecord/add',
       payload: params,
       callback: () => {
         message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
@@ -251,7 +251,7 @@ export default class TestList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyTest/remove',
+      type: 'fyTestRecord/remove',
       payload: {
         ids: [id],
       },
@@ -266,7 +266,7 @@ export default class TestList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyTest/remove',
+      type: 'fyTestRecord/remove',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
@@ -372,11 +372,7 @@ export default class TestList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-            <Link to="/question-manage/test-add/info/0">
-             <Button icon="plus" type="primary" >
-                新建
-              </Button>
-              </Link>
+           
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
