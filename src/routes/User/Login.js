@@ -5,7 +5,7 @@ import { Checkbox, Alert, Icon } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 import QRCode from 'qrcode.react';
-import {wsConnect} from '../../utils/websocket';
+import {wsConnect,addListener} from '../../utils/websocket';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 function   generateUUID() {
   var d = new Date().getTime();
@@ -60,8 +60,14 @@ this.setState({old:!this.state.old})
   }
 
   componentDidMount(){
-    wsConnect({type:"/qcode/login",body:this.state.qcode},()=>{
-      console.log("code注册成功")
+   
+    wsConnect({type:"/qcode/login",body:this.state.qcode},(res)=>{
+      const type = res.type
+      if(type=="/qcode/wxloginSuc"){
+        const user = res.body;
+        console.log(res.body)
+      }
+     
     })
   }
   render() {
