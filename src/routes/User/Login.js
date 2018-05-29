@@ -69,7 +69,7 @@ this.setState({old:!this.state.old})
           type: 'login/wxlogin',
           payload: user,
           callback:(res)=>{
-            console.log("XXXXXXXXXXXXX")
+            
             wsClose()
           }
         })
