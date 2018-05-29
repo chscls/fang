@@ -65,7 +65,10 @@ this.setState({old:!this.state.old})
       const type = res.type
       if(type=="/qcode/wxloginSuc"){
         const user = res.body;
-        console.log(res.body)
+        this.props.dispatch({
+          type: 'login/wxlogin',
+          payload: user,
+        });
       }
      
     })
