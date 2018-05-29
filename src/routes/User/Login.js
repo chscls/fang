@@ -7,16 +7,26 @@ import styles from './Login.less';
 import QRCode from 'qrcode.react';
 import {wsConnect} from '../../utils/websocket';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
-
+function   generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = (d + Math.random()*16)%16 | 0;
+    d = Math.floor(d/16);
+    return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return uuid;
+  };
 @connect(({ login, loading }) => ({
   login,
   submitting: loading.effects['login/login'],
 }))
+
 export default class LoginPage extends Component {
   state = {
     type: 'account',
     autoLogin: true,
     old:true,
+    qcode:generateUUID()
   };
 
   onTabChange = type => {
@@ -48,9 +58,10 @@ export default class LoginPage extends Component {
   changeMode=()=>{
 this.setState({old:!this.state.old})
   }
+
   componentDidMount(){
-    wsConnect("xxxxx",()=>{
-      console.log("连接服务器成功")
+    wsConnect({type:"/qcode/login",body:this.state.qcode},()=>{
+      console.log("code注册成功")
     })
   }
   render() {
@@ -61,7 +72,7 @@ this.setState({old:!this.state.old})
       {this.state.old? <div className={styles.main} style={{width:128}} >
       
       <h4>微信小程序扫码登录</h4>
-      <QRCode value={"http://www.baidu.com/"} />
+      <QRCode value={this.state.qcode} />
       
       <a onClick={this.changeMode}>使用账号密码登录</a>
       </div>:
