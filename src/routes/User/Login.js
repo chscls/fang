@@ -60,7 +60,7 @@ this.setState({old:!this.state.old})
   }
 
   componentDidMount(){
-   
+   console.log("xxxxxxxxxxxxxx")
     wsConnect({type:"/qcode/login",body:this.state.qcode},(res)=>{
       const type = res.type
       if(type=="/qcode/wxloginSuc"){

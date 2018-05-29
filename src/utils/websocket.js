@@ -37,6 +37,8 @@ function wsConnect(firstMsg,onMsg){
             console.log('Not support websocket')
         }
        
+    }else{
+        wsSend(firstMsg)
     }
 }
 
