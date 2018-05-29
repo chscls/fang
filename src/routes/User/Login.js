@@ -4,7 +4,7 @@ import { Link } from 'dva/router';
 import { Checkbox, Alert, Icon } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
-
+import QRCode from 'qrcode.react';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
 @connect(({ login, loading }) => ({
@@ -15,6 +15,7 @@ export default class LoginPage extends Component {
   state = {
     type: 'account',
     autoLogin: true,
+    old:true,
   };
 
   onTabChange = type => {
@@ -43,13 +44,30 @@ export default class LoginPage extends Component {
   renderMessage = content => {
     return <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />;
   };
-
+  changeMode=()=>{
+this.setState({old:!this.state.old})
+  }
   render() {
     const { login, submitting } = this.props;
     const { type } = this.state;
     return (
-      <div className={styles.main}>
-        <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
+      <div>
+      {this.state.old? <div className={styles.main} style={{width:128}} >
+      
+      <h4>微信小程序扫码登录</h4>
+      <QRCode value={"http://www.baidu.com/"} />
+      
+      <a onClick={this.changeMode}>使用账号密码登录</a>
+      </div>:
+      
+      <div className={styles.main} >
+
+
+
+
+
+
+       <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
           <Tab key="account" tab="账户密码登录">
             {login.status === 'error' &&
               login.type === 'account' &&
@@ -77,14 +95,17 @@ export default class LoginPage extends Component {
           <Submit loading={submitting}>登录</Submit>
           <div className={styles.other}>
             其他登录方式
-            <Icon className={styles.icon} type="alipay-circle" />
-            <Icon className={styles.icon} type="taobao-circle" />
-            <Icon className={styles.icon} type="weibo-circle" />
+
+            <a onClick={this.changeMode}><Icon className={styles.icon} type="qrcode" /></a>
+            
             <Link className={styles.register} to="/user/register">
               注册账户
             </Link>
           </div>
-        </Login>
+        </Login> 
+     
+        </div>}
+       
       </div>
     );
   }
