@@ -5,6 +5,7 @@ import { Checkbox, Alert, Icon } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 import QRCode from 'qrcode.react';
+import {wsConnect} from '../../utils/websocket';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
 @connect(({ login, loading }) => ({
@@ -46,6 +47,11 @@ export default class LoginPage extends Component {
   };
   changeMode=()=>{
 this.setState({old:!this.state.old})
+  }
+  componentDidMount(){
+    wsConnect("xxxxx",()=>{
+      console.log("连接服务器成功")
+    })
   }
   render() {
     const { login, submitting } = this.props;
