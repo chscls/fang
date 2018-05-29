@@ -4,9 +4,10 @@ var listeners = []
 
 
 function wsConnect(firstMsg,onMsg){
-    if(websocket==null){
+    if(websocket==null||websocket.readyState!=0){
         if('WebSocket' in window){
             websocket = new WebSocket(config.socketServer);
+      
             clearListener()
             listeners.push(onMsg)
             websocket.onerror = function(){
@@ -47,7 +48,7 @@ function  wsSend(message){
     //message.token=user.token
     websocket.send(JSON.stringify(message));
 }
-function wsCloset(){
+function wsClose(){
     websocket.close();
 }
 function clearListener(){
@@ -58,6 +59,6 @@ function addListener(func){
 }
 
 export {
-    wsSend,addListener,clearListener,wsConnect
+    wsSend,addListener,clearListener,wsConnect,wsClose
   }
   
