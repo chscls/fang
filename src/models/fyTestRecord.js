@@ -1,4 +1,10 @@
-import { queryTestRecord, removeTestRecord, addTestRecord,findTestRecord,queryTestRecordDetail } from '../services/FyTestRecordMngSvc';
+import {
+  queryTestRecord,
+  removeTestRecord,
+  addTestRecord,
+  findTestRecord,
+  queryTestRecordDetail,
+} from '../services/FyTestRecordMngSvc';
 
 export default {
   namespace: 'fyTestRecord',
@@ -51,12 +57,14 @@ export default {
         payload: response,
       });
       if (callback) callback(response.id);
-    },*clear({ payload, callback }, { call, put }) {
+    },
+    *clear({ payload, callback }, { call, put }) {
       yield put({
         type: 'ok',
         payload: null,
       });
-    }, *find({ payload, callback }, { call, put }) {
+    },
+    *find({ payload, callback }, { call, put }) {
       const response = yield call(findTestRecord, payload);
       yield put({
         type: 'ok',
@@ -98,6 +106,5 @@ export default {
         ...state,
       };
     },
-  
   },
 };

@@ -191,12 +191,16 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
     },
     '/question-manage/testRecord-list': {
-      component: dynamicWrapper(app, ['fyTestRecord'], () => import('../routes/QuestionManage/TestRecordList')),
+      component: dynamicWrapper(app, ['fyTestRecord'], () =>
+        import('../routes/QuestionManage/TestRecordList')
+      ),
     },
     '/question-manage/testRecord-detail/:orgId': {
-      component: dynamicWrapper(app, ['fyTestRecord'], () => import('../routes/QuestionManage/TestRecordDetail')),
+      component: dynamicWrapper(app, ['fyTestRecord'], () =>
+        import('../routes/QuestionManage/TestRecordDetail')
+      ),
     },
-    
+
     '/question-manage/test-add': {
       component: dynamicWrapper(app, ['form'], () =>
         import('../routes/QuestionManage/TestStepForm')

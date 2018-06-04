@@ -61,12 +61,12 @@ export default class QuestionList extends PureComponent {
   }
   getPage = params => {
     const pagination = this.props.fyQuestion.data.pagination;
-    
+
     if (params == null) {
       params = {
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
-        alreadyIds:this.props.alreadyIds?this.props.alreadyIds:[],
+        alreadyIds: this.props.alreadyIds ? this.props.alreadyIds : [],
         ...this.state.formValues,
       };
     }
@@ -90,7 +90,7 @@ export default class QuestionList extends PureComponent {
     const params = {
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
-      alreadyIds:this.props.alreadyIds?this.props.alreadyIds:[],
+      alreadyIds: this.props.alreadyIds ? this.props.alreadyIds : [],
       ...formValues,
       ...filters,
     };
@@ -136,8 +136,8 @@ export default class QuestionList extends PureComponent {
     this.setState({
       selectedRows: rows,
     });
-    if(this.props.handleSelect){
-      this.props.handleSelect(rows.map(row => row.id).join(','))
+    if (this.props.handleSelect) {
+      this.props.handleSelect(rows.map(row => row.id).join(','));
     }
   };
 
@@ -286,15 +286,14 @@ export default class QuestionList extends PureComponent {
         this.setState({
           selectedRows: [],
         });
-        if(this.props.handleSelect){
-          this.props.handleSelect([])
+        if (this.props.handleSelect) {
+          this.props.handleSelect([]);
         }
         this.getPage();
       },
     });
   };
 
- 
   render() {
     const { fyQuestion: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -307,27 +306,38 @@ export default class QuestionList extends PureComponent {
       {
         title: '标题',
         width: 400,
-        render: record =>
-
-          <Tooltip overlayStyle={{ minWidth: 400 }} title={record.type=="single"?
-            
-            
-            
-            <SingleView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="mutiply"?<MutiplyView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="judge"?<JudgeView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="fill"?<FillView style={{ backgroundColor: "white", color: "black" }} question={record} />
-          :record.type=="ask"?<AskView style={{ backgroundColor: "white", color: "black" }} question={record} />:""
-          }>
-            {record.isRich ?
+        render: record => (
+          <Tooltip
+            overlayStyle={{ minWidth: 400 }}
+            title={
+              record.type == 'single' ? (
+                <SingleView
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                  question={record}
+                />
+              ) : record.type == 'mutiply' ? (
+                <MutiplyView
+                  style={{ backgroundColor: 'white', color: 'black' }}
+                  question={record}
+                />
+              ) : record.type == 'judge' ? (
+                <JudgeView style={{ backgroundColor: 'white', color: 'black' }} question={record} />
+              ) : record.type == 'fill' ? (
+                <FillView style={{ backgroundColor: 'white', color: 'black' }} question={record} />
+              ) : record.type == 'ask' ? (
+                <AskView style={{ backgroundColor: 'white', color: 'black' }} question={record} />
+              ) : (
+                ''
+              )
+            }
+          >
+            {record.isRich ? (
               <div dangerouslySetInnerHTML={{ __html: record.title }} />
-              :
-              <Ellipsis lines={3}>
-                {record.title}
-              </Ellipsis>}
+            ) : (
+              <Ellipsis lines={3}>{record.title}</Ellipsis>
+            )}
           </Tooltip>
-
-        ,
+        ),
       },
       {
         title: '题型',
@@ -482,23 +492,21 @@ export default class QuestionList extends PureComponent {
         </Modal>
       );
     });
-    return (
-      this.props.isSelect?<div>
+    return this.props.isSelect ? (
+      <div>
         <div className={styles.tableListForm}>{this.renderForm()}</div>
-      <StandardTable
-      selectedRows={selectedRows}
-      loading={loading}
-      data={data}
-      columns={columns}
-      rowKey="id"
-      onSelectRow={this.handleSelectRows}
-      onChange={this.handleStandardTableChange}
-    />
-
-    </div>
-      
-      
-      :<PageHeaderLayout title="题目管理">
+        <StandardTable
+          selectedRows={selectedRows}
+          loading={loading}
+          data={data}
+          columns={columns}
+          rowKey="id"
+          onSelectRow={this.handleSelectRows}
+          onChange={this.handleStandardTableChange}
+        />
+      </div>
+    ) : (
+      <PageHeaderLayout title="题目管理">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>

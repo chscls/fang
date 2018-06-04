@@ -11,6 +11,7 @@
 
   .row {
     display: flex;
+    width: 100%;
   }
 
   .breadcrumb {
@@ -66,9 +67,11 @@
   .content,
   .extraContent,
   .main {
-    flex: auto;
+    flex: 0 1 auto;
   }
-
+  .main {
+    width: 100%;
+  }
   .title,
   .action {
     margin-bottom: 16px;

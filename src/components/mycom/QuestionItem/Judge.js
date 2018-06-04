@@ -13,11 +13,11 @@ export default class Judge extends PureComponent {
 
     const value = props.value || {};
     var x = value.items;
-    var y = value.isQuestionnaire
+    var y = value.isQuestionnaire;
 
     this.state = {
       items: x,
-      isQuestionnaire: y
+      isQuestionnaire: y,
     };
   }
   onChange = checked => {
@@ -30,11 +30,8 @@ export default class Judge extends PureComponent {
       this.setState(value);
     }
   }
-  componentDidMount() {
+  componentDidMount() {}
 
-  }
- 
- 
   triggerChange = changedValue => {
     // Should provide an event to pass value to Form.
     const onChange = this.props.onChange;
@@ -45,24 +42,23 @@ export default class Judge extends PureComponent {
   onChangeRadio = e => {
     var items = this.state.items;
     for (var i = 0; i < items.length; i++) {
-      items[i].isSolution = false
+      items[i].isSolution = false;
       if (i == e.target.value) {
-        items[i].isSolution = true
+        items[i].isSolution = true;
       }
     }
     if (!('value' in this.props)) {
       this.setState({ items });
     }
     this.triggerChange({ items });
-  }
- 
+  };
+
   render() {
     const { size } = this.props;
     const state = this.state;
     const isQuestionnaire = state.isQuestionnaire;
     var defaultValue = -1;
     for (var i = 0; i < state.items.length; i++) {
-
       if (state.items[i].isSolution) {
         defaultValue = i;
         break;
@@ -70,17 +66,16 @@ export default class Judge extends PureComponent {
     }
     return (
       <div>
-         <RadioGroup onChange={this.onChangeRadio} defaultValue={defaultValue}>
+        <RadioGroup onChange={this.onChangeRadio} defaultValue={defaultValue}>
           {state.items.map((r, i) => {
             return (
-            
-            <div><Radio value={i} key={i} />{r.content}</div>
-               
+              <div>
+                <Radio value={i} key={i} />
+                {r.content}
+              </div>
             );
           })}
-        </RadioGroup> 
-       
-        
+        </RadioGroup>
       </div>
     );
   }

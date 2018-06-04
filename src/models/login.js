@@ -11,9 +11,9 @@ export default {
   },
 
   effects: {
-    *wxlogin({ payload , callback}, { call, put }) {
-      if(callback){
-        callback()
+    *wxlogin({ payload, callback }, { call, put }) {
+      if (callback) {
+        callback();
       }
       yield put({
         type: 'changeLoginStatus',
@@ -21,7 +21,6 @@ export default {
       });
       reloadAuthorized();
       yield put(routerRedux.push('/'));
-      
     },
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);

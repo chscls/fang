@@ -34,7 +34,7 @@ class TestStep1 extends React.PureComponent {
       loading: false,
       inputVisible: false,
       inputValue: '',
-      mode:'free',
+      mode: 'free',
     };
   }
   handleClose = removedTag => {
@@ -67,13 +67,11 @@ class TestStep1 extends React.PureComponent {
   };
   saveInputRef = input => (this.input = input);
   onChange = checked => {
-    this.setState({  isQuestionnaire : checked });
+    this.setState({ isQuestionnaire: checked });
   };
-  onChangeMode= e =>{
-    
-    this.setState({mode:e.target.value})
-
-  }
+  onChangeMode = e => {
+    this.setState({ mode: e.target.value });
+  };
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.dispatch({
@@ -90,17 +88,15 @@ class TestStep1 extends React.PureComponent {
           this.setState({
             isReady: true,
             isQuestionnaire: test.isQuestionnaire,
-            mode:test.mode
+            mode: test.mode,
           });
         },
       });
     }
   }
- 
 
   render() {
-    
-    const {  inputVisible, inputValue, isQuestionnaire } = this.state;
+    const { inputVisible, inputValue, isQuestionnaire } = this.state;
     const { form, dispatch, data, fyTest: { test } } = this.props;
     const { getFieldDecorator, validateFields } = form;
 
@@ -122,16 +118,13 @@ class TestStep1 extends React.PureComponent {
     };
     return (
       <Fragment>
-        {this.state.isReady ? 
+        {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-           
-           <Form.Item {...formItemLayout} label="标题">
-              {
-                getFieldDecorator('title', {
-                  initialValue: test ? test.title : '',
-                  rules: [{ required: true, message: '请输入标题' }],
-                })(<Input  placeholder="请输入标题" />)
-              }
+            <Form.Item {...formItemLayout} label="标题">
+              {getFieldDecorator('title', {
+                initialValue: test ? test.title : '',
+                rules: [{ required: true, message: '请输入标题' }],
+              })(<Input placeholder="请输入标题" />)}
             </Form.Item>
             <Form.Item {...formItemLayout} label="模式">
               {getFieldDecorator('mode', {
@@ -143,31 +136,31 @@ class TestStep1 extends React.PureComponent {
                   <RadioButton value="singleLimit">单题限时</RadioButton>
                   <RadioButton value="totalLimit">总限时</RadioButton>
                   <RadioButton value="race">竞赛</RadioButton>
-                
                 </RadioGroup>
               )}
             </Form.Item>
-            {this.state.mode=='singleLimit'||this.state.mode=='totalLimit'?<Form.Item {...formItemLayout} label="限时秒数">
-              {getFieldDecorator('limitSecond', {
-                initialValue: test ? test.limitSecond : -1,
-                rules: [
-                  { required: true, message: '请输入秒数' },
-                  {
-                    pattern: /^(\d+)((?:\.\d+)?)$/,
-                    message: '请输入合法数字',
-                  },
-                ],
-              })(<Input placeholder="请输入分数" />)}
-            </Form.Item>:""}
+            {this.state.mode == 'singleLimit' || this.state.mode == 'totalLimit' ? (
+              <Form.Item {...formItemLayout} label="限时秒数">
+                {getFieldDecorator('limitSecond', {
+                  initialValue: test ? test.limitSecond : -1,
+                  rules: [
+                    { required: true, message: '请输入秒数' },
+                    {
+                      pattern: /^(\d+)((?:\.\d+)?)$/,
+                      message: '请输入合法数字',
+                    },
+                  ],
+                })(<Input placeholder="请输入分数" />)}
+              </Form.Item>
+            ) : (
+              ''
+            )}
             <Form.Item {...formItemLayout} label="是否问卷">
               {getFieldDecorator('isQuestionnaire', {
-                initialValue:  isQuestionnaire ,
-              })(<Switch defaultChecked={ isQuestionnaire } onChange={this.onChange} />)}
+                initialValue: isQuestionnaire,
+              })(<Switch defaultChecked={isQuestionnaire} onChange={this.onChange} />)}
             </Form.Item>
 
-           
-           
-           
             <Form.Item
               wrapperCol={{
                 xs: { span: 24, offset: 0 },
@@ -183,7 +176,9 @@ class TestStep1 extends React.PureComponent {
               </Button>
             </Form.Item>
           </Form>
-         : ''}
+        ) : (
+          ''
+        )}
         <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
           <h3>说明</h3>

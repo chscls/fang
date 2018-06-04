@@ -54,13 +54,13 @@ export default {
         data: action.payload,
       };
     },
-     user(state, action) {
+    user(state, action) {
       return {
         ...state,
         mdata: action.payload,
       };
     },
-   
+
     nom(state, action) {
       return {
         ...state,

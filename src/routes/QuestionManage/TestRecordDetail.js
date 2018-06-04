@@ -24,26 +24,28 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 
-@connect(({ list, loading,fyTestRecord }) => ({
+@connect(({ list, loading, fyTestRecord }) => ({
   list,
   loading: loading.models.list,
-  fyTestRecord
+  fyTestRecord,
 }))
 export default class TestRecordDetail extends PureComponent {
   componentDidMount() {
-    this.getPage(1)
+    this.getPage(1);
   }
-  getPage=(page,pageSize)=>{
-    const detailData  = this.props.fyTestRecord.detailData
+  getPage = (page, pageSize) => {
+    const detailData = this.props.fyTestRecord.detailData;
     this.props.dispatch({
       type: 'fyTestRecord/detail',
       payload: {
         orgId: this.props.match.params.orgId,
-        pageSize:pageSize?pageSize:detailData.pagination.pageSizepageSize?detailData.pagination.pageSize:10,
-        pageNo:page?page:detailData.pagination.current,
+        pageSize: pageSize
+          ? pageSize
+          : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
+        pageNo: page ? page : detailData.pagination.current,
       },
     });
-  }
+  };
 
   render() {
     const { fyTestRecord: { detailData }, loading } = this.props;
@@ -72,13 +74,13 @@ export default class TestRecordDetail extends PureComponent {
       showQuickJumper: true,
       pageSize: detailData.pagination.pageSize,
       total: detailData.pagination.total,
-      current:detailData.pagination.current,
-      onChange:(page, pageSize)=>{
-        this.getPage(page,pageSize)
+      current: detailData.pagination.current,
+      onChange: (page, pageSize) => {
+        this.getPage(page, pageSize);
       },
-      onShowSizeChange:(current, size)=>{
-        this.getPage(current,size)
-      }
+      onShowSizeChange: (current, size) => {
+        this.getPage(current, size);
+      },
     };
 
     const ListContent = ({ data: { score, createTime, percent, status } }) => (
@@ -141,7 +143,6 @@ export default class TestRecordDetail extends PureComponent {
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
           >
-           
             <List
               size="large"
               rowKey="id"
@@ -149,7 +150,7 @@ export default class TestRecordDetail extends PureComponent {
               pagination={paginationProps}
               dataSource={detailData.list}
               renderItem={item => (
-                <List.Item  key= {item.id} actions={[<a>主观题打分</a>]}>
+                <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
                     avatar={<Avatar src={item.headImg} shape="square" size="large" />}
                     title={<a href={item.href}>{item.user.realname}</a>}

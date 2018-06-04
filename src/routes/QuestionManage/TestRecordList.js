@@ -53,7 +53,6 @@ export default class TestList extends PureComponent {
     this.getPage();
   }
   getPage = params => {
-  
     const pagination = this.props.fyTestRecord.data.pagination;
     if (params == null) {
       params = {
@@ -68,7 +67,6 @@ export default class TestList extends PureComponent {
       payload: params,
     });
   };
- 
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
@@ -289,7 +287,7 @@ export default class TestList extends PureComponent {
       },
       {
         title: '标题',
-        render: record => record.test.title
+        render: record => record.test.title,
       },
       {
         title: '完成人数',
@@ -298,7 +296,8 @@ export default class TestList extends PureComponent {
       {
         title: '最小得分',
         dataIndex: 'minScore',
-      },{
+      },
+      {
         title: '平均分',
         dataIndex: 'avgScore',
       },
@@ -318,13 +317,15 @@ export default class TestList extends PureComponent {
       {
         title: '试卷状态',
         render: record =>
-          record.test.status == 'create' ? '创建中' : record.test.status == 'process' ? '进行中' : '已结束',
+          record.test.status == 'create'
+            ? '创建中'
+            : record.test.status == 'process' ? '进行中' : '已结束',
       },
       {
         title: '操作',
         render: record => (
           <Fragment>
-             <Link to={`/question-manage/testRecord-detail/${record.orgId}`}>查看详情</Link>
+            <Link to={`/question-manage/testRecord-detail/${record.orgId}`}>查看详情</Link>
           </Fragment>
         ),
       },
@@ -371,7 +372,6 @@ export default class TestList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-           
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>

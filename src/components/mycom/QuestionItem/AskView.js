@@ -10,40 +10,28 @@ const RadioGroup = Radio.Group;
 export default class AskView extends PureComponent {
   constructor(props) {
     super(props);
-
-    
-    
   }
- 
 
   render() {
-    const { size,question } = this.props;
-   
+    const { size, question } = this.props;
+
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
- 
+
     return (
       <div style={this.props.style}>
-        { question.isRich ? (
-                <div dangerouslySetInnerHTML={{ __html:  question.title }} />
-              ) : (
-                <div> { question.title}</div>
-              )}
-        {
-          items.map((r, i) => {
-            return (
-              <div key={i}>
-              
-                
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content}} /> :r.content }
-                </div>
-             
-            );
-          })
-
-
-        }
-      
+        {question.isRich ? (
+          <div dangerouslySetInnerHTML={{ __html: question.title }} />
+        ) : (
+          <div> {question.title}</div>
+        )}
+        {items.map((r, i) => {
+          return (
+            <div key={i}>
+              {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
+            </div>
+          );
+        })}
       </div>
     );
   }

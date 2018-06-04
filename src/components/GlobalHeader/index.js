@@ -57,7 +57,7 @@ export default class GlobalHeader extends PureComponent {
   }
   render() {
     const {
-      currentUser,
+      currentUser = {},
       collapsed,
       fetchingNotices,
       isMobile,
@@ -112,7 +112,7 @@ export default class GlobalHeader extends PureComponent {
           <Tooltip title="使用文档">
             <a
               target="_blank"
-              href="http://192.168.28.220:8080/swagger-ui.html#"
+              href="http://pro.ant.design/docs/getting-started"
               rel="noopener noreferrer"
               className={styles.action}
             >

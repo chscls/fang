@@ -1,4 +1,4 @@
-import React,{ Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Alert, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
@@ -27,16 +27,14 @@ class QuestionStep2 extends React.PureComponent {
     this.state = {
       id: 0,
       isRich: false,
-      isQuestionnaire:false,
+      isQuestionnaire: false,
       title: '',
       isReady: false,
       items: [],
-      type:"single"
+      type: 'single',
     };
   }
-  preHandle=(question)=>{
-
-  }
+  preHandle = question => {};
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.dispatch({
@@ -50,53 +48,50 @@ class QuestionStep2 extends React.PureComponent {
         type: 'fyQuestion/find',
         payload: { id: id },
         callback: question => {
-
-         const items =  question.items
-         if(question.type=="single"||question.type=="mutiply"){
-          if (items.length == 0) {
-            items.push({ content: '', isSolution: false,isRich:false });
-            items.push({ content: '', isSolution: false,isRich:false });
-          } else if (items.length == 1) {
-            items.push({ content: '', isSolution: false,isRich:false });
-          }
-        }else if(question.type=="judge"){
-          
-          if (items.length == 0) {
-            items.push({ content: '对', isSolution: false,isRich:false });
-            items.push({ content: '错', isSolution: false,isRich:false });
-          }else if(items.length == 1) {
-            items[0].content=="对"
-            items.push({ content: '错', isSolution: false,isRich:false });
-
-          }else if(items.length >= 2) {
-            if( items[0].isSolution){
-              items.splice(0,items.length);
-              items.push({ content: '对', isSolution: true,isRich:false });
-              items.push({ content: '错', isSolution: false,isRich:false });
-            }else if(items[1].isSolution){
-              items.splice(0,items.length);
-              items.push({ content: '对', isSolution: true,isRich:false });
-              items.push({ content: '错', isSolution: false,isRich:false });
-            }else{
-              items.splice(0,items.length);
-              items.push({ content: '对', isSolution: false,isRich:false });
-              items.push({ content: '错', isSolution: false,isRich:false });
+          const items = question.items;
+          if (question.type == 'single' || question.type == 'mutiply') {
+            if (items.length == 0) {
+              items.push({ content: '', isSolution: false, isRich: false });
+              items.push({ content: '', isSolution: false, isRich: false });
+            } else if (items.length == 1) {
+              items.push({ content: '', isSolution: false, isRich: false });
+            }
+          } else if (question.type == 'judge') {
+            if (items.length == 0) {
+              items.push({ content: '对', isSolution: false, isRich: false });
+              items.push({ content: '错', isSolution: false, isRich: false });
+            } else if (items.length == 1) {
+              items[0].content == '对';
+              items.push({ content: '错', isSolution: false, isRich: false });
+            } else if (items.length >= 2) {
+              if (items[0].isSolution) {
+                items.splice(0, items.length);
+                items.push({ content: '对', isSolution: true, isRich: false });
+                items.push({ content: '错', isSolution: false, isRich: false });
+              } else if (items[1].isSolution) {
+                items.splice(0, items.length);
+                items.push({ content: '对', isSolution: true, isRich: false });
+                items.push({ content: '错', isSolution: false, isRich: false });
+              } else {
+                items.splice(0, items.length);
+                items.push({ content: '对', isSolution: false, isRich: false });
+                items.push({ content: '错', isSolution: false, isRich: false });
+              }
+            }
+          } else {
+            if (items.length == 0) {
+              items.push({ content: '', isSolution: false, isRich: false });
             }
           }
-        }else{
-          if (items.length == 0) {
-            items.push({ content: '', isSolution: false,isRich:false });
-          }
-        }
 
           this.setState({
             isReady: true,
             id: question.id,
             items: items,
             isRich: question.isRich,
-            isQuestionnaire:question.isQuestionnaire,
+            isQuestionnaire: question.isQuestionnaire,
             title: question.title,
-            type:question.type,
+            type: question.type,
           });
         },
       });
@@ -106,27 +101,22 @@ class QuestionStep2 extends React.PureComponent {
     const { form, data, dispatch, submitting } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
-    const isQuestionnaire = this.state.isQuestionnaire
-    const type=this.state.type
-  
-
-
+    const isQuestionnaire = this.state.isQuestionnaire;
+    const type = this.state.type;
 
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/question-add/info/${this.state.id}`));
     };
     const onValidateForm = e => {
-      
       e.preventDefault();
       validateFields((err, values) => {
-        
         if (!err) {
           dispatch({
             type: 'fyQuestion/updateOptions',
             payload: {
-              id:this.state.id,
-              options:JSON.stringify(values.options.items),
-              isQuestionnaire:values.options.isQuestionnaire,     
+              id: this.state.id,
+              options: JSON.stringify(values.options.items),
+              isQuestionnaire: values.options.isQuestionnaire,
             },
             callback: id => {
               dispatch(routerRedux.push(`/question-manage/question-add/result/${id}`));
@@ -137,9 +127,8 @@ class QuestionStep2 extends React.PureComponent {
     };
     return (
       <Fragment>
-        {this.state.isReady ? 
+        {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
-            
             <Form.Item {...formItemLayout} label="标题">
               {this.state.isRich ? (
                 <div dangerouslySetInnerHTML={{ __html: this.state.title }} />
@@ -150,16 +139,21 @@ class QuestionStep2 extends React.PureComponent {
 
             <Form.Item style={{ maxWidth: 1000 }} {...formItemLayout} label="选项">
               {getFieldDecorator('options', {
-                initialValue: { items: items,isQuestionnaire:isQuestionnaire }
-              })(type=="single"?
-                  <Single />:type=="judge"? <Judge />:type=="mutiply"? <Mutiply/>
-                  
-                  :type=="fill"? <Fill/>
-                  :type=="ask"? <Ask/>:
+                initialValue: { items: items, isQuestionnaire: isQuestionnaire },
+              })(
+                type == 'single' ? (
                   <Single />
-                 
-                
-              
+                ) : type == 'judge' ? (
+                  <Judge />
+                ) : type == 'mutiply' ? (
+                  <Mutiply />
+                ) : type == 'fill' ? (
+                  <Fill />
+                ) : type == 'ask' ? (
+                  <Ask />
+                ) : (
+                  <Single />
+                )
               )}
             </Form.Item>
 
@@ -174,20 +168,20 @@ class QuestionStep2 extends React.PureComponent {
               }}
               label=""
             >
-            <div style={{ margin:"auto",width:200 }}>
-              <Button   type="primary" onClick={onValidateForm} loading={submitting}>
-                提交
-              </Button>
-              <Button onClick={onPrev} style={{ marginLeft: 8 }}>
-                上一步
-              </Button>
+              <div style={{ margin: 'auto', width: 200 }}>
+                <Button type="primary" onClick={onValidateForm} loading={submitting}>
+                  提交
+                </Button>
+                <Button onClick={onPrev} style={{ marginLeft: 8 }}>
+                  上一步
+                </Button>
               </div>
             </Form.Item>
           </Form>
-         : 
+        ) : (
           ''
-        }
-         <Divider style={{ margin: '40px 0 24px' }} />
+        )}
+        <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
           <h3>说明</h3>
           <h4>问卷模式</h4>

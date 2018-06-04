@@ -22,10 +22,6 @@ export async function removeTestRecord(params) {
   });
 }
 
-
-
-
-
 export async function addTestRecord(params) {
   return request(`${ad}/addTestRecord`, {
     method: 'POST',

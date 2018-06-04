@@ -56,7 +56,7 @@ export default class MemberList extends PureComponent {
 
     if (params == null) {
       params = {
-        type:'user',
+        type: 'user',
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
         ...this.state.formValues,
@@ -69,7 +69,6 @@ export default class MemberList extends PureComponent {
     });
   };
 
-
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
     const { formValues } = this.state;
@@ -81,7 +80,7 @@ export default class MemberList extends PureComponent {
     }, {});
 
     const params = {
-      type:'user',
+      type: 'user',
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,

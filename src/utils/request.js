@@ -94,7 +94,6 @@ export default function request(url, options) {
     })
     .then(response => {
       if (typeof response == 'string') {
-        
         notification.error({
           message: `请求错误`,
           description: JSON.parse(response).errmsg,

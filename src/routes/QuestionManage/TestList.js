@@ -53,7 +53,6 @@ export default class TestList extends PureComponent {
     this.getPage();
   }
   getPage = params => {
-  
     const pagination = this.props.fyTest.data.pagination;
     if (params == null) {
       params = {
@@ -68,7 +67,6 @@ export default class TestList extends PureComponent {
       payload: params,
     });
   };
- 
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
@@ -323,7 +321,7 @@ export default class TestList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-             <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
+            <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
@@ -372,10 +370,10 @@ export default class TestList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-            <Link to="/question-manage/test-add/info/0">
-             <Button icon="plus" type="primary" >
-                新建
-              </Button>
+              <Link to="/question-manage/test-add/info/0">
+                <Button icon="plus" type="primary">
+                  新建
+                </Button>
               </Link>
               {selectedRows.length > 0 && (
                 <span>

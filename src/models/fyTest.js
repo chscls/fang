@@ -1,4 +1,10 @@
-import { queryTest, removeTest, addTest,findTest ,updateTestQuestions} from '../services/FyTestMngSvc';
+import {
+  queryTest,
+  removeTest,
+  addTest,
+  findTest,
+  updateTestQuestions,
+} from '../services/FyTestMngSvc';
 
 export default {
   namespace: 'fyTest',
@@ -12,17 +18,15 @@ export default {
   },
 
   effects: {
-    *updateTestQuestions({ payload,callback }, { call, put }) {
+    *updateTestQuestions({ payload, callback }, { call, put }) {
       const response = yield call(updateTestQuestions, payload);
       yield put({
         type: 'ok',
-        payload:response
-      })
+        payload: response,
+      });
       if (callback) callback(response);
-
-
     },
-    
+
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryTest, payload);
       yield put({
@@ -44,12 +48,14 @@ export default {
         payload: response,
       });
       if (callback) callback(response.id);
-    },*clear({ payload, callback }, { call, put }) {
+    },
+    *clear({ payload, callback }, { call, put }) {
       yield put({
         type: 'ok',
         payload: null,
       });
-    }, *find({ payload, callback }, { call, put }) {
+    },
+    *find({ payload, callback }, { call, put }) {
       const response = yield call(findTest, payload);
       yield put({
         type: 'ok',
@@ -85,6 +91,5 @@ export default {
         ...state,
       };
     },
-  
   },
 };

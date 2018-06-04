@@ -56,7 +56,7 @@ export default class AdminList extends PureComponent {
 
     if (params == null) {
       params = {
-        type:'admin',
+        type: 'admin',
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
         ...this.state.formValues,
@@ -80,7 +80,7 @@ export default class AdminList extends PureComponent {
     }, {});
 
     const params = {
-      type:'admin',
+      type: 'admin',
       pageNo: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,

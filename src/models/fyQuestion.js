@@ -48,7 +48,7 @@ export default {
       });
       if (callback) callback(response.id);
     },
-    
+
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addQuestion, payload);
       yield put({
@@ -91,6 +91,5 @@ export default {
         ...state,
       };
     },
-  
   },
 };

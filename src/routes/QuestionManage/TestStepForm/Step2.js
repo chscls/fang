@@ -1,6 +1,6 @@
-import React,{ Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form,Icon, Input, Button, Alert, Divider ,List,Avatar,Checkbox,Modal} from 'antd';
+import { Form, Icon, Input, Button, Alert, Divider, List, Avatar, Checkbox, Modal } from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../utils/utils';
 import Single from '../../../components/mycom/QuestionItem/Single';
@@ -24,7 +24,7 @@ const formItemLayout = {
   },
 };
 
-var key=1;
+var key = 1;
 
 @DragDropContext(HTML5Backend)
 @Form.create()
@@ -34,16 +34,16 @@ class TestStep2 extends React.PureComponent {
     this.state = {
       id: 0,
       isRich: false,
-      isQuestionnaire:false,
+      isQuestionnaire: false,
       title: '',
       isReady: false,
       items: [],
-      type:"single",
+      type: 'single',
       indeterminate: true,
       checkAll: false,
-      flag:false,
-      selectQuestionIds:[],
-      questionModal:false
+      flag: false,
+      selectQuestionIds: [],
+      questionModal: false,
     };
   }
 
@@ -60,127 +60,114 @@ class TestStep2 extends React.PureComponent {
         type: 'fyTest/find',
         payload: { id: id },
         callback: test => {
+          const items = [];
 
-          const items = []
-
-          for(var i=0;i<test.questions.length;i++){
-            items[i]={index:i,q:test.questions[i],checked:false}
+          for (var i = 0; i < test.questions.length; i++) {
+            items[i] = { index: i, q: test.questions[i], checked: false };
           }
-        
+
           this.setState({
             isReady: true,
             id: test.id,
-            isQuestionnaire:test.isQuestionnaire,
-            items
+            isQuestionnaire: test.isQuestionnaire,
+            items,
           });
         },
       });
     }
   }
-  handle = (index,e) => {
-   
-   
-    const items=this.state.items
- 
-    items[index].checked =e.target.checked
-    
+  handle = (index, e) => {
+    const items = this.state.items;
+
+    items[index].checked = e.target.checked;
+
     this.setState({
       items,
       flag: !this.state.flag,
-      indeterminate: this.checkLength(items)< items.length,
+      indeterminate: this.checkLength(items) < items.length,
       checkAll: this.checkLength(items) === items.length,
-    }); 
-   
-  }
-  checkLength(items){
-    var ids=[]
-    for(var i=0;i<items.length;i++){
-      if(items[i].checked){
-      ids.push(items[i].id)
+    });
+  };
+  checkLength(items) {
+    var ids = [];
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].checked) {
+        ids.push(items[i].id);
       }
     }
-  
+
     return ids;
   }
-  checkLength(items){
+  checkLength(items) {
     var count = 0;
-    for(var i=0;i<items.length;i++){
-      if(items[i].checked){
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].checked) {
         count++;
       }
     }
-  
+
     return count;
   }
-  onCheckAllChange = (e) => {
-    const items=this.state.items
-   
-    if(!e.target.checked){
-     
+  onCheckAllChange = e => {
+    const items = this.state.items;
 
-      for(var i=0;i<items.length;i++){
-        items[i]={index:items[i].index,q:items[i].q,checked:false}
+    if (!e.target.checked) {
+      for (var i = 0; i < items.length; i++) {
+        items[i] = { index: items[i].index, q: items[i].q, checked: false };
       }
-    }else{
-      
-
-      for(var i=0;i<items.length;i++){
-        items[i]={index:items[i].index,q:items[i].q,checked:true}
+    } else {
+      for (var i = 0; i < items.length; i++) {
+        items[i] = { index: items[i].index, q: items[i].q, checked: true };
       }
     }
-    
+
     this.setState({
       items,
       indeterminate: false,
       checkAll: e.target.checked,
     });
-  }
-  openQuestions=()=>{
+  };
+  openQuestions = () => {
     this.setState({
-     questionModal:true
+      questionModal: true,
     });
-  }
-  handleModalVisible=()=>{
+  };
+  handleModalVisible = () => {
     this.setState({
-      questionModal:false
-     });
-  }
-  okHandle=()=>{
+      questionModal: false,
+    });
+  };
+  okHandle = () => {
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
-        id:this.state.id,
-        qids:this.state.selectQuestionIds
+        id: this.state.id,
+        qids: this.state.selectQuestionIds,
       },
       callback: test => {
-        key=key+1
-        const items = []
+        key = key + 1;
+        const items = [];
 
-          for(var i=0;i<test.questions.length;i++){
-            items[i]={index:i,q:test.questions[i],checked:false}
-          }
+        for (var i = 0; i < test.questions.length; i++) {
+          items[i] = { index: i, q: test.questions[i], checked: false };
+        }
         this.setState({
-          questionModal:false,
-          items 
-         });
+          questionModal: false,
+          items,
+        });
       },
     });
-   
-  }
-  handleSelect=(ids)=>{
-    
-    this.setState({selectQuestionIds:ids})
-    
-  }
+  };
+  handleSelect = ids => {
+    this.setState({ selectQuestionIds: ids });
+  };
   render() {
-    const { form, data, dispatch, submitting ,fyTest: { test } } = this.props;
+    const { form, data, dispatch, submitting, fyTest: { test } } = this.props;
     const { getFieldDecorator, validateFields } = form;
 
+    const data2 = this.state.items;
+    const alreadyIds = data2.map(row => row.q.id).join(',');
 
-
-    const data2 = this.state.items
-    const alreadyIds =  data2.map(row => row.q.id).join(',')
-   
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/test-add/info/${this.state.id}`));
     };
@@ -188,16 +175,13 @@ class TestStep2 extends React.PureComponent {
       dispatch(routerRedux.push(`/question-manage/test-add/result/${this.state.id}`));
     };
     const onValidateForm = e => {
-      
       e.preventDefault();
       validateFields((err, values) => {
-        
         if (!err) {
           dispatch({
             type: 'fyTest/updateQuestions',
             payload: {
-              id:this.state.id,
-             
+              id: this.state.id,
             },
             callback: id => {
               dispatch(routerRedux.push(`/question-manage/test-add/result/${id}`));
@@ -208,36 +192,32 @@ class TestStep2 extends React.PureComponent {
     };
     return (
       <Fragment>
-        {this.state.isReady ? 
+        {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
-            
             <Form.Item {...formItemLayout} label="标题">
-            
-                <div> {test.title}</div>
-            
+              <div> {test.title}</div>
             </Form.Item>
             <Form.Item {...formItemLayout} label="题目">
-            <Checkbox
-            indeterminate={this.state.indeterminate}
-            onChange={this.onCheckAllChange}
-            checked={this.state.checkAll}
-          >
-            全选
-          </Checkbox>
-          <Button type="primary" onClick={this.openQuestions} >插入题目</Button>
-            <List
-    itemLayout="horizontal"
-    dataSource={data2}
-    renderItem={ item => (
-    
-      <List.Item key={item.index}>
-     <Card  checked={item.checked} handle={this.handle} item={item} />
-      </List.Item>
-     
-    )}
-  />
-  
-          </Form.Item>  
+              <Checkbox
+                indeterminate={this.state.indeterminate}
+                onChange={this.onCheckAllChange}
+                checked={this.state.checkAll}
+              >
+                全选
+              </Checkbox>
+              <Button type="primary" onClick={this.openQuestions}>
+                插入题目
+              </Button>
+              <List
+                itemLayout="horizontal"
+                dataSource={data2}
+                renderItem={item => (
+                  <List.Item key={item.index}>
+                    <Card checked={item.checked} handle={this.handle} item={item} />
+                  </List.Item>
+                )}
+              />
+            </Form.Item>
             <Form.Item
               style={{ marginBottom: 8 }}
               wrapperCol={{
@@ -249,34 +229,39 @@ class TestStep2 extends React.PureComponent {
               }}
               label=""
             >
-            <div style={{ margin:"auto",width:200 }}>
-              <Button   type="primary" onClick={onPreview} loading={submitting}>
-                预览
-              </Button>
-              <Button onClick={onPrev} style={{ marginLeft: 8 }}>
-                上一步
-              </Button>
+              <div style={{ margin: 'auto', width: 200 }}>
+                <Button type="primary" onClick={onPreview} loading={submitting}>
+                  预览
+                </Button>
+                <Button onClick={onPrev} style={{ marginLeft: 8 }}>
+                  上一步
+                </Button>
               </div>
             </Form.Item>
           </Form>
-         : 
+        ) : (
           ''
-        }
-         <Divider style={{ margin: '40px 0 24px' }} />
+        )}
+        <Divider style={{ margin: '40px 0 24px' }} />
         <div className={styles.desc}>
           <h3>说明</h3>
           <h4>问卷模式</h4>
           <p>问卷模式无需选择或填写正确答案</p>
         </div>
 
-          <Modal
+        <Modal
           title="插入题目"
           visible={this.state.questionModal}
           onOk={this.okHandle}
           width={1800}
           onCancel={() => this.handleModalVisible()}
         >
-         <QuestionList key={key} alreadyIds={alreadyIds} isSelect={true} handleSelect={this.handleSelect} />
+          <QuestionList
+            key={key}
+            alreadyIds={alreadyIds}
+            isSelect={true}
+            handleSelect={this.handleSelect}
+          />
         </Modal>
       </Fragment>
     );

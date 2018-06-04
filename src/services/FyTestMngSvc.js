@@ -18,8 +18,6 @@ export async function removeTest(params) {
   });
 }
 
-
-
 export async function updateTestQuestions(params) {
   return request(`${ad}/updateTestQuestions`, {
     method: 'POST',

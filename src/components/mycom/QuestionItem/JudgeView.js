@@ -10,41 +10,37 @@ const RadioGroup = Radio.Group;
 export default class Judge extends PureComponent {
   constructor(props) {
     super(props);
-
-   
   }
 
   render() {
-    const { size,question } = this.props;
-   
+    const { size, question } = this.props;
+
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
     var defaultValue = -1;
     for (var i = 0; i < items.length; i++) {
-
       if (items[i].isSolution) {
         defaultValue = i;
         break;
       }
     }
     return (
-        <div style={this.props.style}>
-         { question.isRich ? (
-                <div dangerouslySetInnerHTML={{ __html:  question.title }} />
-              ) : (
-                <div> { question.title}</div>
-              )}
-         <RadioGroup defaultValue={defaultValue}>
+      <div style={this.props.style}>
+        {question.isRich ? (
+          <div dangerouslySetInnerHTML={{ __html: question.title }} />
+        ) : (
+          <div> {question.title}</div>
+        )}
+        <RadioGroup defaultValue={defaultValue}>
           {items.map((r, i) => {
             return (
-            
-            <div><Radio value={i} key={i} disabled={i!=defaultValue}/>{r.content}</div>
-               
+              <div>
+                <Radio value={i} key={i} disabled={i != defaultValue} />
+                {r.content}
+              </div>
             );
           })}
-        </RadioGroup> 
-       
-        
+        </RadioGroup>
       </div>
     );
   }
