@@ -13,6 +13,7 @@ import {
   Button,
   Dropdown,
   Menu,
+  Tooltip,
   InputNumber,
   DatePicker,
   Modal,
@@ -22,7 +23,7 @@ import {
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import QRCode from 'qrcode.react';
 import styles from './TestList.less';
 
 const FormItem = Form.Item;
@@ -287,7 +288,13 @@ export default class TestList extends PureComponent {
       },
       {
         title: '唯一码',
-        dataIndex: 'code',
+        render: record => 
+        <Tooltip
+       
+        title={  <QRCode value={record.code} />}>
+
+<a>{record.code}</a>
+         </Tooltip>
       },
       {
         title: '标题',
