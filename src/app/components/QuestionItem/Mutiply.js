@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Select, Alert, message, Button, Radio, Switch, Checkbox } from 'antd';
-import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
+import RichEditor from '../RichEditor/RichEditor';
 import { truncate } from 'fs';
 const FormItem = Form.Item;
 const Option = Select.Option;
