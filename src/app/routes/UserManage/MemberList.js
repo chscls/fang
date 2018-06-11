@@ -32,7 +32,39 @@ const getValue = obj =>
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
-
+const CreateForm = Form.create()(props => {
+  const { modalVisible, form, handleAdd, handleModalVisible,currentObj } = props;
+  const okHandle = () => {
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+      form.resetFields();
+      handleAdd(fieldsValue);
+    });
+  };
+  return (
+    <Modal
+      title="新建"
+      visible={modalVisible}
+      onOk={okHandle}
+      onCancel={() => handleModalVisible()}
+    >
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="登录名">
+        {currentObj.id
+          ? currentObj.username
+          : form.getFieldDecorator('username', {
+              initialValue: currentObj.username,
+              rules: [{ required: true, message: '请输入登录名...' }],
+            })(<Input placeholder="请输入登录名" />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="姓名">
+        {form.getFieldDecorator('realname', {
+          initialValue: currentObj.realname,
+          rules: [{ required: true, message: '请输入姓名...' }],
+        })(<Input placeholder="请输入姓名" />)}
+      </FormItem>
+    </Modal>
+  );
+});
 @connect(({ rule, loading, fyUser }) => ({
   fyUser,
   rule,
@@ -352,40 +384,9 @@ export default class MemberList extends PureComponent {
     const parentMethods = {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
+      currentObj:this.state.currentObj
     };
-    const CreateForm = Form.create()(props => {
-      const { modalVisible, form, handleAdd, handleModalVisible } = props;
-      const okHandle = () => {
-        form.validateFields((err, fieldsValue) => {
-          if (err) return;
-          form.resetFields();
-          handleAdd(fieldsValue);
-        });
-      };
-      return (
-        <Modal
-          title="新建"
-          visible={modalVisible}
-          onOk={okHandle}
-          onCancel={() => handleModalVisible()}
-        >
-          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="登录名">
-            {this.state.currentObj.id
-              ? this.state.currentObj.username
-              : form.getFieldDecorator('username', {
-                  initialValue: this.state.currentObj.username,
-                  rules: [{ required: true, message: '请输入登录名...' }],
-                })(<Input placeholder="请输入登录名" />)}
-          </FormItem>
-          <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="姓名">
-            {form.getFieldDecorator('realname', {
-              initialValue: this.state.currentObj.realname,
-              rules: [{ required: true, message: '请输入姓名...' }],
-            })(<Input placeholder="请输入姓名" />)}
-          </FormItem>
-        </Modal>
-      );
-    });
+   
     return (
       <PageHeaderLayout title="会员管理">
         <Card bordered={false}>

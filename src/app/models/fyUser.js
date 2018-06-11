@@ -31,11 +31,16 @@ export default {
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addUser, payload);
-      yield put({
-        type: 'nom',
-        payload: response,
-      });
-      if (callback) callback();
+      if(response){
+        yield put({
+          type: 'nom',
+          payload: response,
+        });
+      
+        if (callback) callback({suc:true,obj:response});
+      }else{
+        if (callback) callback({suc:false,obj:payload});
+      }
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeUser, payload);
