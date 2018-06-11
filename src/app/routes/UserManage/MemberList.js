@@ -33,7 +33,7 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible,currentObj } = props;
+  const { modalVisible, form, handleAdd, handleModalVisible, currentObj } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -384,9 +384,9 @@ export default class MemberList extends PureComponent {
     const parentMethods = {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
-      currentObj:this.state.currentObj
+      currentObj: this.state.currentObj,
     };
-   
+
     return (
       <PageHeaderLayout title="会员管理">
         <Card bordered={false}>

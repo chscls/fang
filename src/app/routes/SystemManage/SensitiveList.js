@@ -33,7 +33,7 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible,currentObj } = props;
+  const { modalVisible, form, handleAdd, handleModalVisible, currentObj } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -194,15 +194,15 @@ export default class SensitiveList extends PureComponent {
     this.props.dispatch({
       type: 'fySensitive/add',
       payload: params,
-      callback: (res) => {
-        if(res.suc){
-        message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
-        this.setState({
-          modalVisible: false,
-        });
-        this.getPage();
-        }else{
-          this.setState({currentObj:res.obj})
+      callback: res => {
+        if (res.suc) {
+          message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
+          this.setState({
+            modalVisible: false,
+          });
+          this.getPage();
+        } else {
+          this.setState({ currentObj: res.obj });
         }
       },
     });
@@ -338,9 +338,9 @@ export default class SensitiveList extends PureComponent {
     const parentMethods = {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
-      currentObj:this.state.currentObj
+      currentObj: this.state.currentObj,
     };
-    
+
     return (
       <PageHeaderLayout title="管理员管理">
         <Card bordered={false}>

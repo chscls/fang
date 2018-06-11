@@ -463,7 +463,6 @@ export default class QuestionList extends PureComponent {
       </Menu>
     );
 
-  
     return this.props.isSelect ? (
       <div>
         <div className={styles.tableListForm}>{this.renderForm()}</div>
@@ -510,7 +509,6 @@ export default class QuestionList extends PureComponent {
             />
           </div>
         </Card>
-     
       </PageHeaderLayout>
     );
   }

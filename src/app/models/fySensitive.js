@@ -27,16 +27,16 @@ export default {
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addSensitive, payload);
-      if(response){
-      yield put({
-        type: 'nom',
-        payload: response,
-      });
-    
-      if (callback) callback({suc:true,obj:response});
-    }else{
-      if (callback) callback({suc:false,obj:payload});
-    }
+      if (response) {
+        yield put({
+          type: 'nom',
+          payload: response,
+        });
+
+        if (callback) callback({ suc: true, obj: response });
+      } else {
+        if (callback) callback({ suc: false, obj: payload });
+      }
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeSensitive, payload);

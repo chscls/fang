@@ -1,4 +1,3 @@
-
 const menuData = [
   {
     name: '控制台',
@@ -71,5 +70,4 @@ const menuData = [
   },
 ];
 
-
-export default menuData
+export default menuData;

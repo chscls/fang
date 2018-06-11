@@ -48,8 +48,8 @@ export default class TestList extends PureComponent {
     selectedRows: [],
     formValues: {},
     currentObj: {},
-    code:"",
-    screenTitle:"",
+    code: '',
+    screenTitle: '',
     screenVisible: false,
   };
 
@@ -249,7 +249,7 @@ export default class TestList extends PureComponent {
       currentObj: record,
       modalVisible: true,
     });
-  }
+  };
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
@@ -261,12 +261,10 @@ export default class TestList extends PureComponent {
         this.getPage();
       },
     });
-  }
-  screen= (code,title) => {
-
-    this.setState({code,screenVisible:true,screenTitle:title})
-
-  }
+  };
+  screen = (code, title) => {
+    this.setState({ code, screenVisible: true, screenTitle: title });
+  };
   batchDelete = e => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
@@ -285,10 +283,10 @@ export default class TestList extends PureComponent {
       },
     });
   };
-  
-  cancelScreen= e=> {
-    this.setState({screenVisible:false})
-  }
+
+  cancelScreen = e => {
+    this.setState({ screenVisible: false });
+  };
   render() {
     const { fyTest: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -300,7 +298,9 @@ export default class TestList extends PureComponent {
       },
       {
         title: '唯一码(点击可投屏)',
-        render: record =>   <a onClick={this.screen.bind(this, record.code,record.title)}>{record.code}</a>
+        render: record => (
+          <a onClick={this.screen.bind(this, record.code, record.title)}>{record.code}</a>
+        ),
       },
       {
         title: '标题',
@@ -337,7 +337,6 @@ export default class TestList extends PureComponent {
             <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
-          
           </Fragment>
         ),
       },
@@ -349,7 +348,6 @@ export default class TestList extends PureComponent {
       </Menu>
     );
 
-  
     return (
       <PageHeaderLayout title="试卷管理">
         <Card bordered={false}>
@@ -383,16 +381,17 @@ export default class TestList extends PureComponent {
             />
           </div>
         </Card>
-    <Modal  title={this.state.screenTitle}
-      visible={this.state.screenVisible}
-      footer={null}
-      width={640}
-      onCancel={this.cancelScreen}
-      maskClosable={false}
-      okText="关闭"
->
-<QRCode value={this.state.code} size={600}/>
-      </Modal>
+        <Modal
+          title={this.state.screenTitle}
+          visible={this.state.screenVisible}
+          footer={null}
+          width={640}
+          onCancel={this.cancelScreen}
+          maskClosable={false}
+          okText="关闭"
+        >
+          <QRCode value={this.state.code} size={600} />
+        </Modal>
       </PageHeaderLayout>
     );
   }

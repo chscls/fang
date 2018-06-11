@@ -1,7 +1,7 @@
 import { isUrl } from '../utils/utils';
 
 import menuDynamic from '../app/common/menu';
-const menuData =menuDynamic
+const menuData = menuDynamic;
 
 function formatter(data, parentPath = '/', parentAuthority) {
   return data.map(item => {

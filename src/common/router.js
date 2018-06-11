@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { getMenuData } from './menu';
-import appRouter from  '../app/common/router'
+import appRouter from '../app/common/router';
 let routerDataCache;
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line
@@ -11,21 +11,20 @@ const modelNotExisted = (app, model) =>
   });
 
 // wrapper of dynamic
-const dynamicWrapper = (app, models, component,custom) => {
+const dynamicWrapper = (app, models, component, custom) => {
   // () => require('module')
   // transformed by babel-plugin-dynamic-import-node-sync
   if (component.toString().indexOf('.then(') < 0) {
     models.forEach(model => {
-      if(custom){
-        
+      if (custom) {
         if (modelNotExisted(app, model.default.namespace)) {
           app.model(model.default);
         }
-      }else{
-      if (modelNotExisted(app, model)) {
-        // eslint-disable-next-lin
-        app.model(require(`../models/${model}`).default);
-      }
+      } else {
+        if (modelNotExisted(app, model)) {
+          // eslint-disable-next-lin
+          app.model(require(`../models/${model}`).default);
+        }
       }
     });
     return props => {
@@ -42,7 +41,9 @@ const dynamicWrapper = (app, models, component,custom) => {
   return dynamic({
     app,
     models: () =>
-      models.filter(model => modelNotExisted(app, model)).map(m =>custom?import(`${base}/${m}.js`):import(`../models/${m}.js`)),
+      models
+        .filter(model => modelNotExisted(app, model))
+        .map(m => (custom ? import(`${base}/${m}.js`) : import(`../models/${m}.js`))),
     // add routerData prop
     component: () => {
       if (!routerDataCache) {
@@ -60,17 +61,16 @@ const dynamicWrapper = (app, models, component,custom) => {
   });
 };
 
-function getRs(app,rs){
-  var x = {}
-  for(var i = 0;i<rs.length;i++){
-  
-    x[rs[i].path]={
-      name:rs[i].name,
+function getRs(app, rs) {
+  var x = {};
+  for (var i = 0; i < rs.length; i++) {
+    x[rs[i].path] = {
+      name: rs[i].name,
       authority: rs[i].authority,
-      component: dynamicWrapper(app,rs[i].models, rs[i].component,true),
-    }
+      component: dynamicWrapper(app, rs[i].models, rs[i].component, true),
+    };
   }
-  return x
+  return x;
 }
 function getFlatMenuData(menus) {
   let keys = {};
@@ -186,7 +186,7 @@ export const getRouterData = app => {
     '/user/register-result': {
       component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
     },
-    ... getRs(app,appRouter)
+    ...getRs(app, appRouter),
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
