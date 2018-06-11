@@ -6,7 +6,20 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-
+Array.prototype.in_array = function (element) { 
+ 
+  　　for (var i = 0; i < this.length; i++) { 
+   
+  　　if (this[i] == element) { 
+   
+  　　return true; 
+   
+      } 
+   
+    } return false; 
+   
+  } 
+  
 export default class MutiplyView extends PureComponent {
   constructor(props) {
     super(props);
@@ -38,7 +51,7 @@ export default class MutiplyView extends PureComponent {
               return (
                 <div key={i}>
                   {String.fromCharCode(i + 65)}、{' '}
-                  <Checkbox value={i} key={i} disabled={i in defaultValue} />&nbsp;&nbsp;
+                  <Checkbox value={i} key={i} disabled={defaultValue.in_array(i)} />&nbsp;&nbsp;
                   {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
                 </div>
               );

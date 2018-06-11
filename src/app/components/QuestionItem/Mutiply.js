@@ -68,13 +68,16 @@ export default class Mutiply extends PureComponent {
     }
   };
   onChangeRadio = checkedValues => {
+   
     var items = this.state.items;
     for (var i = 0; i < items.length; i++) {
       items[i].isSolution = false;
-      if (i in checkedValues) {
-        items[i].isSolution = true;
-      }
+    
     }
+    for  (var j = 0; j < checkedValues.length; j++) {
+      items[checkedValues[j]].isSolution = true;
+    }
+   
     if (!('value' in this.props)) {
       this.setState({ items });
     }
