@@ -157,7 +157,14 @@ export default class QuestionList extends PureComponent {
         formValues: values,
       });
 
-      this.getPage();
+      const pagination=this.props.fyQuestion.data.pagination
+      const params = {
+        pageNo: pagination.current,
+        pageSize: pagination.pageSize,
+        ...values,
+      
+      };
+      this.getPage(params);
     });
   };
 

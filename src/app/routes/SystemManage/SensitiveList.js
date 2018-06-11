@@ -167,7 +167,14 @@ export default class SensitiveList extends PureComponent {
         formValues: values,
       });
 
-      this.getPage();
+      const pagination=this.props.fySensitive.data.pagination
+      const params = {
+        pageNo: pagination.current,
+        pageSize: pagination.pageSize,
+        ...values,
+      
+      };
+      this.getPage(params);
     });
   };
 

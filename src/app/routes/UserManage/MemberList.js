@@ -177,7 +177,15 @@ export default class MemberList extends PureComponent {
         formValues: values,
       });
 
-      this.getPage();
+      const pagination=this.props.fyUser.data.pagination
+      const params = {
+        type: 'user',
+        pageNo: pagination.current,
+        pageSize: pagination.pageSize,
+        ...values,
+      
+      };
+      this.getPage(params);
     });
   };
 

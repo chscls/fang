@@ -146,8 +146,14 @@ export default class TestList extends PureComponent {
       this.setState({
         formValues: values,
       });
-
-      this.getPage();
+      const pagination=this.props.fyTest.data.pagination
+      const params = {
+        pageNo: pagination.current,
+        pageSize: pagination.pageSize,
+        ...values,
+      
+      };
+      this.getPage(params);
     });
   };
 
@@ -194,7 +200,11 @@ export default class TestList extends PureComponent {
               {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-
+          <Col md={8} sm={24}>
+            <FormItem label="唯一码">
+              {getFieldDecorator('code')(<Input placeholder="请输入" />)}
+            </FormItem>
+          </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
