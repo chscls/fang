@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
 import request from '../../utils/request';
 import config from '../config';
-const ad = config.server + '/services/FyTestRecordMngSvc';
+const ad = config.httpServer + '/services/FyTestRecordMngSvc';
 export async function queryTestRecord(params) {
   return request(`${ad}/queryTestRecord`, params);
 }

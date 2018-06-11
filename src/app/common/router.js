@@ -1,7 +1,8 @@
 
 const appRouter = [
-    {path:'/user-manage/member-list',models: [require(`../models/fyUser`)],component:() =>import('../routes/UserManage/MemberList')}
-
+    {path:'/user-manage/member-list',models: [require(`../models/fyUser`)],component:() =>import('../routes/UserManage/MemberList'),authority: 'admin'},
+    {path:'/user-manage/admin-list',models: [require(`../models/fyUser`)],component:() =>import('../routes/UserManage/AdminList'),authority: 'admin'},
+   
 ]
 
 

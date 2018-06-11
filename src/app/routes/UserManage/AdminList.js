@@ -20,7 +20,7 @@ import {
   Divider,
 } from 'antd';
 import StandardTable from 'components/StandardTable';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './AdminList.less';
 

@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
 import request from '../../utils/request';
 import config from '../config';
-const ad = config.server + '/services/FyQuestionMngSvc';
+const ad = config.httpServer + '/services/FyQuestionMngSvc';
 export async function queryQuestion(params) {
   return request(`${ad}/queryQuestion`, {
     method: 'POST',

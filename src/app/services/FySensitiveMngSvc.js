@@ -1,7 +1,7 @@
 import { stringify } from 'qs';
 import request from '../../utils/request';
 import config from '../config';
-const ad = config.server + '/services/FySensitiveMngSvc';
+const ad = config.httpServer + '/services/FySensitiveMngSvc';
 export async function querySensitive(params) {
   return request(`${ad}/querySensitive`, params);
 }
