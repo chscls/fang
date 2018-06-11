@@ -98,6 +98,7 @@ export default function request(url, options) {
           message: `请求错误`,
           description: JSON.parse(response).errmsg,
         });
+        return;
       }
       return response;
     })
