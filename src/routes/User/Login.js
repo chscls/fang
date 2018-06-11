@@ -5,7 +5,7 @@ import { Checkbox, Alert, Icon } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
 import QRCode from 'qrcode.react';
-import { wsConnect, addListener, wsClose } from '../../utils/websocket';
+import { wsConnect, addListener, wsClose } from '../../app/utils/websocket';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 function generateUUID() {
   var d = new Date().getTime();

@@ -1,5 +1,5 @@
 import { stringify } from 'qs';
-import request from '../utils/request';
+import request from '../../utils/request';
 import config from '../config';
 const ad = config.server + '/services/FySensitiveMngSvc';
 export async function querySensitive(params) {

@@ -2,9 +2,8 @@ import { createElement } from 'react';
 import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { getMenuData } from './menu';
-
+import appRouter from  '../app/common/router'
 let routerDataCache;
-
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line
   !app._models.some(({ namespace }) => {
@@ -12,14 +11,21 @@ const modelNotExisted = (app, model) =>
   });
 
 // wrapper of dynamic
-const dynamicWrapper = (app, models, component) => {
+const dynamicWrapper = (app, models, component,custom) => {
   // () => require('module')
   // transformed by babel-plugin-dynamic-import-node-sync
   if (component.toString().indexOf('.then(') < 0) {
     models.forEach(model => {
+      if(custom){
+        
+        if (modelNotExisted(app, model.default.namespace)) {
+          app.model(model.default);
+        }
+      }else{
       if (modelNotExisted(app, model)) {
-        // eslint-disable-next-line
+        // eslint-disable-next-lin
         app.model(require(`../models/${model}`).default);
+      }
       }
     });
     return props => {
@@ -36,7 +42,7 @@ const dynamicWrapper = (app, models, component) => {
   return dynamic({
     app,
     models: () =>
-      models.filter(model => modelNotExisted(app, model)).map(m => import(`../models/${m}.js`)),
+      models.filter(model => modelNotExisted(app, model)).map(m =>custom?import(`${base}/${m}.js`):import(`../models/${m}.js`)),
     // add routerData prop
     component: () => {
       if (!routerDataCache) {
@@ -54,6 +60,18 @@ const dynamicWrapper = (app, models, component) => {
   });
 };
 
+function getRs(app,rs){
+  var x = {}
+  for(var i = 0;i<rs.length;i++){
+  
+    x[rs[i].path]={
+      name:rs[i].name,
+      authority: rs[i].authority,
+      component: dynamicWrapper(app,rs[i].models, rs[i].component,true),
+    }
+  }
+  return x
+}
 function getFlatMenuData(menus) {
   let keys = {};
   menus.forEach(item => {
@@ -168,85 +186,7 @@ export const getRouterData = app => {
     '/user/register-result': {
       component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
     },
-    '/user-manage/member-list': {
-      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/MemberList')),
-      authority: 'admin',
-    },
-    '/user-manage/admin-list': {
-      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/AdminList')),
-      authority: 'admin',
-    },
-    '/system-manage/sensitive-list': {
-      component: dynamicWrapper(app, ['fySensitive'], () =>
-        import('../routes/SystemManage/SensitiveList')
-      ),
-      authority: 'admin',
-    },
-    '/question-manage/question-list': {
-      component: dynamicWrapper(app, ['fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionList')
-      ),
-    },
-    '/question-manage/test-list': {
-      component: dynamicWrapper(app, ['fyTest'], () => import('../routes/QuestionManage/TestList')),
-    },
-    '/question-manage/testRecord-list': {
-      component: dynamicWrapper(app, ['fyTestRecord'], () =>
-        import('../routes/QuestionManage/TestRecordList')
-      ),
-    },
-    '/question-manage/testRecord-detail/:orgId': {
-      component: dynamicWrapper(app, ['fyTestRecord'], () =>
-        import('../routes/QuestionManage/TestRecordDetail')
-      ),
-    },
-
-    '/question-manage/test-add': {
-      component: dynamicWrapper(app, ['form'], () =>
-        import('../routes/QuestionManage/TestStepForm')
-      ),
-    },
-    '/question-manage/test-add/info/:id': {
-      name: '分步建试卷（填写试卷基本信息）',
-      component: dynamicWrapper(app, ['form', 'fyTest'], () =>
-        import('../routes/QuestionManage/TestStepForm/Step1')
-      ),
-    },
-    '/question-manage/test-add/confirm/:id': {
-      name: '分步建试卷（填写试卷详情）',
-      component: dynamicWrapper(app, ['form', 'fyTest'], () =>
-        import('../routes/QuestionManage/TestStepForm/Step2')
-      ),
-    },
-    '/question-manage/test-add/result/:id': {
-      name: '分步建试卷（完成）',
-      component: dynamicWrapper(app, ['form', 'fyTest'], () =>
-        import('../routes/QuestionManage/TestStepForm/Step3')
-      ),
-    },
-    '/question-manage/question-add': {
-      component: dynamicWrapper(app, ['form'], () =>
-        import('../routes/QuestionManage/QuestionStepForm')
-      ),
-    },
-    '/question-manage/question-add/info/:id': {
-      name: '分步建题（填写题目基本信息）',
-      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionStepForm/Step1')
-      ),
-    },
-    '/question-manage/question-add/confirm/:id': {
-      name: '分步建题（填写题目详情）',
-      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionStepForm/Step2')
-      ),
-    },
-    '/question-manage/question-add/result/:id': {
-      name: '分步建题（完成）',
-      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionStepForm/Step3')
-      ),
-    },
+    ... getRs(app,appRouter)
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
