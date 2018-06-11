@@ -2,19 +2,15 @@
 const appRouter = [
     {path:'/user-manage/member-list',models: [require(`../models/fyUser`)],component:() =>import('../routes/UserManage/MemberList'),authority: 'admin'},
     {path:'/user-manage/admin-list',models: [require(`../models/fyUser`)],component:() =>import('../routes/UserManage/AdminList'),authority: 'admin'},
-   
+    {path:'/system-manage/sensitive-list',models: [require(`../models/fySensitive`)],component:() =>import('../routes/SystemManage/SensitiveList'),authority: 'admin'},
+    {path:'/question-manage/question-list',models: [require(`../models/fyQuestion`)],component:() =>import('../routes/QuestionManage/QuestionList')},
+    {path:'/question-manage/test-list',models: [require(`../models/fyTest`)],component:() =>import('../routes/QuestionManage/TestList')},
+
 ]
 
 
 
-/*     '/user-manage/member-list': {
-      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/MemberList')),
-      authority: 'admin',
-    },
-    '/user-manage/admin-list': {
-      component: dynamicWrapper(app, ['fyUser'], () => import('../routes/UserManage/AdminList')),
-      authority: 'admin',
-    },
+/*  
     '/system-manage/sensitive-list': {
       component: dynamicWrapper(app, ['fySensitive'], () =>
         import('../routes/SystemManage/SensitiveList')

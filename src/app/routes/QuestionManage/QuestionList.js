@@ -24,12 +24,12 @@ import {
 } from 'antd';
 import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import SingleView from '../../components/mycom/QuestionItem/SingleView';
-import JudgeView from '../../components/mycom/QuestionItem/JudgeView';
-import MutiplyView from '../../components/mycom/QuestionItem/MutiplyView';
-import FillView from '../../components/mycom/QuestionItem/FillView';
-import AskView from '../../components/mycom/QuestionItem/AskView';
+import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
+import SingleView from '../../components/QuestionItem/SingleView';
+import JudgeView from '../../components/QuestionItem/JudgeView';
+import MutiplyView from '../../components/QuestionItem/MutiplyView';
+import FillView from '../../components/QuestionItem/FillView';
+import AskView from '../../components/QuestionItem/AskView';
 import styles from './QuestionList.less';
 
 const FormItem = Form.Item;

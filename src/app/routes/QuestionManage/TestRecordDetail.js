@@ -16,7 +16,7 @@ import {
   Avatar,
 } from 'antd';
 
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './TestRecordDetail.less';
 

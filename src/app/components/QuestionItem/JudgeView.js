@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Select, Alert, message, Button, Radio, Switch } from 'antd';
-import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
+import RichEditor from '../RichEditor/RichEditor';
 import { truncate } from 'fs';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
-export default class FillView extends PureComponent {
+export default class Judge extends PureComponent {
   constructor(props) {
     super(props);
   }
@@ -17,7 +17,13 @@ export default class FillView extends PureComponent {
 
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
-
+    var defaultValue = -1;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].isSolution) {
+        defaultValue = i;
+        break;
+      }
+    }
     return (
       <div style={this.props.style}>
         {question.isRich ? (
@@ -25,14 +31,16 @@ export default class FillView extends PureComponent {
         ) : (
           <div> {question.title}</div>
         )}
-        {items.map((r, i) => {
-          return (
-            <div key={i}>
-              {'空' + (i + 1)}、
-              {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
-            </div>
-          );
-        })}
+        <RadioGroup defaultValue={defaultValue}>
+          {items.map((r, i) => {
+            return (
+              <div>
+                <Radio value={i} key={i} disabled={i != defaultValue} />
+                {r.content}
+              </div>
+            );
+          })}
+        </RadioGroup>
       </div>
     );
   }
