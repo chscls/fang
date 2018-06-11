@@ -19,9 +19,9 @@ const appRouter = [
 
     {path:'/question-manage/question-add/info/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step1')},
 
-    {path:'/question-manage/test-add/confirm/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step2')},
+    {path:'/question-manage/question-add/confirm/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step2')},
 
-    {path:'/question-manage/test-add/result/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step3')},
+    {path:'/question-manage/question-add/result/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step3')},
 
 ]
 
