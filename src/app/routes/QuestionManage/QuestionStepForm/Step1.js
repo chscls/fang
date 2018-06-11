@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Form, Icon, Input, Slider, Button, Select, Divider, Switch, Tag, Radio } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
-import RichEditor from '../../../components/mycom/RichEditor/RichEditor';
+import RichEditor from '../../../components/RichEditor/RichEditor';
 
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;

@@ -1,9 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Route, Redirect, Switch } from 'dva/router';
 import { Card, Steps } from 'antd';
-import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-import NotFound from '../../Exception/404';
-import { getRoutes } from '../../../utils/utils';
+import PageHeaderLayout from '../../../../layouts/PageHeaderLayout';
+import NotFound from '../../../../routes/Exception/404';
+import { getRoutes } from '../../../../utils/utils';
 import styles from '../style.less';
 
 const { Step } = Steps;

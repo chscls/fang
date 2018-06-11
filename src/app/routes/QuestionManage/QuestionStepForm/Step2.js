@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Alert, Divider } from 'antd';
 import { routerRedux } from 'dva/router';
-import { digitUppercase } from '../../../utils/utils';
-import Single from '../../../components/mycom/QuestionItem/Single';
-import Judge from '../../../components/mycom/QuestionItem/Judge';
-import Mutiply from '../../../components/mycom/QuestionItem/Mutiply';
-import Fill from '../../../components/mycom/QuestionItem/Fill';
-import Ask from '../../../components/mycom/QuestionItem/Ask';
+import { digitUppercase } from '../../../../utils/utils';
+import Single from '../../../components/QuestionItem/Single';
+import Judge from '../../../components/QuestionItem/Judge';
+import Mutiply from '../../../components/QuestionItem/Mutiply';
+import Fill from '../../../components/QuestionItem/Fill';
+import Ask from '../../../components/QuestionItem/Ask';
 import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 

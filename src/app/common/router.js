@@ -15,34 +15,16 @@ const appRouter = [
     {path:'/question-manage/test-add/info/:id',models: [],component:() =>import('../routes/QuestionManage/TestStepForm/Step1')},
     {path:'/question-manage/test-add/confirm/:id',models: [],component:() =>import('../routes/QuestionManage/TestStepForm/Step2')},
     {path:'/question-manage/test-add/result/:id',models: [],component:() =>import('../routes/QuestionManage/TestStepForm/Step3')},
+    {path:'/question-manage/question-add',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm')},
+
+    {path:'/question-manage/question-add/info/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step1')},
+
+    {path:'/question-manage/test-add/confirm/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step2')},
+
+    {path:'/question-manage/test-add/result/:id',models: [],component:() =>import('../routes/QuestionManage/QuestionStepForm/Step3')},
+
 ]
 
 
 
-/*  
-   
-    
-    '/question-manage/question-add': {
-      component: dynamicWrapper(app, ['form'], () =>
-        import('../routes/QuestionManage/QuestionStepForm')
-      ),
-    },
-    '/question-manage/question-add/info/:id': {
-      name: '分步建题（填写题目基本信息）',
-      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionStepForm/Step1')
-      ),
-    },
-    '/question-manage/question-add/confirm/:id': {
-      name: '分步建题（填写题目详情）',
-      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionStepForm/Step2')
-      ),
-    },
-    '/question-manage/question-add/result/:id': {
-      name: '分步建题（完成）',
-      component: dynamicWrapper(app, ['form', 'fyQuestion'], () =>
-        import('../routes/QuestionManage/QuestionStepForm/Step3')
-      ),
-    }, */
 export default appRouter
