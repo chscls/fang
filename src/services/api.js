@@ -62,13 +62,9 @@ export async function queryFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request(`${config.httpServer}/oauth/token`, {
+  return request(`${ad}/account`, {
     method: 'POST',
-    body: {
-      grant_type:"password",
-      username:params.userName,
-      password:params.password
-    },
+    body:params
   });
 }
 

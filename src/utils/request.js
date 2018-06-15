@@ -5,7 +5,6 @@ import { routerRedux } from 'dva/router';
 import store from '../index';
 import FormdataWrapper from './object-to-formdata-custom';
 import { getToken } from '../utils/authority';
-import { Base64 }from 'js-base64';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -80,16 +79,7 @@ export default function request(url, options) {
       };
      
     }
-    
-      var x = Base64.encode("my-trusted-client:cdzysoft");
-
-      //"
-      newOptions.headers = {
-        'Authentication': 'Basic '+x,
-        ...newOptions.headers,
-      };
-     
-    
+ 
   } else {
     if (options) {
       if (token) {
