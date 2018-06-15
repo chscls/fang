@@ -31,7 +31,7 @@ class TestStep1 extends React.PureComponent {
     this.state = {
       isQuestionnaire: false,
       isReady: false,
-      loading: false,
+      
       inputVisible: false,
       inputValue: '',
       mode: 'free',
@@ -97,7 +97,7 @@ class TestStep1 extends React.PureComponent {
 
   render() {
     const { inputVisible, inputValue, isQuestionnaire } = this.state;
-    const { form, dispatch, data, fyTest: { test } } = this.props;
+    const { form, dispatch, data, fyTest: { test },confirmLoading } = this.props;
     const { getFieldDecorator, validateFields } = form;
 
     const onValidateForm = () => {
@@ -171,7 +171,7 @@ class TestStep1 extends React.PureComponent {
               }}
               label=""
             >
-              <Button type="primary" onClick={onValidateForm} loading={this.state.loading}>
+              <Button type="primary" onClick={onValidateForm} loading={confirmLoading}>
                 下一步
               </Button>
             </Form.Item>
@@ -190,7 +190,8 @@ class TestStep1 extends React.PureComponent {
   }
 }
 
-export default connect(({ form, fyTest }) => ({
+export default connect(({ form,loading, fyTest }) => ({
+  confirmLoading:loading.effects['fyTest/add'],
   data: form.step,
   fyTest,
 }))(TestStep1);

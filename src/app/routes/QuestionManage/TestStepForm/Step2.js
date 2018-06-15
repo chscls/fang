@@ -185,7 +185,7 @@ class TestStep2 extends React.PureComponent {
     this.setState({ selectQuestionIds: ids });
   };
   render() {
-    const { form, data, dispatch, submitting, confirmLoading,fyTest: { test }} = this.props;
+    const { form, data, dispatch, submitting, confirmLoading,initLoading,fyTest: { test }} = this.props;
     const { getFieldDecorator, validateFields } = form;
 
     const data2 = this.state.items;
@@ -242,6 +242,7 @@ class TestStep2 extends React.PureComponent {
                 批量删除
               </Button>:""}
               <List
+              loading={initLoading}
                 itemLayout="horizontal"
                 dataSource={data2}
                 renderItem={item => (
@@ -303,7 +304,7 @@ class TestStep2 extends React.PureComponent {
 }
 
 export default connect(({ form, loading, fyTest }) => ({
-  
+  initLoading:loading.effects['fyTest/find'],
   confirmLoading:loading.effects['fyTest/updateTestQuestions'],
   submitting: loading.effects['form/submitStepForm'],
   data: form.step,
