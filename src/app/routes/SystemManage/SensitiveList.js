@@ -60,7 +60,7 @@ const CreateForm = Form.create()(props => {
 @connect(({ rule, loading, fySensitive }) => ({
   fySensitive,
   rule,
-  loading: loading.models.rule,
+  loading: loading.models.fySensitive,
 }))
 @Form.create()
 export default class SensitiveList extends PureComponent {

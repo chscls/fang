@@ -44,7 +44,7 @@ const status = ['创建中', '审核中', '已上线'];
 @connect(({ rule, loading, fyQuestion }) => ({
   fyQuestion,
   rule,
-  loading: loading.models.rule,
+  loading: loading.models.fyQuestion,
 }))
 @Form.create()
 export default class QuestionList extends PureComponent {

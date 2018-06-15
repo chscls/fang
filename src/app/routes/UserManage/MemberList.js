@@ -68,7 +68,7 @@ const CreateForm = Form.create()(props => {
 @connect(({ rule, loading, fyUser }) => ({
   fyUser,
   rule,
-  loading: loading.models.rule,
+  loading: loading.models.fyUser,
 }))
 @Form.create()
 export default class MemberList extends PureComponent {

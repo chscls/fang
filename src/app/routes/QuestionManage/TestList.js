@@ -38,7 +38,7 @@ const status = ['关闭', '运行中', '已上线', '异常'];
 @connect(({ rule, loading, fyTest }) => ({
   fyTest,
   rule,
-  loading: loading.models.rule,
+  loading: loading.models.fyTest,
 }))
 @Form.create()
 export default class TestList extends PureComponent {
