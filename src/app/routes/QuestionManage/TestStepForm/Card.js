@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
-import { Icon, Checkbox } from 'antd';
+import { Icon, Checkbox ,Button} from 'antd';
 import ItemTypes from './ItemTypes';
 const cardSource = {
   beginDrag(props) {
@@ -93,13 +93,14 @@ export default class Card extends React.PureComponent {
         <Checkbox
           value={question.id}
           checked={item.checked}
-          onChange={this.props.handle.bind(this, item.index)}
+          onChange={this.props.handle}
         />
         {question.isRich ? (
           <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
           question.title
         )}
+       
       </div>
     );
   }

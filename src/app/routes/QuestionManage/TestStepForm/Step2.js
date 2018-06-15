@@ -88,15 +88,33 @@ class TestStep2 extends React.PureComponent {
       checkAll: this.checkLength(items) === items.length,
     });
   };
-  checkLength(items) {
-    var ids = [];
-    for (var i = 0; i < items.length; i++) {
-      if (items[i].checked) {
-        ids.push(items[i].id);
+  delete = () => {
+    var ids = []
+    for (var i = 0; i < this.state.items.length; i++) {
+      if (!this.state.items[i].checked) {
+        ids.push(this.state.items[i].q.id)
       }
     }
+    
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: ids.map(id => id).join(',')
+      },
+      callback: test => {
+        key = key + 1;
+        const items = [];
 
-    return ids;
+        for (var i = 0; i < test.questions.length; i++) {
+          items[i] = { index: i, q: test.questions[i], checked: false };
+        }
+        this.setState({
+          questionModal: false,
+          items,
+        });
+      },
+    });
   }
   checkLength(items) {
     var count = 0;
@@ -138,11 +156,15 @@ class TestStep2 extends React.PureComponent {
     });
   };
   okHandle = () => {
+    
+  var  test  = this.props.fyTest.test;
+  var alreadyQids = test.questionIds.map(id => id).join(',')
+  alreadyQids = this.state.selectQuestionIds+","+alreadyQids;
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
         id: this.state.id,
-        qids: this.state.selectQuestionIds,
+        qids: alreadyQids
       },
       callback: test => {
         key = key + 1;
@@ -159,6 +181,7 @@ class TestStep2 extends React.PureComponent {
     });
   };
   handleSelect = ids => {
+    
     this.setState({ selectQuestionIds: ids });
   };
   render() {
@@ -190,6 +213,9 @@ class TestStep2 extends React.PureComponent {
         }
       });
     };
+
+
+    
     return (
       <Fragment>
         {this.state.isReady ? (
@@ -205,15 +231,21 @@ class TestStep2 extends React.PureComponent {
               >
                 全选
               </Checkbox>
+              
               <Button type="primary" onClick={this.openQuestions}>
                 插入题目
               </Button>
+              &nbsp; &nbsp;
+              {this.checkLength(this.state.items)>0?
+             <Button type="primary" onClick={this.delete}>
+                批量删除
+              </Button>:""}
               <List
                 itemLayout="horizontal"
                 dataSource={data2}
                 renderItem={item => (
                   <List.Item key={item.index}>
-                    <Card checked={item.checked} handle={this.handle} item={item} />
+                    <Card checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
                   </List.Item>
                 )}
               />
