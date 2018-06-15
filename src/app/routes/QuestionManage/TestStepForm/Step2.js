@@ -185,7 +185,7 @@ class TestStep2 extends React.PureComponent {
     this.setState({ selectQuestionIds: ids });
   };
   render() {
-    const { form, data, dispatch, submitting, fyTest: { test } } = this.props;
+    const { form, data, dispatch, submitting, confirmLoading,fyTest: { test }} = this.props;
     const { getFieldDecorator, validateFields } = form;
 
     const data2 = this.state.items;
@@ -225,6 +225,7 @@ class TestStep2 extends React.PureComponent {
             </Form.Item>
             <Form.Item {...formItemLayout} label="题目">
               <Checkbox
+                disabled={confirmLoading}
                 indeterminate={this.state.indeterminate}
                 onChange={this.onCheckAllChange}
                 checked={this.state.checkAll}
@@ -232,12 +233,12 @@ class TestStep2 extends React.PureComponent {
                 全选
               </Checkbox>
               
-              <Button type="primary" onClick={this.openQuestions}>
+              <Button type="primary" onClick={this.openQuestions} loading={confirmLoading} >
                 插入题目
               </Button>
               &nbsp; &nbsp;
               {this.checkLength(this.state.items)>0?
-             <Button type="primary" onClick={this.delete}>
+             <Button type="primary" onClick={this.delete} loading={confirmLoading} >
                 批量删除
               </Button>:""}
               <List
@@ -245,7 +246,7 @@ class TestStep2 extends React.PureComponent {
                 dataSource={data2}
                 renderItem={item => (
                   <List.Item key={item.index}>
-                    <Card checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
+                    <Card  disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
                   </List.Item>
                 )}
               />
@@ -262,10 +263,10 @@ class TestStep2 extends React.PureComponent {
               label=""
             >
               <div style={{ margin: 'auto', width: 200 }}>
-                <Button type="primary" onClick={onPreview} loading={submitting}>
+                <Button type="primary" onClick={onPreview} loading={confirmLoading}>
                   预览
                 </Button>
-                <Button onClick={onPrev} style={{ marginLeft: 8 }}>
+                <Button onClick={onPrev} style={{ marginLeft: 8 }}  loading={confirmLoading}>
                   上一步
                 </Button>
               </div>
@@ -287,6 +288,7 @@ class TestStep2 extends React.PureComponent {
           onOk={this.okHandle}
           width={1800}
           onCancel={() => this.handleModalVisible()}
+          confirmLoading={confirmLoading}
         >
           <QuestionList
             key={key}
@@ -301,6 +303,8 @@ class TestStep2 extends React.PureComponent {
 }
 
 export default connect(({ form, loading, fyTest }) => ({
+  
+  confirmLoading:loading.effects['fyTest/updateTestQuestions'],
   submitting: loading.effects['form/submitStepForm'],
   data: form.step,
   fyTest,
