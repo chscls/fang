@@ -120,7 +120,7 @@ class TestStep1 extends React.PureComponent {
       <Fragment>
         {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} hideRequiredMark>
-            <Form.Item {...formItemLayout} label="标题">
+            <Form.Item {...formItemLayout} label={<span style={{color:"red"}}>* 标题</span> }>
               {getFieldDecorator('title', {
                 initialValue: test ? test.title : '',
                 rules: [{ required: true, message: '请输入标题' }],

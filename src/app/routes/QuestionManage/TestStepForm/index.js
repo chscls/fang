@@ -32,7 +32,7 @@ export default class TestStepForm extends PureComponent {
           <Fragment>
             <Steps current={this.getCurrentStep()} className={styles.steps}>
               <Step title="填写试卷基本信息" />
-              <Step title="填写试卷详情" />
+              <Step title="选择题目组成" />
               <Step title="预览" />
             </Steps>
             <Switch>

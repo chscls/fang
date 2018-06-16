@@ -142,6 +142,27 @@ class QuestionStep1 extends React.PureComponent {
               )}
             </Form.Item>
 
+            
+            <Form.Item {...formItemLayout} label="标题富文本">
+              {getFieldDecorator('isRich', {
+                initialValue: isRich,
+              })(<Switch defaultChecked={isRich} onChange={this.onChange} />)}
+            </Form.Item>
+
+            <Form.Item {...formItemLayout} label={<span style={{color:"red"}}>* 标题</span> }>
+              {this.state.isRich ? (
+                <RichEditor
+                  defaultValue={question ? question.title : ''}
+                  className="ant-row ant-form-item"
+                  onChangeValue={this.onChangeValue}
+                />
+              ) : (
+                getFieldDecorator('title', {
+                  initialValue: question ? question.title : '',
+                  rules: [{ required: true, message: '请输入标题' }],
+                })(<TextArea rows={4} placeholder="请输入标题" />)
+              )}
+            </Form.Item>
             <Form.Item {...formItemLayout} label="标签">
               {tags.map((tag, index) => {
                 const isLongTag = tag.length > 20;
@@ -174,26 +195,6 @@ class QuestionStep1 extends React.PureComponent {
                 <Tag onClick={this.showInput} style={{ background: '#fff', borderStyle: 'dashed' }}>
                   <Icon type="plus" /> 新标签
                 </Tag>
-              )}
-            </Form.Item>
-            <Form.Item {...formItemLayout} label="标题富文本">
-              {getFieldDecorator('isRich', {
-                initialValue: isRich,
-              })(<Switch defaultChecked={isRich} onChange={this.onChange} />)}
-            </Form.Item>
-
-            <Form.Item {...formItemLayout} label="标题">
-              {this.state.isRich ? (
-                <RichEditor
-                  defaultValue={question ? question.title : ''}
-                  className="ant-row ant-form-item"
-                  onChangeValue={this.onChangeValue}
-                />
-              ) : (
-                getFieldDecorator('title', {
-                  initialValue: question ? question.title : '',
-                  rules: [{ required: true, message: '请输入标题' }],
-                })(<TextArea rows={4} placeholder="请输入标题" />)
               )}
             </Form.Item>
           {/*   <Form.Item {...formItemLayout} label="分数">
