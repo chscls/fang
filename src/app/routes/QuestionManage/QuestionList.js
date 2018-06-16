@@ -306,10 +306,7 @@ export default class QuestionList extends PureComponent {
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
+      
       {
         title: '标题(点击可预览)',
         width: 400,
@@ -414,10 +411,6 @@ export default class QuestionList extends PureComponent {
         render(val) {
           return <Rate disabled={true} value={val / 25 + 1} />;
         },
-      },
-      {
-        title: '分数',
-        dataIndex: 'score',
       },
       {
         title: '创建时间',

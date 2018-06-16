@@ -65,6 +65,9 @@ const menuData = [
       {
         name: '做题记录',
         path: 'testRecord-list',
+      },{
+        name: '回收站',
+        path: 'recovery-list',
       },
     ],
   },

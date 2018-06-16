@@ -301,10 +301,7 @@ export default class TestList extends PureComponent {
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
+      
       {
         title: '唯一码(点击可投屏)',
         render: record => (
