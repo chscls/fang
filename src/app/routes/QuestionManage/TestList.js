@@ -196,12 +196,16 @@ export default class TestList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="标题">
-              {getFieldDecorator('title')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('title',{
+                initialValue:'',
+              })(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="唯一码">
-              {getFieldDecorator('code')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('code',{
+                initialValue:'',
+              })(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>

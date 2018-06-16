@@ -209,10 +209,18 @@ export default class QuestionList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="标题">
-              {getFieldDecorator('title')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('title',{
+                initialValue: '',
+              })(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-
+          <Col md={8} sm={24}>
+            <FormItem label="标签">
+              {getFieldDecorator('tag',{
+                initialValue:'',
+              })(<Input placeholder="请输入" />)}
+            </FormItem>
+          </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
@@ -241,6 +249,7 @@ export default class QuestionList extends PureComponent {
               {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
+          
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
