@@ -237,8 +237,10 @@ class TestStep2 extends React.PureComponent {
                 插入题目
               </Button>
               &nbsp; &nbsp;
-              {this.checkLength(this.state.items)>0?
-             <Button type="primary" onClick={this.delete} loading={confirmLoading} >
+              {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
+                批量调分
+              </Button>:""}&nbsp; &nbsp;
+              {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
                 批量删除
               </Button>:""}
               <List
