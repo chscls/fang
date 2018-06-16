@@ -6,6 +6,7 @@ import {
   Tooltip,
   Row,
   Col,
+  Tag,
   Card,
   Form,
   Input,
@@ -411,6 +412,14 @@ export default class QuestionList extends PureComponent {
         render(val) {
           return <Rate disabled={true} value={val / 25 + 1} />;
         },
+      },
+      {
+        title: '标签',
+        render(record) {
+          return <div>{record.tags.map((tag)=>{
+            return  <Tag color="blue">{tag}</Tag>
+          })}</div>
+        }
       },
       {
         title: '创建时间',
