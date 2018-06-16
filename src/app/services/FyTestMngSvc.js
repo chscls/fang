@@ -11,6 +11,15 @@ export async function queryTest(params) {
     },
   });
 }
+export async function recycleTest(params) {
+  return request(`${ad}/recycleTest`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'delete',
+    },
+  });
+}
 
 export async function findTest(params) {
   return request(`${ad}/findTest`, params);

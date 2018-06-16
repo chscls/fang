@@ -4,6 +4,7 @@ import {
   addQuestion,
   findQuestion,
   updateOptions,
+  recycleQuestion
 } from '../services/FyQuestionMngSvc';
 
 export default {
@@ -62,6 +63,13 @@ export default {
         type: 'ok',
         payload: null,
       });
+    },*recycle({ payload, callback }, { call, put }) {
+      const response = yield call(recycleQuestion, payload);
+      yield put({
+        type: 'nom',
+        payload: response,
+      });
+      if (callback) callback();
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeQuestion, payload);

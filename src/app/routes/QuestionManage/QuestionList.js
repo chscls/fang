@@ -271,7 +271,7 @@ export default class QuestionList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyQuestion/remove',
+      type: 'fyQuestion/recycle',
       payload: {
         ids: [id],
       },
@@ -286,7 +286,7 @@ export default class QuestionList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyQuestion/remove',
+      type: 'fyQuestion/recycle',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },

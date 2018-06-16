@@ -262,7 +262,7 @@ export default class TestList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyTest/remove',
+      type: 'fyTest/recycle',
       payload: {
         ids: [id],
       },
@@ -280,7 +280,7 @@ export default class TestList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyTest/remove',
+      type: 'fyTest/recycle',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
