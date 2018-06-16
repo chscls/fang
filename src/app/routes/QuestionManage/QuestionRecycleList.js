@@ -73,7 +73,7 @@ export default class QuestionRecycleList extends PureComponent {
     }
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyQuestion/fetch',
+      type: 'fyQuestion/fetchRe',
       payload: params,
     });
   };
@@ -362,28 +362,6 @@ export default class QuestionRecycleList extends PureComponent {
       {
         title: '题型',
         dataIndex: 'type',
-        filters: [
-          {
-            text: '单选',
-            value: 'single',
-          },
-          {
-            text: '多选',
-            value: 'mutiply',
-          },
-          {
-            text: '判断',
-            value: 'judge',
-          },
-          {
-            text: '填空',
-            value: 'fill',
-          },
-          {
-            text: '问答',
-            value: 'ask',
-          },
-        ],
        
         render(val) {
           return (
@@ -401,28 +379,6 @@ export default class QuestionRecycleList extends PureComponent {
       {
         title: '难度等级',
         dataIndex: 'difficulty',
-        filters: [
-          {
-            text: '易',
-            value: 0,
-          },
-          {
-            text: '偏易',
-            value: 25,
-          },
-          {
-            text: '中等',
-            value: 50,
-          },
-          {
-            text: '偏难',
-            value: 75,
-          },
-          {
-            text: '难',
-            value: 100,
-          },
-        ],
        
         render(val) {
           return <Rate disabled={true} value={val / 25 + 1} />;
@@ -437,8 +393,8 @@ export default class QuestionRecycleList extends PureComponent {
         }
       },
       {
-        title: '创建时间',
-        dataIndex: 'createTime',
+        title: '删除时间',
+        dataIndex: 'recycleTime',
         sorter: true,
         render(val) {
           return new Date(val).toLocaleString();
@@ -447,20 +403,7 @@ export default class QuestionRecycleList extends PureComponent {
       {
         title: '状态',
         dataIndex: 'status',
-        filters: [
-          {
-            text: status[0],
-            value: 'create',
-          },
-          {
-            text: status[1],
-            value: 'check',
-          },
-          {
-            text: status[2],
-            value: 'complete',
-          },
-        ],
+       
       
         render(val) {
           var x = 0;

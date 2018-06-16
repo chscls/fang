@@ -107,7 +107,7 @@ export default {
         data: action.payload,
       };
     },
-    suc(state, action) {
+    suc2(state, action) {
       return {
         ...state,
         dataRe: action.payload,

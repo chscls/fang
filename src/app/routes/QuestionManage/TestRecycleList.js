@@ -319,40 +319,11 @@ export default class TestRecyleList extends PureComponent {
       {
         title: '是否问卷',
         dataIndex: 'isQuestionnaire',
-        filters: [
-          {
-            text: '试题',
-            value: false,
-          },
-          {
-            text: '问卷',
-            value: true,
-          }],
-       
         render: val => val? '是' : '否',
       },
       {
         title: '答题模式',
         dataIndex: 'mode',
-        filters: [
-          {
-            text: '自由',
-            value: 'free',
-          },
-          {
-            text: '单题限时',
-            value: 'singleLimit',
-          },
-          {
-            text: '总限时',
-            value: 'totalLimit',
-          },
-          {
-            text: '竞赛',
-            value: 'race',
-          },
-        ],
-       
         render: val =>
         val== 'free'
             ? '自由'
@@ -363,27 +334,13 @@ export default class TestRecyleList extends PureComponent {
       {
         title: '试卷状态',
         dataIndex: 'status',
-        filters: [
-          {
-            text: '创建中',
-            value: 'create',
-          },
-          {
-            text: '进行中',
-            value: 'process',
-          },
-          {
-            text: '已结束',
-            value: 'complete',
-          }
-        ],
         render:val =>
         val == 'create' ? '创建中' : val == 'process' ? '进行中' : '已结束',
       },
       {
-        title: '创建时间',
+        title: '删除时间',
         sorter: true,
-        dataIndex: 'createTime',
+        dataIndex: 'recycleTime',
         render: val => new Date(val).toLocaleString()
       },
       {
