@@ -325,7 +325,8 @@ export default class TestList extends PureComponent {
       },
       {
         title: '允许重做次数',
-        render: record => record.allowTime-1
+        dataIndex: 'allowTime',
+        render: val => val-1
       },
       {
         title: '是否问卷',
@@ -393,7 +394,9 @@ export default class TestList extends PureComponent {
       },
       {
         title: '创建时间',
-        render: record => new Date(record.createTime).toLocaleDateString(),
+        sorter: true,
+        dataIndex: 'createTime',
+        render: val => new Date(val).toLocaleString()
       },
       {
         title: '操作',
