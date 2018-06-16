@@ -349,7 +349,7 @@ export default class SensitiveList extends PureComponent {
     };
 
     return (
-      <PageHeaderLayout title="管理员管理">
+      <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>

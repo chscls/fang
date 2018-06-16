@@ -365,7 +365,7 @@ export default class TestList extends PureComponent {
     );
 
     return (
-      <PageHeaderLayout title="试卷管理">
+      <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>

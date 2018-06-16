@@ -484,7 +484,7 @@ export default class QuestionList extends PureComponent {
         />
       </div>
     ) : (
-      <PageHeaderLayout title="题目管理">
+      <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>

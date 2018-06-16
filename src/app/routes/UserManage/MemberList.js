@@ -396,7 +396,7 @@ export default class MemberList extends PureComponent {
     };
 
     return (
-      <PageHeaderLayout title="会员管理">
+      <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
