@@ -338,11 +338,11 @@ export default class QuestionList extends PureComponent {
               )
             }
           >
-            {record.isRich ? (
-              <div dangerouslySetInnerHTML={{ __html: record.title }} />
+           <a> {record.isRich ? (
+              <div  dangerouslySetInnerHTML={{ __html: record.title }} />
             ) : (
               <Ellipsis lines={3}>{record.title}</Ellipsis>
-            )}
+            )}</a>
           </Tooltip>
         ),
       },

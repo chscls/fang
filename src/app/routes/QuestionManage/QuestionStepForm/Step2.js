@@ -172,7 +172,7 @@ class QuestionStep2 extends React.PureComponent {
                 <Button type="primary" onClick={onValidateForm} loading={submitting}>
                   提交
                 </Button>
-                <Button onClick={onPrev} style={{ marginLeft: 8 }}>
+                <Button onClick={onPrev} style={{ marginLeft: 8 }} loading={submitting}>
                   上一步
                 </Button>
               </div>
@@ -193,7 +193,7 @@ class QuestionStep2 extends React.PureComponent {
 }
 
 export default connect(({ form, loading, fyQuestion }) => ({
-  submitting: loading.effects['form/submitStepForm'],
+  submitting: loading.effects['fyQuestion/updateOptions'],
   data: form.step,
   fyQuestion,
 }))(QuestionStep2);

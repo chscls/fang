@@ -33,7 +33,6 @@ class QuestionStep1 extends React.PureComponent {
       text: '',
       isRich: false,
       isReady: false,
-      loading: false,
       tags: [],
       inputVisible: false,
       inputValue: '',
@@ -100,7 +99,7 @@ class QuestionStep1 extends React.PureComponent {
 
   render() {
     const { tags, inputVisible, inputValue, isRich } = this.state;
-    const { form, dispatch, data, fyQuestion: { question } } = this.props;
+    const { form, dispatch, data, fyQuestion: { question } ,confirmLoading} = this.props;
     const { getFieldDecorator, validateFields } = form;
 
     const onValidateForm = () => {
@@ -226,7 +225,7 @@ class QuestionStep1 extends React.PureComponent {
               }}
               label=""
             >
-              <Button type="primary" onClick={onValidateForm} loading={this.state.loading}>
+              <Button type="primary" onClick={onValidateForm} loading={confirmLoading}>
                 下一步
               </Button>
             </Form.Item>
@@ -245,7 +244,8 @@ class QuestionStep1 extends React.PureComponent {
   }
 }
 
-export default connect(({ form, fyQuestion }) => ({
+export default connect(({ form, fyQuestion,loading }) => ({
+  confirmLoading:loading.effects['fyQuestion/add'],
   data: form.step,
   fyQuestion,
 }))(QuestionStep1);
