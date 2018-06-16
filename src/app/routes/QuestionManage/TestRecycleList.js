@@ -392,7 +392,7 @@ export default class TestRecyleList extends PureComponent {
           <Fragment>
             <a onClick={this.recovery.bind(this, record.id)}>恢复</a>
             <Divider type="vertical" />
-            <a onClick={this.delete.bind(this, record.id)}>删除</a>
+            <a onClick={this.delete.bind(this, record.id)}>彻底清除</a>
           </Fragment>
         ),
       },
@@ -414,7 +414,7 @@ export default class TestRecyleList extends PureComponent {
               {selectedRows.length > 0 && (
                 <span>
                    <Button onClick={this.batchRecovery.bind(this)}>批量恢复</Button>
-                  <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
+                  <Button onClick={this.batchDelete.bind(this)}>批量彻底清除</Button>
                   <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />

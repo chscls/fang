@@ -280,7 +280,7 @@ export default class QuestionRecycleList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyQuestion/recycle',
+      type: 'fyQuestion/delete',
       payload: {
         ids: [id],
       },
@@ -288,14 +288,20 @@ export default class QuestionRecycleList extends PureComponent {
         this.getPage();
       },
     });
-  };
+  }
+  recovery = id => {
+
+  }
+  batchRecovery= e => {
+
+  }
   batchDelete = e => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyQuestion/recycle',
+      type: 'fyQuestion/delete',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
@@ -468,9 +474,9 @@ export default class QuestionRecycleList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-            <Link to={`/question-manage/question-add/info/${record.id}`}>修改</Link>
+              <a onClick={this.recovery.bind(this, record.id)}>恢复</a>
             <Divider type="vertical" />
-            <a onClick={this.delete.bind(this, record.id)}>删除</a>
+            <a onClick={this.delete.bind(this, record.id)}>彻底清除</a>
           </Fragment>
         ),
       },
@@ -482,33 +488,16 @@ export default class QuestionRecycleList extends PureComponent {
       </Menu>
     );
 
-    return this.props.isSelect ? (
-      <div>
-        <div className={styles.tableListForm}>{this.renderForm()}</div>
-        <StandardTable
-          selectedRows={selectedRows}
-          loading={loading}
-          data={dataRe}
-          columns={columns}
-          rowKey="id"
-          onSelectRow={this.handleSelectRows}
-          onChange={this.handleStandardTableChange}
-        />
-      </div>
-    ) : (
-      <PageHeaderLayout title="">
+    return (<PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-              <Link to="/question-manage/question-add/info/0">
-                <Button icon="plus" type="primary">
-                  新建
-                </Button>
-              </Link>
+             
               {selectedRows.length > 0 && (
                 <span>
-                  <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
+                   <Button onClick={this.batchRecovery.bind(this)}>批量恢复</Button>
+                  <Button onClick={this.batchDelete.bind(this)}>批量彻底清除</Button>
                   <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />
@@ -520,7 +509,7 @@ export default class QuestionRecycleList extends PureComponent {
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
-              data={data}
+              data={dataRe}
               columns={columns}
               rowKey="id"
               onSelectRow={this.handleSelectRows}
@@ -528,7 +517,7 @@ export default class QuestionRecycleList extends PureComponent {
             />
           </div>
         </Card>
-      </PageHeaderLayout>
-    );
+      </PageHeaderLayout>)
+  
   }
 }

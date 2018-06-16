@@ -11,7 +11,15 @@ export async function queryQuestion(params) {
     },
   });
 }
-
+export async function queryQuestionRe(params) {
+  return request(`${ad}/queryQuestionRe`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
 export async function findQuestion(params) {
   return request(`${ad}/findQuestion`, params);
 }

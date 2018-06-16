@@ -4,7 +4,8 @@ import {
   addQuestion,
   findQuestion,
   updateOptions,
-  recycleQuestion
+  recycleQuestion,
+  queryQuestionRe
 } from '../services/FyQuestionMngSvc';
 
 export default {

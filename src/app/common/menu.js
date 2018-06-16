@@ -71,6 +71,10 @@ const menuData = [
         path: 'recovery',
         children: [
           {
+            name: '题目回收',
+            path: 'question-recycle-list',
+          },
+          {
             name: '试卷回收',
             path: 'test-recycle-list',
           },
