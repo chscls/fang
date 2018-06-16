@@ -12,6 +12,10 @@ export default {
 
   state: {
     question: null,
+    dataRe: {
+      list: [],
+      pagination: {},
+    },
     data: {
       list: [],
       pagination: {},
@@ -19,6 +23,20 @@ export default {
   },
 
   effects: {
+    *fetchRe({ payload }, { call, put }) {
+    const response = yield call(queryQuestionRe, payload);
+    yield put({
+      type: 'suc2',
+      payload: {
+        list: response.list,
+        pagination: {
+          pageSize: response.pageSize,
+          current: response.pageNo,
+          total: response.totalCount,
+        },
+      },
+    });
+  },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryQuestion, payload);
       yield put({
@@ -86,6 +104,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    suc(state, action) {
+      return {
+        ...state,
+        dataRe: action.payload,
       };
     },
     ok(state, action) {

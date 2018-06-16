@@ -4,7 +4,8 @@ import {
   addTest,
   findTest,
   updateTestQuestions,
-  recycleTest
+  recycleTest,
+  queryTestRe,
 } from '../services/FyTestMngSvc';
 
 export default {
@@ -13,6 +14,10 @@ export default {
   state: {
     test: null,
     data: {
+      list: [],
+      pagination: {},
+    },
+    dataRe: {
       list: [],
       pagination: {},
     },
@@ -35,6 +40,20 @@ export default {
       const response = yield call(queryTest, payload);
       yield put({
         type: 'suc',
+        payload: {
+          list: response.list,
+          pagination: {
+            pageSize: response.pageSize,
+            current: response.pageNo,
+            total: response.totalCount,
+          },
+        },
+      });
+    },
+    *fetchRe({ payload }, { call, put }) {
+      const response = yield call(queryTestRe, payload);
+      yield put({
+        type: 'suc2',
         payload: {
           list: response.list,
           pagination: {
@@ -89,6 +108,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    suc2(state, action) {
+      return {
+        ...state,
+        dataRe: action.payload,
       };
     },
     ok(state, action) {

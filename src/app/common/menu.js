@@ -67,7 +67,14 @@ const menuData = [
         path: 'testRecord-list',
       },{
         name: '回收站',
-        path: 'recovery-list',
+        icon: 'copy',
+        path: 'recovery',
+        children: [
+          {
+            name: '试卷回收',
+            path: 'test-recycle-list',
+          },
+        ]
       },
     ],
   },

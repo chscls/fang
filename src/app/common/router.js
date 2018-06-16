@@ -28,6 +28,16 @@ const appRouter = [
     component: () => import('../routes/QuestionManage/TestList'),
   },
   {
+    path: '/question-manage/recovery/test-recycle-list',
+    models: [require(`../models/fyTest`)],
+    component: () => import('../routes/QuestionManage/TestRecycleList'),
+  },
+  {
+    path: '/question-manage/recovery/question-recycle-list',
+    models: [require(`../models/fyQuestion`)],
+    component: () => import('../routes/QuestionManage/QuestionRecycleList'),
+  },
+  {
     path: '/question-manage/test-list',
     models: [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestList'),

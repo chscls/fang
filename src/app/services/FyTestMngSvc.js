@@ -10,6 +10,14 @@ export async function queryTest(params) {
       method: 'post',
     },
   });
+}export async function queryTestRe(params) {
+  return request(`${ad}/queryTestRe`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
 }
 export async function recycleTest(params) {
   return request(`${ad}/recycleTest`, {
