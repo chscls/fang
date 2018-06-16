@@ -75,7 +75,6 @@ export default class TestList extends PureComponent {
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
     const { formValues } = this.state;
-
     const filters = Object.keys(filtersArg).reduce((obj, key) => {
       const newObj = { ...obj };
       newObj[key] = getValue(filtersArg[key]);
@@ -324,23 +323,72 @@ export default class TestList extends PureComponent {
         dataIndex: 'score',
       },
       {
-        title: '是否问卷',
-        render: record => (record.isQuestionnaire ? '是' : '否'),
+        title: '允许重做次数',
+        render: record => record.allowTime-1
       },
-      ,
+      {
+        title: '是否问卷',
+        dataIndex: 'isQuestionnaire',
+        filters: [
+          {
+            text: '试题',
+            value: false,
+          },
+          {
+            text: '问卷',
+            value: true,
+          }],
+       
+        render: val => val? '是' : '否',
+      },
       {
         title: '答题模式',
-        render: record =>
-          record.mode == 'free'
+        dataIndex: 'mode',
+        filters: [
+          {
+            text: '自由',
+            value: 'free',
+          },
+          {
+            text: '单题限时',
+            value: 'singleLimit',
+          },
+          {
+            text: '总限时',
+            value: 'totalLimit',
+          },
+          {
+            text: '竞赛',
+            value: 'race',
+          },
+        ],
+       
+        render: val =>
+        val== 'free'
             ? '自由'
-            : record.mode == 'singleLimit'
+            : val == 'singleLimit'
               ? '单题限时'
-              : record.mode == 'totalLimit' ? '总限时' : '竞赛',
+              : val == 'totalLimit' ? '总限时' : '竞赛',
       },
       {
         title: '试卷状态',
-        render: record =>
-          record.status == 'create' ? '创建中' : record.status == 'process' ? '进行中' : '已结束',
+        dataIndex: 'status',
+        filters: [
+          {
+            text: '创建中',
+            value: 'create',
+          },
+          {
+            text: '进行中',
+            value: 'process',
+          },
+          {
+            text: '已结束',
+            value: 'complete',
+          }
+        ],
+        render:val =>
+        val == 'create' ? '创建中' : val == 'process' ? '进行中' : '已结束',
       },
       {
         title: '创建时间',

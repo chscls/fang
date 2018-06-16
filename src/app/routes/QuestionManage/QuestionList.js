@@ -371,7 +371,7 @@ export default class QuestionList extends PureComponent {
             value: 'ask',
           },
         ],
-        onFilter: (value, record) => record.type == value,
+       
         render(val) {
           return (
             <span>
@@ -410,7 +410,7 @@ export default class QuestionList extends PureComponent {
             value: 100,
           },
         ],
-        onFilter: (value, record) => record.difficulty == value,
+       
         render(val) {
           return <Rate disabled={true} value={val / 25 + 1} />;
         },
@@ -443,7 +443,7 @@ export default class QuestionList extends PureComponent {
             value: 'complete',
           },
         ],
-        onFilter: (value, record) => record.status == value,
+      
         render(val) {
           var x = 0;
           if (val == 'check') x = 1;

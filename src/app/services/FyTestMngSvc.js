@@ -3,8 +3,15 @@ import request from '../../utils/request';
 import config from '../config';
 const ad = config.httpServer + '/services/FyTestMngSvc';
 export async function queryTest(params) {
-  return request(`${ad}/queryTest`, params);
+  return request(`${ad}/queryTest`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
 }
+
 export async function findTest(params) {
   return request(`${ad}/findTest`, params);
 }
