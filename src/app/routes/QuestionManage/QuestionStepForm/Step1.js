@@ -196,7 +196,7 @@ class QuestionStep1 extends React.PureComponent {
                 })(<TextArea rows={4} placeholder="请输入标题" />)
               )}
             </Form.Item>
-            <Form.Item {...formItemLayout} label="分数">
+          {/*   <Form.Item {...formItemLayout} label="分数">
               {getFieldDecorator('score', {
                 initialValue: question ? question.score : 1,
                 rules: [
@@ -207,7 +207,7 @@ class QuestionStep1 extends React.PureComponent {
                   },
                 ],
               })(<Input placeholder="请输入分数" />)}
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item {...formItemLayout} label="难度">
               {getFieldDecorator('difficulty', {
                 initialValue: question ? question.difficulty : 0,

@@ -316,7 +316,13 @@ export default class TestList extends PureComponent {
         title: '标题',
         dataIndex: 'title',
       },
-      ,
+      {
+        title: '题量',
+        dataIndex: 'count',
+      },{
+        title: '总分',
+        dataIndex: 'score',
+      },
       {
         title: '是否问卷',
         render: record => (record.isQuestionnaire ? '是' : '否'),

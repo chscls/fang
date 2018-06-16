@@ -158,7 +158,7 @@ class TestStep2 extends React.PureComponent {
   okHandle = () => {
     
   var  test  = this.props.fyTest.test;
-  var alreadyQids = test.questionIds.map(id => id).join(',')
+  var alreadyQids = test.questionConfigs.map(cfg => cfg.id).join(',')
   alreadyQids = this.state.selectQuestionIds+","+alreadyQids;
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
