@@ -433,6 +433,7 @@ export default class QuestionList extends PureComponent {
       {
         title: '创建时间',
         dataIndex: 'createTime',
+        sorter: true,
         render(val) {
           return new Date(val).toLocaleDateString();
         },
