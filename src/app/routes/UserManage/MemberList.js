@@ -16,12 +16,13 @@ import {
   DatePicker,
   Modal,
   message,
+  Avatar,
   Badge,
   Divider,
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import defaultImg from '../../../assets/default.png';
 import styles from './MemberList.less';
 
 const FormItem = Form.Item;
@@ -349,13 +350,17 @@ export default class MemberList extends PureComponent {
       {
         title: 'id',
         dataIndex: 'id',
+      }, {
+        title: '头像',
+        render: record => (
+          <Avatar src={record.avatarUrl?record.avatarUrl: defaultImg} size="small" />)
       },
       {
         title: '姓名',
         dataIndex: 'realname',
       },
       {
-        title: '手机',
+        title: '账号',
         dataIndex: 'mobile',
       },
       {

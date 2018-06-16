@@ -311,7 +311,7 @@ export default class QuestionList extends PureComponent {
         dataIndex: 'id',
       },
       {
-        title: '标题',
+        title: '标题(点击可预览)',
         width: 400,
         render: record => (
           <Tooltip

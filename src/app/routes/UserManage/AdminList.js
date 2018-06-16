@@ -16,6 +16,7 @@ import {
   DatePicker,
   Modal,
   message,
+  Avatar,
   Badge,
   Divider,
 } from 'antd';
@@ -23,7 +24,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './AdminList.less';
-
+import defaultImg from '../../../assets/default.png';
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -52,9 +53,9 @@ const CreateForm = Form.create()(props => {
         {currentObj.id
           ? currentObj.mobile
           : form.getFieldDecorator('mobile', {
-              initialValue: currentObj.mobile,
-              rules: [{ required: true, message: '请输入登录名...' }],
-            })(<Input placeholder="请输入登录名" />)}
+            initialValue: currentObj.mobile,
+            rules: [{ required: true, message: '请输入登录名...' }],
+          })(<Input placeholder="请输入登录名" />)}
       </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="姓名">
         {form.getFieldDecorator('realname', {
@@ -177,13 +178,13 @@ export default class AdminList extends PureComponent {
         formValues: values,
       });
 
-      const pagination=this.props.fyUser.data.pagination
+      const pagination = this.props.fyUser.data.pagination
       const params = {
         type: 'admin',
         pageNo: pagination.current,
         pageSize: pagination.pageSize,
         ...values,
-      
+
       };
       this.getPage(params);
     });
@@ -337,13 +338,17 @@ export default class AdminList extends PureComponent {
       {
         title: 'id',
         dataIndex: 'id',
-      },
-      {
+      }, {
+        title: '头像',
+        render: record => (
+          <Avatar src={record.avatarUrl?record.avatarUrl: defaultImg} size="small" />)
+      }, {
         title: '姓名',
         dataIndex: 'realname',
       },
+
       {
-        title: '手机号',
+        title: '账号',
         dataIndex: 'mobile',
       },
       {
