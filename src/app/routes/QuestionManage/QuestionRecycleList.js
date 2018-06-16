@@ -280,7 +280,7 @@ export default class QuestionRecycleList extends PureComponent {
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyQuestion/delete',
+      type: 'fyQuestion/remove',
       payload: {
         ids: [id],
       },
@@ -290,10 +290,37 @@ export default class QuestionRecycleList extends PureComponent {
     });
   }
   recovery = id => {
-
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'fyQuestion/recovery',
+      payload: {
+        ids: [id],
+      },
+      callback: () => {
+        this.getPage();
+      },
+    });
   }
   batchRecovery= e => {
+    const { dispatch } = this.props;
+    const { selectedRows } = this.state;
 
+    if (!selectedRows) return;
+    dispatch({
+      type: 'fyQuestion/recovery',
+      payload: {
+        ids: selectedRows.map(row => row.id).join(','),
+      },
+      callback: () => {
+        this.setState({
+          selectedRows: [],
+        });
+        if (this.props.handleSelect) {
+          this.props.handleSelect([]);
+        }
+        this.getPage();
+      },
+    });
   }
   batchDelete = e => {
     const { dispatch } = this.props;
@@ -301,7 +328,7 @@ export default class QuestionRecycleList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyQuestion/delete',
+      type: 'fyQuestion/remove',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },

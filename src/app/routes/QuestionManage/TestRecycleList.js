@@ -246,11 +246,21 @@ export default class TestRecyleList extends PureComponent {
   };
 
   recovery = id => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'fyTest/recovery',
+      payload: {
+        ids: [id],
+      },
+      callback: () => {
+        this.getPage();
+      },
+    });
   }
   delete = id => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyTest/delete',
+      type: 'fyTest/remove',
       payload: {
         ids: [id],
       },
@@ -264,7 +274,22 @@ export default class TestRecyleList extends PureComponent {
   };
 
   batchRecovery= e => {
+    const { dispatch } = this.props;
+    const { selectedRows } = this.state;
 
+    if (!selectedRows) return;
+    dispatch({
+      type: 'fyTest/recovery',
+      payload: {
+        ids: selectedRows.map(row => row.id).join(','),
+      },
+      callback: () => {
+        this.setState({
+          selectedRows: [],
+        });
+        this.getPage();
+      },
+    });
   }
   batchDelete = e => {
     const { dispatch } = this.props;
@@ -272,7 +297,7 @@ export default class TestRecyleList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyTest/delete',
+      type: 'fyTest/remove',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },

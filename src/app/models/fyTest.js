@@ -5,6 +5,7 @@ import {
   findTest,
   updateTestQuestions,
   recycleTest,
+  recoveryTest,
   queryTestRe,
 } from '../services/FyTestMngSvc';
 
@@ -95,6 +96,14 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeTest, payload);
+      yield put({
+        type: 'nom',
+        payload: response,
+      });
+      if (callback) callback();
+    },
+    *recovery({ payload, callback }, { call, put }) {
+      const response = yield call(recoveryTest, payload);
       yield put({
         type: 'nom',
         payload: response,

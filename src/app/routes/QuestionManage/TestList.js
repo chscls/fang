@@ -264,6 +264,7 @@ export default class TestList extends PureComponent {
     });
   };
   delete = id => {
+    console.log(id)
     const { dispatch } = this.props;
     dispatch({
       type: 'fyTest/recycle',

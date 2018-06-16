@@ -5,7 +5,8 @@ import {
   findQuestion,
   updateOptions,
   recycleQuestion,
-  queryQuestionRe
+  queryQuestionRe,
+  recoveryQuestion
 } from '../services/FyQuestionMngSvc';
 
 export default {
@@ -92,6 +93,14 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeQuestion, payload);
+      yield put({
+        type: 'nom',
+        payload: response,
+      });
+      if (callback) callback();
+    },
+    *recovery({ payload, callback }, { call, put }) {
+      const response = yield call(recoveryQuestion, payload);
       yield put({
         type: 'nom',
         payload: response,

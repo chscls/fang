@@ -33,6 +33,17 @@ export async function removeQuestion(params) {
     },
   });
 }
+export async function recoveryQuestion(params) {
+  return request(`${ad}/recoveryQuestion`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'delete',
+    },
+  });
+}
+
+
 export async function recycleQuestion(params) {
   return request(`${ad}/recycleQuestion`, {
     method: 'POST',

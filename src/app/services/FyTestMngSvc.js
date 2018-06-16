@@ -28,7 +28,15 @@ export async function recycleTest(params) {
     },
   });
 }
-
+export async function recoveryTest(params) {
+  return request(`${ad}/recoveryTest`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'delete',
+    },
+  });
+}
 export async function findTest(params) {
   return request(`${ad}/findTest`, params);
 }
