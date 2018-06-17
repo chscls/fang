@@ -7,8 +7,10 @@ import {
   recycleTest,
   recoveryTest,
   queryTestRe,
+  downShopTest,
+  upShopTest
 } from '../services/FyTestMngSvc';
-import { isElementAccessExpression } from 'typescript';
+
 
 export default {
   namespace: 'fyTest',
@@ -106,6 +108,22 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeTest, payload);
+      if(!response){yield put({type: 'nom'});return }
+      yield put({
+        type: 'nom',
+        payload: response,
+      });
+      if (callback) callback();
+    },*upShop({ payload, callback }, { call, put }) {
+      const response = yield call(upShopTest, payload);
+      if(!response){yield put({type: 'nom'});return }
+      yield put({
+        type: 'nom',
+        payload: response,
+      });
+      if (callback) callback();
+    },*downShop({ payload, callback }, { call, put }) {
+      const response = yield call(downShopTest, payload);
       if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'nom',

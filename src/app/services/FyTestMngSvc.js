@@ -49,7 +49,24 @@ export async function removeTest(params) {
     },
   });
 }
-
+export async function upShopTest(params) {
+  return request(`${ad}/upShopTest`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
+export async function downShopTest(params) {
+  return request(`${ad}/downShopTest`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
 export async function updateTestQuestions(params) {
   return request(`${ad}/updateTestQuestions`, {
     method: 'POST',

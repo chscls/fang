@@ -264,8 +264,6 @@ export default class TestList extends PureComponent {
     });
   };
   delete = id => {
-    console.log(id)
-  
     dispatch({
       type: 'fyTest/recycle',
       payload: {
@@ -297,13 +295,39 @@ export default class TestList extends PureComponent {
       },
     });
   };
-  batchShop= e => {
+  upShop = id => {
+    console.log(id)
+  
+    dispatch({
+      type: 'fyTest/upShop',
+      payload: {
+        ids: [id],
+      },
+      callback: () => {
+        this.getPage();
+      },
+    });
+  };
+  upShop = id => {
+    console.log(id)
+  
+    dispatch({
+      type: 'fyTest/downShop',
+      payload: {
+        ids: [id],
+      },
+      callback: () => {
+        this.getPage();
+      },
+    });
+  };
+  batchUpShop= e => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyTest/recycle',
+      type: 'fyTest/upShop',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
@@ -315,6 +339,25 @@ export default class TestList extends PureComponent {
       },
     });
   };
+  batchDownShop= e => {
+    const { dispatch } = this.props;
+    const { selectedRows } = this.state;
+
+    if (!selectedRows) return;
+    dispatch({
+      type: 'fyTest/downShop',
+      payload: {
+        ids: selectedRows.map(row => row.id).join(','),
+      },
+      callback: () => {
+        this.setState({
+          selectedRows: [],
+        });
+        this.getPage();
+      },
+    });
+  };
+  
   cancelScreen = e => {
     this.setState({ screenVisible: false });
   };
@@ -427,9 +470,9 @@ export default class TestList extends PureComponent {
         render: record => (
           <Fragment>
               
-            {record.saleStatus=='sale'?<a onClick={this.delete.bind(this, record.id)}>下架</a>:""}
+            {record.saleStatus=='sale'?<a onClick={this.downShop.bind(this, record.id)}>下架</a>:""}
             
-            {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.delete.bind(this, record.id)}>上架</a>:""}
+            {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.upShop.bind(this, record.id)}>上架</a>:""}
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>统计与批阅</a>
             <Divider type="vertical" />
@@ -460,8 +503,8 @@ export default class TestList extends PureComponent {
               </Link>
               {selectedRows.length > 0 && (
                 <span>
-                   <Button type="primary"  onClick={this.batchShop.bind(this)}>批量上架</Button>
-                   <Button type="primary"  onClick={this.batchShop.bind(this)}>批量下架</Button>
+                   <Button type="primary"  onClick={this.batchUpShop.bind(this)}>批量上架</Button>
+                   <Button type="primary"  onClick={this.batchDownShop.bind(this)}>批量下架</Button>
                   <Button type="danger"  onClick={this.batchDelete.bind(this)}>批量刪除</Button>
                   <Dropdown overlay={menu}>
                     <Button>
