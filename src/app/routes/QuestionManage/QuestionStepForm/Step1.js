@@ -116,6 +116,9 @@ class QuestionStep1 extends React.PureComponent {
             type: 'fyQuestion/add',
             payload: values,
             callback: id => {
+              dispatch({
+                type: 'user/fetchCurrent',
+              });
               dispatch(routerRedux.push(`/question-manage/question-add/confirm/${id}`));
             },
           });
@@ -244,8 +247,8 @@ class QuestionStep1 extends React.PureComponent {
   }
 }
 
-export default connect(({ form, fyQuestion,loading }) => ({
+export default connect(({ form, fyQuestion,loading ,user}) => ({
   confirmLoading:loading.effects['fyQuestion/add'],
   data: form.step,
-  fyQuestion,
+  fyQuestion,user
 }))(QuestionStep1);

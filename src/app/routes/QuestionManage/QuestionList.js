@@ -197,6 +197,7 @@ export default class QuestionList extends PureComponent {
         this.setState({
           modalVisible: false,
         });
+       
         this.getPage();
       },
     });

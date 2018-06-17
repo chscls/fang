@@ -42,9 +42,9 @@ const getValue = obj =>
 const statusMap = ['create', 'check', 'complete'];
 const status = ['创建中', '审核中', '已上线'];
 
-@connect(({ rule, loading, fyQuestion }) => ({
+@connect(({ rule, loading, fyQuestion,user }) => ({
   fyQuestion,
-  rule,
+  rule,user,
   loading: loading.models.fyQuestion,
 }))
 @Form.create()
@@ -285,6 +285,9 @@ export default class QuestionRecycleList extends PureComponent {
         ids: [id],
       },
       callback: () => {
+        dispatch({
+          type: 'user/fetchCurrent',
+        });
         this.getPage();
       },
     });
@@ -339,6 +342,9 @@ export default class QuestionRecycleList extends PureComponent {
         if (this.props.handleSelect) {
           this.props.handleSelect([]);
         }
+        dispatch({
+          type: 'user/fetchCurrent',
+        });
         this.getPage();
       },
     });
