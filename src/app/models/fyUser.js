@@ -17,6 +17,7 @@ export default {
   effects: {
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryUser, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: payload.type,
         payload: {
@@ -31,19 +32,19 @@ export default {
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addUser, payload);
-      if (response) {
+      if( response){yield put({type: 'nom'}); }
+    
         yield put({
           type: 'nom',
           payload: response,
         });
 
         if (callback) callback({ suc: true, obj: response });
-      } else {
-        if (callback) callback({ suc: false, obj: payload });
-      }
+      
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeUser, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'nom',
         payload: response,

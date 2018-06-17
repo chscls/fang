@@ -24,6 +24,7 @@ export default {
   effects: {
     *detail({ payload }, { call, put }) {
       const response = yield call(queryTestRecordDetail, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'suc2',
         payload: {
@@ -38,6 +39,7 @@ export default {
     },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryTestRecord, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'suc',
         payload: {
@@ -52,6 +54,7 @@ export default {
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addTestRecord, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'ok',
         payload: response,
@@ -66,6 +69,7 @@ export default {
     },
     *find({ payload, callback }, { call, put }) {
       const response = yield call(findTestRecord, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'ok',
         payload: response,
@@ -74,6 +78,7 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeTestRecord, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'nom',
         payload: response,

@@ -8,6 +8,7 @@ import {
   recoveryTest,
   queryTestRe,
 } from '../services/FyTestMngSvc';
+import { isElementAccessExpression } from 'typescript';
 
 export default {
   namespace: 'fyTest',
@@ -30,6 +31,7 @@ export default {
 
     *updateTestQuestions({ payload, callback }, { call, put }) {
       const response = yield call(updateTestQuestions, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'ok',
         payload: response,
@@ -39,6 +41,7 @@ export default {
 
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryTest, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'suc',
         payload: {
@@ -50,9 +53,11 @@ export default {
           },
         },
       });
+      
     },
     *fetchRe({ payload }, { call, put }) {
       const response = yield call(queryTestRe, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'suc2',
         payload: {
@@ -67,6 +72,7 @@ export default {
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addTest, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'ok',
         payload: response,
@@ -80,7 +86,9 @@ export default {
       });
     },
     *find({ payload, callback }, { call, put }) {
+      
       const response = yield call(findTest, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'ok',
         payload: response,
@@ -88,6 +96,7 @@ export default {
       if (callback) callback(response);
     },*recycle({ payload, callback }, { call, put }) {
       const response = yield call(recycleTest, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'nom',
         payload: response,
@@ -96,6 +105,7 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeTest, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'nom',
         payload: response,
@@ -104,6 +114,7 @@ export default {
     },
     *recovery({ payload, callback }, { call, put }) {
       const response = yield call(recoveryTest, payload);
+      if( response){yield put({type: 'nom'}); }
       yield put({
         type: 'nom',
         payload: response,

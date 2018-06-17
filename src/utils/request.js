@@ -91,8 +91,15 @@ export default function request(url, options) {
     }
   }
 
-  return fetch(url, newOptions)
-    .then(checkStatus)
+  return fetch(url, newOptions).catch(err => {
+  
+    notification.error({
+      message: `请求错误`,
+      description: `网络出现故障或者服务器不可用,请稍后再试`,
+    });
+    return;
+  
+  }).then(checkStatus)
     .then(response => {
       if (response.status === 202) {
         return response.text();
