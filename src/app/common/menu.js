@@ -80,7 +80,11 @@ const menuData = [
         ]
       },
     ],
-  },
+  },{
+    name: '订单管理',
+    icon: 'shopping-cart',
+    path: 'order-list'
+  }
 ];
 
 export default menuData;

@@ -57,47 +57,53 @@ const appRouter = [
 
   {
     path: '/question-manage/test-add',
-    models: [],
+    models:  [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestStepForm'),
   },
   {
     path: '/question-manage/test-add/info/:id',
-    models: [],
+    models:  [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestStepForm/Step1'),
   },
   {
     path: '/question-manage/test-add/confirm/:id',
-    models: [],
+    models: [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestStepForm/Step2'),
   },
   {
     path: '/question-manage/test-add/result/:id',
-    models: [],
+    models:  [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestStepForm/Step3'),
   },
   {
     path: '/question-manage/question-add',
-    models: [],
+    models: [require(`../models/fyQuestion`)],
     component: () => import('../routes/QuestionManage/QuestionStepForm'),
   },
 
   {
     path: '/question-manage/question-add/info/:id',
-    models: [],
+    models: [require(`../models/fyQuestion`)],
     component: () => import('../routes/QuestionManage/QuestionStepForm/Step1'),
   },
 
   {
     path: '/question-manage/question-add/confirm/:id',
-    models: [],
+    models: [require(`../models/fyQuestion`)],
     component: () => import('../routes/QuestionManage/QuestionStepForm/Step2'),
   },
 
   {
     path: '/question-manage/question-add/result/:id',
-    models: [],
+    models: [require(`../models/fyQuestion`)],
     component: () => import('../routes/QuestionManage/QuestionStepForm/Step3'),
   },
+
+  {
+    path: '/order-list',
+    models: [require(`../models/fyOrder`)],
+    component: () => import('../routes/OrderList'),
+  }
 ];
 
 export default appRouter;
