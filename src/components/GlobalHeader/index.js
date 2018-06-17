@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip } from 'antd';
+import { Menu, Icon, Spin, Tag, Dropdown, Avatar, Divider, Tooltip, Button } from 'antd';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import Debounce from 'lodash-decorators/debounce';
@@ -98,6 +98,8 @@ export default class GlobalHeader extends PureComponent {
           onClick={this.toggle}
         />
         <div className={styles.right}>
+          <span> 已使用:{currentUser.questionCount} / 总额度:{currentUser.questionCapacity}</span>&nbsp;&nbsp;&nbsp;
+          <Button type="primary" >去购买</Button>&nbsp;&nbsp;&nbsp;
           <HeaderSearch
             className={`${styles.action} ${styles.search}`}
             placeholder="站内搜索"
@@ -109,6 +111,7 @@ export default class GlobalHeader extends PureComponent {
               console.log('enter', value); // eslint-disable-line
             }}
           />
+          
           <Tooltip title="使用文档">
             <a
               target="_blank"
