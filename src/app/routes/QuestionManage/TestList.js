@@ -411,6 +411,12 @@ export default class TestList extends PureComponent {
         val == 'create' ? '创建中' : val == 'process' ? '进行中' : '已结束',
       },
       {
+        title: '上架状态',
+        dataIndex: 'saleStatus',
+        render:val =>
+        val == 'create' ? '待上架' : val == 'apply' ? '审核中' : val == 'refuse' ? '不通过':'已上架'
+      },
+      {
         title: '创建时间',
         sorter: true,
         dataIndex: 'createTime',
@@ -421,7 +427,9 @@ export default class TestList extends PureComponent {
         render: record => (
           <Fragment>
               
-            {record.isSale?<a onClick={this.delete.bind(this, record.id)}>下架</a>:<a onClick={this.delete.bind(this, record.id)}>上架</a>}
+            {record.saleStatus=='sale'?<a onClick={this.delete.bind(this, record.id)}>下架</a>:""}
+            
+            {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.delete.bind(this, record.id)}>上架</a>:""}
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>统计与批阅</a>
             <Divider type="vertical" />
