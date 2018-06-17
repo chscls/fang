@@ -27,7 +27,7 @@ export default {
   effects: {
     *fetchRe({ payload }, { call, put }) {
     const response = yield call(queryQuestionRe, payload);
-    if( response){yield put({type: 'nom'}); }
+    if(!response){yield put({type: 'nom'});return }
     yield put({
       type: 'suc2',
       payload: {
@@ -42,7 +42,7 @@ export default {
   },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryQuestion, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'suc',
         payload: {
@@ -57,7 +57,7 @@ export default {
     },
     *find({ payload, callback }, { call, put }) {
       const response = yield call(findQuestion, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'ok',
         payload: response,
@@ -66,7 +66,7 @@ export default {
     },
     *updateOptions({ payload, callback }, { call, put }) {
       const response = yield call(updateOptions, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'ok',
         payload: response,
@@ -76,7 +76,7 @@ export default {
 
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addQuestion, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'ok',
         payload: response,
@@ -90,7 +90,7 @@ export default {
       });
     },*recycle({ payload, callback }, { call, put }) {
       const response = yield call(recycleQuestion, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'nom',
         payload: response,
@@ -99,7 +99,7 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeQuestion, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'nom',
         payload: response,
@@ -108,7 +108,7 @@ export default {
     },
     *recovery({ payload, callback }, { call, put }) {
       const response = yield call(recoveryQuestion, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'nom',
         payload: response,

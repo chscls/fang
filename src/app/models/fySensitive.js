@@ -13,7 +13,7 @@ export default {
   effects: {
     *fetch({ payload }, { call, put }) {
       const response = yield call(querySensitive, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'suc',
         payload: {
@@ -28,7 +28,7 @@ export default {
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addSensitive, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       if (response) {
         yield put({
           type: 'nom',
@@ -42,7 +42,7 @@ export default {
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(removeSensitive, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'nom',
         payload: response,

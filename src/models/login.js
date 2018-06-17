@@ -24,7 +24,7 @@ export default {
     },
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      if( response){yield put({type: 'nom'}); }
+      if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'changeLoginStatus',
         payload: response,
