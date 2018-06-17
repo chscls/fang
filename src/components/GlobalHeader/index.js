@@ -95,8 +95,8 @@ export default class GlobalHeader extends PureComponent {
           onClick={this.toggle}
         />
         <div className={styles.right}>
-          <span> 已使用:{currentUser.questionCount}(其中回收:{currentUser.recycleCount}) / 总额度:{currentUser.questionCapacity}</span>&nbsp;&nbsp;&nbsp;
-          <Button type="primary" >去购买</Button>&nbsp;&nbsp;&nbsp;
+          <span style={{fontSize:18}}> 已使用 : {currentUser.questionCount} {currentUser.recycleCount>0?"( 其中回收 : "+currentUser.recycleCount+" )":""} / 总额度 : {currentUser.questionCapacity}</span>&nbsp;&nbsp;&nbsp;
+          <Button type={currentUser.questionCapacity-currentUser.questionCount<10?"danger":"primary"} >增加额度</Button>&nbsp;&nbsp;&nbsp;
           <HeaderSearch
             className={`${styles.action} ${styles.search}`}
             placeholder="站内搜索"
