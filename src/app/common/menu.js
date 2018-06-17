@@ -1,20 +1,26 @@
+import memberMenu from './memberMenu';
+
 const menuData = [
   {
     name: '控制台',
     icon: 'dashboard',
     path: 'dashboard',
+    authority: 'admin',
     children: [
       {
         name: '分析页',
         path: 'analysis',
+        authority: 'admin',
       },
       {
         name: '监控页',
         path: 'monitor',
+        authority: 'admin',
       },
       {
         name: '工作台',
         path: 'workplace',
+        authority: 'admin',
         // hideInBreadcrumb: true,
         // hideInMenu: true,
       },
@@ -50,40 +56,10 @@ const menuData = [
     ],
   },
   {
-    name: '题库管理',
+    name: '做题',
     icon: 'copy',
     path: 'question-manage',
-    children: [
-      {
-        name: '题库管理',
-        path: 'question-list',
-      },
-      {
-        name: '试卷管理',
-        path: 'test-list',
-      },
-      {
-        name: '做题记录',
-        path: 'testRecord-list',
-      },{
-        name: '回收站',
-        path: 'recovery',
-        children: [
-          {
-            name: '题目回收',
-            path: 'question-recycle-list',
-          },
-          {
-            name: '试卷回收',
-            path: 'test-recycle-list',
-          },
-        ]
-      },
-    ],
-  },{
-    name: '订单管理',
-    icon: 'shopping-cart',
-    path: 'order-list'
+    children: memberMenu(true)
   }
 ];
 

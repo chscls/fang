@@ -100,9 +100,9 @@ const appRouter = [
   },
 
   {
-    path: '/order-list',
+    path: '/question-manage/order-list',
     models: [require(`../models/fyOrder`)],
-    component: () => import('../routes/OrderList'),
+    component: () => import('../routes/QuestionManage/OrderList'),
   }
 ];
 
