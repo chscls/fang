@@ -420,15 +420,22 @@ export default class QuestionRecycleList extends PureComponent {
         }
       },
       {
-        title: '删除时间',
+        title: '回收时间',
         dataIndex: 'recycleTime',
         sorter: true,
         render(val) {
           return new Date(val).toLocaleString();
         },
       },{
-        title: '自动彻底删除时间',
-        render: record => new Date(record.recycleTime+1000*60*60*24*15).toLocaleString()
+        title: '自动删除时间',
+        render(record) {
+          var x = new Date(record.recycleTime+1000*60*60*24*15).toLocaleString()
+          var now = new Date().getTime();
+    
+          var color = now-record.recycleTime>1000*60*60*24*14?"red":now-record.recycleTime>1000*60*60*24*7?"orange":"black"
+          return <span style={{color:`${color}`}}>{x}</span>
+          
+        },
       },
       {
         title: '状态',

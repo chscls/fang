@@ -363,13 +363,20 @@ export default class TestRecyleList extends PureComponent {
         val == 'create' ? '创建中' : val == 'process' ? '进行中' : '已结束',
       },
       {
-        title: '删除时间',
+        title: '回收时间',
         sorter: true,
         dataIndex: 'recycleTime',
         render: val => new Date(val).toLocaleString()
       },{
-        title: '自动彻底删除时间',
-        render: record => new Date(record.recycleTime+1000*60*60*24*15).toLocaleString()
+        title: '自动删除时间',
+        render(record) {
+          var x = new Date(record.recycleTime+1000*60*60*24*15).toLocaleString()
+          var now = new Date().getTime();
+    
+          var color = now-record.recycleTime>1000*60*60*24*14?"red":now-record.recycleTime>1000*60*60*24*7?"orange":"black"
+          return <span style={{color:`${color}`}}>{x}</span>
+          
+        },
       },
       {
         title: '操作',
