@@ -67,7 +67,6 @@ const menuData = [
         path: 'testRecord-list',
       },{
         name: '回收站',
-        icon: 'delete',
         path: 'recovery',
         children: [
           {

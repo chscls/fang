@@ -426,6 +426,9 @@ export default class QuestionRecycleList extends PureComponent {
         render(val) {
           return new Date(val).toLocaleString();
         },
+      },{
+        title: '自动彻底删除时间',
+        render: record => new Date(record.recycleTime+1000*60*60*24*15).toLocaleString()
       },
       {
         title: '状态',
