@@ -7,7 +7,7 @@ import { Link } from 'dva/router';
 import NoticeIcon from '../NoticeIcon';
 import HeaderSearch from '../HeaderSearch';
 import styles from './index.less';
-
+import defaultImg from '../../assets/default.png';
 export default class GlobalHeader extends PureComponent {
   componentWillUnmount() {
     this.triggerResizeEvent.cancel();
@@ -68,14 +68,11 @@ export default class GlobalHeader extends PureComponent {
     } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item disabled>
+        <Menu.Item >
           <Icon type="user" />个人中心
         </Menu.Item>
-        <Menu.Item disabled>
+        <Menu.Item >
           <Icon type="setting" />设置
-        </Menu.Item>
-        <Menu.Item key="triggerError">
-          <Icon type="close-circle" />触发报错
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout">
@@ -155,7 +152,7 @@ export default class GlobalHeader extends PureComponent {
           {currentUser.name ? (
             <Dropdown overlay={menu}>
               <span className={`${styles.action} ${styles.account}`}>
-                <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                <Avatar size="small" className={styles.avatar} src={currentUser.avatarUrl?currentUser.avatarUrl:defaultImg} />
                 <span className={styles.name}>{currentUser.name}</span>
               </span>
             </Dropdown>
