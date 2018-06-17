@@ -1,4 +1,4 @@
-import memberMenu from './memberMenu';
+import getMenu from './memberMenu';
 
 const menuData = [
   {
@@ -59,7 +59,7 @@ const menuData = [
     name: '做题',
     icon: 'copy',
     path: 'question-manage',
-    children: memberMenu(true)
+    children: getMenu(true)
   }
 ];
 

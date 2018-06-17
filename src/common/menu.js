@@ -1,9 +1,9 @@
 import { isUrl } from '../utils/utils';
 
 import menuDynamic from '../app/common/menu';
-import memberDynamic from '../app/common/memberMenu';
+import getMenu from '../app/common/memberMenu';
 import {getAuthority} from '../utils/authority'
-const menuData = menuDynamic;
+
 
 function formatter(data, parentPath = '/', parentAuthority) {
   return data.map(item => {
@@ -24,4 +24,4 @@ function formatter(data, parentPath = '/', parentAuthority) {
   });
 }
 
-export const getMenuData = () => formatter(getAuthority()=='admin'?menuData:memberDynamic(false));
+export const getMenuData = () => formatter(getAuthority()=='admin'?menuDynamic:getMenu(false));
