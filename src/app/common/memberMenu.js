@@ -20,7 +20,7 @@ export default function getMenu(isAdmin){
               path: `${questionMng}test-list`,
             },
             {
-              name: '做题记录',
+              name: '统计与批阅',
               icon:questionMng==''?null:'form',
       
               path: `${questionMng}testRecord-list`,
