@@ -296,7 +296,7 @@ export default class TestList extends PureComponent {
     });
   };
   upShop = id => {
-    console.log(id)
+    const { dispatch } = this.props;
   
     dispatch({
       type: 'fyTest/upShop',
@@ -308,8 +308,8 @@ export default class TestList extends PureComponent {
       },
     });
   };
-  upShop = id => {
-    console.log(id)
+  downShop = id => {
+    const { dispatch } = this.props;
   
     dispatch({
       type: 'fyTest/downShop',
@@ -473,7 +473,7 @@ export default class TestList extends PureComponent {
             {record.saleStatus=='sale'?<a onClick={this.downShop.bind(this, record.id)}>下架</a>:""}
             
             {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.upShop.bind(this, record.id)}>上架</a>:""}
-            <Divider type="vertical" />
+            {record.saleStatus=='apply'?"":<Divider type="vertical" />}
             <a onClick={this.delete.bind(this, record.id)}>统计与批阅</a>
             <Divider type="vertical" />
             <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
