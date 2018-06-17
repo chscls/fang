@@ -300,6 +300,9 @@ export default class QuestionRecycleList extends PureComponent {
         ids: [id],
       },
       callback: () => {
+        dispatch({
+          type: 'user/fetchCurrent',
+        });
         this.getPage();
       },
     });
@@ -321,6 +324,9 @@ export default class QuestionRecycleList extends PureComponent {
         if (this.props.handleSelect) {
           this.props.handleSelect([]);
         }
+        dispatch({
+          type: 'user/fetchCurrent',
+        });
         this.getPage();
       },
     });
@@ -482,8 +488,8 @@ export default class QuestionRecycleList extends PureComponent {
              
               {selectedRows.length > 0 && (
                 <span>
-                   <Button onClick={this.batchRecovery.bind(this)}>批量恢复</Button>
-                  <Button onClick={this.batchDelete.bind(this)}>批量彻底清除</Button>
+                   <Button type="primary" onClick={this.batchRecovery.bind(this)}>批量恢复</Button>
+                  <Button type="danger" onClick={this.batchDelete.bind(this)}>批量彻底清除</Button>
                   <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />

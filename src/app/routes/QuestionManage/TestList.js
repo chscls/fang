@@ -430,7 +430,7 @@ export default class TestList extends PureComponent {
               </Link>
               {selectedRows.length > 0 && (
                 <span>
-                  <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
+                  <Button type="danger"  onClick={this.batchDelete.bind(this)}>批量刪除</Button>
                   <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />
