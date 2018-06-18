@@ -54,7 +54,7 @@ const appRouter = [
   },
 
   {
-    path: '/question-manage/testRecord-detail/:orgId',
+    path: '/question-manage/testRecord-detail/:code',
     models: [require(`../models/fyTestRecord`)],
     component: () => import('../routes/QuestionManage/TestRecordDetail'),
   },

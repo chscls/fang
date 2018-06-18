@@ -296,7 +296,7 @@ export default class TestList extends PureComponent {
       },
       {
         title: '标题',
-        render: record => record.test.title,
+        dataIndex: 'title',
       },
       {
         title: '完成人数',
@@ -317,24 +317,17 @@ export default class TestList extends PureComponent {
       {
         title: '答题模式',
         render: record =>
-          record.test.mode == 'free'
+          record.mode == 'free'
             ? '自由'
-            : record.test.mode == 'singleLimit'
+            : record.mode == 'singleLimit'
               ? '单题限时'
-              : record.test.mode == 'totalLimit' ? '总限时' : '竞赛',
-      },
-      {
-        title: '试卷状态',
-        render: record =>
-          record.test.status == 'create'
-            ? '创建中'
-            : record.test.status == 'process' ? '进行中' : '已结束',
+              : record.mode == 'totalLimit' ? '总限时' : '竞赛',
       },
       {
         title: '操作',
         render: record => (
           <Fragment>
-            <Link to={`/question-manage/testRecord-detail/${record.orgId}`}>查看详情</Link>
+            <Link to={`/question-manage/testRecord-detail/${record.code}`}>查看详情</Link>
           </Fragment>
         ),
       },

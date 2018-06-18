@@ -19,7 +19,7 @@ import {
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './TestRecordDetail.less';
-
+import defaultImg from '../../../assets/default.png';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
@@ -38,7 +38,7 @@ export default class TestRecordDetail extends PureComponent {
     this.props.dispatch({
       type: 'fyTestRecord/detail',
       payload: {
-        orgId: this.props.match.params.orgId,
+        code: this.props.match.params.code,
         pageSize: pageSize
           ? pageSize
           : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
@@ -152,7 +152,7 @@ export default class TestRecordDetail extends PureComponent {
               renderItem={item => (
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
-                    avatar={<Avatar src={item.headImg} shape="square" size="large" />}
+                    avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
                     title={<a href={item.href}>{item.user.realname}</a>}
                     description={item.subDescription}
                   />
