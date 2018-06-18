@@ -136,6 +136,7 @@ class TestStep1 extends React.PureComponent {
                 rules: [{ required: true, message: '请输入允许重做次数' }],
               })(<InputNumber placeholder="请输入允许重做次数" />)}
             </Form.Item>
+            
             <Form.Item {...formItemLayout} label="模式">
               {getFieldDecorator('mode', {
                 initialValue: test ? test.mode : 'free',
