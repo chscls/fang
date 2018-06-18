@@ -184,6 +184,11 @@ class TestStep2 extends React.PureComponent {
     
     this.setState({ selectQuestionIds: ids });
   };
+  moveCard=(dragIndex, hoverIndex)=> {
+
+ console.log(dragIndex);
+ console.log(hoverIndex);
+  }
   render() {
     const { form, data, dispatch, submitting, confirmLoading,initLoading,fyTest: { test }} = this.props;
     const { getFieldDecorator, validateFields } = form;
@@ -249,7 +254,7 @@ class TestStep2 extends React.PureComponent {
                 dataSource={data2}
                 renderItem={item => (
                   <List.Item key={item.index}>
-                    <Card  disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
+                    <Card index={item.index} id={item.index+1} moveCard={this.moveCard} disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
                   </List.Item>
                 )}
               />

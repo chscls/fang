@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 import { Icon, Checkbox ,Button} from 'antd';
 import ItemTypes from './ItemTypes';
+import { findDOMNode } from 'react-dom';
 const cardSource = {
   beginDrag(props) {
     return {
@@ -45,7 +46,6 @@ const cardTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
-
     // Time to actually perform the action
     props.moveCard(dragIndex, hoverIndex);
     // Note: we're mutating the monitor item here!
