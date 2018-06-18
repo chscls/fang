@@ -24,6 +24,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './TestRecordList.less';
+import { isThisHour } from 'date-fns';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -56,6 +57,7 @@ export default class TestList extends PureComponent {
     const pagination = this.props.fyTestRecord.data.pagination;
     if (params == null) {
       params = {
+        orgId:this.props.match.params.orgId,
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
         ...this.state.formValues,

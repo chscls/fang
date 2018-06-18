@@ -489,8 +489,8 @@ export default class TestList extends PureComponent {
             
             {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.upShop.bind(this, record.id)}>上架</a>:""}
             {record.saleStatus=='apply'?"":<Divider type="vertical" />}
-            <a onClick={this.delete.bind(this, record.id)}>统计与批阅</a>
-           
+            
+            <Link to={`/question-manage/testRecord-list/${record.id}`}>统计与批阅</Link>
            
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
