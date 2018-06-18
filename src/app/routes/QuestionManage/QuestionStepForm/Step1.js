@@ -96,7 +96,31 @@ class QuestionStep1 extends React.PureComponent {
   onChangeValue = text => {
     this.setState({ text: text });
   };
+  check=(values,q,tags)=>{
+    if(q.id == null){
+      return true;
+    }else{
+    
+      if(values.type!=q.type){
+        return true;
+      }
+      if(values.difficulty!=q.difficulty){
+        return true;
 
+      }
+      if(values.title!=q.title){
+        return true;
+      }
+      if(values.isRich!=q.isRich){
+        return true;
+      }
+      if(tags!=q.tags){
+        return true;
+      }
+    }
+  
+  
+  }
   render() {
     const { tags, inputVisible, inputValue, isRich } = this.state;
     const { form, dispatch, data, fyQuestion: { question } ,confirmLoading} = this.props;
@@ -104,6 +128,10 @@ class QuestionStep1 extends React.PureComponent {
 
     const onValidateForm = () => {
       validateFields((err, values) => {
+        if(!this.check(values,question,tags)){
+          dispatch(routerRedux.push(`/question-manage/question-add/confirm/${question.id}`));
+          return
+        }
         if (question) {
           values = { ...values, id: question.id };
         }
