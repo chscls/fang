@@ -20,10 +20,10 @@ export default function getMenu(isAdmin){
               path: `${questionMng}test-list`,
             },
             {
-              name: '统计与批阅',
+              name: '做题记录',
               icon:questionMng==''?null:'form',
       
-              path: `${questionMng}testRecord-list`,
+              path: `${questionMng}myTestRecord-list`,
             },{
               name: '订单管理',
               icon: questionMng==''?null:'shopping-cart',
