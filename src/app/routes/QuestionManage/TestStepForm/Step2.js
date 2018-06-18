@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Icon, Input, Button, Alert, Divider, List, Avatar, Checkbox, Modal } from 'antd';
+import { Form, Icon, Input, Button,Popconfirm, Divider, List, Avatar, Checkbox, Modal } from 'antd';
 import { routerRedux } from 'dva/router';
 import { digitUppercase } from '../../../../utils/utils';
 import Single from '../../../components/QuestionItem/Single';
@@ -14,6 +14,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 import QuestionList from '../QuestionList';
+import { InputNumber } from 'antd';
 
 const formItemLayout = {
   labelCol: {
@@ -44,6 +45,7 @@ class TestStep2 extends React.PureComponent {
       flag: false,
       selectQuestionIds: [],
       questionModal: false,
+      defaultScore:1
     };
   }
 
@@ -76,6 +78,9 @@ class TestStep2 extends React.PureComponent {
       });
     }
   }
+  targetScore=(value)=>{
+    this.setState({defaultScore:value})
+  }
   handle = (index, e) => {
     const items = this.state.items;
 
@@ -87,6 +92,37 @@ class TestStep2 extends React.PureComponent {
       indeterminate: this.checkLength(items) < items.length,
       checkAll: this.checkLength(items) === items.length,
     });
+  };
+  changeScore = () => {
+    
+     var ids = []
+     
+    for (var i = 0; i < this.state.items.length; i++) {
+      if (this.state.items[i].checked) {
+        ids.push(this.state.items[i].q.id)
+      }
+    }
+    
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: ids.map(id => id).join(','),
+        score:this.state.defaultScore
+      },
+      callback: test => {
+        key = key + 1;
+        const items = [];
+
+        for (var i = 0; i < test.questions.length; i++) {
+          items[i] = { index: i, q: test.questions[i], checked: false };
+        }
+        this.setState({
+          items,defaultScore:1
+        });
+      },
+    }); 
+
   };
   delete = () => {
     var ids = []
@@ -264,9 +300,17 @@ class TestStep2 extends React.PureComponent {
                 插入题目
               </Button>
               &nbsp; &nbsp;
-              {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
+              {this.checkLength(this.state.items)>0?
+              
+              
+              
+               <Popconfirm title={<InputNumber onChange={this.targetScore} defaultValue={1}/>} onConfirm={this.changeScore}  okText="Yes" cancelText="No">
+               <Button type="primary" >
                 调分
-              </Button>:""}&nbsp; &nbsp;
+              </Button>
+             </Popconfirm>
+              
+              :""}&nbsp; &nbsp;
               {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
                 剔除
               </Button>:""}
