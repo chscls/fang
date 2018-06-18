@@ -63,7 +63,7 @@ export default class TestRecordDetail extends PureComponent {
         ...params
       }
     }
-    if(status==null){
+    if(!status){
       status=this.state.status
     }
     if(status&&status!='all'){
