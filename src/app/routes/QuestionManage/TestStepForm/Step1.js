@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Icon, Input, Slider, Button, Select, Divider, Switch, Tag, Radio } from 'antd';
+import { Form, Icon, Input, Slider, Button, Select, Divider, Switch, Tag, Radio,InputNumber } from 'antd';
 import { routerRedux } from 'dva/router';
 import styles from './style.less';
 
@@ -130,6 +130,12 @@ class TestStep1 extends React.PureComponent {
                 rules: [{ required: true, message: '请输入标题' }],
               })(<Input placeholder="请输入标题" />)}
             </Form.Item>
+            <Form.Item {...formItemLayout} label="允许重做次数">
+              {getFieldDecorator('allowTime', {
+                initialValue: test ? test.allowTime : 0,
+                rules: [{ required: true, message: '请输入允许重做次数' }],
+              })(<InputNumber placeholder="请输入允许重做次数" />)}
+            </Form.Item>
             <Form.Item {...formItemLayout} label="模式">
               {getFieldDecorator('mode', {
                 initialValue: test ? test.mode : 'free',
@@ -164,7 +170,7 @@ class TestStep1 extends React.PureComponent {
                 initialValue: isQuestionnaire,
               })(<Switch defaultChecked={isQuestionnaire} onChange={this.onChange} />)}
             </Form.Item>
-            <Form.Item {...formItemLayout} label="是否打乱题目顺序">
+            <Form.Item {...formItemLayout} label="打乱题目顺序">
               {getFieldDecorator('isNoOrder', {
                 initialValue: isNoOrder,
               })(<Switch defaultChecked={isNoOrder} onChange={this.onChangNoOrder} />)}

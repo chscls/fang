@@ -337,13 +337,18 @@ export default class TestRecyleList extends PureComponent {
         dataIndex: 'score',
       },
       {
-        title: '允许重做次数',
+        title: '重做次数',
         dataIndex: 'allowTime',
         render: val => val-1
       },
       {
-        title: '是否问卷',
+        title: '问卷',
         dataIndex: 'isQuestionnaire',
+        render: val => val? '是' : '否',
+      },
+      {
+        title: '乱序',
+        dataIndex: 'isNoOrder',
         render: val => val? '是' : '否',
       },
       {
