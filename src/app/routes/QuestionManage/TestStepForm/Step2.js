@@ -221,10 +221,10 @@ class TestStep2 extends React.PureComponent {
         {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
             <Form.Item {...formItemLayout} label="标题">
-              <div> {test.title}</div>
+             {test.title}
             </Form.Item>
             <Form.Item {...formItemLayout} label="题目">
-              <Checkbox
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
                 disabled={confirmLoading}
                 indeterminate={this.state.indeterminate}
                 onChange={this.onCheckAllChange}
@@ -238,10 +238,10 @@ class TestStep2 extends React.PureComponent {
               </Button>
               &nbsp; &nbsp;
               {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
-                批量调分
+                调分
               </Button>:""}&nbsp; &nbsp;
               {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
-                批量删除
+                剔除
               </Button>:""}
               <List
               loading={initLoading}

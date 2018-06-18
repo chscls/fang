@@ -90,12 +90,12 @@ export default class Card extends React.PureComponent {
           )
         )}
 
-        <Checkbox
+        &nbsp;&nbsp;<Checkbox
          disabled={this.props.disabled}
           value={question.id}
           checked={item.checked}
           onChange={this.props.handle}
-        />
+        />&nbsp;&nbsp;
         {question.isRich ? (
           <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
