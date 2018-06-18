@@ -185,10 +185,10 @@ class TestStep2 extends React.PureComponent {
     this.setState({ selectQuestionIds: ids });
   };
   moveCard=(dragIndex, hoverIndex)=> {
+    console.log(dragIndex,hoverIndex)
 
- console.log(dragIndex);
- console.log(hoverIndex);
   }
+  
   render() {
     const { form, data, dispatch, submitting, confirmLoading,initLoading,fyTest: { test }} = this.props;
     const { getFieldDecorator, validateFields } = form;
@@ -225,7 +225,7 @@ class TestStep2 extends React.PureComponent {
       <Fragment>
         {this.state.isReady ? (
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
-            <Form.Item {...formItemLayout} label="标题">
+            <Form.Item {...formItemLayout} label="标题" style={{ wordBreak:'break-all'}}>
              {test.title}
             </Form.Item>
             <Form.Item {...formItemLayout} label="题目">
@@ -254,7 +254,7 @@ class TestStep2 extends React.PureComponent {
                 dataSource={data2}
                 renderItem={item => (
                   <List.Item key={item.index}>
-                    <Card index={item.index} id={item.index+1} moveCard={this.moveCard} disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
+                    <Card index={item.index} id={item.index+1} moveCard={this.moveCard}  disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
                   </List.Item>
                 )}
               />

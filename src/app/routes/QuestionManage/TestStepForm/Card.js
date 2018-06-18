@@ -10,6 +10,7 @@ const cardSource = {
       index: props.index,
     };
   },
+ 
 };
 
 const cardTarget = {
@@ -46,8 +47,11 @@ const cardTarget = {
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
+    
+    
     // Time to actually perform the action
-    props.moveCard(dragIndex, hoverIndex);
+    props.moveCard(dragIndex,hoverIndex)
+  
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,
     // but it's good here for the sake of performance
@@ -81,11 +85,11 @@ export default class Card extends React.PureComponent {
     const opacity = isDragging ? 0 : 1;
     const question = item.q;
     return (
-      <div style={{ width: '100%', opacity: opacity }}>
+      <div style={{ width: '100%',opacity: 'opacity',wordBreak:'break-all'}}>
         {connectDragSource(
           connectDropTarget(
             <a title="按住不放可拖住调整顺序">
-              <Icon type="retweet" style={{ fontSize: '15px', color: '#1FC8AE' }} />
+              <Icon type="retweet" style={{ fontSize: 30}} />
             </a>
           )
         )}
@@ -99,7 +103,7 @@ export default class Card extends React.PureComponent {
         {question.isRich ? (
           <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
-          question.title
+        question.title
         )}
        
       </div>
