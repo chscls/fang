@@ -130,7 +130,7 @@ class TestStep1 extends React.PureComponent {
     const onValidateForm = () => {
       validateFields((err, values) => {
         if(!this.check(values,test)){
-          dispatch(routerRedux.push(`/question-manage/question-add/result/${test.id}`));
+          dispatch(routerRedux.push(`/question-manage/test-add/confirm/${test.id}`));
           return
          }
         if (test) {
