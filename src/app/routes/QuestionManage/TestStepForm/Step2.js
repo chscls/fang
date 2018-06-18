@@ -183,10 +183,32 @@ class TestStep2 extends React.PureComponent {
   handleSelect = ids => {
     
     this.setState({ selectQuestionIds: ids });
+  
   };
   moveCard=(dragIndex, hoverIndex)=> {
-    console.log(dragIndex,hoverIndex)
-
+   // console.log(dragIndex,hoverIndex)
+   var  test  = this.props.fyTest.test;
+   var alreadyQids = test.questionConfigs;
+   
+    [alreadyQids[dragIndex], alreadyQids[hoverIndex]]=[alreadyQids[hoverIndex], alreadyQids[dragIndex]]; 
+    alreadyQids=alreadyQids.map(cfg => cfg.id).join(',')
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: alreadyQids
+      },
+      callback: test => {
+        key = key + 1;
+        const items = [];
+        for (var i = 0; i < test.questions.length; i++) {
+          items[i] = { index: i, q: test.questions[i], checked: false };
+        }
+        this.setState({
+          items,
+        });
+      },
+    });
   }
   
   render() {
