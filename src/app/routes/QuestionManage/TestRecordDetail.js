@@ -26,12 +26,15 @@ const { Search } = Input;
 
 @connect(({ list, loading, fyTestRecord }) => ({
   list,
-  loading: loading.models.list,
+  loading: loading.models.fyTestRecord,
   fyTestRecord,
 }))
 export default class TestRecordDetail extends PureComponent {
+  state = {
+    search:null
+  };
   componentDidMount() {
-    this.getPage(1);
+    this.getPage(1,null,null);
     this.props.dispatch({
       type: 'fyTestRecord/queryTestRecordStatistics',
       payload: {
@@ -39,7 +42,7 @@ export default class TestRecordDetail extends PureComponent {
       }
     })
   }
-  getPage = (page, pageSize) => {
+  getPage = (page, pageSize,search) => {
     const detailData = this.props.fyTestRecord.detailData;
     this.props.dispatch({
       type: 'fyTestRecord/detail',
@@ -49,6 +52,7 @@ export default class TestRecordDetail extends PureComponent {
           ? pageSize
           : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
         pageNo: page ? page : detailData.pagination.current,
+        userkey:search?search:this.state.search
       },
     });
   };
@@ -72,7 +76,10 @@ export default class TestRecordDetail extends PureComponent {
           <RadioButton value="create">待提交</RadioButton>
           <RadioButton value="complete">已完成</RadioButton>
         </RadioGroup>
-        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
+        <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={(value) => {
+            this.getPage(null,null,value)
+            this.setState({search:value})
+        }} />
       </div>
     );
 
@@ -83,10 +90,10 @@ export default class TestRecordDetail extends PureComponent {
       total: detailData.pagination.total,
       current: detailData.pagination.current,
       onChange: (page, pageSize) => {
-        this.getPage(page, pageSize);
+        this.getPage(page, pageSize,null);
       },
       onShowSizeChange: (current, size) => {
-        this.getPage(current, size);
+        this.getPage(current, size,null);
       },
     };
 
