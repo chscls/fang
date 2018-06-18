@@ -94,7 +94,7 @@ export default class Card extends React.PureComponent {
           )
         )}
 
-        &nbsp;&nbsp;{question.score+'分'}&nbsp;&nbsp;<Checkbox
+        &nbsp;&nbsp;<span style={{width:40,display:'inline-block'}}>{question.score+'分'}</span>&nbsp;&nbsp;<Checkbox
          disabled={this.props.disabled}
           value={question.id}
           checked={item.checked}
