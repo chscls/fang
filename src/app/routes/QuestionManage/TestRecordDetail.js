@@ -32,6 +32,12 @@ const { Search } = Input;
 export default class TestRecordDetail extends PureComponent {
   componentDidMount() {
     this.getPage(1);
+    this.props.dispatch({
+      type: 'fyTestRecord/queryTestRecordStatistics',
+      payload: {
+        code: this.props.match.params.code,
+      }
+    })
   }
   getPage = (page, pageSize) => {
     const detailData = this.props.fyTestRecord.detailData;
@@ -48,7 +54,7 @@ export default class TestRecordDetail extends PureComponent {
   };
 
   render() {
-    const { fyTestRecord: { detailData }, loading } = this.props;
+    const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
 
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
@@ -62,8 +68,9 @@ export default class TestRecordDetail extends PureComponent {
       <div className={styles.extraContent}>
         <RadioGroup defaultValue="all">
           <RadioButton value="all">全部</RadioButton>
-          <RadioButton value="progress">进行中</RadioButton>
-          <RadioButton value="waiting">等待中</RadioButton>
+          <RadioButton value="wait">等待批阅</RadioButton>
+          <RadioButton value="create">待提交</RadioButton>
+          <RadioButton value="complete">已完成</RadioButton>
         </RadioGroup>
         <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={() => ({})} />
       </div>
@@ -123,14 +130,17 @@ export default class TestRecordDetail extends PureComponent {
         <div className={styles.standardList}>
           <Card bordered={false}>
             <Row>
-              <Col sm={8} xs={24}>
-                <Info title="最低分" value="8.0" bordered />
+              <Col sm={6} xs={24}>
+                <Info title="参与人数" value={testRecordStatistics.count} bordered />
               </Col>
-              <Col sm={8} xs={24}>
-                <Info title="平均分" value="32" bordered />
+              <Col sm={6} xs={24}>
+                <Info title="最低分" value={testRecordStatistics.minScore} bordered />
               </Col>
-              <Col sm={8} xs={24}>
-                <Info title="最高分" value="100" />
+              <Col sm={6} xs={24}>
+                <Info title="平均分" value={testRecordStatistics.avgScore} bordered />
+              </Col>
+              <Col sm={6} xs={24}>
+                <Info title="最高分" value={testRecordStatistics.maxScore} />
               </Col>
             </Row>
           </Card>
@@ -138,7 +148,7 @@ export default class TestRecordDetail extends PureComponent {
           <Card
             className={styles.listCard}
             bordered={false}
-            title="做题记录列表"
+            title={testRecordStatistics.title+'('+(testRecordStatistics.mode == 'free'? '自由模式': testRecordStatistics.mode == 'singleLimit'? '单题限时': testRecordStatistics.mode == 'totalLimit' ? '总限时' : '竞赛') +')-做题记录'}
             style={{ marginTop: 24 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
@@ -154,7 +164,7 @@ export default class TestRecordDetail extends PureComponent {
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
                     title={<a href={item.href}>{item.user.realname}</a>}
-                    description={item.subDescription}
+                    description={item.status=='create'?'待提交':item.status=='wait'?'待批阅':'已完成'}
                   />
                   <ListContent data={item} />
                 </List.Item>

@@ -4,7 +4,8 @@ import {
   addTestRecord,
   findTestRecord,
   queryTestRecordDetail,
-  queryMyTestRecord
+  queryMyTestRecord,
+  queryTestRecordStatistics
 } from '../services/FyTestRecordMngSvc';
 
 export default {
@@ -12,6 +13,7 @@ export default {
 
   state: {
     testRecord: null,
+    testRecordStatistics:{},
     detailData: {
       list: [],
       pagination: {},
@@ -71,6 +73,14 @@ export default {
           },
         },
       });
+    },*queryTestRecordStatistics({ payload, callback }, { call, put }) {
+      const response = yield call(queryTestRecordStatistics, payload);
+      if(!response){yield put({type: 'nom'});return }
+      yield put({
+        type: 'ok2',
+        payload: response,
+      });
+      if (callback) callback(response);
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(addTestRecord, payload);
@@ -130,6 +140,11 @@ export default {
       return {
         ...state,
         testRecord: action.payload,
+      };
+    }, ok2(state, action) {
+      return {
+        ...state,
+        testRecordStatistics: action.payload,
       };
     },
     nom(state, action) {

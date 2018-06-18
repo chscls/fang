@@ -9,7 +9,9 @@ export async function queryTestRecord(params) {
 export async function queryMyTestRecord(params) {
   return request(`${ad}/queryMyTestRecord`, params);
 }
-
+export async function queryTestRecordStatistics(params) {
+  return request(`${ad}/queryTestRecordStatistics`, params);
+}
 
 export async function queryTestRecordDetail(params) {
   return request(`${ad}/queryTestRecordDetail`, params);
