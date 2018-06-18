@@ -31,7 +31,8 @@ const { Search } = Input;
 }))
 export default class TestRecordDetail extends PureComponent {
   state = {
-    search:null
+    search:null,
+    state:'all'
   };
   componentDidMount() {
     this.getPage(1,null,null);
@@ -42,21 +43,46 @@ export default class TestRecordDetail extends PureComponent {
       }
     })
   }
-  getPage = (page, pageSize,search) => {
+  getPage = (page, pageSize,search,status) => {
     const detailData = this.props.fyTestRecord.detailData;
+    var params = {
+      code: this.props.match.params.code,
+      pageSize: pageSize
+        ? pageSize
+        : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
+      pageNo: page ? page : detailData.pagination.current,
+    
+      status:status?status:this.state.status
+    }
+    if(search==null){
+      search=this.state.search
+    }
+    if(search&&search!=''){
+      params={
+        userkey:search,
+        ...params
+      }
+    }
+    if(status==null){
+      status=this.state.status
+    }
+    if(status&&status!='all'){
+      params={
+        status:status,
+        ...params
+      }
+    }
+
+
     this.props.dispatch({
       type: 'fyTestRecord/detail',
-      payload: {
-        code: this.props.match.params.code,
-        pageSize: pageSize
-          ? pageSize
-          : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
-        pageNo: page ? page : detailData.pagination.current,
-        userkey:search?search:this.state.search
-      },
+      payload: params,
     });
   };
-
+  onChange=(e)=>{
+    this.getPage(null,null,null,e.target.value)
+    this.setState({status:e.target.value})
+  }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
 
@@ -70,9 +96,9 @@ export default class TestRecordDetail extends PureComponent {
 
     const extraContent = (
       <div className={styles.extraContent}>
-        <RadioGroup defaultValue="all">
+        <RadioGroup onChange={this.onChange} defaultValue="all">
           <RadioButton value="all">全部</RadioButton>
-          <RadioButton value="wait">等待批阅</RadioButton>
+          <RadioButton value="check">等待批阅</RadioButton>
           <RadioButton value="create">待提交</RadioButton>
           <RadioButton value="complete">已完成</RadioButton>
         </RadioGroup>
@@ -171,7 +197,7 @@ export default class TestRecordDetail extends PureComponent {
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
                     title={<a href={item.href}>{item.user.realname}</a>}
-                    description={item.status=='create'?'待提交':item.status=='wait'?'待批阅':'已完成'}
+                    description={item.status=='create'?'待提交':item.status=='check'?'待批阅':'已完成'}
                   />
                   <ListContent data={item} />
                 </List.Item>
