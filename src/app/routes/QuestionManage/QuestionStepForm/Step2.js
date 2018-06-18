@@ -10,6 +10,7 @@ import Fill from '../../../components/QuestionItem/Fill';
 import Ask from '../../../components/QuestionItem/Ask';
 import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
+import { createTrue } from 'typescript';
 
 const formItemLayout = {
   labelCol: {
@@ -32,6 +33,7 @@ class QuestionStep2 extends React.PureComponent {
       isReady: false,
       items: [],
       type: 'single',
+      orgItems:[],
     };
   }
   preHandle = question => {};
@@ -48,7 +50,14 @@ class QuestionStep2 extends React.PureComponent {
         type: 'fyQuestion/find',
         payload: { id: id },
         callback: question => {
+          const orgItems =[]
           const items = question.items;
+          for (let i = 0; i < items.length; i++) {
+            orgItems.push(items[i])
+           }
+          
+         
+          
           if (question.type == 'single' || question.type == 'mutiply') {
             if (items.length == 0) {
               items.push({ content: '', isSolution: false, isRich: false });
@@ -87,18 +96,33 @@ class QuestionStep2 extends React.PureComponent {
           this.setState({
             isReady: true,
             id: question.id,
-            items: items,
+            items,
             isRich: question.isRich,
             isQuestionnaire: question.isQuestionnaire,
             title: question.title,
             type: question.type,
+            orgItems
           });
         },
       });
     }
   }
+  check=(values,question)=>{
+    
+    if(values.options.isQuestionnaire!=question.isQuestionnaire){
+    
+      return true
+    }
+  
+    if(values.options.items!=this.state.orgItems)
+    {
+     
+      return true;
+    }
+    return false;
+  }
   render() {
-    const { form, data, dispatch, submitting } = this.props;
+    const { form, data, dispatch, submitting,fyQuestion:{question} } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
     const isQuestionnaire = this.state.isQuestionnaire;
@@ -108,8 +132,13 @@ class QuestionStep2 extends React.PureComponent {
       dispatch(routerRedux.push(`/question-manage/question-add/info/${this.state.id}`));
     };
     const onValidateForm = e => {
+     
       e.preventDefault();
       validateFields((err, values) => {
+       if(!this.check(values,question)){
+        dispatch(routerRedux.push(`/question-manage/question-add/result/${this.state.id}`));
+        return
+       }
         if (!err) {
           dispatch({
             type: 'fyQuestion/updateOptions',
