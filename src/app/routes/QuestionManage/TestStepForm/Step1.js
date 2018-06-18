@@ -98,7 +98,30 @@ class TestStep1 extends React.PureComponent {
       });
     }
   }
+  check=(values,test)=>{
+    if(test.id == null){
+      return true;
+    }else{
+    
+      if(values.mode!=test.mode){
+        return true;
+      }
+      if(values.allowTime!=test.allowTime){
+        return true;
 
+      }
+      if(values.isQuestionnaire!=test.isQuestionnaire){
+        return true;
+      }
+      if(values.isNoOrder!=test.isNoOrder){
+        return true;
+      }
+      if(values.title!=test.title){
+        return true;
+      }
+    }
+  
+  }
   render() {
     const { inputVisible, inputValue, isQuestionnaire,isNoOrder } = this.state;
     const { form, dispatch, data, fyTest: { test },confirmLoading } = this.props;
@@ -106,6 +129,10 @@ class TestStep1 extends React.PureComponent {
 
     const onValidateForm = () => {
       validateFields((err, values) => {
+        if(!this.check(values,test)){
+          dispatch(routerRedux.push(`/question-manage/question-add/result/${test.id}`));
+          return
+         }
         if (test) {
           values = { ...values, id: test.id };
         }
