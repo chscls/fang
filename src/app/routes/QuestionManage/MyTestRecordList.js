@@ -35,10 +35,10 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 
-@connect(({ rule, loading, fyTest }) => ({
-  fyTest,
+@connect(({ rule, loading, fyTest,fyTestRecord }) => ({
+  fyTest,fyTestRecord,
   rule,
-  loading: loading.models.fyTest,
+  loading: loading.models.fyTestRecord,
 }))
 @Form.create()
 export default class MyTestRecordList extends PureComponent {
@@ -57,7 +57,7 @@ export default class MyTestRecordList extends PureComponent {
     this.getPage();
   }
   getPage = params => {
-    const pagination = this.props.fyTest.data.pagination;
+    const pagination = this.props.fyTestRecord.myData.pagination;
     if (params == null) {
       params = {
         pageNo: pagination.current ? pagination.current : 1,
@@ -67,7 +67,7 @@ export default class MyTestRecordList extends PureComponent {
     }
     const { dispatch } = this.props;
     dispatch({
-      type: 'fyTest/fetch',
+      type: 'fyTestRecord/fetchMy',
       payload: params,
     });
   };
@@ -362,7 +362,7 @@ export default class MyTestRecordList extends PureComponent {
     this.setState({ screenVisible: false });
   };
   render() {
-    const { fyTest: { data }, loading } = this.props;
+    const { fyTestRecord: { myData }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
@@ -532,7 +532,7 @@ export default class MyTestRecordList extends PureComponent {
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
-              data={data}
+              data={myData}
               columns={columns}
               rowKey="id"
               onSelectRow={this.handleSelectRows}
