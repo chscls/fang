@@ -4,6 +4,7 @@ import {
   addTestRecord,
   findTestRecord,
   queryTestRecordDetail,
+  queryMyTestRecord
 } from '../services/FyTestRecordMngSvc';
 
 export default {
@@ -16,6 +17,10 @@ export default {
       pagination: {},
     },
     data: {
+      list: [],
+      pagination: {},
+    },
+    myData: {
       list: [],
       pagination: {},
     },
@@ -42,6 +47,21 @@ export default {
       if( !response){yield put({type: 'nom'});return }
       yield put({
         type: 'suc',
+        payload: {
+          list: response.list,
+          pagination: {
+            pageSize: response.pageSize,
+            current: response.pageNo,
+            total: response.totalCount,
+          },
+        },
+      });
+    },
+    *fetchMy({ payload }, { call, put }) {
+      const response = yield call(queryMyTestRecord, payload);
+      if( !response){yield put({type: 'nom'});return }
+      yield put({
+        type: 'suc3',
         payload: {
           list: response.list,
           pagination: {
@@ -98,6 +118,12 @@ export default {
       return {
         ...state,
         detailData: action.payload,
+      };
+    },
+    suc3(state, action) {
+      return {
+        ...state,
+        myData: action.payload,
       };
     },
     ok(state, action) {
