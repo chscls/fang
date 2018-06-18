@@ -31,7 +31,7 @@ class TestStep1 extends React.PureComponent {
     this.state = {
       isQuestionnaire: false,
       isReady: false,
-      
+      isNoOrder:false,
       inputVisible: false,
       inputValue: '',
       mode: 'free',
@@ -69,6 +69,9 @@ class TestStep1 extends React.PureComponent {
   onChange = checked => {
     this.setState({ isQuestionnaire: checked });
   };
+  onChangNoOrder = checked => {
+    this.setState({ isNoOrder: checked });
+  };
   onChangeMode = e => {
     this.setState({ mode: e.target.value });
   };
@@ -88,6 +91,7 @@ class TestStep1 extends React.PureComponent {
           this.setState({
             isReady: true,
             isQuestionnaire: test.isQuestionnaire,
+            isNoOrder:test.isNoOrder,
             mode: test.mode,
           });
         },
@@ -96,7 +100,7 @@ class TestStep1 extends React.PureComponent {
   }
 
   render() {
-    const { inputVisible, inputValue, isQuestionnaire } = this.state;
+    const { inputVisible, inputValue, isQuestionnaire,isNoOrder } = this.state;
     const { form, dispatch, data, fyTest: { test },confirmLoading } = this.props;
     const { getFieldDecorator, validateFields } = form;
 
@@ -160,7 +164,11 @@ class TestStep1 extends React.PureComponent {
                 initialValue: isQuestionnaire,
               })(<Switch defaultChecked={isQuestionnaire} onChange={this.onChange} />)}
             </Form.Item>
-
+            <Form.Item {...formItemLayout} label="是否打乱题目顺序">
+              {getFieldDecorator('isNoOrder', {
+                initialValue: isNoOrder,
+              })(<Switch defaultChecked={isNoOrder} onChange={this.onChangNoOrder} />)}
+            </Form.Item>
             <Form.Item
               wrapperCol={{
                 xs: { span: 24, offset: 0 },

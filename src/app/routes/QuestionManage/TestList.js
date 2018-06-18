@@ -405,6 +405,21 @@ export default class TestList extends PureComponent {
         render: val => val? '是' : '否',
       },
       {
+        title: '是否乱序',
+        dataIndex: 'isNoOrder',
+        filters: [
+          {
+            text: '否',
+            value: false,
+          },
+          {
+            text: '是',
+            value: true,
+          }],
+       
+        render: val => val? '是' : '否',
+      },
+      {
         title: '答题模式',
         dataIndex: 'mode',
         filters: [
@@ -469,14 +484,15 @@ export default class TestList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-              
+               <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
+               <Divider type="vertical" />
             {record.saleStatus=='sale'?<a onClick={this.downShop.bind(this, record.id)}>下架</a>:""}
             
             {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.upShop.bind(this, record.id)}>上架</a>:""}
             {record.saleStatus=='apply'?"":<Divider type="vertical" />}
             <a onClick={this.delete.bind(this, record.id)}>统计与批阅</a>
-            <Divider type="vertical" />
-            <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
+           
+           
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
