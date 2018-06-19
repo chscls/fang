@@ -51,8 +51,6 @@ export default class TestRecordDetail extends PureComponent {
         ? pageSize
         : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
       pageNo: page ? page : detailData.pagination.current,
-    
-      status:status?status:this.state.status
     }
     if(search==null){
       search=this.state.search
@@ -66,6 +64,7 @@ export default class TestRecordDetail extends PureComponent {
     if(!status){
       status=this.state.status
     }
+    
     if(status&&status!='all'){
       params={
         status:status,
