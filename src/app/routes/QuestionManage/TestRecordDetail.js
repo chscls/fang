@@ -20,7 +20,7 @@ import {
 } from 'antd';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import QRCode from 'qrcode.react';
 import styles from './TestRecordDetail.less';
 import TestRecordList from './TestRecordList';
 import defaultImg from '../../../assets/default.png';
@@ -39,7 +39,7 @@ export default class TestRecordDetail extends PureComponent {
     state:'all',
     showList:false,
     code:this.props.match.params.code,
-   
+    visible: true,
   };
   componentDidMount() {
     this.getPage(1);
@@ -106,7 +106,9 @@ export default class TestRecordDetail extends PureComponent {
   back=()=>{
     this.props.dispatch(routerRedux.push(`/question-manage/test-list`));
   }
- 
+  handleClose=()=>{
+    this.setState({ visible: false });
+  }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
 
@@ -192,33 +194,44 @@ export default class TestRecordDetail extends PureComponent {
     return (
     
         <div className={styles.standardList}>
-        <Card bordered> 
-        <Row >
-        <Col span={10}> 当前版本号:{testRecordStatistics.code}&nbsp;&nbsp;<Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
-       <Button type="primary" onClick={this.back}>返回</Button> </Col>
-          <Col span={14}><Alert showIcon
+        
+        <Alert showIcon
               message="每次对试卷基本信息进行调整或者对试卷包含的题目进行调整都会自动生成一个新版本"
               type="info"
-        
-            /></Col>
+              closable
+              afterClose={this.handleClose}
+            />
            
-       </Row >
-        </Card>
+       
+        
           <Card bordered={false}>
             <Row>
-              <Col sm={8} xs={24}>
+            <Col sm={3} xs={24}>
+            <div className={styles.headerInfo}>
+       
+        <p>{testRecordStatistics.code?<QRCode value={testRecordStatistics.code} size={60} />:""}</p>
+   
+       <em />
+      </div>
+            
+              </Col>
+              <Col sm={6} xs={24}>
+                <Info title={`当前版本号:${testRecordStatistics.code}`} value={<div><Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
+       <Button type="primary" onClick={this.back}>返回</Button></div>} bordered />
+              </Col>
+              <Col sm={3} xs={24}>
                 <Info title="参与人数" value={testRecordStatistics.count} bordered />
               </Col>
-              <Col sm={4} xs={24}>
+              <Col sm={3} xs={24}>
                 <Info title="最低分" value={testRecordStatistics.minScore} bordered />
               </Col>
-              <Col sm={4} xs={24}>
+              <Col sm={3} xs={24}>
                 <Info title="平均分" value={testRecordStatistics.avgScore} bordered />
               </Col>
-              <Col sm={4} xs={24}>
+              <Col sm={3} xs={24}>
                 <Info title="最高分" value={testRecordStatistics.maxScore} bordered />
               </Col>
-              <Col sm={4} xs={24}>
+              <Col sm={3} xs={24}>
                 <Info title="满分" value={testRecordStatistics.score} />
               </Col>
             </Row>
