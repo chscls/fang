@@ -307,23 +307,28 @@ export default class TestList extends PureComponent {
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
-        title: '完成人数',
+        title: '参与数',
         dataIndex: 'count',
       },
       {
-        title: '最小得分',
+        title: '最小',
         dataIndex: 'minScore',
       },
       {
-        title: '平均分',
+        title: '平均',
         dataIndex: 'avgScore',
       },
       {
-        title: '最大得分',
+        title: '最大',
         dataIndex: 'maxScore',
       },
+      
       {
-        title: '答题模式',
+        title: '满分',
+        dataIndex: 'score',
+      },
+      {
+        title: '模式',
         render: record =>
           record.mode == 'free'
             ? '自由'

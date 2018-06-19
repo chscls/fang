@@ -18,12 +18,6 @@ export default function getMenu(isAdmin){
               name: '试卷管理',
               icon:questionMng==''?null:'schedule',
               path: `${questionMng}test-list`,
-            },
-            {
-              name: '做题记录',
-              icon:questionMng==''?null:'form',
-      
-              path: `${questionMng}myTestRecord-list`,
             },{
               name: '订单管理',
               icon: questionMng==''?null:'shopping-cart',

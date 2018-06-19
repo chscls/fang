@@ -188,17 +188,20 @@ export default class TestRecordDetail extends PureComponent {
         <Card bordered>当前版本号:{testRecordStatistics.code}<Button type="primary" onClick={this.open}>切换其他历史版本</Button></Card>
           <Card bordered={false}>
             <Row>
-              <Col sm={6} xs={24}>
+              <Col sm={8} xs={24}>
                 <Info title="参与人数" value={testRecordStatistics.count} bordered />
               </Col>
-              <Col sm={6} xs={24}>
+              <Col sm={4} xs={24}>
                 <Info title="最低分" value={testRecordStatistics.minScore} bordered />
               </Col>
-              <Col sm={6} xs={24}>
+              <Col sm={4} xs={24}>
                 <Info title="平均分" value={testRecordStatistics.avgScore} bordered />
               </Col>
-              <Col sm={6} xs={24}>
-                <Info title="最高分" value={testRecordStatistics.maxScore} />
+              <Col sm={4} xs={24}>
+                <Info title="最高分" value={testRecordStatistics.maxScore} bordered />
+              </Col>
+              <Col sm={4} xs={24}>
+                <Info title="满分" value={testRecordStatistics.score} />
               </Col>
             </Row>
           </Card>
@@ -223,7 +226,7 @@ export default class TestRecordDetail extends PureComponent {
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
                     title={item.user.realname}
                     description={  <Progress  format={(percent)=>{
-                      return item.score==0?100:item.goal/item.score*100+'%'
+                      return (item.score==0?100:item.goal/item.score*100).toFixed(2)+'%'
                       }} percent={100}  successPercent={item.score==0?100:item.goal/item.score*100} width={50} status="exception"  strokeWidth={6}  />}
                   />
                   <ListContent data={item} />
