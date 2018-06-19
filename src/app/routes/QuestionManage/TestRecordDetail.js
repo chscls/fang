@@ -27,12 +27,28 @@ import defaultImg from '../../../assets/default.png';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
+class RealName extends PureComponent {
+  state = {
+    isOk:false,
+    name:''
+  }
+  confirm=(value)=>{
+    
+  }
+  render() {
+    return(this.state.isOk?this.state.name:<Search
+      placeholder="请输入真实姓名"
+      onSearch={this.confirm}
+      enterButton="确定" />)
+  }
 
+}
 @connect(({ list, loading, fyTestRecord }) => ({
   list,
   loading: loading.models.fyTestRecord,
   fyTestRecord,
 }))
+
 export default class TestRecordDetail extends PureComponent {
   state = {
     search:null,
@@ -232,7 +248,7 @@ export default class TestRecordDetail extends PureComponent {
           </Card>
  
           <Alert showIcon
-              message="每次对试卷基本信息或者其包含的题目进行调整都会自动生成该试卷的一个新版本"
+              message="每次对试卷基本信息或者其包含的题目进行调整都会自动生成该试卷的一个新版本;真实姓名绑定一次后可在熟人管理里进行修改"
               type="info"
               closable
               afterClose={this.handleClose}
@@ -256,7 +272,12 @@ export default class TestRecordDetail extends PureComponent {
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-                    title={item.user.realname}
+              title={<div>微信昵称:{item.user.realname}&nbsp;&nbsp;
+              
+              真实姓名:<RealName/>
+              
+              
+              </div>}
                     description={  <Progress  format={(percent)=>{
                       return (item.score==0?100:item.goal/item.score*100).toFixed(2)+'%'
                       }} percent={100}  successPercent={item.score==0?100:item.goal/item.score*100} width={50} status="exception"  strokeWidth={6}  />}

@@ -19,6 +19,10 @@ export default function getMenu(isAdmin){
               icon:questionMng==''?null:'schedule',
               path: `${questionMng}test-list`,
             },{
+              name: '熟人管理',
+              icon: questionMng==''?null:'shopping-cart',
+              path: `${questionMng}person-list`
+            } ,{
               name: '订单管理',
               icon: questionMng==''?null:'shopping-cart',
               path: `${questionMng}order-list`
