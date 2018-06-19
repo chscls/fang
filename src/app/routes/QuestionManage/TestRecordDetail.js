@@ -143,12 +143,9 @@ export default class TestRecordDetail extends PureComponent {
     const ListContent = ({ data: { score,goal, createTime,endTime, percent, status } }) => (
       <div className={styles.listContent}>
         <div className={styles.listContentItem}>
-          <span>得分</span>
-          <p>{goal}</p>
-        </div>
-        <div className={styles.listContentItem}>
-          <span>总分</span>
-          <p>{score}</p>
+          <Progress type="circle" format={(percent)=>{
+          return <span>  得分:{goal} 总分:{score} </span>
+          }} percent={score==0?100:goal/score*100} width={50} status={status} strokeWidth={6}  />
         </div>
         <div className={styles.listContentItem}>
           <span>状态</span>
@@ -162,9 +159,7 @@ export default class TestRecordDetail extends PureComponent {
           <span>结束时间</span>
           <p>{moment(endTime).format('YYYY/MM/DD HH:mm')}</p>
         </div>
-        <div className={styles.listContentItem}>
-          <Progress percent={100} status={status} strokeWidth={6} style={{ width: 90 }} />
-        </div>
+       
       </div>
     );
 
