@@ -15,7 +15,8 @@ import {
   Dropdown,
   Menu,
   Avatar,
-  Modal
+  Modal,
+  Alert
 } from 'antd';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -37,7 +38,8 @@ export default class TestRecordDetail extends PureComponent {
     search:null,
     state:'all',
     showList:false,
-    code:this.props.match.params.code
+    code:this.props.match.params.code,
+    visible:true
   };
   componentDidMount() {
     this.getPage(1);
@@ -103,6 +105,9 @@ export default class TestRecordDetail extends PureComponent {
   }
   back=()=>{
     this.props.dispatch(routerRedux.push(`/question-manage/test-list`));
+  }
+  handleClose=()=>{
+    this.setState({ visible: false });
   }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
@@ -187,11 +192,20 @@ export default class TestRecordDetail extends PureComponent {
     );
 
     return (
-      <PageHeaderLayout>
+    
         <div className={styles.standardList}>
-        <Card bordered>当前版本号:{testRecordStatistics.code}&nbsp;&nbsp;<Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
-       <Button type="primary" onClick={this.back}>返回</Button>
-        
+        <Card bordered> 
+        <Row >
+        <Col span={10}> 当前版本号:{testRecordStatistics.code}&nbsp;&nbsp;<Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
+       <Button type="primary" onClick={this.back}>返回</Button> </Col>
+          <Col span={14}><Alert
+              message="每次对试卷基本信息进行调整或者对试卷包含的题目进行调整都会自动生成一个新版本"
+              type="success"
+              closable
+              afterClose={this.handleClose}
+            /></Col>
+           
+       </Row >
         </Card>
           <Card bordered={false}>
             <Row>
@@ -241,9 +255,7 @@ export default class TestRecordDetail extends PureComponent {
               )}
             />
           </Card>
-        </div>
-
-
+          
          <Modal
           title={"历史版本列表"}
           visible={this.state.showList}
@@ -255,7 +267,9 @@ export default class TestRecordDetail extends PureComponent {
         >
           <TestRecordList orgId={testRecordStatistics.orgId} code={testRecordStatistics.code} selectOne={this.selectOne}/>
         </Modal>
-      </PageHeaderLayout>
+        </div>
+
+
     );
   }
 }
