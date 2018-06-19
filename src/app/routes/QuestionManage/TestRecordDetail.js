@@ -194,30 +194,22 @@ export default class TestRecordDetail extends PureComponent {
     return (
     
         <div className={styles.standardList}>
-        
-        <Alert showIcon
-              message="每次对试卷基本信息或者其包含的题目进行调整都会自动生成该试卷的一个新版本"
-              type="info"
-              closable
-              afterClose={this.handleClose}
-              style={{marginBottom:10}}
-            />
+       
            
        
         
           <Card bordered={false}>
             <Row>
-            <Col sm={2} xs={24}>
+            <Col sm={1} xs={24}>
             <div className={styles.headerInfo}>
        
         <p>{testRecordStatistics.code?<QRCode value={testRecordStatistics.code} size={60} />:""}</p>
    
-       <em />
       </div>
             
               </Col>
-              <Col sm={6} xs={24}>
-                <Info title={`当前版本号:${testRecordStatistics.code}`} value={<div><Button type="primary" onClick={this.open}>切换历史版本</Button>&nbsp;&nbsp;
+              <Col sm={7} xs={24}>
+                <Info title={`当前版本:${testRecordStatistics.code} 更新时间:${moment(testRecordStatistics.updateTime).format('YYYY/MM/DD HH:mm')}`} value={<div><Button type="primary" onClick={this.open}>切换历史版本</Button>&nbsp;&nbsp;
                 <Button type="primary" onClick={this.open}>导出成绩</Button>&nbsp;&nbsp;
        <Button type="primary" onClick={this.back}>返回</Button></div>} bordered />
               </Col>
@@ -238,12 +230,19 @@ export default class TestRecordDetail extends PureComponent {
               </Col>
             </Row>
           </Card>
-
+ 
+          <Alert showIcon
+              message="每次对试卷基本信息或者其包含的题目进行调整都会自动生成该试卷的一个新版本"
+              type="info"
+              closable
+              afterClose={this.handleClose}
+              style={{marginTop:5}}
+            />
           <Card
             className={styles.listCard}
             bordered={false}
             title={testRecordStatistics.title+'('+(testRecordStatistics.mode == 'free'? '自由模式': testRecordStatistics.mode == 'singleLimit'? '单题限时': testRecordStatistics.mode == 'totalLimit' ? '总限时' : '竞赛') +')-做题记录'}
-            style={{ marginTop: 24 }}
+            style={{ marginTop: 5 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
           >
