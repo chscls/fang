@@ -275,7 +275,7 @@ export default class TestRecordDetail extends PureComponent {
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-              title={<div>昵称:{item.user.nickName}&nbsp;&nbsp;
+              title={<div>昵称:{item.user.nickName}&nbsp;&nbsp;署名:{item.sign!=null&&item.sign!=''?item.sign:'未署名'}{item.sign!=null&&item.sign!=''?"":<Button>确定</Button>}
               
               真实姓名:<RealName userId={item.user.id} confirm={this.confirm}/>
               
