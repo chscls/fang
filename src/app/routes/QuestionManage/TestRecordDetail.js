@@ -237,7 +237,7 @@ export default class TestRecordDetail extends PureComponent {
           maskClosable={false}
           okText="关闭"
         >
-          <TestRecordList orgId={testRecordStatistics.orgId}/>
+          <TestRecordList orgId={testRecordStatistics.orgId} code={testRecordStatistics.code}/>
         </Modal>
       </PageHeaderLayout>
     );

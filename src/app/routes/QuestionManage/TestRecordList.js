@@ -293,6 +293,8 @@ export default class TestList extends PureComponent {
       {
         title: '版本号',
         dataIndex: 'code',
+        render: val =>
+        val=this.props.code?<span style={{color:'red'}}>{val}</span>:<span>val</span>
       },
       {
         title: '标题',
