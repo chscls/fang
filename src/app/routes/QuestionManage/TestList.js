@@ -477,7 +477,7 @@ export default class TestList extends PureComponent {
         title: '创建时间',
         sorter: true,
         dataIndex: 'createTime',
-        render: val => new Date(val).toLocaleString()
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',

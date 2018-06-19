@@ -304,8 +304,7 @@ export default class TestList extends PureComponent {
       {
         title: '更新时间',
         dataIndex: 'updateTime',
-        render: val =>
-        moment(val).format('YYYY-MM-DD HH:mm')
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '完成人数',

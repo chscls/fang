@@ -371,7 +371,7 @@ export default class TestRecyleList extends PureComponent {
         title: '回收时间',
         sorter: true,
         dataIndex: 'recycleTime',
-        render: val => new Date(val).toLocaleString()
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },{
         title: '自动删除时间',
         render(record) {

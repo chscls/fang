@@ -345,9 +345,7 @@ export default class OrderList extends PureComponent {
         title: '创建时间',
         dataIndex: 'createTime',
         sorter: true,
-        render(val) {
-          return new Date(val).toLocaleString();
-        },
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',
