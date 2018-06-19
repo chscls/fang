@@ -99,7 +99,7 @@ class TestStep1 extends React.PureComponent {
     }
   }
   check=(values,test)=>{
-    if(test.id == null){
+    if(test==null||test.id == null){
       return true;
     }else{
     

@@ -97,7 +97,7 @@ class QuestionStep1 extends React.PureComponent {
     this.setState({ text: text });
   };
   check=(values,q,tags)=>{
-    if(q.id == null){
+    if(q==null||q.id == null){
       return true;
     }else{
     
