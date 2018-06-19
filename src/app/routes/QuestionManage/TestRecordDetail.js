@@ -101,7 +101,7 @@ export default class TestRecordDetail extends PureComponent {
     this.getTotal(code)
     this.setState({showList:false,code:code})
   }
-  back()=>{
+  back=()=>{
     this.props.dispatch(routerRedux.push(`/question-manage/test-list`));
   }
   render() {
