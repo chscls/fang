@@ -33,10 +33,10 @@ class RealName extends PureComponent {
     name:''
   }
   confirm=(value)=>{
-    
+    this.props.confirm(this.props.userId,value)
   }
   render() {
-    return(this.state.isOk?this.state.name:<Search
+    return(this.state.name!=''?this.state.name:<Search style={{width:200}}
       placeholder="请输入真实姓名"
       onSearch={this.confirm}
       enterButton="确定" />)
@@ -57,6 +57,9 @@ export default class TestRecordDetail extends PureComponent {
     code:this.props.match.params.code,
     visible: true,
   };
+  confirm=(userId,realname)=>{
+
+  }
   componentDidMount() {
     this.getPage(1);
     this.getTotal()
@@ -272,9 +275,9 @@ export default class TestRecordDetail extends PureComponent {
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-              title={<div>微信昵称:{item.user.realname}&nbsp;&nbsp;
+              title={<div>昵称:{item.user.nickName}&nbsp;&nbsp;
               
-              真实姓名:<RealName/>
+              真实姓名:<RealName userId={item.user.id} confirm={this.confirm}/>
               
               
               </div>}
