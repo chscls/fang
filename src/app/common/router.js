@@ -38,6 +38,16 @@ const appRouter = [
     component: () => import('../routes/QuestionManage/QuestionRecycleList'),
   },
   {
+    path: '/question-manage/friend/friend-list',
+    models: [require(`../models/fyFriend`)],
+    component: () => import('../routes/QuestionManage/FriendList'),
+  },
+  {
+    path: '/question-manage/friend/group-list',
+    models: [require(`../models/fyGroup`)],
+    component: () => import('../routes/QuestionManage/GroupList'),
+  },
+  {
     path: '/question-manage/test-list',
     models: [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestList'),

@@ -21,7 +21,17 @@ export default function getMenu(isAdmin){
             },{
               name: '熟人管理',
               icon: questionMng==''?null:'shopping-cart',
-              path: `${questionMng}person-list`
+              path: `${questionMng}friend`,
+              children: [
+                {
+                  name: '熟人列表',
+                  path: 'friend-list',
+                },
+                {
+                  name: '分组管理',
+                  path: 'group-list',
+                },
+              ]
             } ,{
               name: '订单管理',
               icon: questionMng==''?null:'shopping-cart',
