@@ -156,14 +156,14 @@ export default class TestRecordDetail extends PureComponent {
         </div>
         <div className={styles.listContentItem}>
           <span>开始时间</span>
-          <p>{moment(createTime).format('YYYY-MM-DD HH:mm')}</p>
+          <p>{moment(createTime).format('YYYY/MM/DD HH:mm')}</p>
         </div>
         <div className={styles.listContentItem}>
           <span>结束时间</span>
-          <p>{moment(endTime).format('YYYY-MM-DD HH:mm')}</p>
+          <p>{moment(endTime).format('YYYY/MM/DD HH:mm')}</p>
         </div>
         <div className={styles.listContentItem}>
-          <Progress percent={100} status={status} strokeWidth={6} style={{ width: 180 }} />
+          <Progress percent={100} status={status} strokeWidth={6} style={{ width: 90 }} />
         </div>
       </div>
     );
