@@ -57,7 +57,7 @@ export default class TestList extends PureComponent {
     const pagination = this.props.fyTestRecord.data.pagination;
     if (params == null) {
       params = {
-        orgId:this.props.match.params.orgId,
+        orgId:this.props.orgId,
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
         ...this.state.formValues,
@@ -291,8 +291,8 @@ export default class TestList extends PureComponent {
 
     const columns = [
       {
-        title: '试卷id',
-        dataIndex: 'orgId',
+        title: '版本号',
+        dataIndex: 'code',
       },
       {
         title: '标题',

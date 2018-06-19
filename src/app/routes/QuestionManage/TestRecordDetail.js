@@ -14,11 +14,13 @@ import {
   Dropdown,
   Menu,
   Avatar,
+  Modal
 } from 'antd';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './TestRecordDetail.less';
+import TestRecordList from './TestRecordList';
 import defaultImg from '../../../assets/default.png';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -32,7 +34,8 @@ const { Search } = Input;
 export default class TestRecordDetail extends PureComponent {
   state = {
     search:null,
-    state:'all'
+    state:'all',
+    showList:false,
   };
   componentDidMount() {
     this.getPage(1,null,null);
@@ -81,6 +84,12 @@ export default class TestRecordDetail extends PureComponent {
   onChange=(e)=>{
     this.getPage(null,null,null,e.target.value)
     this.setState({status:e.target.value})
+  }
+  open=()=>{
+    this.setState({showList:true})
+  }
+  cancelScreen=()=>{
+    this.setState({showList:false})
   }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
@@ -172,6 +181,7 @@ export default class TestRecordDetail extends PureComponent {
     return (
       <PageHeaderLayout>
         <div className={styles.standardList}>
+        <Card bordered>当前版本号:{testRecordStatistics.code}<Button type="primary" onClick={this.open}>切换其他历史版本</Button></Card>
           <Card bordered={false}>
             <Row>
               <Col sm={6} xs={24}>
@@ -216,6 +226,19 @@ export default class TestRecordDetail extends PureComponent {
             />
           </Card>
         </div>
+
+
+         <Modal
+          title={"历史版本列表"}
+          visible={this.state.showList}
+          footer={null}
+          width={1024}
+          onCancel={this.cancelScreen}
+          maskClosable={false}
+          okText="关闭"
+        >
+          <TestRecordList orgId={testRecordStatistics.orgId}/>
+        </Modal>
       </PageHeaderLayout>
     );
   }
