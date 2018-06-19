@@ -196,17 +196,18 @@ export default class TestRecordDetail extends PureComponent {
         <div className={styles.standardList}>
         
         <Alert showIcon
-              message="每次对试卷基本信息进行调整或者对试卷包含的题目进行调整都会自动生成一个新版本"
+              message="每次对试卷基本信息或者其包含的题目进行调整都会自动生成该试卷的一个新版本"
               type="info"
               closable
               afterClose={this.handleClose}
+              style={{marginBottom:10}}
             />
            
        
         
           <Card bordered={false}>
             <Row>
-            <Col sm={3} xs={24}>
+            <Col sm={2} xs={24}>
             <div className={styles.headerInfo}>
        
         <p>{testRecordStatistics.code?<QRCode value={testRecordStatistics.code} size={60} />:""}</p>
