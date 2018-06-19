@@ -217,7 +217,8 @@ export default class TestRecordDetail extends PureComponent {
             
               </Col>
               <Col sm={6} xs={24}>
-                <Info title={`当前版本号:${testRecordStatistics.code}`} value={<div><Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
+                <Info title={`当前版本号:${testRecordStatistics.code}`} value={<div><Button type="primary" onClick={this.open}>切换历史版本</Button>&nbsp;&nbsp;
+                <Button type="primary" onClick={this.open}>导出成绩</Button>&nbsp;&nbsp;
        <Button type="primary" onClick={this.back}>返回</Button></div>} bordered />
               </Col>
               <Col sm={3} xs={24}>
