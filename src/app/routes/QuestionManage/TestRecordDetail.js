@@ -122,15 +122,27 @@ export default class TestRecordDetail extends PureComponent {
       },
     };
 
-    const ListContent = ({ data: { score, createTime, percent, status } }) => (
+    const ListContent = ({ data: { score,goal, createTime,endTime, percent, status } }) => (
       <div className={styles.listContent}>
         <div className={styles.listContentItem}>
           <span>得分</span>
+          <p>{goal}</p>
+        </div>
+        <div className={styles.listContentItem}>
+          <span>总分</span>
           <p>{score}</p>
         </div>
         <div className={styles.listContentItem}>
-          <span>完成时间</span>
+          <span>状态</span>
+          <p>{status=='create'?'待提交':status=='check'?'待批阅':'已完成'}</p>
+        </div>
+        <div className={styles.listContentItem}>
+          <span>开始时间</span>
           <p>{moment(createTime).format('YYYY-MM-DD HH:mm')}</p>
+        </div>
+        <div className={styles.listContentItem}>
+          <span>结束时间</span>
+          <p>{moment(endTime).format('YYYY-MM-DD HH:mm')}</p>
         </div>
         <div className={styles.listContentItem}>
           <Progress percent={100} status={status} strokeWidth={6} style={{ width: 180 }} />
@@ -195,8 +207,8 @@ export default class TestRecordDetail extends PureComponent {
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.user.realname}</a>}
-                    description={item.status=='create'?'待提交':item.status=='check'?'待批阅':'已完成'}
+                    title={item.user.realname}
+                    description={''}
                   />
                   <ListContent data={item} />
                 </List.Item>
