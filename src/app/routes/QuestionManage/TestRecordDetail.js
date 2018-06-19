@@ -142,10 +142,10 @@ export default class TestRecordDetail extends PureComponent {
 
     const ListContent = ({ data: { score,goal, createTime,endTime, percent, status } }) => (
       <div className={styles.listContent}>
+        
         <div className={styles.listContentItem}>
-          <Progress type="circle" format={(percent)=>{
-          return <span>  得分:{goal} 总分:{score} </span>
-          }} percent={score==0?100:goal/score*100} width={50} status={status} strokeWidth={6}  />
+          <span>分数</span>
+          <p> 得分:{goal} 总分:{score}</p>
         </div>
         <div className={styles.listContentItem}>
           <span>状态</span>
@@ -222,7 +222,9 @@ export default class TestRecordDetail extends PureComponent {
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
                     title={item.user.realname}
-                    description={''}
+                    description={  <Progress  format={(percent)=>{
+                      return item.score==0?100:item.goal/item.score*100+'%'
+                      }} percent={100}  successPercent={item.score==0?100:item.goal/item.score*100} width={50} status="exception"  strokeWidth={6}  />}
                   />
                   <ListContent data={item} />
                 </List.Item>
