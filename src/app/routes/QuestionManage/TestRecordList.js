@@ -302,8 +302,10 @@ export default class TestList extends PureComponent {
         val=this.props.code?<span style={{color:'red'}}>{val}</span>:<span>val</span>
       },
       {
-        title: '标题',
-        dataIndex: 'title',
+        title: '更新时间',
+        dataIndex: 'updateTime',
+        render: val =>
+        moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '完成人数',
@@ -345,9 +347,13 @@ export default class TestList extends PureComponent {
         <Menu.Item key="remove">删除</Menu.Item>
       </Menu>
     );
-
+    const paginationProps = {
+      showSizeChanger: true,
+      showQuickJumper: true,
+      ...data.pagination,
+    };
     return (
-      <PageHeaderLayout title="">
+    
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
@@ -364,7 +370,7 @@ export default class TestList extends PureComponent {
               )}
             </div>
 
-             <Table columns={columns} dataSource={data.list} pagination={data.pagination}/>
+             <Table columns={columns} dataSource={data.list} pagination={paginationProps}/>
            {/*  <StandardTable
               selectedRows={selectedRows}
               loading={loading}
@@ -376,7 +382,7 @@ export default class TestList extends PureComponent {
             /> */}
           </div>
         </Card>
-      </PageHeaderLayout>
+    
     );
   }
 }
