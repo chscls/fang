@@ -16,6 +16,7 @@ import {
   InputNumber,
   DatePicker,
   Modal,
+  Table,
   message,
   Badge,
   Divider,
@@ -267,6 +268,10 @@ export default class TestList extends PureComponent {
       },
     });
   };
+  selectOne=(code)=>{
+    this.props.selectOne(code)
+
+  }
   batchDelete = e => {
     const { dispatch } = this.props;
     const { selectedRows } = this.state;
@@ -329,7 +334,7 @@ export default class TestList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-            <Link to={`/question-manage/testRecord-detail/${record.code}`}>查看详情</Link>
+          {record.cord=this.props.code?"当前版本": <a onClick={this.selectOne.bind(this,record.code)}> 切换</a>}
           </Fragment>
         ),
       },
@@ -358,7 +363,9 @@ export default class TestList extends PureComponent {
                 </span>
               )}
             </div>
-            <StandardTable
+
+             <Table columns={columns} dataSource={data.list} pagination={data.pagination}/>
+           {/*  <StandardTable
               selectedRows={selectedRows}
               loading={loading}
               data={data}
@@ -366,7 +373,7 @@ export default class TestList extends PureComponent {
               rowKey="id"
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
-            />
+            /> */}
           </div>
         </Card>
       </PageHeaderLayout>

@@ -36,20 +36,24 @@ export default class TestRecordDetail extends PureComponent {
     search:null,
     state:'all',
     showList:false,
+    code:this.props.match.params.code
   };
   componentDidMount() {
-    this.getPage(1,null,null);
+    this.getPage(1);
+    this.getTotal()
+  }
+  getTotal=(code)=>{
     this.props.dispatch({
       type: 'fyTestRecord/queryTestRecordStatistics',
       payload: {
-        code: this.props.match.params.code,
+        code:code?code:this.state.code ,
       }
     })
   }
-  getPage = (page, pageSize,search,status) => {
+  getPage = (page, pageSize,search,status,code) => {
     const detailData = this.props.fyTestRecord.detailData;
     var params = {
-      code: this.props.match.params.code,
+      code: code?code:this.state.code,
       pageSize: pageSize
         ? pageSize
         : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
@@ -90,6 +94,11 @@ export default class TestRecordDetail extends PureComponent {
   }
   cancelScreen=()=>{
     this.setState({showList:false})
+  }
+  selectOne=(code)=>{
+    this.getPage(1,null,null,null,code)
+    this.getTotal(code)
+    this.setState({showList:false,code:code})
   }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
@@ -237,7 +246,7 @@ export default class TestRecordDetail extends PureComponent {
           maskClosable={false}
           okText="关闭"
         >
-          <TestRecordList orgId={testRecordStatistics.orgId} code={testRecordStatistics.code}/>
+          <TestRecordList orgId={testRecordStatistics.orgId} code={testRecordStatistics.code} selectOne={this.selectOne}/>
         </Modal>
       </PageHeaderLayout>
     );
