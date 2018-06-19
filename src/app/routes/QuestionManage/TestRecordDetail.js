@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import {
   List,
   Card,
@@ -100,6 +101,9 @@ export default class TestRecordDetail extends PureComponent {
     this.getTotal(code)
     this.setState({showList:false,code:code})
   }
+  back()=>{
+    this.props.dispatch(routerRedux.push(`/question-manage/test-list`));
+  }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
 
@@ -185,7 +189,10 @@ export default class TestRecordDetail extends PureComponent {
     return (
       <PageHeaderLayout>
         <div className={styles.standardList}>
-        <Card bordered>当前版本号:{testRecordStatistics.code}<Button type="primary" onClick={this.open}>切换其他历史版本</Button></Card>
+        <Card bordered>当前版本号:{testRecordStatistics.code}&nbsp;&nbsp;<Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
+       <Button type="primary" onClick={this.back}>返回</Button>
+        
+        </Card>
           <Card bordered={false}>
             <Row>
               <Col sm={8} xs={24}>
