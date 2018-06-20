@@ -29,23 +29,28 @@ const RadioGroup = Radio.Group;
 const { Search } = Input;
 class RealName extends PureComponent {
   state = {
-    isOk:false,
+    isEdit:false,
     name:''
   }
   confirm=(value)=>{
     this.props.confirm(this.props.item.user.userId,value)
   }
+  valid=()=>{
+    this.setState({isEdit:true})
+  }
+  cancel=()=>{
+    this.setState({isEdit:false})
+  }
   render() {
     const item = this.props.item
-    return(
-      
-      
-      <div>昵称:{item.user.nickName}&nbsp;&nbsp;署名:
-      {item.sign!=null&&item.sign!=''?item.sign:'匿名'}{item.sign!=null&&item.sign!=''?"":<Button>确定</Button>}
-      <Search style={{width:200}}
-      placeholder="请输入真实姓名"
-      onSearch={this.confirm}
-      enterButton="确定" /> 
+    const sign = item.sign
+    const user = item.user
+    return( <div>
+      昵称:{user.nickName}&nbsp;&nbsp;署名:{sign?sign:'匿名'}
+{this.state.isEdit?<Search style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" />:
+<div>{item.isAuth?'':<Button onClick={this.confirm.bind(sign)}>确定</Button>}{this.state.isEdit?<Button onClick={this.cancel}>取消</Button>:<Button onClick={this.valid.bind(user.id,sign)}>修改</Button>}</div>
+}
+
       </div>
       )
   }
