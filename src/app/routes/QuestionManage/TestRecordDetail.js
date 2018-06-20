@@ -88,7 +88,7 @@ export default class TestRecordDetail extends PureComponent {
 
   }
   componentDidMount() {
-    this.getPage(0,20,null,null,null,(total)=>{
+    this.getPage(1,20,null,null,null,(total)=>{
       this.setState({showLoadingMore:total>20})
 
     });
@@ -164,7 +164,7 @@ export default class TestRecordDetail extends PureComponent {
     this.setState({
       loadingMore: true,
     });
-    const length = this.props.fyTestRecord.detailData.list.length
+    const length = this.props.fyTestRecord.detailData.pagination.current+1
     const pageSize= this.props.fyTestRecord.detailData.pagination.pageSize
     
     this.getPage(length,pageSize,null,null,null,(total)=>{

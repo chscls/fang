@@ -129,10 +129,11 @@ export default {
       };
     },
     suc2(state, action) {
+      console.log(action.payload.pagination.current)
       return {
         ...state,
         detailData:{
-          list:state.detailData.list.concat(action.payload.list),
+          list:action.payload.pagination.current==1?action.payload.list: state.detailData.list.concat(action.payload.list),
           pagination:action.payload.pagination
 
         } ,
