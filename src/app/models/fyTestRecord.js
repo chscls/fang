@@ -7,6 +7,10 @@ import {
   queryMyTestRecord,
   queryTestRecordStatistics
 } from '../services/FyTestRecordMngSvc';
+import {
+  confirmSign
+} from '../services/FyFriendMngSvc';
+
 
 export default {
   namespace: 'fyTestRecord',
@@ -29,6 +33,14 @@ export default {
   },
 
   effects: {
+    *confirmSign({ payload }, { call, put }) {
+      const response = yield call(confirmSign, payload);
+      if(!response){yield put({type: 'nom'});return }
+      yield put({
+        type: 'sign',
+        payload:payload,
+      });
+    },
     *detail({ payload ,callback}, { call, put }) {
     
       const response = yield call(queryTestRecordDetail, payload);
@@ -159,6 +171,18 @@ export default {
     nom(state, action) {
       return {
         ...state,
+      };
+    },
+    sign(state, action) {
+     const list =  state.detailData.list
+     list[action.payload.index].sign=action.payload.realname
+      return {
+        ...state,
+        detailData:{
+          list:list,
+          pagination:state.detailData.pagination
+
+        } ,
       };
     },
   },

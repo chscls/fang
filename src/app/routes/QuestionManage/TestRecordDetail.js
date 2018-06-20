@@ -34,7 +34,7 @@ class RealName extends PureComponent {
     name:''
   }
   confirm=(value)=>{
-    this.props.confirm(this.props.item.user.userId,value)
+    this.props.confirm(this.props.index,this.props.item.userId,value)
   }
   valid=()=>{
     this.setState({isEdit:true})
@@ -68,9 +68,10 @@ class RealName extends PureComponent {
   }
 
 }
-@connect(({ list, loading, fyTestRecord }) => ({
+@connect(({ list, loading, fyTestRecord, fyFriend}) => ({
   list,
   loading: loading.models.fyTestRecord,
+  fyFriend,
   fyTestRecord,
 }))
 
@@ -85,8 +86,16 @@ export default class TestRecordDetail extends PureComponent {
     loadingMore: false,
     showLoadingMore: true,
   };
-  confirm=(userId,realname)=>{
-
+  confirm=(index,userId,realname)=>{
+   
+    this.props.dispatch({
+      type: 'fyFriend/confirmSign',
+      payload: {
+        index:index,
+        userId:userId,
+        realname:realname
+      }
+    })
   }
   componentDidMount() {
     this.getPage(null,20);
@@ -347,12 +356,12 @@ export default class TestRecordDetail extends PureComponent {
               loadMore={loadMore}
               
               dataSource={detailData.list}
-              renderItem={item => (
+              renderItem={(item,index)=> (
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta 
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
               title={ `昵称:${item.user.nickName} 署名:${item.sign?item.sign:'匿名'}`}
-                    description={<RealName item={item} confirm={this.confirm}/> }
+                    description={<RealName index={index} item={item} confirm={this.confirm}/> }
                   />
                   <ListContent data={item} />
                 </List.Item>

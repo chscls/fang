@@ -11,6 +11,7 @@ export default {
   },
 
   effects: {
+   
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryFriend, payload);
       if(!response){yield put({type: 'nom'});return }
