@@ -33,13 +33,21 @@ class RealName extends PureComponent {
     name:''
   }
   confirm=(value)=>{
-    this.props.confirm(this.props.userId,value)
+    this.props.confirm(this.props.item.user.userId,value)
   }
   render() {
-    return(this.state.name!=''?this.state.name:<Search style={{width:200}}
+    const item = this.props.item
+    return(
+      
+      
+      <div>昵称:{item.user.nickName}&nbsp;&nbsp;署名:
+      {item.sign!=null&&item.sign!=''?item.sign:'匿名'}{item.sign!=null&&item.sign!=''?"":<Button>确定</Button>}
+      <Search style={{width:200}}
       placeholder="请输入真实姓名"
       onSearch={this.confirm}
-      enterButton="确定" />)
+      enterButton="确定" /> 
+      </div>
+      )
   }
 
 }
@@ -275,12 +283,7 @@ export default class TestRecordDetail extends PureComponent {
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-              title={<div>昵称:{item.user.nickName}&nbsp;&nbsp;署名:{item.sign!=null&&item.sign!=''?item.sign:'未署名'}{item.sign!=null&&item.sign!=''?"":<Button>确定</Button>}
-              
-              真实姓名:<RealName userId={item.user.id} confirm={this.confirm}/>
-              
-              
-              </div>}
+              title={<RealName item={item} confirm={this.confirm}/>}
                     description={  <Progress  format={(percent)=>{
                       return (item.score==0?100:item.goal/item.score*100).toFixed(2)+'%'
                       }} percent={100}  successPercent={item.score==0?100:item.goal/item.score*100} width={50} status="exception"  strokeWidth={6}  />}
