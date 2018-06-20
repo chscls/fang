@@ -37,12 +37,15 @@ export default {
       const response = yield call(confirmSign, payload);
       
       if(!response){yield put({type: 'nom'});return }
+     
       yield put({
         type: 'sign',
         payload:payload,
       });
+      
       if(callback){
-        callback
+        
+        callback()
       }
     },
     *detail({ payload ,callback}, { call, put }) {

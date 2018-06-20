@@ -35,7 +35,7 @@ class RealName extends PureComponent {
   }
   confirm=(value)=>{
     this.props.confirm(this.props.index,this.props.item.userId,value,()=>{
-      console.log("xxxxxxxxxx")
+      
       this.setState({isEdit:false})
     })
   }
