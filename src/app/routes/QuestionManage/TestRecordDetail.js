@@ -80,6 +80,7 @@ export default class TestRecordDetail extends PureComponent {
     state:'all',
     showList:false,
     code:this.props.match.params.code,
+    sort:'desc',
     visible: true,
     loadingMore: false,
     showLoadingMore: true,
@@ -88,10 +89,7 @@ export default class TestRecordDetail extends PureComponent {
 
   }
   componentDidMount() {
-    this.getPage(1,20,null,null,null,(total)=>{
-      this.setState({showLoadingMore:total>20})
-
-    });
+    this.getPage(null,20);
     this.getTotal()
   }
   getTotal=(code)=>{
@@ -102,15 +100,16 @@ export default class TestRecordDetail extends PureComponent {
       }
     })
   }
-  getPage = (page, pageSize,search,status,code,callback) => {
+  getPage = (page, pageSize,search,status,code,callback,sort) => {
     
     const detailData = this.props.fyTestRecord.detailData;
     var params = {
       code: code?code:this.state.code,
+      sort:sort?sort:this.state.sort,
       pageSize: pageSize
         ? pageSize
         : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
-      pageNo: page!=null ? page :detailData.pagination.current,
+      pageNo: page!=null ? page :1,
     }
     if(search==null){
       search=this.state.search
@@ -136,7 +135,10 @@ export default class TestRecordDetail extends PureComponent {
     this.props.dispatch({
       type: 'fyTestRecord/detail',
       payload: params,
-      callback:callback
+      callback:callback?callback:(total)=>{
+        this.setState({showLoadingMore:total>20})
+  
+      }
     });
   };
   onChange=(e)=>{
@@ -150,7 +152,7 @@ export default class TestRecordDetail extends PureComponent {
     this.setState({showList:false})
   }
   selectOne=(code)=>{
-    this.getPage(1,null,null,null,code)
+    this.getPage(null,null,null,null,code)
     this.getTotal(code)
     this.setState({showList:false,code:code})
   }
@@ -183,6 +185,10 @@ export default class TestRecordDetail extends PureComponent {
     })
   
   }
+  onChangeScore=(e)=>{
+    this.setState({sort:e.target.value})
+    this.getPage(null,null,null,null,null,null,e.target.value)
+  }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading} = this.props;
 
@@ -203,6 +209,12 @@ export default class TestRecordDetail extends PureComponent {
           <RadioButton value="check">等待批阅</RadioButton>
           <RadioButton value="create">待提交</RadioButton>
           <RadioButton value="complete">已完成</RadioButton>
+        </RadioGroup>
+        &nbsp; &nbsp;
+        <RadioGroup onChange={this.onChangeScore} defaultValue="desc">
+          <RadioButton value="desc">分数降序</RadioButton>
+          <RadioButton value="asc">分数升序</RadioButton>
+          
         </RadioGroup>
         <Search className={styles.extraContentSearch} placeholder="请输入" onSearch={(value) => {
             this.getPage(null,null,value)
