@@ -16,7 +16,8 @@ import {
   Menu,
   Avatar,
   Modal,
-  Alert
+  Alert,
+ 
 } from 'antd';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -87,7 +88,10 @@ export default class TestRecordDetail extends PureComponent {
 
   }
   componentDidMount() {
-    this.getPage(1);
+    this.getPage(0,20,null,null,null,(total)=>{
+      this.setState({showLoadingMore:total>20})
+
+    });
     this.getTotal()
   }
   getTotal=(code)=>{
@@ -98,14 +102,15 @@ export default class TestRecordDetail extends PureComponent {
       }
     })
   }
-  getPage = (page, pageSize,search,status,code) => {
+  getPage = (page, pageSize,search,status,code,callback) => {
+    
     const detailData = this.props.fyTestRecord.detailData;
     var params = {
       code: code?code:this.state.code,
       pageSize: pageSize
         ? pageSize
         : detailData.pagination.pageSizepageSize ? detailData.pagination.pageSize : 10,
-      pageNo: page ? page : detailData.pagination.current,
+      pageNo: page!=null ? page :detailData.pagination.current,
     }
     if(search==null){
       search=this.state.search
@@ -127,10 +132,11 @@ export default class TestRecordDetail extends PureComponent {
       }
     }
 
-
+  
     this.props.dispatch({
       type: 'fyTestRecord/detail',
       payload: params,
+      callback:callback
     });
   };
   onChange=(e)=>{
@@ -158,24 +164,30 @@ export default class TestRecordDetail extends PureComponent {
     this.setState({
       loadingMore: true,
     });
-    this.getData((res) => {
-      const data = this.state.data.concat(res.results);
+    const length = this.props.fyTestRecord.detailData.list.length
+    const pageSize= this.props.fyTestRecord.detailData.pagination.pageSize
+    
+    this.getPage(length,pageSize,null,null,null,(total)=>{
+     
+      const showLoadingMore =length<total 
+      
       this.setState({
-        data,
         loadingMore: false,
+        showLoadingMore
       }, () => {
         // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
         // In real scene, you can using public method of react-virtualized:
         // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
         window.dispatchEvent(new Event('resize'));
       });
-    });
+    })
+  
   }
   render() {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading} = this.props;
 
 
-    const { loadingMore, showLoadingMore, data}=this.state
+    const { loadingMore, showLoadingMore}=this.state
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
         <span>{title}</span>
@@ -199,7 +211,7 @@ export default class TestRecordDetail extends PureComponent {
       </div>
     );
 
-    const paginationProps = {
+   /*  const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
       pageSize: detailData.pagination.pageSize,
@@ -211,10 +223,10 @@ export default class TestRecordDetail extends PureComponent {
       onShowSizeChange: (current, size) => {
         this.getPage(current, size,null);
       },
-    };
+    }; */
     const loadMore = showLoadingMore ? (
       <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
-        {loadingMore && <Spin />}
+      
         {!loadingMore && <Button onClick={this.onLoadMore}>loading more</Button>}
       </div>
     ) : null;
@@ -321,7 +333,7 @@ export default class TestRecordDetail extends PureComponent {
               rowKey="id"
               loading={loading}
               loadMore={loadMore}
-              pagination={paginationProps}
+              
               dataSource={detailData.list}
               renderItem={item => (
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>

@@ -29,7 +29,8 @@ export default {
   },
 
   effects: {
-    *detail({ payload }, { call, put }) {
+    *detail({ payload ,callback}, { call, put }) {
+    
       const response = yield call(queryTestRecordDetail, payload);
       if(!response){yield put({type: 'nom'});return }
       yield put({
@@ -43,6 +44,9 @@ export default {
           },
         },
       });
+      if(callback){
+        callback(response.totalCount)
+      }
     },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryTestRecord, payload);
@@ -127,7 +131,11 @@ export default {
     suc2(state, action) {
       return {
         ...state,
-        detailData: action.payload,
+        detailData:{
+          list:state.detailData.list.concat(action.payload.list),
+          pagination:action.payload.pagination
+
+        } ,
       };
     },
     suc3(state, action) {
