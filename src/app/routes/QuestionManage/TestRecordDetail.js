@@ -34,7 +34,10 @@ class RealName extends PureComponent {
     name:''
   }
   confirm=(value)=>{
-    this.props.confirm(this.props.index,this.props.item.userId,value)
+    this.props.confirm(this.props.index,this.props.item.userId,value,()=>{
+      console.log("xxxxxxxxxx")
+      this.setState({isEdit:false})
+    })
   }
   valid=()=>{
     this.setState({isEdit:true})
@@ -68,10 +71,9 @@ class RealName extends PureComponent {
   }
 
 }
-@connect(({ list, loading, fyTestRecord, fyFriend}) => ({
+@connect(({ list, loading, fyTestRecord}) => ({
   list,
   loading: loading.models.fyTestRecord,
-  fyFriend,
   fyTestRecord,
 }))
 
@@ -86,15 +88,16 @@ export default class TestRecordDetail extends PureComponent {
     loadingMore: false,
     showLoadingMore: true,
   };
-  confirm=(index,userId,realname)=>{
+  confirm=(index,userId,realname,back)=>{
    
     this.props.dispatch({
-      type: 'fyFriend/confirmSign',
+      type: 'fyTestRecord/confirmSign',
       payload: {
         index:index,
         userId:userId,
         realname:realname
-      }
+      },
+      callback:back
     })
   }
   componentDidMount() {

@@ -33,13 +33,17 @@ export default {
   },
 
   effects: {
-    *confirmSign({ payload }, { call, put }) {
+    *confirmSign({ payload,callback }, { call, put }) {
       const response = yield call(confirmSign, payload);
+      
       if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'sign',
         payload:payload,
       });
+      if(callback){
+        callback
+      }
     },
     *detail({ payload ,callback}, { call, put }) {
     
@@ -141,7 +145,7 @@ export default {
       };
     },
     suc2(state, action) {
-      console.log(action.payload.pagination.current)
+     
       return {
         ...state,
         detailData:{

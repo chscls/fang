@@ -6,6 +6,7 @@ export async function queryFriend(params) {
   return request(`${ad}/queryFriend`, params);
 }
 export async function confirmSign(params) {
+
   return request(`${ad}/confirmSign`, {
     method: 'POST',
     body: {
