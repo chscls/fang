@@ -80,6 +80,8 @@ export default class TestRecordDetail extends PureComponent {
     showList:false,
     code:this.props.match.params.code,
     visible: true,
+    loadingMore: false,
+    showLoadingMore: true,
   };
   confirm=(userId,realname)=>{
 
@@ -152,9 +154,28 @@ export default class TestRecordDetail extends PureComponent {
   handleClose=()=>{
     this.setState({ visible: false });
   }
+  onLoadMore = () => {
+    this.setState({
+      loadingMore: true,
+    });
+    this.getData((res) => {
+      const data = this.state.data.concat(res.results);
+      this.setState({
+        data,
+        loadingMore: false,
+      }, () => {
+        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+        // In real scene, you can using public method of react-virtualized:
+        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+        window.dispatchEvent(new Event('resize'));
+      });
+    });
+  }
   render() {
-    const { fyTestRecord: { detailData ,testRecordStatistics}, loading } = this.props;
+    const { fyTestRecord: { detailData ,testRecordStatistics}, loading} = this.props;
 
+
+    const { loadingMore, showLoadingMore, data}=this.state
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
         <span>{title}</span>
@@ -191,7 +212,12 @@ export default class TestRecordDetail extends PureComponent {
         this.getPage(current, size,null);
       },
     };
-
+    const loadMore = showLoadingMore ? (
+      <div style={{ textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px' }}>
+        {loadingMore && <Spin />}
+        {!loadingMore && <Button onClick={this.onLoadMore}>loading more</Button>}
+      </div>
+    ) : null;
     const ListContent = ({ data: { score,goal, createTime,endTime, percent, status } }) => (
       <div className={styles.listContent}>
         
@@ -294,6 +320,7 @@ export default class TestRecordDetail extends PureComponent {
               size="large"
               rowKey="id"
               loading={loading}
+              loadMore={loadMore}
               pagination={paginationProps}
               dataSource={detailData.list}
               renderItem={item => (
