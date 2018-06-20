@@ -182,7 +182,7 @@ export default {
     },
     sign(state, action) {
      const list =  state.detailData.list
-     list[action.payload.index].sign=action.payload.realname
+     list[action.payload.index].realname=action.payload.realname
       return {
         ...state,
         detailData:{

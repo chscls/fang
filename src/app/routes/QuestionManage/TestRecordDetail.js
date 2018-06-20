@@ -17,7 +17,7 @@ import {
   Avatar,
   Modal,
   Alert,
- 
+  Tag
 } from 'antd';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -52,15 +52,10 @@ class RealName extends PureComponent {
     const score= item.score
     const goal = item.goal
     return( this.state.isEdit?<div>正确率:<Progress format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
-    
-    &nbsp;&nbsp;<Search style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>
-    
-   
-        
-     
-                   
+    &nbsp;&nbsp;<Search defaultValue={this.props.value} style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>          
     </div>:
-<div>正确率:<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}<Button onClick={this.valid.bind(user.id,sign)}>修改署名</Button>
+<div>正确率:<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}
+<Button onClick={this.valid.bind(user.id,sign)}>{item.realname?'重新认证':'去认证'}</Button>
 
        
      
@@ -363,8 +358,8 @@ export default class TestRecordDetail extends PureComponent {
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
                   <List.Item.Meta 
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-              title={ `昵称:${item.user.nickName} 署名:${item.sign?item.sign:'匿名'}`}
-                    description={<RealName index={index} item={item} confirm={this.confirm}/> }
+              title={<span> 昵称:{item.user.nickName}&nbsp;&nbsp;&nbsp;&nbsp;  署名:{item.realname?item.realname:(item.sign?item.sign:'匿名')} &nbsp;&nbsp;&nbsp;&nbsp; {item.realname?<Tag color="green">已实名认证</Tag>:""}</span>}
+                    description={<RealName value={item.realname?item.realname:(item.sign?item.sign:'')} index={index} item={item} confirm={this.confirm}/> }
                   />
                   <ListContent data={item} />
                 </List.Item>
