@@ -47,16 +47,18 @@ class RealName extends PureComponent {
     const user = item.user
     const score= item.score
     const goal = item.goal
-    return( this.state.isEdit?<div><Search style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>
+    return( this.state.isEdit?<div>正确率:<Progress format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
+    
+    &nbsp;&nbsp;<Search style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>
     
    
-        &nbsp;&nbsp;正确率:<Progress  percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
+        
      
                    
     </div>:
-<div>{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}<Button onClick={this.valid.bind(user.id,sign)}>修改署名</Button>
+<div>正确率:<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}<Button onClick={this.valid.bind(user.id,sign)}>修改署名</Button>
 
-        &nbsp;&nbsp;正确率:<Progress  percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
+       
      
                
 
