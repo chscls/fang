@@ -45,14 +45,23 @@ class RealName extends PureComponent {
     const item = this.props.item
     const sign = item.sign
     const user = item.user
-    return( <div>
-      昵称:{user.nickName}&nbsp;&nbsp;署名:{sign?sign:'匿名'}
-{this.state.isEdit?<Search style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" />:
-<div>{item.isAuth?'':<Button onClick={this.confirm.bind(sign)}>确定</Button>}{this.state.isEdit?<Button onClick={this.cancel}>取消</Button>:<Button onClick={this.valid.bind(user.id,sign)}>修改</Button>}</div>
-}
+    const score= item.score
+    const goal = item.goal
+    return( this.state.isEdit?<div><Search style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>
+    
+   
+        &nbsp;&nbsp;正确率:<Progress  percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
+     
+                   
+    </div>:
+<div>{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}<Button onClick={this.valid.bind(user.id,sign)}>修改署名</Button>
 
-      </div>
-      )
+        &nbsp;&nbsp;正确率:<Progress  percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
+     
+               
+
+</div>
+ )
   }
 
 }
@@ -184,6 +193,7 @@ export default class TestRecordDetail extends PureComponent {
     const ListContent = ({ data: { score,goal, createTime,endTime, percent, status } }) => (
       <div className={styles.listContent}>
         
+
         <div className={styles.listContentItem}>
           <span>分数</span>
           <p> 得分:{goal} 总分:{score}</p>
@@ -286,12 +296,10 @@ export default class TestRecordDetail extends PureComponent {
               dataSource={detailData.list}
               renderItem={item => (
                 <List.Item key={item.id} actions={[<a>主观题打分</a>]}>
-                  <List.Item.Meta
+                  <List.Item.Meta 
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
-              title={<RealName item={item} confirm={this.confirm}/>}
-                    description={  <Progress  format={(percent)=>{
-                      return (item.score==0?100:item.goal/item.score*100).toFixed(2)+'%'
-                      }} percent={100}  successPercent={item.score==0?100:item.goal/item.score*100} width={50} status="exception"  strokeWidth={6}  />}
+              title={ `昵称:${item.user.nickName} 署名:${item.sign?item.sign:'匿名'}`}
+                    description={<RealName item={item} confirm={this.confirm}/> }
                   />
                   <ListContent data={item} />
                 </List.Item>
