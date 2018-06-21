@@ -19,12 +19,12 @@ export default function getMenu(isAdmin){
               icon:questionMng==''?null:'schedule',
               path: `${questionMng}test-list`,
             },{
-              name: '熟人管理',
+              name: '实名管理',
               icon: questionMng==''?null:'shopping-cart',
               path: `${questionMng}friend`,
               children: [
                 {
-                  name: '熟人列表',
+                  name: '实名列表',
                   path: 'friend-list',
                 },
                 {

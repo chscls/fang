@@ -316,9 +316,11 @@ export default class FriendList extends PureComponent {
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
+      
       {
-        title: 'id',
-        dataIndex: 'id',
+        title: '姓名',
+       
+        render: val => val.realname
       },{
         title: '头像',
         render: val => (
@@ -329,11 +331,7 @@ export default class FriendList extends PureComponent {
        
         render: val => val.user.nickName 
       },
-      {
-        title: '姓名',
-       
-        render: val => val.realname
-      },
+     
       {
         title: '账号',
       
@@ -354,7 +352,7 @@ export default class FriendList extends PureComponent {
         render: val => val.user.city 
       },
       {
-        title: '创建时间',
+        title: '认证时间',
         sorter: true,
         dataIndex: 'createTime',
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
