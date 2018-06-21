@@ -10,20 +10,20 @@ export default function getMenu(isAdmin){
             
           return  [
             {
-              name: '题库管理',
+              name: '题库创建',
               icon: questionMng==''?null:'database',
               path: `${questionMng}question-list`,
             },
             {
-              name: '试卷管理',
+              name: '试卷制作',
               icon:questionMng==''?null:'schedule',
               path: `${questionMng}test-list`,
             },{
-              name: '记录管理',
-              icon:questionMng==''?null:'schedule',
+              name: '做题记录',
+              icon:questionMng==''?null:'book',
               path: `${questionMng}my-testRecord-list`,
             },{
-              name: '实名管理',
+              name: '实名认证',
               icon: questionMng==''?null:'shopping-cart',
               path: `${questionMng}friend`,
               children: [
@@ -37,7 +37,7 @@ export default function getMenu(isAdmin){
                 },
               ]
             } ,{
-              name: '订单管理',
+              name: '订单查询',
               icon: questionMng==''?null:'shopping-cart',
               path: `${questionMng}order-list`
             } ,{
