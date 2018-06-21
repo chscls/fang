@@ -332,7 +332,7 @@ export default class FriendList extends PureComponent {
       {
         title: '姓名',
        
-        render: val => val.user.realname
+        render: val => val.realname
       },
       {
         title: '账号',
@@ -351,8 +351,13 @@ export default class FriendList extends PureComponent {
       },
       {
         title: '城市',
-        dataIndex: 'city',
         render: val => val.user.city 
+      },
+      {
+        title: '创建时间',
+        sorter: true,
+        dataIndex: 'createTime',
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',
