@@ -23,7 +23,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import defaultImg from '../../../assets/default.png';
 import styles from './FriendList.less';
-
+import GroupList from './GroupList';
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -66,6 +66,7 @@ const CreateForm = Form.create()(props => {
 export default class FriendList extends PureComponent {
   state = {
     modalVisible: false,
+    groupVisible:false,
     expandForm: false,
     selectedRows: [],
     formValues: {},
@@ -313,11 +314,19 @@ export default class FriendList extends PureComponent {
   };
 
   batchGroup= e => {
+    const { dispatch } = this.props;
+    const { selectedRows } = this.state;
+
+    if (!selectedRows) return;
+    this.setState({groupVisible:true})
+  }
+  
+  groupHandle=()=>{
 
   }
   render() {
     const { fyFriend: { data }, loading } = this.props;
-    const { selectedRows, modalVisible } = this.state;
+    const { selectedRows, modalVisible,groupVisible } = this.state;
 
     const columns = [
       
@@ -423,6 +432,15 @@ export default class FriendList extends PureComponent {
           </div>
         </Card>
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
+        <Modal
+      title="分组列表"
+      visible={groupVisible}
+      onOk={this.groupHandle}
+      width={600}
+      onCancel={() => this.setState({groupVisible:false})}
+    >
+      <GroupList isSelect={true}/>
+    </Modal>
       </PageHeaderLayout>
     );
   }

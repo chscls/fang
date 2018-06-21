@@ -311,7 +311,14 @@ export default class GroupList extends PureComponent {
     const { fyGroup: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
-    const columns = [
+    const columns = this.props.isSelect? [
+      
+      {
+        title: '名称',
+        dataIndex: 'name',
+      }
+      
+    ]:[
       
       {
         title: '名称',
@@ -327,7 +334,7 @@ export default class GroupList extends PureComponent {
           </Fragment>
         ),
       },
-    ];
+    ]
 
     const menu = (
       <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
@@ -340,9 +347,27 @@ export default class GroupList extends PureComponent {
       handleModalVisible: this.handleModalVisible,
       currentObj: this.state.currentObj,
     };
-
+    
     return (
-      <PageHeaderLayout title="">
+      this.props.isSelect ? <div>
+            <div className={styles.tableListForm}>{this.renderForm()}</div>
+          
+            <StandardTable
+              selectedRows={selectedRows}
+              loading={loading}
+              data={data}
+              columns={columns}
+              rowKey="id"
+              onSelectRow={this.handleSelectRows}
+              onChange={this.handleStandardTableChange}
+            />
+          </div>
+        
+        
+        
+        
+        
+         : <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
