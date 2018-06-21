@@ -35,7 +35,7 @@ function objectToFormData(obj, fd, pre) {
         }
       });
     } else {
-      fd.append(key, obj[prop]);
+      if(obj[prop])  fd.append(key, obj[prop])
     }
   });
 
