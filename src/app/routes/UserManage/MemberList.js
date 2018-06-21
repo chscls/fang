@@ -218,7 +218,7 @@ export default class MemberList extends PureComponent {
       callback: () => {
         message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
         this.setState({
-          modalVisible: false,
+          modalVisible: false,currentObj:{}
         });
         this.getPage();
       },
