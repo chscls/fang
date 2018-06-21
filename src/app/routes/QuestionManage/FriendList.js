@@ -48,9 +48,9 @@ const CreateForm = Form.create()(props => {
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
-        {form.getFieldDecorator('word', {
-          initialValue: currentObj.word,
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="实名">
+        {form.getFieldDecorator('realname', {
+          initialValue: currentObj.realname,
           rules: [{ required: true, message: '请输入姓名...' }],
         })(<Input placeholder="请输入姓名" />)}
       </FormItem>
@@ -221,8 +221,8 @@ export default class FriendList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="单词">
-              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
+            <FormItem label="实名">
+              {getFieldDecorator('realname')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
 
@@ -250,8 +250,8 @@ export default class FriendList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="单词">
-              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
+            <FormItem label="实名">
+              {getFieldDecorator('realname')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
         </Row>
@@ -311,6 +311,10 @@ export default class FriendList extends PureComponent {
       },
     });
   };
+
+  batchGroup= e => {
+
+  }
   render() {
     const { fyFriend: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -318,9 +322,14 @@ export default class FriendList extends PureComponent {
     const columns = [
       
       {
-        title: '姓名',
+        title: '实名',
        
         render: val => val.realname
+      },
+      {
+        title: '分组',
+       
+        render: val => val.group?val.group.name:""
       },{
         title: '头像',
         render: val => (
@@ -393,6 +402,7 @@ export default class FriendList extends PureComponent {
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
+                  <Button onClick={this.batchGroup.bind(this)}>调整分组</Button>
                   <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />
