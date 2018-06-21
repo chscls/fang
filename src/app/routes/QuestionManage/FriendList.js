@@ -324,15 +324,28 @@ export default class FriendList extends PureComponent {
   }
   
   groupHandle=()=>{
-    if(this.state.selectGroupIds.size>1){
+    if(this.state.selectGroupIds.length>1){
       message.error("请只选择一个分组")
       return
     }
-    if(this.state.selectGroupIds.size==0){
+    if(this.state.selectGroupIds.length==0){
       message.error("请选择一个分组")
       return 
     }
-    console.log(this.state.selectGroupIds[0])
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'fyFriend/changeGroup',
+      payload: {
+        ids: selectedRows.map(row => row.id).join(','),
+        groupId:this.state.selectGroupIds[0]
+      },
+      callback: () => {
+        this.setState({
+          selectedRows: [],groupVisible:false
+        });
+        this.getPage();
+      },
+    });
   }
   handleSelect = ids => {
     

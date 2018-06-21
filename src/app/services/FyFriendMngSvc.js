@@ -5,6 +5,17 @@ const ad = config.httpServer + '/services/FyFriendMngSvc';
 export async function queryFriend(params) {
   return request(`${ad}/queryFriend`, params);
 }
+export async function changeGroup(params) {
+
+  return request(`${ad}/changeGroup`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
+
 export async function confirmSign(params) {
 
   return request(`${ad}/confirmSign`, {

@@ -1,4 +1,4 @@
-import { queryFriend, removeFriend, addFriend} from '../services/FyFriendMngSvc';
+import { queryFriend, removeFriend, addFriend,changeGroup} from '../services/FyFriendMngSvc';
 
 export default {
   namespace: 'fyFriend',
@@ -11,7 +11,17 @@ export default {
   },
 
   effects: {
-   
+    *changeGroup({ payload }, { call, put }) {
+      const response = yield call(changeGroup, payload);
+      if(!response){yield put({type: 'nom'});return }
+    
+        yield put({
+          type: 'nom',
+          payload: response,
+        });
+
+        if (callback) callback();
+    },
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryFriend, payload);
       if(!response){yield put({type: 'nom'});return }
