@@ -350,6 +350,9 @@ export default class MemberList extends PureComponent {
       {
         title: 'id',
         dataIndex: 'id',
+      },{
+        title: '昵称',
+        dataIndex: 'nickName',
       }, {
         title: '头像',
         render: record => (
@@ -362,6 +365,18 @@ export default class MemberList extends PureComponent {
       {
         title: '账号',
         dataIndex: 'mobile',
+      },
+      {
+        title: '国籍',
+        dataIndex: 'country',
+      },,
+      {
+        title: '省份',
+        dataIndex: 'province',
+      },
+      {
+        title: '城市',
+        dataIndex: 'city',
       },
       {
         title: '题目数量',

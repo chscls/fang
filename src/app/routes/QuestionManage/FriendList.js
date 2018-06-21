@@ -16,12 +16,12 @@ import {
   DatePicker,
   Modal,
   message,
-  Badge,
+  Avatar,
   Divider,
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import defaultImg from '../../../assets/default.png';
 import styles from './FriendList.less';
 
 const FormItem = Form.Item;
@@ -319,10 +319,40 @@ export default class FriendList extends PureComponent {
       {
         title: 'id',
         dataIndex: 'id',
+      },{
+        title: '头像',
+        render: val => (
+          <Avatar src={val.user.avatarUrl?val.user.avatarUrl: defaultImg} size="small" />)
       },
       {
-        title: '单词',
-        dataIndex: 'word',
+        title: '昵称',
+       
+        render: val => val.user.nickName 
+      },
+      {
+        title: '姓名',
+       
+        render: val => val.user.realname
+      },
+      {
+        title: '账号',
+      
+        render: val => val.user.mobile
+      },
+      {
+        title: '国籍',
+      
+        render: val => val.user.country
+      },,
+      {
+        title: '省份',
+       
+        render: val => val.user.province
+      },
+      {
+        title: '城市',
+        dataIndex: 'city',
+        render: val => val.user.city 
       },
       {
         title: '操作',
