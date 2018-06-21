@@ -312,10 +312,7 @@ export default class GroupList extends PureComponent {
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
+      
       {
         title: '名称',
         dataIndex: 'name',
