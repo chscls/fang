@@ -27,6 +27,12 @@ const appRouter = [
     models: [require(`../models/fyTest`)],
     component: () => import('../routes/QuestionManage/TestList'),
   },
+  
+  {
+    path: '/question-manage/my-testRecord-list',
+    models: [require(`../models/fyTestRecord`)],
+    component: () => import('../routes/QuestionManage/MyTestRecordList'),
+  },
   {
     path: '/question-manage/recovery/test-recycle-list',
     models: [require(`../models/fyTest`)],

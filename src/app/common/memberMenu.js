@@ -19,6 +19,10 @@ export default function getMenu(isAdmin){
               icon:questionMng==''?null:'schedule',
               path: `${questionMng}test-list`,
             },{
+              name: '记录管理',
+              icon:questionMng==''?null:'schedule',
+              path: `${questionMng}my-testRecord-list`,
+            },{
               name: '实名管理',
               icon: questionMng==''?null:'shopping-cart',
               path: `${questionMng}friend`,
