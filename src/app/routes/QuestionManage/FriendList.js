@@ -336,7 +336,7 @@ export default class FriendList extends PureComponent {
     dispatch({
       type: 'fyFriend/changeGroup',
       payload: {
-        ids: selectedRows.map(row => row.id).join(','),
+        ids: this.state.selectedRows.map(row => row.id).join(','),
         groupId:this.state.selectGroupIds[0]
       },
       callback: () => {

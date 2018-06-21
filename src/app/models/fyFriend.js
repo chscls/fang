@@ -11,7 +11,7 @@ export default {
   },
 
   effects: {
-    *changeGroup({ payload }, { call, put }) {
+    *changeGroup({ payload ,callback}, { call, put }) {
       const response = yield call(changeGroup, payload);
       if(!response){yield put({type: 'nom'});return }
     
