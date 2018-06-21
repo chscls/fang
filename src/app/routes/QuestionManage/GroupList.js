@@ -145,10 +145,14 @@ export default class GroupList extends PureComponent {
     }
   };
 
+
   handleSelectRows = rows => {
     this.setState({
       selectedRows: rows,
     });
+    if (this.props.handleSelect) {
+      this.props.handleSelect(rows.map(row => row.id).join(','));
+    }
   };
 
   handleSearch = e => {

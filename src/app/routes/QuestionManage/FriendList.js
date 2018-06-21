@@ -24,6 +24,7 @@ import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import defaultImg from '../../../assets/default.png';
 import styles from './FriendList.less';
 import GroupList from './GroupList';
+import { returnAtIndex } from 'lodash-decorators/utils';
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -71,6 +72,7 @@ export default class FriendList extends PureComponent {
     selectedRows: [],
     formValues: {},
     currentObj: {},
+    selectGroupIds:[]
   };
 
   componentDidMount() {
@@ -322,8 +324,21 @@ export default class FriendList extends PureComponent {
   }
   
   groupHandle=()=>{
-
+    if(this.state.selectGroupIds.size>1){
+      message.error("请只选择一个分组")
+      return
+    }
+    if(this.state.selectGroupIds.size==0){
+      message.error("请选择一个分组")
+      return 
+    }
+    console.log(this.state.selectGroupIds[0])
   }
+  handleSelect = ids => {
+    
+    this.setState({ selectGroupIds: ids });
+  
+  };
   render() {
     const { fyFriend: { data }, loading } = this.props;
     const { selectedRows, modalVisible,groupVisible } = this.state;
@@ -439,7 +454,7 @@ export default class FriendList extends PureComponent {
       width={600}
       onCancel={() => this.setState({groupVisible:false})}
     >
-      <GroupList isSelect={true}/>
+      <GroupList  handleSelect={this.handleSelect} isSelect={true}/>
     </Modal>
       </PageHeaderLayout>
     );
