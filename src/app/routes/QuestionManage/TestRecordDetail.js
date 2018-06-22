@@ -316,20 +316,23 @@ export default class TestRecordDetail extends PureComponent {
                 <Button type="primary" onClick={this.open}>导出成绩</Button>&nbsp;&nbsp;
        <Button type="primary" onClick={this.back}>返回</Button></div>} bordered />
               </Col>
-              <Col sm={3} xs={24}>
+              <Col sm={2} xs={24}>
                 <Info title="参与次数" value={testRecordStatistics.count} bordered />
               </Col>
-              <Col sm={3} xs={24}>
+              <Col sm={2} xs={24}>
                 <Info title="最低分" value={toDecimal2NoZero(testRecordStatistics.minScore)} bordered />
               </Col>
-              <Col sm={3} xs={24}>
+              <Col sm={2} xs={24}>
                 <Info title="平均分" value={toDecimal2NoZero(testRecordStatistics.avgScore)} bordered />
               </Col>
-              <Col sm={3} xs={24}>
+              <Col sm={2} xs={24}>
                 <Info title="最高分" value={toDecimal2NoZero(testRecordStatistics.maxScore)} bordered />
               </Col>
-              <Col sm={3} xs={24}>
-                <Info title="满分" value={toDecimal2NoZero(testRecordStatistics.score)} />
+              <Col sm={2} xs={24}>
+                <Info title="满分" value={toDecimal2NoZero(testRecordStatistics.score)} bordered />
+              </Col>
+              <Col sm={2} xs={24}>
+                <Info title="难度系数" value={toDecimal2NoZero(testRecordStatistics.rate)} />
               </Col>
             </Row>
           </Card>
