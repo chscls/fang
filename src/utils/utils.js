@@ -3,7 +3,11 @@ import moment from 'moment';
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
 }
-
+export function toDecimal2NoZero(x) {  
+  var f = Math.round(x * 100) / 100;  
+  var s = f.toString();  
+  return s;  
+} 
 export function getTimeDistance(type) {
   const now = new Date();
   const oneDay = 1000 * 60 * 60 * 24;

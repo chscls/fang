@@ -22,6 +22,7 @@ import {
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import QRCode from 'qrcode.react';
+import {toDecimal2NoZero}   from '../../../utils/utils';
 import styles from './TestRecordDetail.less';
 import TestRecordList from './TestRecordList';
 import defaultImg from '../../../assets/default.png';
@@ -51,7 +52,7 @@ class RealName extends PureComponent {
     const user = item.user
     const score= item.score
     const goal = item.goal
-    return( this.state.isEdit?<div>正确率:<Progress format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
+    return( this.state.isEdit?<div>正确率:<Progress format={(percent)=>{return score==0?100:toDecimal2NoZero(goal/score)*100+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
     &nbsp;&nbsp;<Search defaultValue={this.props.value} style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>          
     </div>:
 <div>正确率:<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}
@@ -255,7 +256,7 @@ export default class TestRecordDetail extends PureComponent {
 
         <div className={styles.listContentItem}>
           <span>分数</span>
-          <p> 得分:{goal} 总分:{score}</p>
+          <p> 得分:{toDecimal2NoZero(goal)} 总分:{toDecimal2NoZero(score)}</p>
         </div>
         <div className={styles.listContentItem}>
           <span>状态</span>
@@ -318,16 +319,16 @@ export default class TestRecordDetail extends PureComponent {
                 <Info title="参与次数" value={testRecordStatistics.count} bordered />
               </Col>
               <Col sm={3} xs={24}>
-                <Info title="最低分" value={Number(testRecordStatistics.minScore).toFixed(2)} bordered />
+                <Info title="最低分" value={toDecimal2NoZero(testRecordStatistics.minScore)} bordered />
               </Col>
               <Col sm={3} xs={24}>
-                <Info title="平均分" value={Number(testRecordStatistics.avgScore).toFixed(2)} bordered />
+                <Info title="平均分" value={toDecimal2NoZero(testRecordStatistics.avgScore)} bordered />
               </Col>
               <Col sm={3} xs={24}>
-                <Info title="最高分" value={Number(testRecordStatistics.maxScore).toFixed(2)} bordered />
+                <Info title="最高分" value={toDecimal2NoZero(testRecordStatistics.maxScore)} bordered />
               </Col>
               <Col sm={3} xs={24}>
-                <Info title="满分" value={Number(testRecordStatistics.score).toFixed(2)} />
+                <Info title="满分" value={toDecimal2NoZero(testRecordStatistics.score)} />
               </Col>
             </Row>
           </Card>

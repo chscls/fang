@@ -23,7 +23,7 @@ import {
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import {toDecimal2NoZero}   from '../../../utils/utils';
 import styles from './TestRecordList.less';
 import { isThisHour } from 'date-fns';
 
@@ -310,23 +310,28 @@ export default class TestRecordList extends PureComponent {
       {
         title: '参与数',
         dataIndex: 'count',
+       
       },
       {
         title: '最小',
         dataIndex: 'minScore',
+        render: val => toDecimal2NoZero(val)
       },
       {
         title: '平均',
         dataIndex: 'avgScore',
+        render: val =>  toDecimal2NoZero(val)
       },
       {
         title: '最大',
         dataIndex: 'maxScore',
+        render: val =>  toDecimal2NoZero(val)
       },
       
       {
         title: '满分',
         dataIndex: 'score',
+        render: val =>  toDecimal2NoZero(val)
       },
       {
         title: '模式',
