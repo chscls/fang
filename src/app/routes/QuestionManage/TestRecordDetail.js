@@ -49,7 +49,7 @@ class RealName extends PureComponent {
     const item = this.props.item
     const sign = item.sign
     const user = item.user
-    const score= item.version.score
+    const score= item.score
     const goal = item.goal
     return( this.state.isEdit?<div>正确率:<Progress format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />
     &nbsp;&nbsp;<Search defaultValue={this.props.value} style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>          
@@ -249,7 +249,7 @@ export default class TestRecordDetail extends PureComponent {
         {!loadingMore && <Button onClick={this.onLoadMore}>loading more</Button>}
       </div>
     ) : null;
-    const ListContent = ({ data: { version:{ score},goal, createTime,endTime, percent, status } }) => (
+    const ListContent = ({ data: { score,goal, createTime,endTime, percent, status } }) => (
       <div className={styles.listContent}>
         
 

@@ -42,7 +42,7 @@ const status = ['关闭', '运行中', '已上线', '异常'];
   loading: loading.models.fyTestRecord,
 }))
 @Form.create()
-export default class TestList extends PureComponent {
+export default class TestRecordList extends PureComponent {
   state = {
     modalVisible: false,
     expandForm: false,
