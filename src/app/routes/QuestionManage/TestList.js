@@ -370,7 +370,7 @@ export default class TestList extends PureComponent {
       {
         title: '唯一码(点击可投屏)',
         render: record => (
-          <a onClick={this.screen.bind(this, record.code, record.title)}>{record.code}</a>
+          <a onClick={this.screen.bind(this, record.id+"", record.title)}>{record.code}</a>
         ),
       },
       {
