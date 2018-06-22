@@ -182,7 +182,8 @@ export default {
     },
     sign(state, action) {
      const list =  state.detailData.list
-     list[action.payload.index].realname=action.payload.realname
+     const user =  list[action.payload.index].friend.user
+     list[action.payload.index].friend={...action.payload,user:user}
       return {
         ...state,
         detailData:{
