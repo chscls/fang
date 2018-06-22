@@ -332,7 +332,7 @@ export default class TestRecordDetail extends PureComponent {
                 <Info title="满分" value={toDecimal2NoZero(testRecordStatistics.score)} bordered />
               </Col>
               <Col sm={2} xs={24}>
-                <Info title="难度系数" value={toDecimal2NoZero(testRecordStatistics.rate)} />
+                <Info title="难度系数" value={testRecordStatistics.rate?toDecimal2NoZero(testRecordStatistics.rate):""} />
               </Col>
             </Row>
           </Card>
