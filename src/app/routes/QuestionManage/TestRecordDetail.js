@@ -56,7 +56,7 @@ class RealName extends PureComponent {
     &nbsp;&nbsp;<Search defaultValue={this.props.value} style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel}>取消</Button>          
     </div>:
 <div>正确率:<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  /> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}
-<Button onClick={this.valid.bind(user.id,sign)}>{item.realname?'重新认证':'去认证'}</Button>
+<Button size='small' onClick={this.valid.bind(user.id,sign)}>{item.realname?'重新认证':'去认证'}</Button>
 
        
      
