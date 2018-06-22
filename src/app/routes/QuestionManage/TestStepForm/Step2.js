@@ -305,7 +305,7 @@ class TestStep2 extends React.PureComponent {
               
               
                <Popconfirm title={<InputNumber onChange={this.targetScore} defaultValue={1}/>} onConfirm={this.changeScore}  okText="确定" cancelText="取消">
-               <Button type="primary" >
+               <Button loading={confirmLoading} type="primary" >
                 调分
               </Button>
              </Popconfirm>
