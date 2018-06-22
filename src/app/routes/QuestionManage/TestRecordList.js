@@ -291,6 +291,7 @@ export default class TestRecordList extends PureComponent {
     });
   };
   render() {
+   
     const { fyTestRecord: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
@@ -299,7 +300,7 @@ export default class TestRecordList extends PureComponent {
         title: '版本号',
         dataIndex: 'code',
         render: val =>
-        val=this.props.code?<span style={{color:'red'}}>{val}</span>:<span>val</span>
+          (val==this.props.code)?<span style={{color:'red'}}>{val}</span>:<span>{val}</span>
       },
       {
         title: '更新时间',
@@ -340,7 +341,7 @@ export default class TestRecordList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
-          {record.cord=this.props.code?"当前版本": <a onClick={this.selectOne.bind(this,record.code)}> 切换</a>}
+          {record.code==this.props.code?"当前版本": <a onClick={this.selectOne.bind(this,record.code)}> 切换</a>}
           </Fragment>
         ),
       },
