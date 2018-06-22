@@ -311,7 +311,7 @@ export default class TestRecordDetail extends PureComponent {
       </div>
             
               </Col>
-              <Col sm={7} xs={24}>
+              <Col sm={11} xs={24}>
                 <Info title={`当前版本:${testRecordStatistics.code} 更新时间:${moment(testRecordStatistics.updateTime).format('YYYY/MM/DD HH:mm')}`} value={<div><Button type="primary" onClick={this.open}>切换历史版本</Button>&nbsp;&nbsp;
                 <Button type="primary" onClick={this.open}>导出成绩</Button>&nbsp;&nbsp;
        <Button type="primary" onClick={this.back}>返回</Button></div>} bordered />
