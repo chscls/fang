@@ -363,7 +363,7 @@ export default class TestRecordDetail extends PureComponent {
               
               dataSource={detailData.list}
               renderItem={(item,index)=> (
-                <List.Item key={item.id} actions={[<a>查看</a>]}>
+                <List.Item key={item.id} actions={[item.status!='create'?<a>查看</a>:<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>]}>
                   <List.Item.Meta 
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
               title={<span> 昵称:{item.user.nickName}&nbsp;&nbsp;&nbsp;&nbsp;  署名:{item.friend?item.friend.realname:(item.sign?item.sign:'匿名')} &nbsp;&nbsp;&nbsp;&nbsp; {item.friend?<Tag color="green">已实名认证</Tag>:""}{item.friend&&item.friend.group?"分组:"+item.friend.group.name:""}</span>}
