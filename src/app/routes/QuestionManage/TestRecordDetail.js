@@ -315,7 +315,7 @@ export default class TestRecordDetail extends PureComponent {
             
               </Col>
               <Col sm={11} xs={24}>
-                <Info title={`当前版本:${testRecordStatistics.code} 更新时间:${moment(testRecordStatistics.updateTime).format('YYYY/MM/DD HH:mm')}`} value={<div><Button type="primary" onClick={this.open}>切换历史版本</Button>&nbsp;&nbsp;
+                <Info title={`当前版本:${testRecordStatistics.code} 更新时间:${moment(testRecordStatistics.updateTime).format('YYYY/MM/DD HH:mm')}`} value={<div><Button type="primary" onClick={this.open}>查看历史版本</Button>&nbsp;&nbsp;
                 <Button type="primary" onClick={this.open}>导出成绩</Button>&nbsp;&nbsp;
        <Button type="primary" onClick={this.back}>返回</Button></div>} bordered />
               </Col>
@@ -350,7 +350,7 @@ export default class TestRecordDetail extends PureComponent {
           <Card
             className={styles.listCard}
             bordered={false}
-            title={testRecordStatistics.title+'('+(testRecordStatistics.mode == 'free'? '自由模式': testRecordStatistics.mode == 'singleLimit'? '单题限时': testRecordStatistics.mode == 'totalLimit' ? '总限时' : '竞赛') +')-做题记录'}
+            title={testRecordStatistics.title+'('+(testRecordStatistics.mode == 'free'? '自由模式': testRecordStatistics.mode == 'singleLimit'? '单题限时': testRecordStatistics.mode == 'totalLimit' ? '总限时' : '竞赛') +')'}
             style={{ marginTop: 5 }}
             bodyStyle={{ padding: '0 32px 40px 32px' }}
             extra={extraContent}
