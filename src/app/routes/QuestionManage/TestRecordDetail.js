@@ -263,7 +263,7 @@ export default class TestRecordDetail extends PureComponent {
         
         <div className={styles.listContentItem}>
           <span>分数</span>
-           {!endTime?'暂无':<p>得分:{toDecimal2NoZero(goal)} 总分:{toDecimal2NoZero(score)}</p>}
+           <p>{!endTime?'暂无':toDecimal2NoZero(goal)}</p>
         </div>
         <div className={styles.listContentItem}>
           <span>状态</span>
