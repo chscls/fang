@@ -53,10 +53,10 @@ class RealName extends PureComponent {
     const score= item.score
     const goal = item.goal
     const status=item.status
-    return( this.state.isEdit?<div>正确率:{status=="complete"?<Progress format={(percent)=>{return score==0?100:toDecimal2NoZero(goal/score)*100+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />:"暂无"}
+    return( this.state.isEdit?<div>正确率:{status=="complete"?<Progress format={(percent)=>{return score==0?100:toDecimal2NoZero(goal/score)*100+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} status="exception"  strokeWidth={6}  />: <Progress format={(percent)=>{return '暂无'}} percent={this.state.percent} style={{width:180}} strokeWidth={6}/>}
     &nbsp;&nbsp;<Search size="small" defaultValue={this.props.value} style={{width:200}} placeholder="请输入真实姓名" onSearch={this.confirm} enterButton="确定" /><Button onClick={this.cancel} size="small">取消</Button>          
     </div>:
-<div>正确率:{status=="complete"?<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100} width={50} status="exception"  strokeWidth={6}  />:"暂无"} &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}
+<div>正确率:{status=="complete"?<Progress  format={(percent)=>{return (score==0?100:goal/score*100).toFixed(2)+"%"}} percent={100}  style={{width:180}} successPercent={score==0?100:goal/score*100}  status="exception"  strokeWidth={6}  />:<Progress format={(percent)=>{return '暂无'}} percent={this.state.percent} style={{width:180}} strokeWidth={6}/>} &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;{item.isAuth?<Button onClick={this.confirm.bind(sign)}>确定</Button>:''}
 <Button size='small' onClick={this.valid.bind(user.id,sign)}>{item.friend?'重新认证':'去认证'}</Button>
 
        
@@ -260,15 +260,15 @@ export default class TestRecordDetail extends PureComponent {
           <span>结束时间</span>
           <p>{moment(endTime).format('YYYY/MM/DD HH:mm')}</p>
         </div>:""}
+        
+        <div className={styles.listContentItem}>
+          <span>分数</span>
+           {!endTime?'暂无':<p>得分:{toDecimal2NoZero(goal)} 总分:{toDecimal2NoZero(score)}</p>}
+        </div>
         <div className={styles.listContentItem}>
           <span>状态</span>
           <p>{status=='create'?<span style={{color:'red'}}>待提交</span>:status=='check'?<span style={{color:'orange'}}>待批阅</span>:'已完成'}</p>
         </div>
-        <div className={styles.listContentItem}>
-          <span>分数</span>
-          <p> 得分:{toDecimal2NoZero(goal)} 总分:{toDecimal2NoZero(score)}</p>
-        </div>
-       
         <div className={styles.listContentItem}>
           <span>开始时间</span>
           <p>{moment(createTime).format('YYYY/MM/DD HH:mm')}</p>
