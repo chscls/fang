@@ -109,7 +109,7 @@ class StandardTable extends PureComponent {
           rowSelection={rowSelection}
           dataSource={list}
           columns={columns}
-          size={size || 'small'}
+          size={size || 'middle'}
           pagination={paginationProps}
           onChange={this.handleTableChange}
         />
