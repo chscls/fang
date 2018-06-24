@@ -26,6 +26,12 @@ import {toDecimal2NoZero}   from '../../../utils/utils';
 import styles from './TestRecordDetail.less';
 import TestRecordList from './TestRecordList';
 import defaultImg from '../../../assets/default.png';
+
+import SingleView from '../../components/QuestionItem/SingleView';
+import JudgeView from '../../components/QuestionItem/JudgeView';
+import MutiplyView from '../../components/QuestionItem/MutiplyView';
+import FillView from '../../components/QuestionItem/FillView';
+import AskView from '../../components/QuestionItem/AskView';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
@@ -84,6 +90,9 @@ export default class TestRecordDetail extends PureComponent {
     visible: true,
     loadingMore: false,
     showLoadingMore: true,
+    viewRecord:false,
+    current:{questions:[],answers:[]}
+    
   };
   confirm=(index,userId,realname,back)=>{
    
@@ -160,6 +169,13 @@ export default class TestRecordDetail extends PureComponent {
   cancelScreen=()=>{
     this.setState({showList:false})
   }
+  cancelViewRecord=()=>{
+    this.setState({viewRecord:false})
+  }
+  viewTheRecord=(index)=>{
+  
+    this.setState({viewRecord:true,current:this.props.fyTestRecord.detailData.list[index]})
+  }
   selectOne=(code)=>{
     this.getPage(null,null,null,null,code)
     this.getTotal(code)
@@ -202,7 +218,7 @@ export default class TestRecordDetail extends PureComponent {
     const { fyTestRecord: { detailData ,testRecordStatistics}, loading} = this.props;
 
 
-    const { loadingMore, showLoadingMore}=this.state
+    const { loadingMore, showLoadingMore,current}=this.state
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
         <span>{title}</span>
@@ -363,7 +379,7 @@ export default class TestRecordDetail extends PureComponent {
               
               dataSource={detailData.list}
               renderItem={(item,index)=> (
-                <List.Item key={item.id} actions={[item.status!='create'?<a>查看</a>:<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>]}>
+                <List.Item key={item.id} actions={[item.status!='create'?<a onClick={this.viewTheRecord.bind(this,index)}>查看</a>:<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>]}>
                   <List.Item.Meta 
                     avatar={<Avatar src={item.user.avatarUrl?item.user.avatarUrl:defaultImg} shape="square" size="large" />}
               title={<span> 昵称:{item.user.nickName}&nbsp;&nbsp;&nbsp;&nbsp;  署名:{item.friend?item.friend.realname:(item.sign?item.sign:'匿名')} &nbsp;&nbsp;&nbsp;&nbsp; {item.friend?<Tag color="green">已实名认证</Tag>:""}{item.friend&&item.friend.group?"分组:"+item.friend.group.name:""}</span>}
@@ -385,6 +401,42 @@ export default class TestRecordDetail extends PureComponent {
           okText="关闭"
         >
           <TestRecordList orgId={testRecordStatistics.orgId} code={testRecordStatistics.code} selectOne={this.selectOne}/>
+        </Modal>
+
+
+         <Modal
+          title={"做题记录"}
+          visible={this.state.viewRecord}
+          footer={null}
+          width={1024}
+          heigh={100}
+          onCancel={this.cancelViewRecord}
+          maskClosable={false}
+          okText="关闭"
+        >
+         <div >
+        <ul>
+          {current.answers.map((answer, i) => {
+            return (
+              <li key={i}>
+                {current.questions[answer.index].type == 'single' ? (
+                  <SingleView question={current.questions[answer.index]} />
+                ) : current.questions[answer.index].type == 'mutiply' ? (
+                  <MutiplyView question={current.questions[answer.index]} />
+                ) : current.questions[answer.index].type == 'judge' ? (
+                  <JudgeView question={current.questions[answer.index]} />
+                ) :current.questions[answer.index].type == 'fill' ? (
+                  <FillView question={current.questions[answer.index]} />
+                ) : current.questions[answer.index].type == 'ask' ? (
+                  <AskView question={current.questions[answer.index]} />
+                ) : (
+                  <SingleView question={current.questions[answer.index]} />
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
         </Modal>
         </div>
 

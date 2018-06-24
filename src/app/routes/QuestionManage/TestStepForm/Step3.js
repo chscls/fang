@@ -4,7 +4,6 @@ import { Button, Row, Col } from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import Result from 'components/Result';
 import styles from './style.less';
-import { single } from 'rxjs/operators';
 import SingleView from '../../../components/QuestionItem/SingleView';
 import JudgeView from '../../../components/QuestionItem/JudgeView';
 import MutiplyView from '../../../components/QuestionItem/MutiplyView';
