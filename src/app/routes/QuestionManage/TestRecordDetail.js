@@ -26,12 +26,8 @@ import {toDecimal2NoZero}   from '../../../utils/utils';
 import styles from './TestRecordDetail.less';
 import TestRecordList from './TestRecordList';
 import defaultImg from '../../../assets/default.png';
+import TestView from '../../components/TestView/TestView';
 
-import SingleView from '../../components/QuestionItem/SingleView';
-import JudgeView from '../../components/QuestionItem/JudgeView';
-import MutiplyView from '../../components/QuestionItem/MutiplyView';
-import FillView from '../../components/QuestionItem/FillView';
-import AskView from '../../components/QuestionItem/AskView';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { Search } = Input;
@@ -413,30 +409,7 @@ export default class TestRecordDetail extends PureComponent {
           maskClosable={false}
           okText="关闭"
         >
-         <div >
-        <ul>
-          {current.answers.map((answer, i) => {
-            return (
-              <li key={i}>
-                {current.questions[answer.index].type == 'single' ? (
-                  <SingleView question={current.questions[answer.index]} />
-                ) : current.questions[answer.index].type == 'mutiply' ? (
-                  <MutiplyView question={current.questions[answer.index]} />
-                ) : current.questions[answer.index].type == 'judge' ? (
-                  <JudgeView question={current.questions[answer.index]} />
-                ) :current.questions[answer.index].type == 'fill' ? (
-                  <FillView question={current.questions[answer.index]} />
-                ) : current.questions[answer.index].type == 'ask' ? (
-                  <AskView question={current.questions[answer.index]} />
-                ) : (
-                  <SingleView question={current.questions[answer.index]} />
-                )}
-              </li>
-            );
-          })}
-        </ul>
-        
-      </div>
+      <TestView testRecord={current}/>
         </Modal>
         </div>
 

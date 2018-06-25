@@ -4,11 +4,8 @@ import { Button, Row, Col } from 'antd';
 import { routerRedux, Link } from 'dva/router';
 import Result from 'components/Result';
 import styles from './style.less';
-import SingleView from '../../../components/QuestionItem/SingleView';
-import JudgeView from '../../../components/QuestionItem/JudgeView';
-import MutiplyView from '../../../components/QuestionItem/MutiplyView';
-import FillView from '../../../components/QuestionItem/FillView';
-import AskView from '../../../components/QuestionItem/AskView';
+
+import TestView from '../../../components/TestView/TestView';
 class TestStep3 extends React.PureComponent {
   render() {
     const { dispatch, data, fyTest } = this.props;
@@ -23,27 +20,7 @@ class TestStep3 extends React.PureComponent {
     };
     const information = (
       <div className={styles.information}>
-        <ul>
-          {questions.map((question, i) => {
-            return (
-              <li key={i}>
-                {question.type == 'single' ? (
-                  <SingleView question={question} />
-                ) : question.type == 'mutiply' ? (
-                  <MutiplyView question={question} />
-                ) : question.type == 'judge' ? (
-                  <JudgeView question={question} />
-                ) : question.type == 'fill' ? (
-                  <FillView question={question} />
-                ) : question.type == 'ask' ? (
-                  <AskView question={question} />
-                ) : (
-                  <SingleView question={question} />
-                )}
-              </li>
-            );
-          })}
-        </ul>
+       <TestView test={test}/>
       </div>
     );
     const actions = (
