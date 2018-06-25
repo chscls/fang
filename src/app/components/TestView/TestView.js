@@ -21,7 +21,7 @@ export default class TestView extends PureComponent {
                     <ul>
                         {answers.map((answer, i) => {
                             return (
-                                <li key={i}>
+                                <li key={i} type="1">
                                     {questions[answer.index].type == 'single' ? (
                                         <SingleView question={questions[answer.index]} answer={answer} />
                                     ) : questions[answer.index].type == 'mutiply' ? (
