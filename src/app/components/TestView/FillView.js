@@ -46,6 +46,11 @@ export default class FillView extends PureComponent {
           return <span>空{i+1}.{r.content}&nbsp;</span>
         })} 
         </div>:""}
+
+          {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
+          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
+         : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")
+          }
       </div>
     );
   }

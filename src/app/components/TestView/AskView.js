@@ -13,27 +13,34 @@ export default class AskView extends PureComponent {
   }
 
   render() {
-    const { size, question,answer } = this.props;
+    const { size, question, answer } = this.props;
 
     const isQuestionnaire = question.isQuestionnaire;
+  
     const item = question.items[0];
-    
+
     return (
       <div style={this.props.style}>
         {question.isRich ? (
           <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
-          <div> {question.title}</div>
-        )}
-   {answer?  <div >{ answer}
-            </div>:
-            <div >
-              {item.isRich ? <div dangerouslySetInnerHTML={{ __html: item.content }} /> : item.content}
-            </div>}
-            {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 参考答案:
+            <div> {question.title}</div>
+          )}
+        {answer ? <div >{answer}
+        </div> :
+          <div >
+            {item.isRich ? <div dangerouslySetInnerHTML={{ __html: item.content }} /> : item.content}
+          </div>}
+        {answer ? <div style={{ color: `${answer.goal < question.score ? 'red' : ''}` }}>得分:{answer.goal} 分数:{question.score} 参考答案:
         {answer.answers[0]}
-        })} 
-        </div>:""}
+          })}
+        </div> : ""}
+
+     {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
+          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
+         : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")
+          }
+
       </div>
     );
   }

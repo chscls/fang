@@ -77,6 +77,11 @@ export default class SingleView extends PureComponent {
           })}
 
         </div> : ""}
+
+           {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
+          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
+         : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")
+          }
       </div>
     );
   }
