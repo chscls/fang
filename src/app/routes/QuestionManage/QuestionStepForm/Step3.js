@@ -5,11 +5,9 @@ import { routerRedux, Link } from 'dva/router';
 import Result from 'components/Result';
 import styles from './style.less';
 import { single } from 'rxjs/operators';
-import SingleView from '../../../components/QuestionItem/SingleView';
-import JudgeView from '../../../components/QuestionItem/JudgeView';
-import MutiplyView from '../../../components/QuestionItem/MutiplyView';
-import FillView from '../../../components/QuestionItem/FillView';
-import AskView from '../../../components/QuestionItem/AskView';
+
+
+import TestView from '../../../components/TestView/TestView';
 class QuestionStep3 extends React.PureComponent {
   render() {
     const { dispatch, data, fyQuestion } = this.props;
@@ -22,19 +20,7 @@ class QuestionStep3 extends React.PureComponent {
     };
     const information = (
       <div className={styles.information}>
-        {question.type == 'single' ? (
-          <SingleView question={question} />
-        ) : question.type == 'mutiply' ? (
-          <MutiplyView question={question} />
-        ) : question.type == 'judge' ? (
-          <JudgeView question={question} />
-        ) : question.type == 'fill' ? (
-          <FillView question={question} />
-        ) : question.type == 'ask' ? (
-          <AskView question={question} />
-        ) : (
-          <SingleView question={question} />
-        )}
+      <TestView question={question}/>
       </div>
     );
     const actions = (

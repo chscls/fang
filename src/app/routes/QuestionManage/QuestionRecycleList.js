@@ -26,11 +26,8 @@ import {
 import Ellipsis from 'components/Ellipsis';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-import SingleView from '../../components/QuestionItem/SingleView';
-import JudgeView from '../../components/QuestionItem/JudgeView';
-import MutiplyView from '../../components/QuestionItem/MutiplyView';
-import FillView from '../../components/QuestionItem/FillView';
-import AskView from '../../components/QuestionItem/AskView';
+
+import TestView from '../../components/TestView/TestView';
 import styles from './QuestionRecycleList.less';
 
 const FormItem = Form.Item;
@@ -368,27 +365,8 @@ export default class QuestionRecycleList extends PureComponent {
         render: record => (
           <Tooltip
             overlayStyle={{ minWidth: 400 }}
-            title={
-              record.type == 'single' ? (
-                <SingleView
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                  question={record}
-                />
-              ) : record.type == 'mutiply' ? (
-                <MutiplyView
-                  style={{ backgroundColor: 'white', color: 'black' }}
-                  question={record}
-                />
-              ) : record.type == 'judge' ? (
-                <JudgeView style={{ backgroundColor: 'white', color: 'black' }} question={record} />
-              ) : record.type == 'fill' ? (
-                <FillView style={{ backgroundColor: 'white', color: 'black' }} question={record} />
-              ) : record.type == 'ask' ? (
-                <AskView style={{ backgroundColor: 'white', color: 'black' }} question={record} />
-              ) : (
-                ''
-              )
-            }
+            title={<TestView question={record}/>}
+            
           >
            <a> {record.isRich ? (
               <div  dangerouslySetInnerHTML={{ __html: record.title }} />

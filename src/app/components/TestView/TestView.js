@@ -6,11 +6,11 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-import SingleView from '../../components/QuestionItem/SingleView';
-import JudgeView from '../../components/QuestionItem/JudgeView';
-import MutiplyView from '../../components/QuestionItem/MutiplyView';
-import FillView from '../../components/QuestionItem/FillView';
-import AskView from '../../components/QuestionItem/AskView';
+import SingleView from '../../components/TestView/SingleView';
+import JudgeView from '../../components/TestView/JudgeView';
+import MutiplyView from '../../components/TestView/MutiplyView';
+import FillView from '../../components/TestView/FillView';
+import AskView from '../../components/TestView/AskView';
 export default class TestView extends PureComponent {
 
     render() {
@@ -24,17 +24,17 @@ export default class TestView extends PureComponent {
                             return (
                                 <li key={i}>
                                     {questions[answer.index].type == 'single' ? (
-                                        <SingleView question={questions[answer.index]} />
+                                        <SingleView question={questions[answer.index]} answer={answer} />
                                     ) : questions[answer.index].type == 'mutiply' ? (
-                                        <MutiplyView question={questions[answer.index]} />
+                                        <MutiplyView question={questions[answer.index]} answer={answer}/>
                                     ) : questions[answer.index].type == 'judge' ? (
-                                        <JudgeView question={questions[answer.index]} />
+                                        <JudgeView question={questions[answer.index]} answer={answer}/>
                                     ) : questions[answer.index].type == 'fill' ? (
-                                        <FillView question={questions[answer.index]} />
+                                        <FillView question={questions[answer.index]} answer={answer}/>
                                     ) : questions[answer.index].type == 'ask' ? (
-                                        <AskView question={questions[answer.index]} />
+                                        <AskView question={questions[answer.index]} answer={answer}/>
                                     ) : (
-                                                            <SingleView question={questions[answer.index]} />
+                                                            <SingleView question={questions[answer.index]} answer={answer}/>
                                                         )}
                                 </li>
                             );
@@ -43,8 +43,12 @@ export default class TestView extends PureComponent {
 
                )
         } else {
-            const { test: { questions } } = this.props;
-
+            var questions=[]
+            if(this.props.question){
+                questions.push(this.props.question)
+            }else{
+            questions= this.props.test.questions
+             }
             return (
               
                     <ul>
