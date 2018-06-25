@@ -16,7 +16,6 @@ export default class TestView extends PureComponent {
     render() {
         if (this.props.testRecord) {
             const { testRecord: { answers, questions } } = this.props;
-            console.log(questions)
             return (
              
                     <ul>
