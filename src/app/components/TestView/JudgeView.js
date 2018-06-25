@@ -35,16 +35,28 @@ export default class Judge extends PureComponent {
         ) : (
           <div> {question.title}</div>
         )}
-        <RadioGroup defaultValue={defaultValue}>
-          {items.map((r, i) => {
-            return (
-              <div>
-                <Radio value={i} key={i} disabled={i != defaultValue} />
-                {r.content}
-              </div>
-            );
-          })}
-        </RadioGroup>
+         {answer ? <RadioGroup defaultValue={defaultValue}>
+            {answer.orders.map((r, i) => {
+              return (
+                <div key={i}>
+                  {String.fromCharCode(i + 65)}、{' '}
+                  <Radio value={r} key={r} disabled={r != defaultValue} />
+                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html:items[r].content }} /> :items[r].content}
+                </div>
+              );
+            })}
+          </RadioGroup>
+            : <RadioGroup defaultValue={defaultValue}>
+              {items.map((r, i) => {
+                return (
+                  <div key={i}>
+                    {String.fromCharCode(i + 65)}、{' '}
+                    <Radio value={i} key={i} disabled={i != defaultValue} />
+                    {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
+                  </div>
+                );
+              })}
+            </RadioGroup>}
         {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 正确答案:
         {answer.orders.map((r,i)=>{
           return items[r].isSolution? <span key={i}>{items[r].content}</span>:""

@@ -50,17 +50,29 @@ export default class MutiplyView extends PureComponent {
           <div> {question.title}</div>
         )}
         {!isQuestionnaire ? (
-          <Checkbox.Group defaultValue={defaultValue}>
-            {items.map((r, i) => {
+            answer ?<Checkbox.Group defaultValue={defaultValue}>
+            {answer.orders.map((r, i) => {
               return (
                 <div key={i}>
                   {String.fromCharCode(i + 65)}、{' '}
-                  <Checkbox value={i} key={i} disabled={defaultValue.in_array(i)} />&nbsp;&nbsp;
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
+                  <Checkbox value={r} key={r} disabled={defaultValue.in_array(r)} />&nbsp;&nbsp;
+                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html:items[r].content }} /> : items[r].content}
                 </div>
               );
             })}
-          </Checkbox.Group>
+          </Checkbox.Group>:
+          <Checkbox.Group defaultValue={defaultValue}>
+          {items.map((r, i) => {
+            return (
+              <div key={i}>
+                {String.fromCharCode(i + 65)}、{' '}
+                <Checkbox value={i} key={i} disabled={defaultValue.in_array(i)} />&nbsp;&nbsp;
+                {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
+              </div>
+            );
+          })}
+        </Checkbox.Group>
+          
         ) : (
           <div>
             {state.items.map((r, i) => {
@@ -76,7 +88,7 @@ export default class MutiplyView extends PureComponent {
   
   {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 正确答案:
         {answer.orders.map((r,i)=>{
-          return items[r].isSolution? <span key={i}>{String.fromCharCode(r + 65)}&nbsp; </span>:""
+          return items[r].isSolution? String.fromCharCode(i + 65):""
         })}  
         </div>:""}
       </div>

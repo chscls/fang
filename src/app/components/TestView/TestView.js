@@ -11,13 +11,22 @@ import JudgeView from '../../components/TestView/JudgeView';
 import MutiplyView from '../../components/TestView/MutiplyView';
 import FillView from '../../components/TestView/FillView';
 import AskView from '../../components/TestView/AskView';
+import moment from 'moment';
 export default class TestView extends PureComponent {
 
     render() {
         if (this.props.testRecord) {
-            const { testRecord: { answers, questions } } = this.props;
+            const { testRecord: { answers, questions,goal,score,createTime,endTime } } = this.props;
+            const du=moment.duration(moment(endTime)-moment(createTime), 'ms')
+            const years = du.get('years')
+            const days = du.get('days')
+            const hours = du.get('hours')
+            const mins = du.get('minutes')
+            const ss = du.get('seconds')
+            const xx =years+'年'+days+'天'+hours + '时' + mins + '分' + ss + '秒'
             return (
-             
+                <div>
+             <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2>
                     <ul>
                         {answers.map((answer, i) => {
                             return (
@@ -41,7 +50,7 @@ export default class TestView extends PureComponent {
                             );
                         })}
                     </ul>
-
+</div>
                )
         } else {
             var questions=[]
