@@ -13,7 +13,7 @@ export default class FillView extends PureComponent {
   }
 
   render() {
-    const { size, question } = this.props;
+    const { size, question,answer } = this.props;
 
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
@@ -25,11 +25,18 @@ export default class FillView extends PureComponent {
         ) : (
           <div> {question.title}</div>
         )}
-        {items.map((r, i) => {
+        {answer?answer.answers.map((r, i) => {
           return (
             <div key={i}>
               {'空' + (i + 1)}、
-              {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
+              {r}
+            </div>
+          );
+        }):items.map((r, i) => {
+          return (
+            <div key={i}>
+              {'空' + (i + 1)}、
+              {r.content}
             </div>
           );
         })}

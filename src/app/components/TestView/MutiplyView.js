@@ -26,17 +26,21 @@ export default class MutiplyView extends PureComponent {
   }
 
   render() {
-    const { size, question } = this.props;
+    const { size, question,answer } = this.props;
 
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
     var defaultValue = [];
+    if(answer){
+      defaultValue=answer.indexs
+    }else{
     for (var i = 0; i < items.length; i++) {
       if (items[i].isSolution) {
         defaultValue.push(i);
      
       }
     }
+  }
     
     return (
       <div style={this.props.style}>

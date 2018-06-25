@@ -18,12 +18,16 @@ export default class Judge extends PureComponent {
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
     var defaultValue = -1;
+    if(answer){
+      defaultValue=answer.indexs[0]
+    }else{
     for (var i = 0; i < items.length; i++) {
       if (items[i].isSolution) {
         defaultValue = i;
         break;
       }
     }
+  }
     return (
       <div style={this.props.style}>
         {question.isRich ? (
