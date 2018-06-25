@@ -13,7 +13,7 @@ export default class SingleView extends PureComponent {
   }
 
   render() {
-    const { size, question,index } = this.props;
+    const { size, question } = this.props;
 
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;
@@ -26,10 +26,10 @@ export default class SingleView extends PureComponent {
     }
     return (
       <div style={this.props.style}>
-       {question.isRich ? (
+        {question.isRich ? (
           <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
-          <div> {index?index+".":""} {question.title}</div>
+          <div> {question.title}</div>
         )}
         {!isQuestionnaire ? (
           <RadioGroup defaultValue={defaultValue}>
