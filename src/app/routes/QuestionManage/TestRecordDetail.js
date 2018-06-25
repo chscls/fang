@@ -401,7 +401,7 @@ export default class TestRecordDetail extends PureComponent {
 
 
          <Modal
-          title={(current.friend?current.friend.realname:current.sign)+" "+current.name+"做题记录"}
+          title={(current.friend?current.friend.realname:current.sign?current.sign:'匿名')+" "+current.title+"-做题记录"}
           visible={this.state.viewRecord}
           footer={null}
           width={1024}
