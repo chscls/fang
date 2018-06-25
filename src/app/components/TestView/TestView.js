@@ -22,13 +22,14 @@ import moment from 'moment';
 export default class TestView extends PureComponent {
     componentDidMount(){
         if(this.props.match){
+            
             this.props.dispatch({
                 type: 'fyTestRecord/find',
                 payload: {
                  id:this.props.match.params.id
                 },
                 callback:()=>{
-                    window.print()
+                    /* window.print() */
                 }
               })
             
@@ -37,7 +38,7 @@ export default class TestView extends PureComponent {
     print=(id,type)=>{
       const cfg='fullscreen=0,toolbar=0.scrollbars=1,location=0,directories=0,status=0,menubar=0,resizable=0,top=0,left=0'
         const url=`http://localhost:8000/#/question-manage/test-view/${id}/${type}`
-        const myWin = window.open(url,'_blank','',false)
+        const myWin = window.open(url,'_blank',cfg,false)
         myWin.moveTo(0,0)
         myWin.resizeTo(screen.availWidth,screen.availHeight)
         
@@ -49,11 +50,12 @@ export default class TestView extends PureComponent {
             testRecord=this.props.fyTestRecord.testRecord
         }else{
             testRecord=this.props.testRecord
+           
         }
 
-
+       
         if (testRecord) {
-            const { testRecord: { answers, questions,goal,score,createTime,endTime,id } } = this.props;
+            const { answers, questions,goal,score,createTime,endTime,id  } = testRecord;
             var xx=''
             if(endTime){
             const du=moment.duration(moment(endTime)-moment(createTime), 'ms')
@@ -63,7 +65,7 @@ export default class TestView extends PureComponent {
             const mins = du.get('minutes')
             const ss = du.get('seconds')
             xx =(years==0?'':years+'年')+(years==0&&days==0?'':days+'天')+(years==0&&days==0&&hours==0?'':hours+'时') + (years==0&&days==0&&hours==0&&mins==0?'':mins+'分') +  (years==0&&days==0&&hours==0&&mins==0&&ss==0?'':ss+'秒') 
-        }
+            }
             return (
               <div>  {this.props.match?"":<Button type="primary" onClick={this.print.bind(this,id,"record")}>打印</Button>}
              <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2>
