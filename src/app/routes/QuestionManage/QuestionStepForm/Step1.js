@@ -121,8 +121,12 @@ class QuestionStep1 extends React.PureComponent {
       if((values.isRich&&this.state.text!=q.title)||(!values.isRich&&values.title!=q.title)){
         return true;
       }
-      if((values.isAnalysisRich&&this.state.text2!=q.analysis)||(!values.isAnalysisRich&&values.analysis!=q.analysis)){
+      if((values.isAnalysisRich&&this.state.text2=="<p><br></p>"&&q.analysis=="")){
+        return false;
+      }else{
+        if((values.isAnalysisRich&&this.state.text2!=q.analysis)||(!values.isAnalysisRich&&values.analysis!=q.analysis)){
         return true;
+       }
       }
       if(values.isAnalysisRich!=q.isAnalysisRich){
         return true;
@@ -158,7 +162,10 @@ class QuestionStep1 extends React.PureComponent {
           values = { ...values, title: this.state.text };
         }
         if(this.state.isAnalysisRich){
-          values = { ...values, isAnalysisRich:this.state.text2 };
+          
+        
+            values = { ...values, analysis:this.state.text2};
+          
         }
         values = { ...values, tags: tags };
         if (!err) {
