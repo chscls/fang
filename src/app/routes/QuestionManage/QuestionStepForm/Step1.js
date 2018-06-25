@@ -93,6 +93,7 @@ class QuestionStep1 extends React.PureComponent {
             isAnalysisRich:question.isAnalysisRich,
             tags: question.tags,
             text: question.title,
+            text2:question.analysis,
             isRich: question.isRich,
           });
         },
@@ -117,7 +118,10 @@ class QuestionStep1 extends React.PureComponent {
         return true;
 
       }
-      if(values.title!=q.title){
+      if((values.isRich&&this.state.text!=q.title)||(!values.isRich&&values.title!=q.title)){
+        return true;
+      }
+      if((values.isAnalysisRich&&this.state.text2!=q.analysis)||(!values.isAnalysisRich&&values.analysis!=q.analysis)){
         return true;
       }
       if(values.isAnalysisRich!=q.isAnalysisRich){
@@ -151,7 +155,10 @@ class QuestionStep1 extends React.PureComponent {
           values = { ...values, id: question.id };
         }
         if (this.state.isRich) {
-          values = { ...values, title: this.state.text,isAnalysisRich:this.state.text2 };
+          values = { ...values, title: this.state.text };
+        }
+        if(this.state.isAnalysisRich){
+          values = { ...values, isAnalysisRich:this.state.text2 };
         }
         values = { ...values, tags: tags };
         if (!err) {
