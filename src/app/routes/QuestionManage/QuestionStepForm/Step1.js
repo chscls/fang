@@ -31,6 +31,8 @@ class QuestionStep1 extends React.PureComponent {
     super(props);
     this.state = {
       text: '',
+      text2:'',
+      isAnalysisRich:false,
       isRich: false,
       isReady: false,
       tags: [],
@@ -70,6 +72,9 @@ class QuestionStep1 extends React.PureComponent {
   onChange = checked => {
     this.setState({ isRich: checked });
   };
+  onChange2= checked => {
+    this.setState({ isAnalysisRich: checked });
+  };
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.dispatch({
@@ -85,6 +90,7 @@ class QuestionStep1 extends React.PureComponent {
         callback: question => {
           this.setState({
             isReady: true,
+            isAnalysisRich:question.isAnalysisRich,
             tags: question.tags,
             text: question.title,
             isRich: question.isRich,
@@ -95,6 +101,9 @@ class QuestionStep1 extends React.PureComponent {
   }
   onChangeValue = text => {
     this.setState({ text: text });
+  };
+  onChangeValue2 = text => {
+    this.setState({ text2: text });
   };
   check=(values,q,tags)=>{
     if(q==null||q.id == null){
@@ -111,6 +120,12 @@ class QuestionStep1 extends React.PureComponent {
       if(values.title!=q.title){
         return true;
       }
+      if(values.isAnalysisRich!=q.isAnalysisRich){
+        return true;
+      }
+      if(values.analysis!=q.analysis){
+        return true;
+      }
       if(values.isRich!=q.isRich){
         return true;
       }
@@ -122,7 +137,7 @@ class QuestionStep1 extends React.PureComponent {
   
   }
   render() {
-    const { tags, inputVisible, inputValue, isRich } = this.state;
+    const { tags, inputVisible, inputValue, isRich,isAnalysisRich } = this.state;
     const { form, dispatch, data, fyQuestion: { question } ,confirmLoading} = this.props;
     const { getFieldDecorator, validateFields } = form;
 
@@ -136,7 +151,7 @@ class QuestionStep1 extends React.PureComponent {
           values = { ...values, id: question.id };
         }
         if (this.state.isRich) {
-          values = { ...values, title: this.state.text };
+          values = { ...values, title: this.state.text,isAnalysisRich:this.state.text2 };
         }
         values = { ...values, tags: tags };
         if (!err) {
@@ -169,28 +184,6 @@ class QuestionStep1 extends React.PureComponent {
                   <RadioButton value="fill">填空</RadioButton>
                   <RadioButton value="ask">问答</RadioButton>
                 </RadioGroup>
-              )}
-            </Form.Item>
-
-            
-            <Form.Item {...formItemLayout} label="标题富文本">
-              {getFieldDecorator('isRich', {
-                initialValue: isRich,
-              })(<Switch defaultChecked={isRich} onChange={this.onChange} />)}
-            </Form.Item>
-
-            <Form.Item {...formItemLayout} label={<span style={{color:"red"}}>* 标题</span> }>
-              {this.state.isRich ? (
-                <RichEditor
-                  defaultValue={question ? question.title : ''}
-                  className="ant-row ant-form-item"
-                  onChangeValue={this.onChangeValue}
-                />
-              ) : (
-                getFieldDecorator('title', {
-                  initialValue: question ? question.title : '',
-                  rules: [{ required: true, message: '请输入标题' }],
-                })(<TextArea rows={4} placeholder="请输入标题" />)
               )}
             </Form.Item>
             <Form.Item {...formItemLayout} label="标签">
@@ -227,24 +220,54 @@ class QuestionStep1 extends React.PureComponent {
                 </Tag>
               )}
             </Form.Item>
-          {/*   <Form.Item {...formItemLayout} label="分数">
-              {getFieldDecorator('score', {
-                initialValue: question ? question.score : 1,
-                rules: [
-                  { required: true, message: '请输入分数' },
-                  {
-                    pattern: /^(\d+)((?:\.\d+)?)$/,
-                    message: '请输入合法数字',
-                  },
-                ],
-              })(<Input placeholder="请输入分数" />)}
-            </Form.Item> */}
+         
             <Form.Item {...formItemLayout} label="难度">
               {getFieldDecorator('difficulty', {
                 initialValue: question ? question.difficulty : 0,
                 rules: [{ required: true, message: '难度' }],
               })(<Slider marks={marks} step={null} />)}
             </Form.Item>
+            
+            <Form.Item {...formItemLayout} label="标题富文本">
+              {getFieldDecorator('isRich', {
+                initialValue: isRich,
+              })(<Switch key="isRich" defaultChecked={isRich} onChange={this.onChange} />)}
+            </Form.Item>
+
+            <Form.Item {...formItemLayout} label={<span style={{color:"red"}}>* 标题</span> }>
+              {this.state.isRich ? (
+                <RichEditor key="isRich"
+                  defaultValue={question ? question.title : ''}
+                  className="ant-row ant-form-item"
+                  onChangeValue={this.onChangeValue}
+                />
+              ) : (
+                getFieldDecorator('title', {
+                  initialValue: question ? question.title : '',
+                  rules: [{ required: true, message: '请输入标题' }],
+                })(<TextArea rows={4} placeholder="请输入标题" />)
+              )}
+            </Form.Item>
+            <Form.Item {...formItemLayout} label="解析富文本">
+              {getFieldDecorator('isAnalysisRich', {
+                initialValue: isAnalysisRich,
+              })(<Switch key="isAnalysisRich" defaultChecked={isAnalysisRich} onChange={this.onChange2} />)}
+            </Form.Item>
+            <Form.Item {...formItemLayout} label="解析">
+              {this.state.isAnalysisRich ? (
+                <RichEditor key="isAnalysisRich"
+                  defaultValue={question ? question.analysis : ''}
+                  className="ant-row ant-form-item"
+                  onChangeValue={this.onChangeValue2}
+                />
+              ) : (
+                getFieldDecorator('analysis', {
+                  initialValue: question ? question.analysis : '',
+                  rules: [{ required: true, message: '请输入解析' }],
+                })(<TextArea rows={4} placeholder="请输入解析" />)
+              )}
+            </Form.Item>
+           
 
             <Form.Item
               wrapperCol={{
