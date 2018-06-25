@@ -73,6 +73,12 @@ export default class MutiplyView extends PureComponent {
             })}
           </div>
         )}
+  
+  {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 正确答案:
+        {answer.orders.map((r,i)=>{
+          return items[r].isSolution? <span key={i}>{String.fromCharCode(r + 65)}&nbsp; </span>:""
+        })}  
+        </div>:""}
       </div>
     );
   }

@@ -30,7 +30,10 @@ export default class AskView extends PureComponent {
             <div >
               {item.isRich ? <div dangerouslySetInnerHTML={{ __html: item.content }} /> : item.content}
             </div>}
-          
+            {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 参考答案:
+        {answer.answers[0]}
+        })} 
+        </div>:""}
       </div>
     );
   }

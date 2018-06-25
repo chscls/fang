@@ -35,6 +35,8 @@ export default class TestView extends PureComponent {
                                     ) : (
                                                             <SingleView question={questions[answer.index]} answer={answer}/>
                                                         )}
+
+                                    
                                 </li>
                             );
                         })}

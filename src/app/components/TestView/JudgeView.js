@@ -45,6 +45,11 @@ export default class Judge extends PureComponent {
             );
           })}
         </RadioGroup>
+        {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 正确答案:
+        {answer.orders.map((r,i)=>{
+          return items[r].isSolution? <span key={i}>{items[r].content}</span>:""
+        })}  
+        </div>:""}
       </div>
     );
   }

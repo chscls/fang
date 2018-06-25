@@ -40,6 +40,12 @@ export default class FillView extends PureComponent {
             </div>
           );
         })}
+
+        {answer?<div style={{color:`${answer.goal<question.score?'red':''}`}}>得分:{answer.goal} 分数:{question.score} 正确答案:
+        {items.map((r,i)=>{
+          return <span>空{i+1}.{r.content}&nbsp;</span>
+        })} 
+        </div>:""}
       </div>
     );
   }
