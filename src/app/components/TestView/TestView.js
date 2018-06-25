@@ -17,13 +17,16 @@ export default class TestView extends PureComponent {
     render() {
         if (this.props.testRecord) {
             const { testRecord: { answers, questions,goal,score,createTime,endTime } } = this.props;
+            var xx=''
+            if(endTime){
             const du=moment.duration(moment(endTime)-moment(createTime), 'ms')
             const years = du.get('years')
             const days = du.get('days')
             const hours = du.get('hours')
             const mins = du.get('minutes')
             const ss = du.get('seconds')
-            const xx =years+'年'+days+'天'+hours + '时' + mins + '分' + ss + '秒'
+            xx =(years==0?'':years+'年')+(years==0&&days==0?'':days+'天')+(years==0&&days==0&&hours==0?'':hours+'时') + (years==0&&days==0&&hours==0&&mins==0?'':mins+'分') +  (years==0&&days==0&&hours==0&&mins==0&&ss==0?'':ss+'秒') 
+        }
             return (
                 <div>
              <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2>
