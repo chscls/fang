@@ -27,7 +27,7 @@ const links = [
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2018 智兔工作室出品
+    Copyright <Icon type="copyright" /> 2018 智兔工作室出品 http://www.zhitail.com/
   </Fragment>
 );
 

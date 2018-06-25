@@ -4,6 +4,7 @@ import RichEditor from '../RichEditor/RichEditor';
 import { connect } from 'dva';
 import { truncate } from 'fs';
 const FormItem = Form.Item;
+import config from '../../config';
 
 const Option = Select.Option;
 const RadioButton = Radio.Button;
@@ -29,7 +30,7 @@ export default class TestView extends PureComponent {
                  id:this.props.match.params.id
                 },
                 callback:()=>{
-                    /* window.print() */
+                     window.print() 
                 }
               })
             
@@ -37,7 +38,7 @@ export default class TestView extends PureComponent {
     }
     print=(id,type)=>{
       const cfg='fullscreen=0,toolbar=0.scrollbars=1,location=0,directories=0,status=0,menubar=0,resizable=0,top=0,left=0'
-        const url=`http://localhost:8000/#/question-manage/test-view/${id}/${type}`
+        const url=`${config.webServer }/#/user/${id}/${type}`
         const myWin = window.open(url,'_blank',cfg,false)
         myWin.moveTo(0,0)
         myWin.resizeTo(screen.availWidth,screen.availHeight)
@@ -67,7 +68,7 @@ export default class TestView extends PureComponent {
             xx =(years==0?'':years+'年')+(years==0&&days==0?'':days+'天')+(years==0&&days==0&&hours==0?'':hours+'时') + (years==0&&days==0&&hours==0&&mins==0?'':mins+'分') +  (years==0&&days==0&&hours==0&&mins==0&&ss==0?'':ss+'秒') 
             }
             return (
-              <div>  {this.props.match?"":<Button type="primary" onClick={this.print.bind(this,id,"record")}>打印</Button>}
+              <div style={{margin:'auto',width:800}} >  {this.props.match?"":<Button type="primary" onClick={this.print.bind(this,id,"record")}>打印</Button>}
              <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2>
                     <ul>
                         {answers.map((answer, i) => {
@@ -92,6 +93,7 @@ export default class TestView extends PureComponent {
                             );
                         })}
                     </ul>
+                    
                     
                     
 </div>

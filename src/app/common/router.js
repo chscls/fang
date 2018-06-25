@@ -121,7 +121,7 @@ const appRouter = [
     component: () => import('../routes/QuestionManage/OrderList'),
   },
   {
-    path: '/question-manage/test-view/:id/:type',
+    path: '/user/:id/:type',
     models: [require(`../models/fyTest`),require(`../models/fyTestRecord`)],
     component: () => import('../components/TestView/TestView'),
   }
