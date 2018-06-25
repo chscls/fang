@@ -13,7 +13,7 @@ export default class Judge extends PureComponent {
   }
 
   render() {
-    const { size, question } = this.props;
+    const { size, question,answer} = this.props;
 
     const isQuestionnaire = question.isQuestionnaire;
     const items = question.items;

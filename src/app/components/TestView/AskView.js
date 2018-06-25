@@ -13,11 +13,11 @@ export default class AskView extends PureComponent {
   }
 
   render() {
-    const { size, question } = this.props;
+    const { size, question,answer } = this.props;
 
     const isQuestionnaire = question.isQuestionnaire;
-    const items = question.items;
-
+    const item = question.items[0];
+    
     return (
       <div style={this.props.style}>
         {question.isRich ? (
@@ -25,13 +25,12 @@ export default class AskView extends PureComponent {
         ) : (
           <div> {question.title}</div>
         )}
-        {items.map((r, i) => {
-          return (
-            <div key={i}>
-              {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
-            </div>
-          );
-        })}
+   {answer?  <div >{ answer}
+            </div>:
+            <div >
+              {item.isRich ? <div dangerouslySetInnerHTML={{ __html: item.content }} /> : item.content}
+            </div>}
+          
       </div>
     );
   }
