@@ -93,7 +93,6 @@ export default class TestRecordDetail extends PureComponent {
 
   };
   confirm = (index, userId, realname, back) => {
-
     this.props.dispatch({
       type: 'fyTestRecord/confirmSign',
       payload: {

@@ -57,7 +57,7 @@ export default {
      
       yield put({
         type: 'nom',
-        payload:response,
+        payload:response
       });
       
       if(callback){
@@ -73,7 +73,7 @@ export default {
      
       yield put({
         type: 'sign',
-        payload:response,
+        payload:{res:response,index:payload.index}
       });
       
       if(callback){
@@ -214,10 +214,15 @@ export default {
       };
     },
     sign(state, action) {
+      
      const list =  state.detailData.list
-     const user =  list[action.payload.index].friend.user
- 
-     list[action.payload.index].friend={...action.payload,user:user}
+     const user =  list[action.payload.index].user
+      for(var i=0;i<list.length;i++){
+        if( list[i].userId==user.id){
+          list[i].friend={...action.payload.res,user:user}
+        }
+      }
+     
       return {
         ...state,
         detailData:{
