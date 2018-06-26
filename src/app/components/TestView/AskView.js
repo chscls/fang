@@ -18,7 +18,7 @@ export default class AskView extends PureComponent {
     const isQuestionnaire = question.isQuestionnaire;
 
     const item = question.items[0];
-
+    
     return (
       <div style={this.props.style}>
         {question.isRich ? (
@@ -32,7 +32,6 @@ export default class AskView extends PureComponent {
           </div>}
         {answer ? <div style={{ color: `${answer.goal < question.score ? 'red' : ''}` }}>得分:{answer.goal} 分数:{question.score} 参考答案:
         {item.content}
-          })}
         </div> : ""}
         {this.props.isCheck==null ? "" : <Slider defaultValue={answer && answer.goal ? answer.goal : 0} style={{ width: 600 }} step={0.1} max={question.score} />}
 

@@ -407,7 +407,7 @@ export default class TestRecordDetail extends PureComponent {
           width={1024}
           onCancel={this.cancelViewRecord}
           maskClosable={false}
-          okText="关闭"
+          okText={current.status=="complete"?"关闭":"确定打分"}
         >
       <TestView testRecord={current} />
         </Modal>

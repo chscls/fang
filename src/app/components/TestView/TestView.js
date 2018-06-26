@@ -93,15 +93,10 @@ export default class TestView extends PureComponent {
                             );
                             }else{
                                 return (
+                                    questions[answer.index].type == 'ask' ? 
                                     <li key={i} type="1">
-                                       
-                                        {questions[answer.index].type == 'ask' ? 
                                             <AskView question={questions[answer.index]} answer={answer} isCheck={true}/>
-                                        :""
-                                        }
-    
-    
-                                    </li>
+                                    </li> :""
                                 );
                             }      
                         })}
