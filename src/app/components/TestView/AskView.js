@@ -36,7 +36,7 @@ export default class AskView extends PureComponent {
         {answer.answers[0]}
           })}
         </div> : ""}
-        {this.props.check?"":<Slider defaultValue={answer.goal} style={{width:300}} step={0.1} max={question.score}/>}
+        {this.props.check?"":<Slider defaultValue={answer.goal?answer.goal:0} style={{width:600}} step={0.1} max={question.score}/>}
           
      {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
           <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")

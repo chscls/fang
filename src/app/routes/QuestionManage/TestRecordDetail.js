@@ -403,7 +403,7 @@ export default class TestRecordDetail extends PureComponent {
          <Modal
           title={(current.friend?current.friend.realname:current.sign?current.sign:'匿名')+" "+current.title+"-做题记录"}
           visible={this.state.viewRecord}
-          footer={null}
+          footer={current.status=="complete"?null:true}
           width={1024}
           onCancel={this.cancelViewRecord}
           maskClosable={false}
