@@ -84,9 +84,8 @@ export default class TestView extends PureComponent {
                                         <FillView question={questions[answer.index]} answer={answer} />
                                     ) : questions[answer.index].type == 'ask' ? (
                                         <AskView question={questions[answer.index]} answer={answer} />
-                                    ) : (
-                                                            <SingleView question={questions[answer.index]} answer={answer} />
-                                                        )}
+                                    ) : <SingleView question={questions[answer.index]} answer={answer} />
+                                    }
 
 
                                 </li>
@@ -107,7 +106,7 @@ export default class TestView extends PureComponent {
             }
             return (
 
-                <ul>
+                <ul style={{backgroundColor:'#91d5ff'}}>
                     {questions.map((question, i) => {
                         return (
                             <li key={i}>
@@ -121,9 +120,8 @@ export default class TestView extends PureComponent {
                                     <FillView question={question} />
                                 ) : question.type == 'ask' ? (
                                     <AskView question={question} />
-                                ) : (
-                                                        <SingleView question={question} />
-                                                    )}
+                                ) : <SingleView question={question} />
+                                }
                             </li>
                         );
                     })}
