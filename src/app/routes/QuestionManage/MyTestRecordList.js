@@ -264,8 +264,9 @@ export default class MyTestRecordList extends PureComponent {
     });
   };
   delete = id => {
+    const { dispatch } = this.props;
     dispatch({
-      type: 'fyTest/recycle',
+      type: 'fyTestRecord/remove',
       payload: {
         ids: [id],
       },
@@ -283,7 +284,7 @@ export default class MyTestRecordList extends PureComponent {
 
     if (!selectedRows) return;
     dispatch({
-      type: 'fyTest/recycle',
+      type: 'fyTestRecord/remove',
       payload: {
         ids: selectedRows.map(row => row.id).join(','),
       },
@@ -295,68 +296,7 @@ export default class MyTestRecordList extends PureComponent {
       },
     });
   };
-  upShop = id => {
-    const { dispatch } = this.props;
-  
-    dispatch({
-      type: 'fyTest/upShop',
-      payload: {
-        ids: [id],
-      },
-      callback: () => {
-        this.getPage();
-      },
-    });
-  };
-  downShop = id => {
-    const { dispatch } = this.props;
-  
-    dispatch({
-      type: 'fyTest/downShop',
-      payload: {
-        ids: [id],
-      },
-      callback: () => {
-        this.getPage();
-      },
-    });
-  };
-  batchUpShop= e => {
-    const { dispatch } = this.props;
-    const { selectedRows } = this.state;
-
-    if (!selectedRows) return;
-    dispatch({
-      type: 'fyTest/upShop',
-      payload: {
-        ids: selectedRows.map(row => row.id).join(','),
-      },
-      callback: () => {
-        this.setState({
-          selectedRows: [],
-        });
-        this.getPage();
-      },
-    });
-  };
-  batchDownShop= e => {
-    const { dispatch } = this.props;
-    const { selectedRows } = this.state;
-
-    if (!selectedRows) return;
-    dispatch({
-      type: 'fyTest/downShop',
-      payload: {
-        ids: selectedRows.map(row => row.id).join(','),
-      },
-      callback: () => {
-        this.setState({
-          selectedRows: [],
-        });
-        this.getPage();
-      },
-    });
-  };
+ 
   
   cancelScreen = e => {
     this.setState({ screenVisible: false });
@@ -367,27 +307,16 @@ export default class MyTestRecordList extends PureComponent {
 
     const columns = [
       
-      {
-        title: '唯一码(点击可投屏)',
-        render: record => (
-          <a onClick={this.screen.bind(this, record.code, record.title)}>{record.code}</a>
-        ),
-      },
+     
       {
         title: '标题',
         dataIndex: 'title',
       },
-      {
-        title: '题量',
-        dataIndex: 'count',
-      },{
+     {
         title: '总分',
         dataIndex: 'score',
       },
-      {
-        title: '重做次数',
-        dataIndex: 'allowTime'
-      },
+      
       {
         title: '问卷',
         dataIndex: 'isQuestionnaire',
@@ -468,31 +397,22 @@ export default class MyTestRecordList extends PureComponent {
         val == 'create' ? '创建中' : val == 'process' ? '进行中' : '已结束',
       },
       {
-        title: '上架状态',
-        dataIndex: 'saleStatus',
-        render:val =>
-        val == 'create' ? '待上架' : val == 'apply' ? '审核中' : val == 'refuse' ? '不通过':'已上架'
-      },
-      {
         title: '创建时间',
         sorter: true,
         dataIndex: 'createTime',
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
+        title: '结束时间',
+      
+        dataIndex: 'endTime',
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
+      },
+      {
         title: '操作',
         render: record => (
           <Fragment>
-               <Link to={`/question-manage/test-add/info/${record.id}`}>修改</Link>
-               <Divider type="vertical" />
-            {record.saleStatus=='sale'?<a onClick={this.downShop.bind(this, record.id)}>下架</a>:""}
-            
-            {record.saleStatus=='create'||record.saleStatus=='refuse'?<a onClick={this.upShop.bind(this, record.id)}>上架</a>:""}
-            {record.saleStatus=='apply'?"":<Divider type="vertical" />}
-            
-            <Link to={`/question-manage/testRecord-list/${record.id}`}>统计与批阅</Link>
-           
-            <Divider type="vertical" />
+              
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
         ),
@@ -511,21 +431,12 @@ export default class MyTestRecordList extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <div className={styles.tableListOperator}>
-              <Link to="/question-manage/test-add/info/0">
-                <Button icon="plus" type="primary">
-                  新建
-                </Button>
-              </Link>
+             
               {selectedRows.length > 0 && (
                 <span>
-                   <Button type="primary"  onClick={this.batchUpShop.bind(this)}>批量上架</Button>
-                   <Button type="primary"  onClick={this.batchDownShop.bind(this)}>批量下架</Button>
+                 
                   <Button type="danger"  onClick={this.batchDelete.bind(this)}>批量刪除</Button>
-                  <Dropdown overlay={menu}>
-                    <Button>
-                      更多操作 <Icon type="down" />
-                    </Button>
-                  </Dropdown>
+                 
                 </span>
               )}
             </div>
