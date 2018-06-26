@@ -27,16 +27,15 @@ export default class AskView extends PureComponent {
         ) : (
             <div> {question.title}</div>
           )}
-        {answer ? <div >{answer}
-        </div> :
+        {answer ? <div >{answer.answers[0]}</div> :
           <div >
             {item.isRich ? <div dangerouslySetInnerHTML={{ __html: item.content }} /> : item.content}
           </div>}
         {answer ? <div style={{ color: `${answer.goal < question.score ? 'red' : ''}` }}>得分:{answer.goal} 分数:{question.score} 参考答案:
-        {answer.answers[0]}
+        {item.content}
           })}
         </div> : ""}
-        {this.props.check?"":<Slider defaultValue={answer.goal?answer.goal:0} style={{width:600}} step={0.1} max={question.score}/>}
+        {this.props.check?"":<Slider defaultValue={answer&&answer.goal?answer.goal:0} style={{width:600}} step={0.1} max={question.score}/>}
           
      {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
           <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
