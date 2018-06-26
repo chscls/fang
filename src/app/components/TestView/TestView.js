@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select, Alert, message, Button, Radio, Switch, Checkbox } from 'antd';
+import { Form, Input, Select, Alert,Avatar, message,Tag, Button, Radio, Switch, Checkbox } from 'antd';
 import RichEditor from '../RichEditor/RichEditor';
 import { connect } from 'dva';
 import { truncate } from 'fs';
 const FormItem = Form.Item;
 import config from '../../config';
-
+import defaultImg from '../../../assets/default.png';
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
@@ -81,6 +81,9 @@ export default class TestView extends PureComponent {
             }
             return (
                 <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" : testRecord.status == "complete" ? <Button type="primary" onClick={this.print.bind(this, id, "record")}>打印</Button> : ""}
+                    
+                    <span> 昵称:{testRecord.user.nickName}&nbsp;&nbsp;&nbsp;&nbsp;  署名:{testRecord.friend?testRecord.friend.realname:(testRecord.sign?testRecord.sign:'匿名')} &nbsp;&nbsp;&nbsp;&nbsp; {testRecord.friend?<Tag color="green">已实名认证</Tag>:""}{testRecord.friend&&testRecord.friend.group?"分组:"+testRecord.friend.group.name:""}</span><Avatar src={testRecord.user.avatarUrl?testRecord.user.avatarUrl:defaultImg} shape="square" size="large" />
+                    
                     {testRecord.status == "complete" ? <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2> : ""}
                     {testRecord.status == "complete" ?
                         <ul>
