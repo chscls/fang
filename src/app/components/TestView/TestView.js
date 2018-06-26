@@ -96,7 +96,7 @@ export default class TestView extends PureComponent {
                                     <li key={i} type="1">
                                        
                                         {questions[answer.index].type == 'ask' ? 
-                                            <AskView question={questions[answer.index]} answer={answer} check={true}/>
+                                            <AskView question={questions[answer.index]} answer={answer} isCheck={true}/>
                                         :""
                                         }
     

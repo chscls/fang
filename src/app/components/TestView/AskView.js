@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select,Slider, Alert, message, Button, Radio, Switch } from 'antd';
+import { Form, Input, Select, Slider, Alert, message, Button, Radio, Switch } from 'antd';
 import RichEditor from '../RichEditor/RichEditor';
 import { truncate } from 'fs';
 import { InputNumber } from 'antd';
@@ -14,10 +14,9 @@ export default class AskView extends PureComponent {
   }
 
   render() {
-    const { size, question, answer } = this.props;
-
+    const { size, question, answer,isCheck } = this.props;
     const isQuestionnaire = question.isQuestionnaire;
-  
+
     const item = question.items[0];
 
     return (
@@ -35,12 +34,12 @@ export default class AskView extends PureComponent {
         {item.content}
           })}
         </div> : ""}
-        {this.props.check?"":<Slider defaultValue={answer&&answer.goal?answer.goal:0} style={{width:600}} step={0.1} max={question.score}/>}
-          
-     {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
-          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
-         : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")
-          }
+        {this.props.isCheck==null ? "" : <Slider defaultValue={answer && answer.goal ? answer.goal : 0} style={{ width: 600 }} step={0.1} max={question.score} />}
+
+        {question.isAnalysisRich ? (question.analysis && question.analysis != "<p><br></p>" ?
+          <div dangerouslySetInnerHTML={{ __html: "答案解析:" + question.analysis }} /> : "")
+          : (question.analysis && question.analysis != "" ? <div>答案解析: {question.analysis}</div> : "")
+        }
 
       </div>
     );
