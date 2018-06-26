@@ -48,8 +48,7 @@ export default class FillView extends PureComponent {
         </div>:""}
 
 
-        {!answer.check?"":<Slider defaultValue={answer.goal} style={{width:300}} step={0.1} max={question.score}/>}
-          
+     
           
           
           {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
