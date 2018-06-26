@@ -20,6 +20,16 @@ export async function queryTestRecordDetail(params) {
 export async function findTestRecord(params) {
   return request(`${ad}/findTestRecord`, params);
 }
+export async function makeScore(params) {
+  return request(`${ad}/makeScore`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
+
 export async function removeTestRecord(params) {
   return request(`${ad}/removeTestRecord`, {
     method: 'POST',

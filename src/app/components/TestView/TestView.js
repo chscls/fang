@@ -50,11 +50,11 @@ export default class TestView extends PureComponent {
     }
     onChange = (i, score) => {
         var scores = this.state.scores;
-        scores.i = score
+        scores[i] = score
         this.setState({ scores })
     }
     makeScore=()=>{
-        this.props.makeScore(this.state.scores)
+        this.props.makeScore(this.props.testRecord.id,this.state.scores)
     }
     render() {
 

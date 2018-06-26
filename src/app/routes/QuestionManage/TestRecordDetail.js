@@ -206,8 +206,20 @@ export default class TestRecordDetail extends PureComponent {
     })
   
   }
-  makeScore=(scores)=>{
-    console.log(scores)
+  makeScore=(id,scores)=>{
+    this.props.dispatch({
+      type: 'fyTestRecord/makeScore',
+      payload: {
+        id:id,
+        scores:JSON.stringify(scores)
+      },
+      callback:()=>{
+        this.setState({viewRecord:false})
+        this.getPage(null,20);
+  
+      }
+    });
+    
   }
   onChangeScore=(e)=>{
     this.setState({sort:e.target.value})
