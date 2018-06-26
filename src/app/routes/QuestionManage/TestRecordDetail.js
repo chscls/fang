@@ -17,7 +17,8 @@ import {
   Avatar,
   Modal,
   Alert,
-  Tag
+  Tag,
+  message
 } from 'antd';
 
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -170,7 +171,25 @@ export default class TestRecordDetail extends PureComponent {
   }
   viewTheRecord=(index)=>{
   
+    if(index>=0){
     this.setState({viewRecord:true,current:this.props.fyTestRecord.detailData.list[index]})
+    }else{
+      this.props.dispatch({
+        type: 'fyTestRecord/getWait',
+        payload: {
+          code:this.state.code
+        },
+        callback:(obj)=>{
+          if(obj.id){
+         this.setState({viewRecord:true,current:obj})
+          }else{
+            message.info("所有已提交试卷都已批阅")
+            return
+          }
+        }
+      });
+    
+    }
   }
   selectOne=(code)=>{
     this.getPage(null,null,null,null,code)
@@ -240,7 +259,7 @@ export default class TestRecordDetail extends PureComponent {
 
     const extraContent = (
       <div className={styles.extraContent}>
-      <Button type="primary">批阅主观题</Button>&nbsp;&nbsp;
+      <Button type="primary"  onClick={this.viewTheRecord.bind(this,-1)}>批阅主观题</Button>&nbsp;&nbsp;
         <RadioGroup onChange={this.onChange} defaultValue="all">
           <RadioButton value="all">全部</RadioButton>
           <RadioButton value="check">等待批阅</RadioButton>

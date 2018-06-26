@@ -6,7 +6,8 @@ import {
   queryTestRecordDetail,
   queryMyTestRecord,
   queryTestRecordStatistics,
-  makeScore
+  makeScore,
+  getWait
 } from '../services/FyTestRecordMngSvc';
 import {
   confirmSign
@@ -34,6 +35,21 @@ export default {
   },
 
   effects: {
+    
+    *getWait({ payload,callback }, { call, put }) {
+      const response = yield call(getWait, payload);
+      
+      if(!response){yield put({type: 'nom'});return }
+     
+      yield put({
+        type: 'nom',
+        payload:response,
+      });
+      
+      if(callback){
+        callback(response)
+      }
+    },
     *makeScore({ payload,callback }, { call, put }) {
       const response = yield call(makeScore, payload);
       

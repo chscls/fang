@@ -12,7 +12,9 @@ export async function queryMyTestRecord(params) {
 export async function queryTestRecordStatistics(params) {
   return request(`${ad}/queryTestRecordStatistics`, params);
 }
-
+export async function getWait(params) {
+  return request(`${ad}/getWait`, params);
+}
 export async function queryTestRecordDetail(params) {
   return request(`${ad}/queryTestRecordDetail`, params);
 }
