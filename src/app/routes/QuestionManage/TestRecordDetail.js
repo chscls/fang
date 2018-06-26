@@ -409,7 +409,7 @@ export default class TestRecordDetail extends PureComponent {
           maskClosable={false}
           okText="关闭"
         >
-      <TestView testRecord={current}/>
+      <TestView testRecord={current} />
         </Modal>
         </div>
 
