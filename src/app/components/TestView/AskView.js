@@ -12,7 +12,9 @@ export default class AskView extends PureComponent {
   constructor(props) {
     super(props);
   }
-
+  onChange=(value)=> {
+   this.props.onChange(this.props.index,value);
+  }
   render() {
     const { size, question, answer,isCheck } = this.props;
     const isQuestionnaire = question.isQuestionnaire;
@@ -33,7 +35,7 @@ export default class AskView extends PureComponent {
         {answer ? <div style={{ color: `${answer.goal < question.score ? 'red' : ''}` }}>得分:{answer.goal} 分数:{question.score} 参考答案:
         {item.content}
         </div> : ""}
-        {this.props.isCheck==null ? "" : <Slider defaultValue={answer && answer.goal ? answer.goal : 0} style={{ width: 600 }} step={0.1} max={question.score} />}
+        {this.props.isCheck==null ? "" : <Slider onChange={this.onChange} defaultValue={answer && answer.goal ? answer.goal : 0} style={{ width: 600 }} step={0.1} max={question.score} />}
 
         {question.isAnalysisRich ? (question.analysis && question.analysis != "<p><br></p>" ?
           <div dangerouslySetInnerHTML={{ __html: "答案解析:" + question.analysis }} /> : "")

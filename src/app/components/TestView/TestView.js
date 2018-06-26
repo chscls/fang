@@ -21,6 +21,10 @@ import moment from 'moment';
     fyTestRecord,
 }))
 export default class TestView extends PureComponent {
+    constructor(props) {
+        super(props)
+        this.state = { scores: {} }
+    }
     componentDidMount() {
         if (this.props.match) {
 
@@ -43,6 +47,14 @@ export default class TestView extends PureComponent {
         myWin.moveTo(0, 0)
         myWin.resizeTo(screen.availWidth, screen.availHeight)
 
+    }
+    onChange = (i, score) => {
+        var scores = this.state.scores;
+        scores.i = score
+        this.setState({ scores })
+    }
+    makeScore=()=>{
+        this.props.makeScore(this.state.scores)
     }
     render() {
 
@@ -68,45 +80,45 @@ export default class TestView extends PureComponent {
                 xx = (years == 0 ? '' : years + '年') + (years == 0 && days == 0 ? '' : days + '天') + (years == 0 && days == 0 && hours == 0 ? '' : hours + '时') + (years == 0 && days == 0 && hours == 0 && mins == 0 ? '' : mins + '分') + (years == 0 && days == 0 && hours == 0 && mins == 0 && ss == 0 ? '' : ss + '秒')
             }
             return (
-                <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" :testRecord.status=="complete"?<Button type="primary" onClick={this.print.bind(this, id, "record")}>打印</Button>:""}
-                    {testRecord.status=="complete"?<h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2>:""}
-                    <ul>
-                        {answers.map((answer, i) => {
-                            if(testRecord.status=="complete"){
-                            return (
-                                <li key={i} type="1">
-                                    {questions[answer.index].type == 'single' ? (
-                                        <SingleView question={questions[answer.index]} answer={answer} />
-                                    ) : questions[answer.index].type == 'mutiply' ? (
-                                        <MutiplyView question={questions[answer.index]} answer={answer} />
-                                    ) : questions[answer.index].type == 'judge' ? (
-                                        <JudgeView question={questions[answer.index]} answer={answer} />
-                                    ) : questions[answer.index].type == 'fill' ? (
-                                        <FillView question={questions[answer.index]} answer={answer} />
-                                    ) : questions[answer.index].type == 'ask' ? (
-                                        <AskView question={questions[answer.index]} answer={answer}/>
-                                    ) : <SingleView question={questions[answer.index]} answer={answer} />
-                                    }
-
-
-                                </li>
-                            );
-                            }else{
+                <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" : testRecord.status == "complete" ? <Button type="primary" onClick={this.print.bind(this, id, "record")}>打印</Button> : ""}
+                    {testRecord.status == "complete" ? <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2> : ""}
+                    {testRecord.status == "complete" ?
+                        <ul>
+                            {answers.map((answer, i) => {
                                 return (
-                                    questions[answer.index].type == 'ask' ? 
                                     <li key={i} type="1">
-                                            <AskView question={questions[answer.index]} answer={answer} isCheck={true}/>
-                                    </li> :""
+                                        {questions[answer.index].type == 'single' ? (
+                                            <SingleView question={questions[answer.index]} answer={answer} />
+                                        ) : questions[answer.index].type == 'mutiply' ? (
+                                            <MutiplyView question={questions[answer.index]} answer={answer} />
+                                        ) : questions[answer.index].type == 'judge' ? (
+                                            <JudgeView question={questions[answer.index]} answer={answer} />
+                                        ) : questions[answer.index].type == 'fill' ? (
+                                            <FillView question={questions[answer.index]} answer={answer} />
+                                        ) : questions[answer.index].type == 'ask' ? (
+                                            <AskView question={questions[answer.index]} answer={answer} />
+                                        ) : <SingleView question={questions[answer.index]} answer={answer} />
+                                        }
+
+
+                                    </li>
                                 );
-                            }      
-                        })}
-                    </ul>
-
-
-
-                </div>
-            )
-        } else if (this.props.test||this.props.question) {
+                            })}
+                  
+                        </ul> :
+                        <div>
+                            <ul>
+                                {answers.map((answer, i) => {
+                                    return (
+                                        questions[answer.index].type == 'ask' ?
+                                            <li key={i} type="1">
+                                                <AskView index={i} onChange={this.onChange} question={questions[answer.index]} answer={answer} isCheck={true} />
+                                            </li> : ""
+                                    );
+                                })}
+                            </ul><Button type="primary" onClick={this.makeScore}>确定打分</Button></div>}
+                </div>)
+        } else if (this.props.test || this.props.question) {
             var questions = []
             if (this.props.question) {
                 questions.push(this.props.question)
@@ -115,7 +127,7 @@ export default class TestView extends PureComponent {
             }
             return (
 
-                <ul style={{backgroundColor:'#91d5ff'}}>
+                <ul style={{ backgroundColor: '#91d5ff' }}>
                     {questions.map((question, i) => {
                         return (
                             <li key={i}>

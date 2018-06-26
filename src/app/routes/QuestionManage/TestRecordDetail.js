@@ -206,6 +206,9 @@ export default class TestRecordDetail extends PureComponent {
     })
   
   }
+  makeScore=(scores)=>{
+    console.log(scores)
+  }
   onChangeScore=(e)=>{
     this.setState({sort:e.target.value})
     this.getPage(null,null,null,null,null,null,e.target.value)
@@ -403,13 +406,13 @@ export default class TestRecordDetail extends PureComponent {
          <Modal
           title={(current.friend?current.friend.realname:current.sign?current.sign:'匿名')+" "+current.title+"-做题记录"}
           visible={this.state.viewRecord}
-        
+          footer={null}
           width={1024}
           onCancel={this.cancelViewRecord}
           maskClosable={false}
-          okText={current.status=="complete"?"关闭":"确定打分"}
+          okText={"关闭"}
         >
-      <TestView testRecord={current} />
+      <TestView testRecord={current} makeScore={this.makeScore}/>
         </Modal>
         </div>
 
