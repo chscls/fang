@@ -68,7 +68,7 @@ export default class TestView extends PureComponent {
                 xx = (years == 0 ? '' : years + '年') + (years == 0 && days == 0 ? '' : days + '天') + (years == 0 && days == 0 && hours == 0 ? '' : hours + '时') + (years == 0 && days == 0 && hours == 0 && mins == 0 ? '' : mins + '分') + (years == 0 && days == 0 && hours == 0 && mins == 0 && ss == 0 ? '' : ss + '秒')
             }
             return (
-                <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" : <Button type="primary" onClick={this.print.bind(this, id, "record")}>打印</Button>}
+                <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" :testRecord.status=="complete"?<Button type="primary" onClick={this.print.bind(this, id, "record")}>打印</Button>:""}
                     <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2>
                     <ul>
                         {answers.map((answer, i) => {
@@ -83,7 +83,7 @@ export default class TestView extends PureComponent {
                                     ) : questions[answer.index].type == 'fill' ? (
                                         <FillView question={questions[answer.index]} answer={answer} />
                                     ) : questions[answer.index].type == 'ask' ? (
-                                        <AskView question={questions[answer.index]} answer={answer} />
+                                        <AskView question={questions[answer.index]} answer={answer} check={true}/>
                                     ) : <SingleView question={questions[answer.index]} answer={answer} />
                                     }
 

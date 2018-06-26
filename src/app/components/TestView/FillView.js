@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select, Alert, message, Button, Radio, Switch } from 'antd';
+import { Form, Input, Select, Alert, Slider,message, Button, Radio, Switch } from 'antd';
 import RichEditor from '../RichEditor/RichEditor';
 import { truncate } from 'fs';
 const FormItem = Form.Item;
@@ -47,6 +47,11 @@ export default class FillView extends PureComponent {
         })} 
         </div>:""}
 
+
+        {!answer.check?"":<Slider defaultValue={answer.goal} style={{width:300}} step={0.1} max={question.score}/>}
+          
+          
+          
           {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
           <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
          : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")

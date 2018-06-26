@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select, Alert, message, Button, Radio, Switch } from 'antd';
+import { Form, Input, Select,Slider, Alert, message, Button, Radio, Switch } from 'antd';
 import RichEditor from '../RichEditor/RichEditor';
 import { truncate } from 'fs';
+import { InputNumber } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
