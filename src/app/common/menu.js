@@ -52,6 +52,18 @@ const menuData = [
         name: '敏感词管理',
         path: 'sensitive-list',
         authority: 'admin',
+      },{
+        name: '版位管理',
+        path: 'adSpace-list',
+        authority: 'admin',
+      },{
+        name: '广告管理',
+        path: 'ad-list',
+        authority: 'admin',
+      },{
+        name: '目录管理',
+        path: 'catalog-list',
+        authority: 'admin',
       },
     ],
   },

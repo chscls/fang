@@ -16,6 +16,21 @@ const appRouter = [
     models: [require(`../models/fySensitive`)],
     component: () => import('../routes/SystemManage/SensitiveList'),
     authority: 'admin',
+  },{
+    path: '/system-manage/ad-list',
+    models: [require(`../models/fyAd`)],
+    component: () => import('../routes/SystemManage/AdList'),
+    authority: 'admin',
+  },{
+    path: '/system-manage/adSpace-list',
+    models: [require(`../models/fyAdSpace`)],
+    component: () => import('../routes/SystemManage/AdSpaceList'),
+    authority: 'admin',
+  },{
+    path: '/system-manage/catalog-list',
+    models: [require(`../models/fyCatalog`)],
+    component: () => import('../routes/SystemManage/CatalogList'),
+    authority: 'admin',
   },
   {
     path: '/question-manage/question-list',
