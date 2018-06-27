@@ -48,12 +48,19 @@ const CreateForm = Form.create()(props => {
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
-        {form.getFieldDecorator('word', {
-          initialValue: currentObj.word,
-          rules: [{ required: true, message: '请输入姓名...' }],
-        })(<Input placeholder="请输入姓名" />)}
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="名称">
+        {form.getFieldDecorator('name', {
+          initialValue: currentObj.name,
+          rules: [{ required: true, message: '请输入名称...' }],
+        })(<Input placeholder="请输入名称" />)}
       </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="关键字">
+        {form.getFieldDecorator('keyword', {
+          initialValue: currentObj.name,
+          rules: [{ required: true, message: '请输入关键字...' }],
+        })(<Input placeholder="请输入关键字" />)}
+      </FormItem>
+     
     </Modal>
   );
 });
@@ -193,7 +200,7 @@ export default class AdSpaceList extends PureComponent {
 
   handleAdd = fields => {
     var params = {
-      word: fields.word,
+      ...fields
     };
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
@@ -221,11 +228,15 @@ export default class AdSpaceList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="单词">
-              {getFieldDecorator('word')(<Input placeholder="请输入" />)}
+            <FormItem label="名称">
+              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-
+          <Col md={8} sm={24}>
+            <FormItem label="关键字">
+              {getFieldDecorator('keyword')(<Input placeholder="请输入" />)}
+            </FormItem>
+          </Col>
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
@@ -234,9 +245,9 @@ export default class AdSpaceList extends PureComponent {
               <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
                 重置
               </Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+             {/*  <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
                 展开 <Icon type="down" />
-              </a>
+              </a> */}
             </span>
           </Col>
         </Row>
@@ -321,8 +332,15 @@ export default class AdSpaceList extends PureComponent {
         dataIndex: 'id',
       },
       {
-        title: '单词',
-        dataIndex: 'word',
+        title: '名称',
+        dataIndex: 'name',
+      },{
+        title: '关键字',
+        dataIndex: 'keyword',
+      },{
+        title: '创建时间',
+        dataIndex: 'createTime',
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',
@@ -360,11 +378,11 @@ export default class AdSpaceList extends PureComponent {
               {selectedRows.length > 0 && (
                 <span>
                   <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
-                  <Dropdown overlay={menu}>
+                  {/* <Dropdown overlay={menu}>
                     <Button>
                       更多操作 <Icon type="down" />
                     </Button>
-                  </Dropdown>
+                  </Dropdown> */}
                 </span>
               )}
             </div>

@@ -49,7 +49,7 @@ const CreateForm = Form.create()(props => {
       onCancel={() => handleModalVisible()}
     >
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
-        {form.getFieldDecorator('word', {
+        {form.getFieldDecorator('name', {
           initialValue: currentObj.word,
           rules: [{ required: true, message: '请输入姓名...' }],
         })(<Input placeholder="请输入姓名" />)}
