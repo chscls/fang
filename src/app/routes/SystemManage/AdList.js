@@ -55,6 +55,12 @@ const CreateForm = Form.create()(props => {
           rules: [{ required: true, message: '请输入姓名...' }],
         })(<Input placeholder="请输入姓名" />)}
       </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="跳转路径">
+        {form.getFieldDecorator('url', {
+          initialValue: currentObj.url,
+          rules: [{ required: true, message: '请输入url...' }],
+        })(<Input placeholder="请输入url" />)}
+      </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="所属版位">
       {currentObj.id?currentObj.adSpace.name:space.name} <Button onClick={openAdSpace} >选择版位</Button>
       </FormItem>
@@ -229,6 +235,7 @@ export default class AdList extends PureComponent {
           message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
           this.setState({
             modalVisible: false,
+            currentObj:{}
           });
           this.getPage();
         } else {
@@ -352,8 +359,21 @@ export default class AdList extends PureComponent {
         dataIndex: 'id',
       },
       {
-        title: '单词',
-        dataIndex: 'word',
+        title: '名称',
+        dataIndex: 'name',
+      }, {
+        title: '版位',
+        
+        render: record => (
+          record.adSpace.name
+        )
+      }, {
+        title: 'url',
+        dataIndex: 'url',
+      },{
+        title: '创建时间',
+        dataIndex: 'createTime',
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',

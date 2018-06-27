@@ -217,6 +217,7 @@ export default class AdSpaceList extends PureComponent {
           message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
           this.setState({
             modalVisible: false,
+            currentObj:{}
           });
           this.getPage();
         } else {
