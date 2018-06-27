@@ -23,6 +23,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './AdList.less';
+import AdSpaceList from './AdSpaceList';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -33,7 +34,7 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible, currentObj } = props;
+  const { modalVisible, form, handleAdd, handleModalVisible, currentObj,openAdSpace,space } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -50,9 +51,12 @@ const CreateForm = Form.create()(props => {
     >
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
         {form.getFieldDecorator('name', {
-          initialValue: currentObj.word,
+          initialValue: currentObj.name,
           rules: [{ required: true, message: '请输入姓名...' }],
         })(<Input placeholder="请输入姓名" />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="所属版位">
+      {currentObj.id?currentObj.adSpace.name:space.name} <Button onClick={openAdSpace} >选择版位</Button>
       </FormItem>
     </Modal>
   );
@@ -70,12 +74,28 @@ export default class AdList extends PureComponent {
     selectedRows: [],
     formValues: {},
     currentObj: {},
+    spaceVisible:false,
+    selectQuestionIds:[],
+    space:{}
   };
 
   componentDidMount() {
     this.getPage();
   }
-
+  spaceCancel=()=>{
+    this.setState({spaceVisible:false})
+  }
+  spaceOk=()=>{
+    if(this.state.selectQuestionIds.length==0){
+      message.error("请选择一个版位")
+      return 
+    }
+    if(this.state.selectQuestionIds.length>1){
+      message.error("请只选择一个版位")
+      return 
+    }
+    this.setState({spaceVisible:false,space:this.state.selectQuestionIds[0]})
+  }
   getPage = params => {
     const pagination = this.props.fyAd.data.pagination;
 
@@ -193,8 +213,11 @@ export default class AdList extends PureComponent {
 
   handleAdd = fields => {
     var params = {
-      word: fields.word,
+      ...fields
     };
+    if(this.state.space.id){
+      params.sid = this.state.space.id;
+    }
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
     }
@@ -311,6 +334,14 @@ export default class AdList extends PureComponent {
       },
     });
   };
+  openAdSpace=()=>{
+    this.setState({spaceVisible:true})
+  }
+  handleSelect = rows => {
+    
+    this.setState({ selectQuestionIds: rows });
+  
+  };
   render() {
     const { fyAd: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -346,6 +377,8 @@ export default class AdList extends PureComponent {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
       currentObj: this.state.currentObj,
+      openAdSpace:this.openAdSpace,
+      space:this.state.space
     };
 
     return (
@@ -380,6 +413,15 @@ export default class AdList extends PureComponent {
           </div>
         </Card>
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
+        <Modal
+      title="选择版位"
+      visible={this.state.spaceVisible}
+      onOk={this.spaceOk}
+      onCancel={this.spaceCancel}
+      width={800}
+    >
+     <AdSpaceList isSelect={true} handleSelect={this.handleSelect}/>
+    </Modal>
       </PageHeaderLayout>
     );
   }
