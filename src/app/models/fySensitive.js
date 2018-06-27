@@ -1,4 +1,4 @@
-import { querySensitive, removeSensitive, addSensitive } from '../services/FySensitiveMngSvc';
+import { query, remove, add } from '../services/FySensitiveMngSvc';
 
 export default {
   namespace: 'fySensitive',
@@ -12,7 +12,7 @@ export default {
 
   effects: {
     *fetch({ payload }, { call, put }) {
-      const response = yield call(querySensitive, payload);
+      const response = yield call(query, payload);
       if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'suc',
@@ -27,7 +27,7 @@ export default {
       });
     },
     *add({ payload, callback }, { call, put }) {
-      const response = yield call(addSensitive, payload);
+      const response = yield call(add, payload);
       if(!response){yield put({type: 'nom'});return }
       if (response) {
         yield put({
@@ -41,7 +41,7 @@ export default {
       }
     },
     *remove({ payload, callback }, { call, put }) {
-      const response = yield call(removeSensitive, payload);
+      const response = yield call(remove, payload);
       if(!response){yield put({type: 'nom'});return }
       yield put({
         type: 'nom',

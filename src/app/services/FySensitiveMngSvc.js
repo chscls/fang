@@ -2,12 +2,12 @@ import { stringify } from 'qs';
 import request from '../../utils/request';
 import config from '../config';
 const ad = config.httpServer + '/services/FySensitiveMngSvc';
-export async function querySensitive(params) {
-  return request(`${ad}/querySensitive`, params);
+export async function query(params) {
+  return request(`${ad}/query`, params);
 }
 
-export async function removeSensitive(params) {
-  return request(`${ad}/removeSensitive`, {
+export async function remove(params) {
+  return request(`${ad}/remove`, {
     method: 'POST',
     body: {
       ...params,
@@ -16,8 +16,8 @@ export async function removeSensitive(params) {
   });
 }
 
-export async function addSensitive(params) {
-  return request(`${ad}/addSensitive`, {
+export async function add(params) {
+  return request(`${ad}/add`, {
     method: 'POST',
     body: {
       ...params,
