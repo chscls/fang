@@ -12,7 +12,7 @@ import {
   Button,
   Dropdown,
   Menu,
-  InputNumber,
+  Upload,
   DatePicker,
   Modal,
   message,
@@ -21,10 +21,10 @@ import {
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import config from '../../config';
 import styles from './AdList.less';
 import AdSpaceList from './AdSpaceList';
-
+const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -35,13 +35,30 @@ const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 const CreateForm = Form.create()(props => {
   const { modalVisible, form, handleAdd, handleModalVisible, currentObj,openAdSpace,space } = props;
+  var url;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
+      var x  = fieldsValue.img;
+      if(x==null||x.length==0){
+        return
+      }
+     
+       var y = x[x.length-1].response
       form.resetFields();
-      handleAdd(fieldsValue);
+      handleAdd({
+        ...fieldsValue,
+        img:y
+      });
     });
   };
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    
+    return e && e.fileList;
+  }
   return (
     <Modal
       title="新建"
@@ -64,6 +81,22 @@ const CreateForm = Form.create()(props => {
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="所属版位">
       {currentObj.id?currentObj.adSpace.name:space.name} <Button onClick={openAdSpace} >选择版位</Button>
       </FormItem>
+      <FormItem  labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="Dragger"  >
+          <div className="dropbox">
+          {form.getFieldDecorator('img', {
+              valuePropName: 'fileList',
+              getValueFromEvent: normFile,
+            })(
+              <Upload.Dragger name="file" action={uploadUrl} multiple={false} >
+                <p className="ant-upload-drag-icon">
+                  <Icon type="inbox" />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+              </Upload.Dragger>
+            )}
+          </div>
+        </FormItem>
     </Modal>
   );
 });
@@ -362,6 +395,12 @@ export default class AdList extends PureComponent {
         title: '名称',
         dataIndex: 'name',
       }, {
+        title: '图片',
+        dataIndex: 'img',
+        render:val => (
+          <img src={config.httpServer+val} style={{width:48,height:27}} />
+        )
+      }, , {
         title: '版位',
         
         render: record => (
