@@ -163,3 +163,48 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-
 export function isUrl(path) {
   return reg.test(path);
 }
+
+
+
+
+async  function testImg (width,height,callback,file,fileList){
+  var p = new Promise(function(resolve, reject){
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var data = e.target.result;
+      //加载图片获取图片真实宽度和高度
+      var image = new Image();
+      image.onload = function () {
+        var w = image.width;
+        var h= image.height;
+       if(width){
+        if( w!=width){
+          reject("")
+          callback()
+          return
+        }
+       }
+       if(height){
+        if( h!=height){
+          reject("")
+          callback()
+          return
+         }
+       }
+      };
+      image.src = data;
+    };
+    reader.readAsDataURL(file);
+    
+});
+
+  
+  return p;
+}
+
+export  function beforeUpload(width,height,callback,file,fileList){
+   console.log(height);
+  let p =  testImg(width,height,callback,file,fileList);
+ 
+ return  p;
+}

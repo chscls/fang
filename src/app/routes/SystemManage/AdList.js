@@ -24,7 +24,7 @@ import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import config from '../../config';
 import styles from './AdList.less';
 import AdSpaceList from './AdSpaceList';
-
+import {beforeUpload} from '../../../utils/utils';
 const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -34,48 +34,6 @@ const getValue = obj =>
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
-
-
-
-
-async  function testImg (file){
-  var p = new Promise(function(resolve, reject){
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      var data = e.target.result;
-      //加载图片获取图片真实宽度和高度
-      var image = new Image();
-      image.onload = function () {
-        var width = image.width;
-        var height = image.height;
-       if(width){
-        if( width>100000){
-          reject("")
-          
-         }else{
-          resolve("")
-         }
-        
-       }
-      };
-      image.src = data;
-    };
-    reader.readAsDataURL(file);
-    
-});
-
-  
-  return p;
-}
-
-function beforeUpload(file,fileList){
-   
-  let p =  testImg(file);
- 
- return  p;
-}
-
-
 const CreateForm = Form.create()(props => {
   const { modalVisible, form, handleAdd, handleModalVisible, currentObj, openAdSpace, space } = props;
   var url;
@@ -102,7 +60,6 @@ const CreateForm = Form.create()(props => {
     if (Array.isArray(e)) {
       return e;
     }
-
     return e && e.fileList;
   }
   return (
@@ -127,13 +84,15 @@ const CreateForm = Form.create()(props => {
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="所属版位">
         {currentObj.id ? currentObj.adSpace.name : space.name} <Button onClick={openAdSpace} >选择版位</Button>
       </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="Dragger"  >
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="图片"  >
         <div className="dropbox">
           {form.getFieldDecorator('img', {
             valuePropName: 'fileList',
             getValueFromEvent: normFile,
           })(
-            <Upload.Dragger name="file" action={uploadUrl} multiple={false} beforeUpload={beforeUpload} >
+            <Upload.Dragger name="file" action={uploadUrl} multiple={false} beforeUpload={beforeUpload.bind(this,100,200,()=>{ 
+             message.error("请选择100*200宽度的图片")
+            })} >
               <p className="ant-upload-drag-icon">
                 <Icon type="inbox" />
               </p>
