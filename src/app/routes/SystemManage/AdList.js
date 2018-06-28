@@ -24,7 +24,7 @@ import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import config from '../../config';
 import styles from './AdList.less';
 import AdSpaceList from './AdSpaceList';
-import {beforeUpload} from '../../../utils/utils';
+import { beforeUpload } from '../../../utils/utils';
 const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -62,6 +62,7 @@ const CreateForm = Form.create()(props => {
     }
     return e && e.fileList;
   }
+  const sp = currentObj.id ? currentObj.adSpace : space
   return (
     <Modal
       title="新建"
@@ -82,16 +83,16 @@ const CreateForm = Form.create()(props => {
         })(<Input placeholder="请输入url" />)}
       </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="所属版位">
-        {currentObj.id ? currentObj.adSpace.name : space.name} <Button onClick={openAdSpace} >选择版位</Button>
+        {sp.name} <Button onClick={openAdSpace} >选择版位</Button>
       </FormItem>
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="图片"  >
+      {sp.id ? <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label={`图片${sp.width}*${sp.height}`} >
         <div className="dropbox">
           {form.getFieldDecorator('img', {
             valuePropName: 'fileList',
             getValueFromEvent: normFile,
           })(
-            <Upload.Dragger name="file" action={uploadUrl} multiple={false} beforeUpload={beforeUpload.bind(this,100,200,()=>{ 
-             message.error("请选择100*200宽度的图片")
+            <Upload.Dragger name="file" action={uploadUrl} multiple={false} beforeUpload={beforeUpload.bind(this, sp.width, sp.height, (msg) => {
+              message.error("请选择" + msg + "宽度的图片")
             })} >
               <p className="ant-upload-drag-icon">
                 <Icon type="inbox" />
@@ -101,7 +102,7 @@ const CreateForm = Form.create()(props => {
             </Upload.Dragger>
           )}
         </div>
-      </FormItem>
+      </FormItem> : ""}
     </Modal>
   );
 });

@@ -3,11 +3,11 @@ import moment from 'moment';
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
 }
-export function toDecimal2NoZero(x) {  
-  var f = Math.round(x * 100) / 100;  
-  var s = f.toString();  
-  return s;  
-} 
+export function toDecimal2NoZero(x) {
+  var f = Math.round(x * 100) / 100;
+  var s = f.toString();
+  return s;
+}
 export function getTimeDistance(type) {
   const now = new Date();
   const oneDay = 1000 * 60 * 60 * 24;
@@ -167,8 +167,8 @@ export function isUrl(path) {
 
 
 
-async  function testImg (width,height,callback,file,fileList){
-  var p = new Promise(function(resolve, reject){
+async function testImg(width, height, callback, file, fileList) {
+  var p = new Promise(function (resolve, reject) {
     var reader = new FileReader();
     reader.onload = function (e) {
       var data = e.target.result;
@@ -176,35 +176,36 @@ async  function testImg (width,height,callback,file,fileList){
       var image = new Image();
       image.onload = function () {
         var w = image.width;
-        var h= image.height;
-       if(width){
-        if( w!=width){
-          reject("")
-          callback()
-          return
+        var h = image.height;
+        if (w && width) {
+          if (w != width) {
+            reject("")
+            callback(width + "*" + height)
+            return
+          }
         }
-       }
-       if(height){
-        if( h!=height){
-          reject("")
-          callback()
-          return
-         }
-       }
+        if (h && height) {
+          if (h != height) {
+            reject("")
+            callback(width + "*" + height)
+            return
+          }
+        }
+        resolve("")
       };
       image.src = data;
     };
     reader.readAsDataURL(file);
-    
-});
 
-  
+  });
+
+
   return p;
 }
 
-export  function beforeUpload(width,height,callback,file,fileList){
-   console.log(height);
-  let p =  testImg(width,height,callback,file,fileList);
- 
- return  p;
+export function beforeUpload(width, height, callback, file, fileList) {
+
+  let p = testImg(width, height, callback, file, fileList);
+
+  return p;
 }

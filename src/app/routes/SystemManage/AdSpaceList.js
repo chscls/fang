@@ -60,7 +60,18 @@ const CreateForm = Form.create()(props => {
           rules: [{ required: true, message: '请输入关键字...' }],
         })(<Input placeholder="请输入关键字" />)}
       </FormItem>
-     
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="宽度">
+        {form.getFieldDecorator('width', {
+          initialValue: currentObj.height||1,
+          
+        })(<InputNumber  min={1} />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="高度">
+        {form.getFieldDecorator('height', {
+          initialValue: currentObj.height||1,
+         
+        })(<InputNumber  min={1} />)}
+      </FormItem>
     </Modal>
   );
 });
@@ -343,6 +354,12 @@ export default class AdSpaceList extends PureComponent {
         title: '关键字',
         dataIndex: 'keyword',
       },{
+        title: '宽度',
+        dataIndex: 'width',
+      },{
+        title: '高度',
+        dataIndex: 'height',
+      },{
         title: '创建时间',
         dataIndex: 'createTime',
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
@@ -357,6 +374,12 @@ export default class AdSpaceList extends PureComponent {
       },{
         title: '关键字',
         dataIndex: 'keyword',
+      },{
+        title: '宽度',
+        dataIndex: 'width',
+      },{
+        title: '高度',
+        dataIndex: 'height',
       },{
         title: '创建时间',
         dataIndex: 'createTime',
