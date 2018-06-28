@@ -37,8 +37,10 @@ const CreateForm = Form.create()(props => {
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      form.resetFields();
-      handleAdd(fieldsValue);
+      
+      handleAdd(fieldsValue,()=>{
+        form.resetFields();
+      })
     });
   };
   return (
@@ -195,7 +197,7 @@ export default class GroupList extends PureComponent {
     }
   };
 
-  handleAdd = fields => {
+  handleAdd = (fields,back) => {
     var params = fields
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
@@ -210,7 +212,7 @@ export default class GroupList extends PureComponent {
             modalVisible: false,currentObj:{}
           });
           this.getPage();
-        
+          if(back) back()
       },
     });
   };

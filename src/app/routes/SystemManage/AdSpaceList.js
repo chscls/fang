@@ -37,8 +37,9 @@ const CreateForm = Form.create()(props => {
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      form.resetFields();
-      handleAdd(fieldsValue);
+      handleAdd(fieldsValue,()=>{
+        form.resetFields();
+      })
     });
   };
   return (
@@ -213,7 +214,7 @@ export default class AdSpaceList extends PureComponent {
     }
   };
 
-  handleAdd = fields => {
+  handleAdd = (fields,back) => {
     var params = {
       ...fields
     };
@@ -224,16 +225,14 @@ export default class AdSpaceList extends PureComponent {
       type: 'fyAdSpace/add',
       payload: params,
       callback: res => {
-        if (res.suc) {
+       
           message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
           this.setState({
             modalVisible: false,
             currentObj:{}
           });
           this.getPage();
-        } else {
-          this.setState({ currentObj: res.obj });
-        }
+          if(back) back()
       },
     });
   };

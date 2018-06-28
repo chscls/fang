@@ -38,8 +38,10 @@ const CreateForm = Form.create()(props => {
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      form.resetFields();
-      handleAdd(fieldsValue);
+ 
+      handleAdd(fieldsValue,()=>{
+        form.resetFields();
+      })
     });
   };
   return (
@@ -194,7 +196,7 @@ export default class FriendList extends PureComponent {
     }
   };
 
-  handleAdd = fields => {
+  handleAdd = (fields,back)=> {
     var params = {
       word: fields.word,
     };
@@ -205,15 +207,13 @@ export default class FriendList extends PureComponent {
       type: 'fyFriend/add',
       payload: params,
       callback: res => {
-        if (res.suc) {
+      
           message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
           this.setState({
             modalVisible: false,
           });
           this.getPage();
-        } else {
-          this.setState({ currentObj: res.obj });
-        }
+          if(back) back()
       },
     });
   };

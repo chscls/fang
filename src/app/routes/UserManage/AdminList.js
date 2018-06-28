@@ -38,8 +38,9 @@ const CreateForm = Form.create()(props => {
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      form.resetFields();
-      handleAdd(fieldsValue);
+      handleAdd(fieldsValue,()=>{
+        form.resetFields();
+      })
     });
   };
   return (
@@ -203,7 +204,7 @@ export default class AdminList extends PureComponent {
     }
   };
 
-  handleAdd = fields => {
+  handleAdd = (fields,back) => {
     var params = {
       realname: fields.realname,
       mobile: this.state.currentObj.id ? this.state.currentObj.mobile : fields.mobile,
@@ -221,6 +222,7 @@ export default class AdminList extends PureComponent {
           modalVisible: false,currentObj:{}
         });
         this.getPage();
+        if(back) back()
       },
     });
   };
