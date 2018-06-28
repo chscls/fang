@@ -49,10 +49,12 @@ const CreateForm = Form.create()(props => {
       }
 
       var y = x[x.length - 1].response
-      form.resetFields();
+    
       handleAdd({
         ...fieldsValue,
         img: y
+      },()=>{
+        form.resetFields();
       });
     });
   };
@@ -256,7 +258,7 @@ export default class AdList extends PureComponent {
     }
   };
 
-  handleAdd = fields => {
+  handleAdd = (fields,back) => {
     var params = {
       ...fields
     };
@@ -270,16 +272,14 @@ export default class AdList extends PureComponent {
       type: 'fyAd/add',
       payload: params,
       callback: res => {
-        if (res.suc) {
+        
           message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
           this.setState({
             modalVisible: false,
             currentObj: {}
           });
           this.getPage();
-        } else {
-          this.setState({ currentObj: res.obj });
-        }
+          if(back) back();
       },
     });
   };
@@ -406,7 +406,13 @@ export default class AdList extends PureComponent {
         render: val => (
           <img src={config.httpServer + val} style={{ width: 48, height: 27 }} />
         )
-      }, , {
+      }, {
+        title: '高宽',
+
+        render: record => (
+          record.adSpace.width+"*"+record.adSpace.height
+        )
+      }, {
         title: '版位',
 
         render: record => (
