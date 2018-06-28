@@ -24,6 +24,7 @@ import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import config from '../../config';
 import styles from './AdList.less';
 import AdSpaceList from './AdSpaceList';
+
 const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -33,22 +34,67 @@ const getValue = obj =>
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
+
+
+
+
+async  function testImg (file){
+  var p = new Promise(function(resolve, reject){
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var data = e.target.result;
+      //加载图片获取图片真实宽度和高度
+      var image = new Image();
+      image.onload = function () {
+        var width = image.width;
+        var height = image.height;
+       if(width){
+        if( width>100000){
+          reject("")
+          
+         }else{
+          resolve("")
+         }
+        
+       }
+      };
+      image.src = data;
+    };
+    reader.readAsDataURL(file);
+    
+});
+
+  
+  return p;
+}
+
+function beforeUpload(file,fileList){
+   
+  let p =  testImg(file);
+ 
+ return  p;
+}
+
+
 const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible, currentObj,openAdSpace,space } = props;
+  const { modalVisible, form, handleAdd, handleModalVisible, currentObj, openAdSpace, space } = props;
   var url;
+
+
+
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      var x  = fieldsValue.img;
-      if(x==null||x.length==0){
+      var x = fieldsValue.img;
+      if (x == null || x.length == 0) {
         return
       }
-     
-       var y = x[x.length-1].response
+
+      var y = x[x.length - 1].response
       form.resetFields();
       handleAdd({
         ...fieldsValue,
-        img:y
+        img: y
       });
     });
   };
@@ -56,7 +102,7 @@ const CreateForm = Form.create()(props => {
     if (Array.isArray(e)) {
       return e;
     }
-    
+
     return e && e.fileList;
   }
   return (
@@ -79,24 +125,24 @@ const CreateForm = Form.create()(props => {
         })(<Input placeholder="请输入url" />)}
       </FormItem>
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="所属版位">
-      {currentObj.id?currentObj.adSpace.name:space.name} <Button onClick={openAdSpace} >选择版位</Button>
+        {currentObj.id ? currentObj.adSpace.name : space.name} <Button onClick={openAdSpace} >选择版位</Button>
       </FormItem>
-      <FormItem  labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="Dragger"  >
-          <div className="dropbox">
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="Dragger"  >
+        <div className="dropbox">
           {form.getFieldDecorator('img', {
-              valuePropName: 'fileList',
-              getValueFromEvent: normFile,
-            })(
-              <Upload.Dragger name="file" action={uploadUrl} multiple={false} >
-                <p className="ant-upload-drag-icon">
-                  <Icon type="inbox" />
-                </p>
-                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-              </Upload.Dragger>
-            )}
-          </div>
-        </FormItem>
+            valuePropName: 'fileList',
+            getValueFromEvent: normFile,
+          })(
+            <Upload.Dragger name="file" action={uploadUrl} multiple={false} beforeUpload={beforeUpload} >
+              <p className="ant-upload-drag-icon">
+                <Icon type="inbox" />
+              </p>
+              <p className="ant-upload-text">Click or drag file to this area to upload</p>
+              <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+            </Upload.Dragger>
+          )}
+        </div>
+      </FormItem>
     </Modal>
   );
 });
@@ -113,27 +159,27 @@ export default class AdList extends PureComponent {
     selectedRows: [],
     formValues: {},
     currentObj: {},
-    spaceVisible:false,
-    selectQuestionIds:[],
-    space:{}
+    spaceVisible: false,
+    selectQuestionIds: [],
+    space: {}
   };
 
   componentDidMount() {
     this.getPage();
   }
-  spaceCancel=()=>{
-    this.setState({spaceVisible:false})
+  spaceCancel = () => {
+    this.setState({ spaceVisible: false })
   }
-  spaceOk=()=>{
-    if(this.state.selectQuestionIds.length==0){
+  spaceOk = () => {
+    if (this.state.selectQuestionIds.length == 0) {
       message.error("请选择一个版位")
-      return 
+      return
     }
-    if(this.state.selectQuestionIds.length>1){
+    if (this.state.selectQuestionIds.length > 1) {
       message.error("请只选择一个版位")
-      return 
+      return
     }
-    this.setState({spaceVisible:false,space:this.state.selectQuestionIds[0]})
+    this.setState({ spaceVisible: false, space: this.state.selectQuestionIds[0] })
   }
   getPage = params => {
     const pagination = this.props.fyAd.data.pagination;
@@ -226,12 +272,12 @@ export default class AdList extends PureComponent {
         formValues: values,
       });
 
-      const pagination=this.props.fyAd.data.pagination
+      const pagination = this.props.fyAd.data.pagination
       const params = {
         pageNo: pagination.current,
         pageSize: pagination.pageSize,
         ...values,
-      
+
       };
       this.getPage(params);
     });
@@ -254,7 +300,7 @@ export default class AdList extends PureComponent {
     var params = {
       ...fields
     };
-    if(this.state.space.id){
+    if (this.state.space.id) {
       params.sid = this.state.space.id;
     }
     if (this.state.currentObj.id) {
@@ -268,7 +314,7 @@ export default class AdList extends PureComponent {
           message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
           this.setState({
             modalVisible: false,
-            currentObj:{}
+            currentObj: {}
           });
           this.getPage();
         } else {
@@ -374,13 +420,13 @@ export default class AdList extends PureComponent {
       },
     });
   };
-  openAdSpace=()=>{
-    this.setState({spaceVisible:true})
+  openAdSpace = () => {
+    this.setState({ spaceVisible: true })
   }
   handleSelect = rows => {
-    
+
     this.setState({ selectQuestionIds: rows });
-  
+
   };
   render() {
     const { fyAd: { data }, loading } = this.props;
@@ -397,22 +443,22 @@ export default class AdList extends PureComponent {
       }, {
         title: '图片',
         dataIndex: 'img',
-        render:val => (
-          <img src={config.httpServer+val} style={{width:48,height:27}} />
+        render: val => (
+          <img src={config.httpServer + val} style={{ width: 48, height: 27 }} />
         )
       }, , {
         title: '版位',
-        
+
         render: record => (
           record.adSpace.name
         )
       }, {
         title: 'url',
         dataIndex: 'url',
-      },{
+      }, {
         title: '创建时间',
         dataIndex: 'createTime',
-        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
+        render: val => moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',
@@ -436,8 +482,8 @@ export default class AdList extends PureComponent {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
       currentObj: this.state.currentObj,
-      openAdSpace:this.openAdSpace,
-      space:this.state.space
+      openAdSpace: this.openAdSpace,
+      space: this.state.space
     };
 
     return (
@@ -473,14 +519,14 @@ export default class AdList extends PureComponent {
         </Card>
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
         <Modal
-      title="选择版位"
-      visible={this.state.spaceVisible}
-      onOk={this.spaceOk}
-      onCancel={this.spaceCancel}
-      width={800}
-    >
-     <AdSpaceList isSelect={true} handleSelect={this.handleSelect}/>
-    </Modal>
+          title="选择版位"
+          visible={this.state.spaceVisible}
+          onOk={this.spaceOk}
+          onCancel={this.spaceCancel}
+          width={800}
+        >
+          <AdSpaceList isSelect={true} handleSelect={this.handleSelect} />
+        </Modal>
       </PageHeaderLayout>
     );
   }
