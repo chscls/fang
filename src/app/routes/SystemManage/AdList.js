@@ -25,6 +25,7 @@ import config from '../../config';
 import styles from './AdList.less';
 import AdSpaceList from './AdSpaceList';
 import { beforeUpload } from '../../../utils/utils';
+import { allSettled } from 'rsvp';
 
 const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
 const FormItem = Form.Item;
@@ -35,12 +36,14 @@ const getValue = obj =>
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
+
+
 const CreateForm = Form.create()(props => {
   const { modalVisible, form, handleAdd, handleModalVisible, currentObj, openAdSpace, space } = props;
   var url;
 
 
-
+ 
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -116,22 +119,28 @@ const CreateForm = Form.create()(props => {
 }))
 @Form.create()
 export default class AdList extends PureComponent {
-  state = {
-    modalVisible: false,
-    expandForm: false,
-    selectedRows: [],
-    formValues: {},
-    currentObj: {},
-    spaceVisible: false,
-    selectQuestionIds: [],
-    space: {}
-  };
-
+  constructor(props){
+    super(props)
+    this.state = {
+      modalVisible: false,
+      expandForm: false,
+      selectedRows: [],
+      formValues: {},
+      currentObj: {},
+      spaceVisible: false,
+      selectQuestionIds: [],
+      space: {}
+    };
+    window.say=()=>{
+      alert("xxxxxxxxxx")
+    }
+  }
+  
+  
   componentDidMount() {
     this.getPage();
-    window.addEventListener("abc", function(){
-     alert("xxxxxxxxx")
-  });
+   
+    
   }
   spaceCancel = () => {
     this.setState({ spaceVisible: false })
@@ -487,7 +496,7 @@ export default class AdList extends PureComponent {
               onChange={this.handleStandardTableChange}
             />
           </div>
-          <iframe src="/text.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} frameborder="0"></iframe>
+          <iframe src="/text.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} ></iframe>
 
         </Card>
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
