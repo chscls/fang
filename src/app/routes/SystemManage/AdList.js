@@ -25,6 +25,7 @@ import config from '../../config';
 import styles from './AdList.less';
 import AdSpaceList from './AdSpaceList';
 import { beforeUpload } from '../../../utils/utils';
+
 const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -128,6 +129,9 @@ export default class AdList extends PureComponent {
 
   componentDidMount() {
     this.getPage();
+    window.addEventListener("abc", function(){
+     alert("xxxxxxxxx")
+  });
   }
   spaceCancel = () => {
     this.setState({ spaceVisible: false })
@@ -388,6 +392,7 @@ export default class AdList extends PureComponent {
     this.setState({ selectQuestionIds: rows });
 
   };
+
   render() {
     const { fyAd: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -482,6 +487,8 @@ export default class AdList extends PureComponent {
               onChange={this.handleStandardTableChange}
             />
           </div>
+          <iframe src="/text.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} frameborder="0"></iframe>
+
         </Card>
         <CreateForm {...parentMethods} modalVisible={modalVisible} />
         <Modal

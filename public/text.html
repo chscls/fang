@@ -34,6 +34,7 @@ code span {
 </head>
 <body>
 <div id="body">
+  <a onclick="handle()">1231313</a>
 
 <a href="http://github.com/laughinghan/mathquill"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub!"></a>
 
@@ -64,6 +65,21 @@ code span {
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script type="text/javascript" src="mathquill.js"></script>
 <script type="text/javascript">
+
+
+
+function handle(){
+  var eelement = document.createEvent('Event');
+// 定义事件类型
+element.initEvent('customEvent', true, true);
+
+  element.dispatchEvent()
+
+}
+
+
+
+
 MQ = MathQuill.getInterface(MathQuill.getInterface.MAX);
 //on document ready, mathquill-ify all `<tag class="mathquill-*">latex</tag>`
 //elements according to their CSS class.
