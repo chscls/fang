@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import moment from 'moment';
+import config from '../../config';
 import {
   Tooltip,
   Row,
@@ -332,9 +333,9 @@ export default class QuestionList extends PureComponent {
             
           >
            <a> {record.isRich ? (
-              <div  dangerouslySetInnerHTML={{ __html: record.title }} />
+              <div  dangerouslySetInnerHTML={{ __html: record.title.replace("<img src=\"","<img src=\""+config.httpServer)  }} />
             ) : (
-              <Ellipsis lines={3}>{record.title}</Ellipsis>
+              <Ellipsis lines={3}>{record.title.replace("<img src=\"","<img src=\""+config.httpServer)}</Ellipsis>
             )}</a>
           </Tooltip>
         ),

@@ -11,7 +11,7 @@ import Ask from '../../../components/QuestionItem/Ask';
 import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 import { createTrue } from 'typescript';
-
+import config from '../../../config';
 const formItemLayout = {
   labelCol: {
     span: 1,
@@ -160,7 +160,7 @@ class QuestionStep2 extends React.PureComponent {
           <Form layout="horizontal" className={styles.stepForm} style={{ maxWidth: 1000 }}>
             <Form.Item {...formItemLayout} label="标题">
               {this.state.isRich ? (
-                <div dangerouslySetInnerHTML={{ __html: this.state.title }} />
+                <div dangerouslySetInnerHTML={{ __html: this.state.title.replace("<img src=\"","<img src=\""+config.httpServer) }} />
               ) : (
                 <div> {this.state.title}</div>
               )}
