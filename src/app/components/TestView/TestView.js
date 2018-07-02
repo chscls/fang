@@ -36,7 +36,7 @@ export default class TestView extends PureComponent {
                 callback: () => {
                     setTimeout(()=>{
                         window.print()
-                    },5000)
+                    },1000)
                    
                 }
             })
