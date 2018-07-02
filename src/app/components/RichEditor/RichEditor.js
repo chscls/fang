@@ -14,7 +14,7 @@ const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
  * Custom toolbar component including insertStar button and dropdowns
  */
 function beforeUpload(file) {
-  const isJPG = file.type === 'image/jpeg'||'image/png';
+  const isJPG = file.type === 'image/jpeg' || 'image/png';
   if (!isJPG) {
     message.error('Y请上传jpg或者png格式图片!');
   }
@@ -33,18 +33,18 @@ export default class RichEditor extends PureComponent {
     this.modules = {
       toolbar: {
         container: '#' + this.id,
-        handlers: {},
+        handlers: { "insertStar": insertStar },
       },
     };
 
     this.state = {
-      editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue.replace("<img src=\"","<img src=\""+config.httpServer),
+      editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue.replace("<img src=\"", "<img src=\"" + config.httpServer),
     };
   }
   handleChange(content) {
     this.setState({ editorHtml: content });
     if (this.props.onChangeValue) {
-      this.props.onChangeValue(content.replace(config.httpServer,""));
+      this.props.onChangeValue(content.replace(config.httpServer, ""));
     }
   }
 
@@ -52,29 +52,35 @@ export default class RichEditor extends PureComponent {
     const props = {
       name: 'file',
       action: uploadUrl,
-      showUploadList:false,
-      beforeUpload:beforeUpload,
+      showUploadList: false,
+      beforeUpload: beforeUpload,
       headers: {
         authorization: 'authorization-text',
       },
-      onChange:(info)=> {
+      onChange: (info) => {
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
           message.success(`${info.file.name} file uploaded successfully`);
-    
-          var x =  '<img src=\''+config.httpServer+info.file.response+'\'/>'
-            this.setState({ editorHtml: this.state.editorHtml+x})
-           
-          
-          
+
+          var x = '<img src=\'' + config.httpServer + info.file.response + '\'/>'
+
+          const quill = this.refs.quill.getEditor()
+          const cursorPosition = quill.selection.savedRange.index
+          var editorHtml = this.state.editorHtml
+          editorHtml = editorHtml.substring(0, cursorPosition) + x + editorHtml.substring(cursorPosition, editorHtml.length)
+
+
+          this.setState({ editorHtml })
+          quill.setSelection(cursorPosition + 1)
+
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
         }
       },
     };
-    
+
     return (
       <div className={this.props.className} style={this.props.style}>
         <div id={this.id} style={{ display: "flex" }}>
@@ -88,7 +94,8 @@ export default class RichEditor extends PureComponent {
 
           <div> <button title="斜体" className="ql-italic" /></div>
           <div> <button title="下划线" className="ql-underline" /></div>
-          <Upload style={{ cursor:"pointer" }}{...props}>
+         
+          <Upload style={{ cursor: "pointer" }}{...props}>
             <Icon type="picture" />
           </Upload>
 
@@ -106,7 +113,7 @@ export default class RichEditor extends PureComponent {
           </button></div>
         </div>
 
-        <ReactQuill
+        <ReactQuill ref="quill"
           style={{ height: '200px' }}
           value={this.state.editorHtml}
           onChange={this.handleChange.bind(this)}
