@@ -363,6 +363,9 @@ export default class QuestionList extends PureComponent {
           {
             text: '问答',
             value: 'ask',
+          },{
+            text: '综合',
+            value: 'synthesis',
           },
         ],
        
@@ -374,7 +377,7 @@ export default class QuestionList extends PureComponent {
                 ? '单选'
                 : val == 'mutiply'
                   ? '多选'
-                  : val == 'judge' ? '判断' : val == 'fill' ? '填空' : '问答'}
+                  : val == 'judge' ? '判断' : val == 'fill' ? '填空' :val == 'ask' ? '问答':'综合'}
             </span>
           );
         },

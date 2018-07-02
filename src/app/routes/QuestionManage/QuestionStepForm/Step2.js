@@ -12,6 +12,7 @@ import styles from './style.less';
 import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
 import { createTrue } from 'typescript';
 import config from '../../../config';
+import Synthesis from '../../../components/QuestionItem/Synthesis';
 const formItemLayout = {
   labelCol: {
     span: 1,
@@ -32,6 +33,7 @@ class QuestionStep2 extends React.PureComponent {
       title: '',
       isReady: false,
       items: [],
+      subQuestionConfigs:[],
       type: 'single',
       orgItems:[],
     };
@@ -87,7 +89,10 @@ class QuestionStep2 extends React.PureComponent {
                 items.push({ content: '错', isSolution: false, isRich: false });
               }
             }
-          } else {
+          }else if (question.type == 'synthesis') {
+            
+            
+          }else {
             if (items.length == 0) {
               items.push({ content: '', isSolution: false, isRich: false });
             }
@@ -125,6 +130,7 @@ class QuestionStep2 extends React.PureComponent {
     const { form, data, dispatch, submitting,fyQuestion:{question} } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const items = this.state.items;
+    const subQuestionConfigs = this.state.subQuestionConfigs ;
     const isQuestionnaire = this.state.isQuestionnaire;
     const type = this.state.type;
 
@@ -168,7 +174,7 @@ class QuestionStep2 extends React.PureComponent {
 
             <Form.Item style={{ maxWidth: 1000 }} {...formItemLayout} label="选项">
               {getFieldDecorator('options', {
-                initialValue: { items: items, isQuestionnaire: isQuestionnaire },
+                initialValue: { items: items, isQuestionnaire: isQuestionnaire,subQuestionConfigs:subQuestionConfigs  },
               })(
                 type == 'single' ? (
                   <Single />
@@ -180,8 +186,10 @@ class QuestionStep2 extends React.PureComponent {
                   <Fill />
                 ) : type == 'ask' ? (
                   <Ask />
-                ) : (
+                ) : type == 'single' ? (
                   <Single />
+                ) :(
+                  <Synthesis/>
                 )
               )}
             </Form.Item>
