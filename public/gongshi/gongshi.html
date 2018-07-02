@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link type="text/css" rel="stylesheet" href="ext-theme-neptune-all.css" />
+	<link type="text/css" rel="stylesheet" href="clouddisk.css" />
+	<link type="text/css" rel="stylesheet" href="mathquill.css" />
+	<style type="text/css">
+		.struct-pupop {
+			border: 1px solid #c4c4c4;
+			width: 310px;
+			height: 204px;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			position: absolute;
+			top: 73px;
+			background: #fff;
+			z-index: 9
+		}
+
+		.struct-pupop li {
+			background-image: url(formula-symbol-all.png);
+			background-repeat: no-repeat;
+			position: relative;
+			list-style: none;
+			float: left;
+		}
+
+		.struct-pupop div {
+			clear: both
+		}
+
+		.struct-pupop span {
+			font-family: '宋体';
+			color: #666;
+			font-size: 12px;
+			height: 24px;
+			line-height: 24px;
+			background-color: #f5f5f5;
+			padding-left: 7px;
+			margin-bottom: 8px;
+			display: block;
+		}
+
+		.struct-pupop ul {
+			padding-left: 7px
+		}
+
+		.struct-pupop li {
+			margin-left: 7px;
+			margin-bottom: 8px
+		}
+
+		.struct-pupop li a {
+			display: inline-block;
+			width: 59px;
+			height: 66px;
+			border: 1px solid #cdcdcd
+		}
+
+		.struct-pupop li a:hover {
+			border: 1px solid #b2d2e6
+		}
+
+		.ans-formula-panel {
+			margin: 20px 10px 10px 10px;
+		}
+
+		.ans-formula-src-textarea {
+			padding: 0 !important;
+		}
+
+		.ans-formula-wysiwyg-textarea .mathquill-editable,
+		.ans-formula-src-textarea textarea {
+			border: 1px solid #CCCCCC;
+			height: 280px;
+			margin-top: 25px;
+			width: 100%;
+		}
+
+		.ans-formula-wysiwyg-textarea .mathquill-editable {
+			height: 123px;
+		}
+
+		.ans-formula-wysiwyg-textarea .mathquill-editable.hasCursor {
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
+
+		.symbol-list {
+			margin: 5px;
+			padding: 0;
+		}
+
+		.symbol-list li {
+			float: left;
+			background-image: url(formulaSybom.png);
+			width: 24px;
+			height: 24px;
+			list-style: none;
+			margin: 2px;
+			cursor: pointer;
+		}
+
+		.ans-symbol-ui {
+			width: 45px;
+			height: 73px;
+			background: url(formula-struct-bg.png);
+			position: relative;
+			float: left;
+			cursor: pointer;
+		}
+
+		.ans-symbol-ui.fraction {}
+
+		.ans-symbol-ui.fraction.ans-over {
+			background-position: 0 -73px
+		}
+
+		.ans-symbol-ui.fraction-pressed {
+			background-position: 0 -146px !important
+		}
+
+		.ans-symbol-ui.upplower {
+			background-position: -45px 0
+		}
+
+		.ans-symbol-ui.upplower.ans-over {
+			background-position: -45px -73px
+		}
+
+		.ans-symbol-ui.upplower-pressed {
+			background-position: -45px -146px !important
+		}
+
+		.ans-symbol-ui.radical {
+			background-position: -90px 0
+		}
+
+		.ans-symbol-ui.radical.ans-over {
+			background-position: -90px -73px
+		}
+
+		.ans-symbol-ui.radical-pressed {
+			background-position: -90px -146px !important
+		}
+
+		.ans-symbol-ui.integral {
+			background-position: -135px 0
+		}
+
+		.ans-symbol-ui.integral.ans-over {
+			background-position: -135px -73px
+		}
+
+		.ans-symbol-ui.integral-pressed {
+			background-position: -135px -146px !important
+		}
+
+		.ans-symbol-ui.boperator {
+			background-position: -180px 0;
+			width: 67px
+		}
+
+		.ans-symbol-ui.boperator.ans-over {
+			background-position: -180px -73px
+		}
+
+		.ans-symbol-ui.boperator-pressed {
+			background-position: -180px -146px !important
+		}
+
+		.ans-symbol-ui.brackets {
+			background-position: -247px 0
+		}
+
+		.ans-symbol-ui.brackets.ans-over {
+			background-position: -247px -73px
+		}
+
+		.ans-symbol-ui.brackets-pressed {
+			background-position: -247px -146px !important
+		}
+
+		.ans-symbol-ui.fun {
+			background-position: -292px 0
+		}
+
+		.ans-symbol-ui.fun.ans-over {
+			background-position: -292px -73px
+		}
+
+		.ans-symbol-ui.fun-pressed {
+			background-position: -292px -146px !important
+		}
+
+		.ans-symbol-ui.derivative {
+			background-position: -337px 0;
+			width: 55px;
+		}
+
+		.ans-symbol-ui.derivative.ans-over {
+			background-position: -337px -73px
+		}
+
+		.ans-symbol-ui.derivative-pressed {
+			background-position: -337px -146px !important
+		}
+
+		.ans-symbol-ui.limit {
+			background-position: -392px 0;
+			width: 67px;
+		}
+
+		.ans-symbol-ui.limit.ans-over {
+			background-position: -392px -73px
+		}
+
+		.ans-symbol-ui.limit-pressed {
+			background-position: -392px -146px !important
+		}
+
+		.ans-symbol-ui.operator {
+			background-position: -459px 0
+		}
+
+		.ans-symbol-ui.operator.ans-over {
+			background-position: -459px -73px
+		}
+
+		.ans-symbol-ui.operator-pressed {
+			background-position: -459px -146px !important
+		}
+
+		.ans-symbol-ui.matrix {
+			background-position: -504px 0
+		}
+
+		.ans-symbol-ui.matrix.ans-over {
+			background-position: -504px -73px
+		}
+
+		.ans-symbol-ui.matrix-pressed {
+			background-position: -504px -146px !important
+		}
+
+		.hidden {
+			display: none;
+		}
+	</style>
+	<!--   <script type="text/javascript" src="/r/cms/www/7/static/js/domain.js?v=20141027"></script> 
+  <script type="text/javascript" src="/r/cms/www/7/bjq/ueditor/dialogs/internal.js?v=20141027"></script>  -->
+	<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="mathquill.js"></script>
+	<script type="text/javascript" src="all-classes.js?v=20161222"></script>
+	<script type="text/javascript">
+		Ext.onReady(function () {
+			panel = Ext.create('ananas.FormulaPanel', {
+				renderTo: Ext.getBody()
+			});
+			var btns = Ext.query('#btn');
+
+			Ext.fly(btns[0]).on('click', function () {
+				panel.fetchStatus('gongshi.do',function (file) {
+					if (file) {
+						console.log(file)
+						/* editor.execCommand('inserthtml', '<img class="ans-formula-moudle" data=\'' + Ext.encode(file) + '\' src="/latex/' + file.id + '.action"/>');
+						dialog.close(false); */
+					}
+				});
+			}, btns[0]); 
+
+			/* 	dialog.onok = function(){
+					
+				} */
+
+			/* 	var srcImg = editor.selection.getRange().getClosedNode();
+				
+				if(srcImg){
+					var data = srcImg.getAttribute('data');
+				
+					if(data){
+						data = Ext.decode(data);
+						panel.latex(data.formula);
+					}
+				}
+				 */
+			var list = Ext.query('*[data-latex]');
+
+			for (var i = 0, len = list.length; i < len; i++) {
+				Ext.fly(list[i]).on('click', function () {
+					var latex = this.getAttribute('data-latex');
+					panel.cmd(latex);
+				}, list[i]);
+			}
+		});
+	</script>
+</head>
+
+<body>
+	<div style="margin:10px 20px 0 20px"></div>
+	<button id="btn">确定</button>
+</body>
+
+</html>

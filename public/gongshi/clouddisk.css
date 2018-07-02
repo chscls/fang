@@ -1,0 +1,70 @@
+.ans-tools-panel{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none;font-family:Arial,Helvetica,sans-serif;margin:15px;}
+.ans-tools-menu{position:absolute;height:42px;width:500px;z-index:9;}
+.ans-tab{background:none repeat scroll 0 0 #EEE;border:1px solid #CCC;color:#656565;cursor:pointer;font-size:12px;height:34px;line-height:34px;margin-right:10px!important;text-align:center;width:118px;-webkit-border-radius:3px 3px 0 0;-moz-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;}
+.ans-tools-menu.x-box-layout-ct,.ans-tools-menu .x-box-inner{overflow:visible;}
+.ans-tab-activate{-moz-border-bottom-colors:none;-moz-border-left-colors:none;-moz-border-right-colors:none;-moz-border-top-colors:none;background:#fff;border:1px #ccc solid;border-bottom:0 none;color:#2B579A;cursor:default;z-index:9;top:1px!important;}
+.ans-tab-panel{background:#fff;border-top:#dfe0e1 1px solid;margin-top:35px;}
+.ans-cloud-upload{overflow:hidden;text-align:center;}
+.ans-cloud-item-selected{background:#e4f4ff!important;font-weight:700;}
+.ans-attach{border-bottom:1px #f1f1f1 solid;cursor:pointer;}
+.ans-attach-over{background:#f7fbfe;text-decoration:underline;}
+.ans-attach>div,.cloud-title{background:url(word-icons.png) no-repeat;background-position:0 -1152px;height:27px;line-height:27px;overflow:hidden;padding-left:46px;margin-left:15px;}
+.ans-attach-ppt,.ans-attach-pptx{background-position:0 -54px!important;}
+.ans-attach-doc,.ans-attach-docx{background-position:0 0!important;}
+.ans-attach-pdf{background-position:0 -27px!important;}
+.ans-attach-avi{background-position:0 -81px!important;}
+.ans-attach-flv{background-position:0 -108px!important;}
+.ans-attach-mkv{background-position:0 -135px!important;}
+.ans-attach-mov{background-position:0 -162px!important;}
+.ans-attach-mp4{background-position:0 -189px!important;}
+.ans-attach-mpeg{background-position:0 -216px!important;}
+.ans-attach-mpg{background-position:0 -243px!important;}
+.ans-attach-rmvb{background-position:0 -270px!important;}
+.ans-attach-wmv{background-position:0 -297px!important;}
+.ans-attach-3gp{background-position:0 -324px!important;}
+.ans-attach-asf{background-position:0 -675px!important;}
+.ans-attach-vob{background-position:0 -378px!important;}
+.ans-attach-f4v{background-position:0 -405px!important;}
+.ans-attach-ape{background-position:0 -432px!important;}
+.ans-attach-mp3{background-position:0 -459px!important;}
+.ans-attach-wav{background-position:0 -486px!important;}
+.ans-attach-wv{background-position:0 -513px!important;}
+.ans-attach-wma{background-position:0 -540px!important;}
+.ans-attach-aac{background-position:0 -567px!important;}
+.ans-attach-ac3{background-position:0 -594px!important;}
+.ans-attach-aif{background-position:0 -621px!important;}
+.ans-attach-arm{background-position:0 -648px!important;}
+.ans-attach-flac{background-position:0 -702px!important;}
+.ans-attach-m4a{background-position:0 -729px!important;}
+.ans-attach-m4r{background-position:0 -756px!important;}
+.ans-attach-mka{background-position:0 -783px!important;}
+.ans-attach-mid{background-position:0 -810px!important;}
+.ans-attach-mmf{background-position:0 -837px!important;}
+.ans-attach-mpa{background-position:0 -864px!important;}
+.ans-attach-mpc{background-position:0 -891px!important;}
+.ans-attach-ogg{background-position:0 -918px!important;}
+.ans-attach-pcm{background-position:0 -945px!important;}
+.ans-attach-ra{background-position:0 -972px!important;}
+.ans-attach-tta{background-position:0 -999px!important;}
+.ans-attach-voc{background-position:0 -1026px!important;}
+.ans-attach-dir{background-position:0 -1125px!important;}
+.ans-attach-back{background-position:0 -1113px!important;height:12px!important;line-height:12px!important;}
+.ans-attach-upload{background-position:0 -1179px!important;color:red;}
+.ans-attach-download{background-position:0 -1179px!important;color:red;}
+.cloud-progress .cloud-progress-holder{background-color:#eee;margin:15px auto 6px;}
+.cloud-progress .cloud-progress-hl{background-color:#66b3e1;height:20px;width:0;transition:width 200ms;-webkit-transition:width 200ms;-webkit-border-radius:3px 3px;-moz-border-radius:3px;border-radius:3px 3px;}
+.finish.cloud-progress .cloud-progress-hl{background-color:#43da43!important;}
+.error.cloud-progress .cloud-progress-hl{background-color:red!important;}
+.cloud-swfupload{margin-top:200px;}
+.ans-cloud-upload-info{color:#f96;}
+.cloud-progress{margin-top:90px;}
+.cloud-progress-ct{width:420px;color:#999;margin:0 auto;}
+.cloud-title{display:inline-block;font-size:14px;color:#000;float: left;margin-top: 8px;}
+.cloud-progress-ct .percent{float:left;margin-left:30px;}
+.cloud-progress-ct .speed{float:left;}
+.cloud-progress-ct .size{float:right;}
+.cloud-reset{display:none;background:url(editor-icons.png) no-repeat 0 -323px!important;color:#333!important;height:33px;width:85px;font-size:14px;line-height:33px;text-align:center;cursor:pointer!important;display:inline-block;float:right;margin:40px -50px 0 0;}
+.ans-list-item{border:#fff 3px solid;cursor:pointer;height:24px;line-height:24px;padding:5px 10px 5px 25px;}
+.ans-list-item-over{background-color:#fff5d4;}
+.ans-list-item-selected{border:#facf41 3px solid;}
+.ans-list-index{margin-left:-20px;}

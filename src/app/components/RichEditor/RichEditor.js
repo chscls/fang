@@ -138,7 +138,7 @@ export default class RichEditor extends PureComponent {
           maskClosable={false}
           okText="关闭"
         >
-          <iframe src="/text.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} ></iframe>
+          <iframe src="/gongshi/gongshi.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} ></iframe>
         </Modal>
       </div>
     );
