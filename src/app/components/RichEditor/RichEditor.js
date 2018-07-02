@@ -33,7 +33,7 @@ export default class RichEditor extends PureComponent {
     this.modules = {
       toolbar: {
         container: '#' + this.id,
-        handlers: { "insertStar": insertStar },
+        handlers: {},
       },
     };
 
