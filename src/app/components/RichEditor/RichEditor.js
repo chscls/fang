@@ -46,10 +46,10 @@ export default class RichEditor extends PureComponent {
       const quill = this.refs.quill.getEditor()
       
       const cursorPosition = quill.selection.savedRange.index
-      console.log(cursorPosition)
+    
       var editorHtml = this.state.editorHtml
       var x = '<img src=\'' + config.httpServer +'/latex?code='+encodeURI(gs)+'\'/>'
-      editorHtml = editorHtml.substring(0, cursorPosition) + x + editorHtml.substring(cursorPosition, editorHtml.length)
+      editorHtml = editorHtml.substring(3,3+ cursorPosition) + x + editorHtml.substring(3+cursorPosition, editorHtml.length)
       this.setState({ editorHtml,showGongshi:false })
       quill.setSelection(cursorPosition + 1)
     
@@ -90,7 +90,7 @@ export default class RichEditor extends PureComponent {
           const quill = this.refs.quill.getEditor()
           const cursorPosition = quill.selection.savedRange.index
           var editorHtml = this.state.editorHtml
-          editorHtml = editorHtml.substring(0, cursorPosition) + x + editorHtml.substring(cursorPosition, editorHtml.length)
+          editorHtml = editorHtml.substring(3, 3+cursorPosition) + x + editorHtml.substring(3+cursorPosition, editorHtml.length)
 
 
           this.setState({ editorHtml })
