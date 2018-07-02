@@ -496,7 +496,7 @@ export default class AdList extends PureComponent {
               onChange={this.handleStandardTableChange}
             />
           </div>
-          <iframe src="/text.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} ></iframe>
+        
 
         </Card>
         <CreateForm {...parentMethods} modalVisible={modalVisible} />

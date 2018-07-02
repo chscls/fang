@@ -38,8 +38,15 @@ export default class RichEditor extends PureComponent {
     };
 
     this.state = {
+      showGongshi:false,
       editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue.replace("<img src=\"", "<img src=\"" + config.httpServer),
     };
+  }
+  showGongshi=()=>{
+    this.setState({showGongshi:true})
+  }
+  cancelGongshi=()=>{
+    this.setState({showGongshi:false})
   }
   handleChange(content) {
     this.setState({ editorHtml: content });
@@ -108,7 +115,7 @@ export default class RichEditor extends PureComponent {
             <option value="#d0d1d2" />
             <option selected />
           </select></div>
-          <div><button title="公式">
+          <div><button title="公式" onClick={this.showGongshi}>
             <Icon type="api" />
           </button></div>
         </div>
@@ -120,6 +127,19 @@ export default class RichEditor extends PureComponent {
           placeholder={this.props.placeholder}
           modules={this.modules}
         />
+
+        
+        <Modal
+          title={"历史版本列表"}
+          visible={this.state.showGongshi}
+          footer={null}
+          width={1024}
+          onCancel={this.cancelGongshi}
+          maskClosable={false}
+          okText="关闭"
+        >
+          <iframe src="/text.html"  style={{width:'100%',minHeight:'400px',border:'solid 1px #0062d5'}} ></iframe>
+        </Modal>
       </div>
     );
   }
