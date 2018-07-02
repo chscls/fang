@@ -333,9 +333,9 @@ export default class QuestionList extends PureComponent {
             
           >
            <a> {record.isRich ? (
-              <div  dangerouslySetInnerHTML={{ __html: record.title.replace("<img src=\"","<img src=\""+config.httpServer)  }} />
+              <div  dangerouslySetInnerHTML={{ __html: record.title  }} />
             ) : (
-              <Ellipsis lines={3}>{record.title.replace("<img src=\"","<img src=\""+config.httpServer)}</Ellipsis>
+              <Ellipsis lines={3}>{record.title}</Ellipsis>
             )}</a>
           </Tooltip>
         ),

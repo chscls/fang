@@ -102,7 +102,7 @@ export default class Card extends React.PureComponent {
           onChange={this.props.handle}
         />&nbsp;&nbsp;{this.props.index+1}.&nbsp;&nbsp;
         {question.isRich ? (
-          <div dangerouslySetInnerHTML={{ __html: question.title.replace("<img src=\"","<img src=\""+config.httpServer)  }} />
+          <div dangerouslySetInnerHTML={{ __html: question.title  }} />
         ) : (
         question.title
         )}

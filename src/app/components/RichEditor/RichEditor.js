@@ -39,7 +39,7 @@ export default class RichEditor extends PureComponent {
 
     this.state = {
       showGongshi:false,
-      editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue.replace("<img src=\"", "<img src=\"" + config.httpServer),
+      editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue,
     };
     window.latex=(gs)=>{
      

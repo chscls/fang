@@ -46,7 +46,7 @@ export default class MutiplyView extends PureComponent {
     return (
       <div style={this.props.style}>
         {question.isRich ? (
-          <div dangerouslySetInnerHTML={{ __html: question.title.replace("<img src=\"","<img src=\""+config.httpServer) }} />
+          <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
           <div> {question.title}</div>
         )}
@@ -57,7 +57,7 @@ export default class MutiplyView extends PureComponent {
                 <div key={i}>
                   {String.fromCharCode(i + 65)}、{' '}
                   <Checkbox value={r} key={r} disabled={defaultValue.in_array(r)} />&nbsp;&nbsp;
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html:items[r].content.replace("<img src=\"","<img src=\""+config.httpServer) }} /> : items[r].content}
+                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html:items[r].content }} /> : items[r].content}
                 </div>
               );
             })}
@@ -68,7 +68,7 @@ export default class MutiplyView extends PureComponent {
               <div key={i}>
                 {String.fromCharCode(i + 65)}、{' '}
                 <Checkbox value={i} key={i} disabled={defaultValue.in_array(i)} />&nbsp;&nbsp;
-                {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content.replace("<img src=\"","<img src=\""+config.httpServer) }} /> : r.content}
+                {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
               </div>
             );
           })}
@@ -80,7 +80,7 @@ export default class MutiplyView extends PureComponent {
               return (
                 <div key={i}>
                   {String.fromCharCode(i + 65)}、
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content.replace("<img src=\"","<img src=\""+config.httpServer) }} /> : r.content}
+                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
                 </div>
               );
             })}
@@ -94,7 +94,7 @@ export default class MutiplyView extends PureComponent {
         </div>:""}
 
           {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
-          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis.replace("<img src=\"","<img src=\""+config.httpServer) }} />:"")
+          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
          : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")
           }
       </div>

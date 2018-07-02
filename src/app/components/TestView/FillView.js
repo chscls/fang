@@ -21,7 +21,7 @@ export default class FillView extends PureComponent {
     return (
       <div style={this.props.style}>
         {question.isRich ? (
-          <div dangerouslySetInnerHTML={{ __html: question.title.replace("<img src=\"","<img src=\""+config.httpServer) }} />
+          <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
           <div> {question.title}</div>
         )}
@@ -52,7 +52,7 @@ export default class FillView extends PureComponent {
           
           
           {question.isAnalysisRich ? (question.analysis&&question.analysis!="<p><br></p>"?
-          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis.replace("<img src=\"","<img src=\""+config.httpServer) }} />:"")
+          <div dangerouslySetInnerHTML={{ __html:"答案解析:"+ question.analysis }} />:"")
          : (question.analysis&&question.analysis!=""?<div>答案解析: {question.analysis}</div>:"")
           }
       </div>
