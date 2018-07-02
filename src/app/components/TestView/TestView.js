@@ -23,7 +23,7 @@ import moment from 'moment';
 export default class TestView extends PureComponent {
     constructor(props) {
         super(props)
-        this.state = { scores: {},isShow:true }
+        this.state = { scores: {} }
     }
     componentDidMount() {
         if (this.props.match) {
@@ -32,22 +32,24 @@ export default class TestView extends PureComponent {
                 type: 'fyTestRecord/find',
                 payload: {
                     id: this.props.match.params.id
+                },
+                callback: () => {
+                    setTimeout(()=>{
+                        window.print()
+                    },5000)
+                   
                 }
             })
 
         }
     }
-    wprint=()=>{
-        this.setState({isShow:false});
-        window.print()
-    }
     print = (id, type) => {
-        const cfg = ''
+        const cfg = 'fullscreen=0,toolbar=0.scrollbars=1,location=0,directories=0,status=0,menubar=0,resizable=0,top=0,left=0'
         const url = `${config.webServer}/#/user/${id}/${type}`
         const myWin = window.open(url, '_blank', cfg, false)
         myWin.moveTo(0, 0)
         myWin.resizeTo(screen.availWidth, screen.availHeight)
-        
+
     }
     onChange = (i, score) => {
         var scores = this.state.scores;
@@ -81,8 +83,8 @@ export default class TestView extends PureComponent {
                 xx = (years == 0 ? '' : years + '年') + (years == 0 && days == 0 ? '' : days + '天') + (years == 0 && days == 0 && hours == 0 ? '' : hours + '时') + (years == 0 && days == 0 && hours == 0 && mins == 0 ? '' : mins + '分') + (years == 0 && days == 0 && hours == 0 && mins == 0 && ss == 0 ? '' : ss + '秒')
             }
             return (
-                <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" : testRecord.status == "complete" ? <Button type="primary" onClick={this.print.bind(this, id, "record")}>打印预览</Button> : ""}
-                   { this.props.match&&this.state.isShow?<Button onClick={this.wprint}>开始打印</Button>:""}
+                <div style={{ margin: 'auto', width: 800 }} >  {this.props.match ? "" : testRecord.status == "complete" ? <Button type="primary" onClick={this.print.bind(this, id, "record")}>打印</Button> : ""}
+                    
                     <span> 昵称:{testRecord.user.nickName}&nbsp;&nbsp;&nbsp;&nbsp;  署名:{testRecord.friend?testRecord.friend.realname:(testRecord.sign?testRecord.sign:'匿名')} &nbsp;&nbsp;&nbsp;&nbsp; {testRecord.friend?<Tag color="green">已实名认证</Tag>:""}{testRecord.friend&&testRecord.friend.group?"分组:"+testRecord.friend.group.name:""}</span><Avatar src={testRecord.user.avatarUrl?testRecord.user.avatarUrl:defaultImg} shape="square" size="large" />
                     
                     {testRecord.status == "complete" ? <h2> 得分: {goal} 总分:{score} 开始:{moment(createTime).format('YYYY-MM-DD HH:mm')} 结束:{moment(endTime).format('YYYY-MM-DD HH:mm')} 耗时:{xx}</h2> : ""}
