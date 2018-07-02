@@ -51724,9 +51724,10 @@ Ext.define("ananas.FormulaPanel", {
         d && 0 == d.indexOf("\\speci-") && (d = this.specialSymbol[d.split("-")[1]]);
         return c.cmd(d)
     },
-    fetchStatus: function(url,a) {
+    fetchStatus: function(a) {
         var b = this.latex();
-        if (!b) {
+        a && a(b);
+      /*   if (!b) {
             return ! 0
         }
         Ext.Ajax.request({
@@ -51736,13 +51737,13 @@ Ext.define("ananas.FormulaPanel", {
                 formula: b
             },
             success: function(b) {
-                eval("var data = " + b.responseText);
-                a && a(data)
+               // eval("var data = " + b.responseText);
+                a && a(b.responseText)
             },
             failure: function() {
-                alert("server error: render img failed")
+                c && c()
             }
-        });
+        }); */
         return ! 1
     }
 });

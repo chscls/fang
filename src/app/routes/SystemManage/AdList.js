@@ -131,9 +131,7 @@ export default class AdList extends PureComponent {
       selectQuestionIds: [],
       space: {}
     };
-    window.say=()=>{
-      alert("xxxxxxxxxx")
-    }
+   
   }
   
   

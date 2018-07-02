@@ -263,9 +263,11 @@
 			var btns = Ext.query('#btn');
 
 			Ext.fly(btns[0]).on('click', function () {
-				panel.fetchStatus('gongshi.do',function (file) {
-					if (file) {
-						console.log(file)
+				panel.fetchStatus(function (gs) {
+					if (gs) {
+					
+						parent.latex(gs)
+						
 						/* editor.execCommand('inserthtml', '<img class="ans-formula-moudle" data=\'' + Ext.encode(file) + '\' src="/latex/' + file.id + '.action"/>');
 						dialog.close(false); */
 					}

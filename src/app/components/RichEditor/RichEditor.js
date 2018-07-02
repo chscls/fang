@@ -41,6 +41,20 @@ export default class RichEditor extends PureComponent {
       showGongshi:false,
       editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue.replace("<img src=\"", "<img src=\"" + config.httpServer),
     };
+    window.latex=(gs)=>{
+     
+      const quill = this.refs.quill.getEditor()
+      
+      const cursorPosition = quill.selection.savedRange.index
+      console.log(cursorPosition)
+      var editorHtml = this.state.editorHtml
+      var x = '<img src=\'' + config.httpServer +'/latex?code='+encodeURI(gs)+'\'/>'
+      editorHtml = editorHtml.substring(0, cursorPosition) + x + editorHtml.substring(cursorPosition, editorHtml.length)
+      this.setState({ editorHtml,showGongshi:false })
+      quill.setSelection(cursorPosition + 1)
+    
+  
+    }
   }
   showGongshi=()=>{
     this.setState({showGongshi:true})
