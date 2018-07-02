@@ -197,6 +197,9 @@ class QuestionStep1 extends React.PureComponent {
                   <RadioButton value="judge">判断</RadioButton>
                   <RadioButton value="fill">填空</RadioButton>
                   <RadioButton value="ask">问答</RadioButton>
+                  <RadioButton value="synthesis">综合</RadioButton>
+
+                  
                 </RadioGroup>
               )}
             </Form.Item>
