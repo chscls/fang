@@ -3,6 +3,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { Icon, Checkbox ,Button} from 'antd';
 import ItemTypes from './ItemTypes';
 import { findDOMNode } from 'react-dom';
+import config from '../../../config';
 const cardSource = {
   beginDrag(props) {
     return {
@@ -101,7 +102,7 @@ export default class Card extends React.PureComponent {
           onChange={this.props.handle}
         />&nbsp;&nbsp;{this.props.index+1}.&nbsp;&nbsp;
         {question.isRich ? (
-          <div dangerouslySetInnerHTML={{ __html: question.title }} />
+          <div dangerouslySetInnerHTML={{ __html: question.title.replace("<img src=\"","<img src=\""+config.httpServer)  }} />
         ) : (
         question.title
         )}
