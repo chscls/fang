@@ -1,17 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Form, Input, Select, Alert, message, Button, Radio, Checkbox ,Popconfirm} from 'antd';
-import RichEditor from '../RichEditor/RichEditor';
-import { truncate } from 'fs';
-const FormItem = Form.Item;
-const Option = Select.Option;
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import Card from './Card';
-import QuestionList from '../../routes/QuestionManage/QuestionList';
+
 import { InputNumber } from 'antd';
-@DragDropContext(HTML5Backend)
+
+import QuestionSort from '../QuestionSort/QuestionSort';
 export default class Synthesis extends PureComponent {
   constructor(props) {
     super(props);
@@ -66,44 +58,8 @@ export default class Synthesis extends PureComponent {
     const isQuestionnaire = state.isQuestionnaire;
  
     return (
-        <div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
-          disabled={confirmLoading}
-          indeterminate={this.state.indeterminate}
-          onChange={this.onCheckAllChange}
-          checked={this.state.checkAll}
-        >
-          全选
-        </Checkbox>
-        
-        <Button type="primary" onClick={this.openQuestions} loading={confirmLoading} >
-          插入题目
-        </Button>
-        &nbsp; &nbsp;
-        {this.checkLength(this.state.items)>0?
-        
-        
-        
-         <Popconfirm title={<InputNumber onChange={this.targetScore} defaultValue={1}/>} onConfirm={this.changeScore}  okText="确定" cancelText="取消">
-         <Button loading={confirmLoading} type="primary" >
-          调分
-        </Button>
-       </Popconfirm>
-        
-        :""}&nbsp; &nbsp;
-        {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
-          剔除
-        </Button>:""}
-        <List
-        loading={initLoading}
-          itemLayout="horizontal"
-          dataSource={data2}
-          renderItem={item => (
-            <List.Item key={item.index}>
-              <Card index={item.index} id={item.index+1} moveCard={this.moveCard}  disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
-            </List.Item>
-          )}
-        />
+      <div>
+      <QuestionSort />
       </div>
     );
   }
