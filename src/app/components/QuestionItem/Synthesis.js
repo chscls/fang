@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Form, Input, Select, Alert, message, Button, Radio, Checkbox ,Popconfirm} from 'antd';
+import { Form, Input, Select, Alert, message, Button, Radio, Checkbox, Popconfirm } from 'antd';
 
 import { InputNumber } from 'antd';
 
@@ -11,10 +11,11 @@ export default class Synthesis extends PureComponent {
     const value = props.value || {};
     var x = value.subQuestionConfigs;
     var y = value.isQuestionnaire;
-  
+    var z = value.subQuestions;
     this.state = {
-        checkAll: false,
-     subQuestionConfigs: x,
+      checkAll: false,
+      subQuestionConfigs: x,
+      subQuestions: z,
       isQuestionnaire: y,
       indeterminate: true,
     };
@@ -29,7 +30,7 @@ export default class Synthesis extends PureComponent {
       this.setState(value);
     }
   }
-  componentDidMount() {}
+  componentDidMount() { }
 
   triggerChange = changedValue => {
     // Should provide an event to pass value to Form.
@@ -53,13 +54,13 @@ export default class Synthesis extends PureComponent {
   };
 
   render() {
-  
+
     const state = this.state;
     const isQuestionnaire = state.isQuestionnaire;
- 
+
     return (
       <div>
-      <QuestionSort />
+        <QuestionSort />
       </div>
     );
   }
