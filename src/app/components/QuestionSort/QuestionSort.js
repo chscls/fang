@@ -14,14 +14,162 @@ export default class QuestionSort extends React.PureComponent {
             indeterminate: true,
             checkAll: false,
             items: [],
-            defaultScore:1
+            defaultScore:1,
+            selectQuestionIds: [],
+            questionModal: false,
         }
     }
     targetScore=(value)=>{
         this.setState({defaultScore:value})
       }
+      onCheckAllChange = e => {
+        const items = this.state.items;
+    
+        if (!e.target.checked) {
+          for (var i = 0; i < items.length; i++) {
+            items[i] = { index: items[i].index, q: items[i].q, checked: false };
+          }
+        } else {
+          for (var i = 0; i < items.length; i++) {
+            items[i] = { index: items[i].index, q: items[i].q, checked: true };
+          }
+        }
+    
+        this.setState({
+          items,
+          indeterminate: false,
+          checkAll: e.target.checked,
+        });
+      };
+      openQuestions = () => {
+        this.setState({
+          questionModal: true,
+        });
+      };
+      handleModalVisible = () => {
+        this.setState({
+          questionModal: false,
+        });
+      };
+      changeScore = () => {
+    
+        var ids = []
+        
+       for (var i = 0; i < this.state.items.length; i++) {
+         if (this.state.items[i].checked) {
+           ids.push(this.state.items[i].q.id)
+         }
+       }
+       
+       this.props.dispatch({
+         type: 'fyTest/updateTestQuestions',
+         payload: {
+           id: this.state.id,
+           qids: ids.map(id => id).join(','),
+           score:this.state.defaultScore
+         },
+         callback: test => {
+           key = key + 1;
+           const items = [];
+   
+           for (var i = 0; i < test.questions.length; i++) {
+             items[i] = { index: i, q: test.questions[i], checked: false };
+           }
+           this.setState({
+             items,defaultScore:1
+           });
+         },
+       }); 
+   
+     };
+      moveCard=(dragIndex, hoverIndex)=> {
+        // console.log(dragIndex,hoverIndex)
+        var  test  = this.props.fyTest.test;
+        var alreadyQids = test.questionConfigs;
+        
+         [alreadyQids[dragIndex], alreadyQids[hoverIndex]]=[alreadyQids[hoverIndex], alreadyQids[dragIndex]]; 
+         alreadyQids=alreadyQids.map(cfg => cfg.id).join(',')
+         this.props.dispatch({
+           type: 'fyTest/updateTestQuestions',
+           payload: {
+             id: this.state.id,
+             qids: alreadyQids
+           },
+           callback: test => {
+             key = key + 1;
+             const items = [];
+             for (var i = 0; i < test.questions.length; i++) {
+               items[i] = { index: i, q: test.questions[i], checked: false };
+             }
+             this.setState({
+               items,
+             });
+           },
+         });
+       }
+       delete = () => {
+        var ids = []
+        for (var i = 0; i < this.state.items.length; i++) {
+          if (!this.state.items[i].checked) {
+            ids.push(this.state.items[i].q.id)
+          }
+        }
+        
+        this.props.dispatch({
+          type: 'fyTest/updateTestQuestions',
+          payload: {
+            id: this.state.id,
+            qids: ids.map(id => id).join(',')
+          },
+          callback: test => {
+            key = key + 1;
+            const items = [];
+    
+            for (var i = 0; i < test.questions.length; i++) {
+              items[i] = { index: i, q: test.questions[i], checked: false };
+            }
+            this.setState({
+              questionModal: false,
+              items,
+            });
+          },
+        });
+      }
+      handleSelect = ids => {
+    
+        this.setState({ selectQuestionIds: ids });
+      
+      };
+      okHandle = () => {
+    
+        var  test  = this.props.fyTest.test;
+        var alreadyQids = test.questionConfigs.map(cfg => cfg.id).join(',')
+        alreadyQids = this.state.selectQuestionIds+","+alreadyQids;
+          this.props.dispatch({
+            type: 'fyTest/updateTestQuestions',
+            payload: {
+              id: this.state.id,
+              qids: alreadyQids
+            },
+            callback: test => {
+              key = key + 1;
+              const items = [];
+      
+              for (var i = 0; i < test.questions.length; i++) {
+                items[i] = { index: i, q: test.questions[i], checked: false };
+              }
+              this.setState({
+                questionModal: false,
+                items,
+              });
+            },
+          });
+        };
     render() {
-
+        const {confirmLoading,initLoading} =this.props
+        
+    const data2 = this.state.items;
+    const alreadyIds = data2.map(row => row.q.id).join(',');
         return
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
@@ -57,7 +205,7 @@ export default class QuestionSort extends React.PureComponent {
                 dataSource={data2}
                 renderItem={item => (
                     <List.Item key={item.index}>
-                        <Card index={item.index} id={item.index + 1} moveCard={this.moveCard} disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this, item.index)} delete={this.delete.bind(this, item.index)} item={item} />
+                        <Card index={item.index} id={item.index + 1} moveCard={this.moveCard} disabled={confirmLoading} checked={item.checked}  delete={this.delete.bind(this, item.index)} item={item} />
                     </List.Item>
                 )}
             />
