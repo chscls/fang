@@ -27,7 +27,7 @@ export default {
 
   effects: {
 
-    *updateQuestionQuestions({ payload }, { call, put }) {
+    *updateQuestionQuestions({ payload ,callback}, { call, put }) {
       const response = yield call(updateQuestionQuestions, payload);
       if(!response){yield put({type: 'nom'});return }
       yield put({

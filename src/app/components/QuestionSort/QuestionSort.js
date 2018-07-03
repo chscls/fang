@@ -182,14 +182,17 @@ export default class QuestionSort extends React.PureComponent {
         const { confirmLoading, initLoading } = this.props
 
         const data2 = this.state.items;
-        const alreadyIds = data2.map(row => row.q?row.q.id:row.id).join(',')
-        if(this.props.self){
+        var alreadyIds = data2.map(row => row.q?row.q.id:row.id).join(',')
+      
+        if(this.props.selfId!=null){
             if(alreadyIds!=""){
-                alreadyIds=alreadyIds+","+self;
+                alreadyIds=alreadyIds+","+this.props.selfId;
             }else{
-                alreadyIds=self;
+                alreadyIds=this.props.selfId;
             }
-        }
+          
+        } 
+       
         return(
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
