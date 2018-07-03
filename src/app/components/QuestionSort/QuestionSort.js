@@ -87,11 +87,12 @@ export default class QuestionSort extends React.PureComponent {
 
         if (this.props.moveCard) {
             this.props.moveCard(dragIndex,hoverIndex, test => {
+                const x = test.questions?test.questions:test.subQuestions
 
                 key = key + 1;
                 const items = [];
-                for (var i = 0; i < test.questions.length; i++) {
-                    items[i] = { index: i, q: test.questions[i], checked: false };
+                for (var i = 0; i < x.length; i++) {
+                    items[i] = { index: i, q: x[i], checked: false };
                 }
                 this.setState({
                     items,
@@ -115,12 +116,12 @@ export default class QuestionSort extends React.PureComponent {
         if (this.props.delete) {
 
             this.props.delete(ids.map(id => id).join(','), test => {
-
+                const x = test.questions?test.questions:test.subQuestions
                 key = key + 1;
                 const items = [];
 
-                for (var i = 0; i < test.questions.length; i++) {
-                    items[i] = { index: i, q: test.questions[i], checked: false };
+                for (var i = 0; i < x.length; i++) {
+                    items[i] = { index: i, q:x[i], checked: false };
                 }
                 this.setState({
                     questionModal: false,
@@ -155,9 +156,9 @@ export default class QuestionSort extends React.PureComponent {
             this.props.okHandle(this.state.selectQuestionIds, test => {
                 key = key + 1;
                 const items = [];
-
-                for (var i = 0; i < test.questions.length; i++) {
-                    items[i] = { index: i, q: test.questions[i], checked: false };
+                const x = test.questions?test.questions:test.subQuestions
+                for (var i = 0; i < x.length; i++) {
+                    items[i] = { index: i, q: x[i], checked: false };
                 }
                 this.setState({
                     questionModal: false,

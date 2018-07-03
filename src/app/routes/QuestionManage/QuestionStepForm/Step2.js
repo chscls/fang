@@ -129,30 +129,30 @@ class QuestionStep2 extends React.PureComponent {
 
 
   changeRate = (ids, score, back) => {
-
+    var question= this.props.fyQuestion.question;
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
-        id: this.state.id,
+        id: question.id,
         qids: ids,
         score: score
       },
-      callback: test => {
-        back(test)
+      callback: question => {
+        back(question)
       }
     });
 
   };
   delete = (ids, back) => {
-   
+    var question= this.props.fyQuestion.question;
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
-        id: this.state.id,
+        id: question.id,
         qids: ids
       },
-      callback: test => {
-        back(test)
+      callback: question => {
+        back(question)
       },
     });
   }
