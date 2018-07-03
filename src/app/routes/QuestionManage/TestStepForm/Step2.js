@@ -4,9 +4,6 @@ import { Form, Icon, Input, Button, Popconfirm, Divider, List, Avatar, Checkbox,
 import { routerRedux } from 'dva/router';
 
 import styles from './style.less';
-
-import QuestionList from '../QuestionList';
-
 import QuestionSort from '../../../components/QuestionSort/QuestionSort';
 const formItemLayout = {
   labelCol: {
@@ -83,7 +80,7 @@ class TestStep2 extends React.PureComponent {
 
   };
   delete = (ids, back) => {
-
+   
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
@@ -181,6 +178,8 @@ class TestStep2 extends React.PureComponent {
                 okHandle={this.okHandle}
                 moveCard={this.moveCard}
                 defaultScore={1}
+                delete={this.delete}
+                changeScore={this.changeScore}
               />
 
             </Form.Item>

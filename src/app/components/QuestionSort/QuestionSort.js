@@ -64,7 +64,7 @@ export default class QuestionSort extends React.PureComponent {
         }
         if (this.props.changeScore) {
 
-            this.props.changeScore(ids, test => {
+            this.props.changeScore(ids,this.state.defaultScore, test => {
                 key = key + 1;
                 const items = [];
 
@@ -114,7 +114,7 @@ export default class QuestionSort extends React.PureComponent {
         }
         if (this.props.delete) {
 
-            this.props.moveCard(ids.map(id => id).join(','), test => {
+            this.props.delete(ids.map(id => id).join(','), test => {
 
                 key = key + 1;
                 const items = [];
