@@ -64,7 +64,7 @@ export default class Synthesis extends PureComponent {
         
         items={this.props.subQuestions}
         initLoading={false}
-        confirmLoading={false}
+        confirmLoading={this.props.onfirmLoading}
         okHandle={this.props.okHandle}
         moveCard={this.props.moveCard}
         defaultScore={1}

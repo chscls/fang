@@ -256,7 +256,7 @@ class QuestionStep2 extends React.PureComponent {
                 ) : type == 'single' ? (
                   <Single />
                 ) :(
-                  <Synthesis okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} subQuestions = {question.subQuestions}/>
+                  <Synthesis onfirmLoading={submitting} okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} subQuestions = {question.subQuestions}/>
                 )
               )}
             </Form.Item>
