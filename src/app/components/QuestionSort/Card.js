@@ -83,7 +83,7 @@ export default class Card extends React.PureComponent {
       item,
     } = this.props;
     const opacity = isDragging ? 0 : 1;
-    const question = item.q;
+    const question = item.q
     return (
       <div style={{ width: '100%',opacity: 'opacity',wordBreak:'break-all'}}>
         {connectDragSource(
@@ -94,7 +94,12 @@ export default class Card extends React.PureComponent {
           )
         )}
 
-        &nbsp;&nbsp;<span style={{width:40,display:'inline-block'}}>{question.score+'分'}</span>&nbsp;&nbsp;<Checkbox
+        &nbsp;&nbsp;{question.score?<span style={{width:40,display:'inline-block'}}>{question.score+'分'}</span>:
+        <span style={{width:40,display:'inline-block'}}>{question.rate*100+'%占比'}</span>}
+        
+        &nbsp;&nbsp;
+        
+        <Checkbox
          disabled={this.props.disabled}
           value={question.id}
           checked={item.checked}

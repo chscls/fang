@@ -90,7 +90,12 @@ class QuestionStep2 extends React.PureComponent {
               }
             }
           }else if (question.type == 'synthesis') {
-            
+            const items = [];
+
+            for (var i = 0; i < question.subQuestions.length; i++) {
+              items[i] = { index: i, q: question.subQuestions[i], checked: false };
+            }
+  
             
           }else {
             if (items.length == 0) {
@@ -256,7 +261,7 @@ class QuestionStep2 extends React.PureComponent {
                 ) : type == 'single' ? (
                   <Single />
                 ) :(
-                  <Synthesis selfId={this.state.id} defaultRate={1} onfirmLoading={submitting} okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} subQuestions = {question.subQuestions}/>
+                  <Synthesis selfId={this.state.id} defaultRate={1} onfirmLoading={submitting} okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} items= {items}/>
                 )
               )}
             </Form.Item>

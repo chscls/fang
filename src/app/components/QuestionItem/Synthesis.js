@@ -49,7 +49,7 @@ export default class Synthesis extends PureComponent {
       <div>
         <QuestionSort 
         
-        items={this.props.subQuestions}
+        items={this.props.items}
         initLoading={false}
         confirmLoading={this.props.onfirmLoading}
         okHandle={this.props.okHandle}
