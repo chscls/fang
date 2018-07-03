@@ -129,11 +129,11 @@ class QuestionStep2 extends React.PureComponent {
 
 
   changeRate = (ids, score, back) => {
-    var question= this.props.fyQuestion.question;
+ 
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
-        id: question.id,
+        id: this.state.id,
         qids: ids,
         score: score
       },
@@ -144,11 +144,11 @@ class QuestionStep2 extends React.PureComponent {
 
   };
   delete = (ids, back) => {
-    var question= this.props.fyQuestion.question;
+    
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
-        id: question.id,
+        id: this.state.id,
         qids: ids
       },
       callback: question => {
@@ -166,30 +166,30 @@ class QuestionStep2 extends React.PureComponent {
     this.props.dispatch({
       type: 'fyQuestion/updateQuestionQuestions',
       payload: {
-        id: question.id,
+        id: this.state.id,
         qids: alreadyQids
       },
-      callback: question => {
-        back(question)
+      callback: qes => {
+        back(qes)
       },
     });
   };
 
   moveCard = (dragIndex, hoverIndex, back) => {
     // console.log(dragIndex,hoverIndex)
-    var test = this.props.fyTest.test;
-    var alreadyQids = test.questionConfigs;
+    var question= this.props.fyQuestion.question;
+    var alreadyQids = question.subQuestionConfigs;
 
     [alreadyQids[dragIndex], alreadyQids[hoverIndex]] = [alreadyQids[hoverIndex], alreadyQids[dragIndex]];
     alreadyQids = alreadyQids.map(cfg => cfg.id).join(',')
     this.props.dispatch({
-      type: 'fyTest/updateTestQuestions',
+      type: 'fyQuestion/updateQuestionQuestions',
       payload: {
         id: this.state.id,
         qids: alreadyQids
       },
-      callback: test => {
-        back(test)
+      callback: qes => {
+        back(qes)
       },
     });
   }
@@ -256,7 +256,7 @@ class QuestionStep2 extends React.PureComponent {
                 ) : type == 'single' ? (
                   <Single />
                 ) :(
-                  <Synthesis defaultRate={1} onfirmLoading={submitting} okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} subQuestions = {question.subQuestions}/>
+                  <Synthesis self={this.state.id} defaultRate={1} onfirmLoading={submitting} okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} subQuestions = {question.subQuestions}/>
                 )
               )}
             </Form.Item>
