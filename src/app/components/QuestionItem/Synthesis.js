@@ -11,11 +11,11 @@ export default class Synthesis extends PureComponent {
     const value = props.value || {};
     var x = value.subQuestionConfigs;
     var y = value.isQuestionnaire;
-    var z = value.subQuestions;
+    
     this.state = {
       checkAll: false,
       subQuestionConfigs: x,
-      subQuestions: z,
+      
       isQuestionnaire: y,
       indeterminate: true,
     };
@@ -39,20 +39,20 @@ export default class Synthesis extends PureComponent {
       onChange(Object.assign({}, this.state, changedValue));
     }
   };
-  onChangeRadio = e => {
-    var items = this.state.items;
-    for (var i = 0; i < items.length; i++) {
-      items[i].isSolution = false;
-      if (i == e.target.value) {
-        items[i].isSolution = true;
-      }
-    }
-    if (!('value' in this.props)) {
-      this.setState({ items });
-    }
-    this.triggerChange({ items });
-  };
+  changeScore = (ids, score, back) => {
 
+
+  }
+  delete = (ids, back) => {
+
+  }
+  okHandle = (selectIds, back) => {
+
+  }
+  moveCard = (dragIndex, hoverIndex, back) => {
+
+
+  }
   render() {
 
     const state = this.state;
@@ -60,8 +60,21 @@ export default class Synthesis extends PureComponent {
 
     return (
       <div>
-        <QuestionSort />
+        <QuestionSort 
+        
+        items={this.props.subQuestions}
+        initLoading={false}
+        confirmLoading={false}
+        okHandle={this.props.okHandle}
+        moveCard={this.props.moveCard}
+        defaultScore={1}
+        delete={this.props.delete}
+        changeScore={this.props.changeScore}
+        
+        />
       </div>
     );
   }
 }
+
+

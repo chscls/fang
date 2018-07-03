@@ -189,7 +189,7 @@ class QuestionStep2 extends React.PureComponent {
                 ) : type == 'single' ? (
                   <Single />
                 ) :(
-                  <Synthesis/>
+                  <Synthesis subQuestions = {question.subQuestions}/>
                 )
               )}
             </Form.Item>
