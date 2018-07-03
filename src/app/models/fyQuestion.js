@@ -6,7 +6,8 @@ import {
   updateOptions,
   recycleQuestion,
   queryQuestionRe,
-  recoveryQuestion
+  recoveryQuestion,
+  updateQuestionQuestions
 } from '../services/FyQuestionMngSvc';
 
 export default {
@@ -25,6 +26,18 @@ export default {
   },
 
   effects: {
+
+    *updateQuestionQuestions({ payload }, { call, put }) {
+      const response = yield call(updateQuestionQuestions, payload);
+      if(!response){yield put({type: 'nom'});return }
+      yield put({
+        type: 'ok',
+        payload: response,
+      });
+      if (callback) callback(response);
+
+
+    },
     *fetchRe({ payload }, { call, put }) {
     const response = yield call(queryQuestionRe, payload);
     if(!response){yield put({type: 'nom'});return }

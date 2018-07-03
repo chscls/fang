@@ -39,20 +39,7 @@ export default class Synthesis extends PureComponent {
       onChange(Object.assign({}, this.state, changedValue));
     }
   };
-  changeScore = (ids, score, back) => {
 
-
-  }
-  delete = (ids, back) => {
-
-  }
-  okHandle = (selectIds, back) => {
-
-  }
-  moveCard = (dragIndex, hoverIndex, back) => {
-
-
-  }
   render() {
 
     const state = this.state;
@@ -67,7 +54,7 @@ export default class Synthesis extends PureComponent {
         confirmLoading={this.props.onfirmLoading}
         okHandle={this.props.okHandle}
         moveCard={this.props.moveCard}
-        defaultScore={1}
+        defaultScore={this.props.defaultRate}
         delete={this.props.delete}
         changeScore={this.props.changeScore}
         

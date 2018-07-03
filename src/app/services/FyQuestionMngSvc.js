@@ -2,6 +2,16 @@ import { stringify } from 'qs';
 import request from '../../utils/request';
 import config from '../config';
 const ad = config.httpServer + '/services/FyQuestionMngSvc';
+export async function updateQuestionQuestions(params) {
+  return request(`${ad}/updateQuestionQuestions`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
+
 export async function queryQuestion(params) {
   return request(`${ad}/queryQuestion`, {
     method: 'POST',
