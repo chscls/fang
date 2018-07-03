@@ -17,7 +17,7 @@ const formItemLayout = {
   },
 };
 
-var key = 1;
+
 
 
 @Form.create()
@@ -32,12 +32,7 @@ class TestStep2 extends React.PureComponent {
       isReady: false,
       items: [],
       type: 'single',
-      indeterminate: true,
-      checkAll: false,
-      flag: false,
-      selectQuestionIds: [],
-      questionModal: false,
-      defaultScore: 1
+     
     };
   }
 
@@ -185,7 +180,7 @@ class TestStep2 extends React.PureComponent {
                 confirmLoading={confirmLoading}
                 okHandle={this.okHandle}
                 moveCard={this.moveCard}
-                defaultScore={this.state.defaultScore}
+                defaultScore={1}
               />
 
             </Form.Item>
@@ -220,21 +215,7 @@ class TestStep2 extends React.PureComponent {
           <p>问卷模式无需选择或填写正确答案</p>
         </div>
 
-        <Modal
-          title="插入题目"
-          visible={this.state.questionModal}
-          onOk={this.okHandle}
-          width={1800}
-          onCancel={() => this.handleModalVisible()}
-          confirmLoading={confirmLoading}
-        >
-          <QuestionList
-            key={key}
-            alreadyIds={alreadyIds}
-            isSelect={true}
-            handleSelect={this.handleSelect}
-          />
-        </Modal>
+        
       </Fragment>
     );
   }
