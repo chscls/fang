@@ -2,19 +2,11 @@ import React, { Fragment } from 'react';
 import { connect } from 'dva';
 import { Form, Icon, Input, Button,Popconfirm, Divider, List, Avatar, Checkbox, Modal } from 'antd';
 import { routerRedux } from 'dva/router';
-import { digitUppercase } from '../../../../utils/utils';
-import Single from '../../../components/QuestionItem/Single';
-import Judge from '../../../components/QuestionItem/Judge';
-import Mutiply from '../../../components/QuestionItem/Mutiply';
-import Fill from '../../../components/QuestionItem/Fill';
-import Ask from '../../../components/QuestionItem/Ask';
+
 import styles from './style.less';
-import { QueueScheduler } from 'rxjs/scheduler/QueueScheduler';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
-import Card from './Card';
+
 import QuestionList from '../QuestionList';
-import { InputNumber } from 'antd';
+
 import QuestionSort from '../../../components/QuestionSort/QuestionSort';
 const formItemLayout = {
   labelCol: {
@@ -27,7 +19,7 @@ const formItemLayout = {
 
 var key = 1;
 
-@DragDropContext(HTML5Backend)
+
 @Form.create()
 class TestStep2 extends React.PureComponent {
   constructor(props) {
@@ -191,11 +183,11 @@ class TestStep2 extends React.PureComponent {
       questionModal: false,
     });
   };
-  okHandle = () => {
-    
-  var  test  = this.props.fyTest.test;
-  var alreadyQids = test.questionConfigs.map(cfg => cfg.id).join(',')
-  alreadyQids = this.state.selectQuestionIds+","+alreadyQids;
+  okHandle = (selectIds,back) => {
+    var test = this.props.fyTest.test;
+        var alreadyQids = test.questionConfigs.map(cfg => cfg.id).join(',')
+        alreadyQids = selectIds + "," + alreadyQids;
+
     this.props.dispatch({
       type: 'fyTest/updateTestQuestions',
       payload: {
@@ -203,16 +195,7 @@ class TestStep2 extends React.PureComponent {
         qids: alreadyQids
       },
       callback: test => {
-        key = key + 1;
-        const items = [];
-
-        for (var i = 0; i < test.questions.length; i++) {
-          items[i] = { index: i, q: test.questions[i], checked: false };
-        }
-        this.setState({
-          questionModal: false,
-          items,
-        });
+        back(test)
       },
     });
   };
@@ -221,7 +204,7 @@ class TestStep2 extends React.PureComponent {
     this.setState({ selectQuestionIds: ids });
   
   };
-  moveCard=(dragIndex, hoverIndex)=> {
+  moveCard=(dragIndex, hoverIndex,back)=> {
    // console.log(dragIndex,hoverIndex)
    var  test  = this.props.fyTest.test;
    var alreadyQids = test.questionConfigs;
@@ -235,14 +218,7 @@ class TestStep2 extends React.PureComponent {
         qids: alreadyQids
       },
       callback: test => {
-        key = key + 1;
-        const items = [];
-        for (var i = 0; i < test.questions.length; i++) {
-          items[i] = { index: i, q: test.questions[i], checked: false };
-        }
-        this.setState({
-          items,
-        });
+        back(test)
       },
     });
   }
@@ -289,44 +265,13 @@ class TestStep2 extends React.PureComponent {
             <Form.Item {...formItemLayout} label="题目">
 
 
-            <QuestionSort items= {this.state.items}/>
-             {/*  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
-                disabled={confirmLoading}
-                indeterminate={this.state.indeterminate}
-                onChange={this.onCheckAllChange}
-                checked={this.state.checkAll}
-              >
-                全选
-              </Checkbox>
-              
-              <Button type="primary" onClick={this.openQuestions} loading={confirmLoading} >
-                插入题目
-              </Button>
-              &nbsp; &nbsp;
-              {this.checkLength(this.state.items)>0?
-              
-              
-              
-               <Popconfirm title={<InputNumber onChange={this.targetScore} defaultValue={1}/>} onConfirm={this.changeScore}  okText="确定" cancelText="取消">
-               <Button loading={confirmLoading} type="primary" >
-                调分
-              </Button>
-             </Popconfirm>
-              
-              :""}&nbsp; &nbsp;
-              {this.checkLength(this.state.items)>0?<Button type="primary" onClick={this.delete} loading={confirmLoading} >
-                剔除
-              </Button>:""}
-              <List
-              loading={initLoading}
-                itemLayout="horizontal"
-                dataSource={data2}
-                renderItem={item => (
-                  <List.Item key={item.index}>
-                    <Card index={item.index} id={item.index+1} moveCard={this.moveCard}  disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
-                  </List.Item>
-                )}
-              /> */}
+            <QuestionSort items= {this.state.items}
+             initLoading={initLoading}
+            confirmLoading={confirmLoading}
+            okHandle={this.okHandle}
+            moveCard={this.moveCard}
+            />
+       
             </Form.Item>
             <Form.Item
               style={{ marginBottom: 8 }}

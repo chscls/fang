@@ -6,6 +6,8 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 import { InputNumber } from 'antd';
 import QuestionList from '../../routes/QuestionManage/QuestionList';
+var key = 1;
+@DragDropContext(HTML5Backend)
 export default class QuestionSort extends React.PureComponent {
     constructor(props) {
         super(props)
@@ -81,15 +83,9 @@ export default class QuestionSort extends React.PureComponent {
         }
     };
     moveCard = (dragIndex, hoverIndex) => {
-        // console.log(dragIndex,hoverIndex)
-        var test = this.props.fyTest.test;
-        var alreadyQids = test.questionConfigs;
-
-        [alreadyQids[dragIndex], alreadyQids[hoverIndex]] = [alreadyQids[hoverIndex], alreadyQids[dragIndex]];
-        alreadyQids = alreadyQids.map(cfg => cfg.id).join(',')
 
         if (this.props.moveCard) {
-            this.props.moveCard(alreadyQids, test => {
+            this.props.moveCard(dragIndex,hoverIndex, test => {
 
                 key = key + 1;
                 const items = [];
@@ -142,13 +138,8 @@ export default class QuestionSort extends React.PureComponent {
 
     };
     okHandle = () => {
-
-        var test = this.props.fyTest.test;
-        var alreadyQids = test.questionConfigs.map(cfg => cfg.id).join(',')
-        alreadyQids = this.state.selectQuestionIds + "," + alreadyQids;
-
         if (this.props.okHandle) {
-            this.props.okHandle(alreadyQids, test => {
+            this.props.okHandle(this.state.selectQuestionIds, test => {
                 key = key + 1;
                 const items = [];
 
@@ -163,6 +154,16 @@ export default class QuestionSort extends React.PureComponent {
             })
         };
     }
+    checkLength(items) {
+        var count = 0;
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].checked) {
+            count++;
+          }
+        }
+    
+        return count;
+      }
     render() {
         const { confirmLoading, initLoading } = this.props
 
