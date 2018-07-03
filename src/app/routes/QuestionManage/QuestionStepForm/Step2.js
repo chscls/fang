@@ -126,6 +126,73 @@ class QuestionStep2 extends React.PureComponent {
     }
     return false;
   }
+
+
+  changeRate = (ids, score, back) => {
+
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: ids,
+        score: score
+      },
+      callback: test => {
+        back(test)
+      }
+    });
+
+  };
+  delete = (ids, back) => {
+   
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: ids
+      },
+      callback: test => {
+        back(test)
+      },
+    });
+  }
+
+
+  okHandle = (selectIds, back) => {
+    var test = this.props.fyTest.test;
+    var alreadyQids = test.questionConfigs.map(cfg => cfg.id).join(',')
+    alreadyQids = selectIds + "," + alreadyQids;
+
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: alreadyQids
+      },
+      callback: test => {
+        back(test)
+      },
+    });
+  };
+
+  moveCard = (dragIndex, hoverIndex, back) => {
+    // console.log(dragIndex,hoverIndex)
+    var test = this.props.fyTest.test;
+    var alreadyQids = test.questionConfigs;
+
+    [alreadyQids[dragIndex], alreadyQids[hoverIndex]] = [alreadyQids[hoverIndex], alreadyQids[dragIndex]];
+    alreadyQids = alreadyQids.map(cfg => cfg.id).join(',')
+    this.props.dispatch({
+      type: 'fyTest/updateTestQuestions',
+      payload: {
+        id: this.state.id,
+        qids: alreadyQids
+      },
+      callback: test => {
+        back(test)
+      },
+    });
+  }
   render() {
     const { form, data, dispatch, submitting,fyQuestion:{question} } = this.props;
     const { getFieldDecorator, validateFields } = form;
@@ -189,7 +256,7 @@ class QuestionStep2 extends React.PureComponent {
                 ) : type == 'single' ? (
                   <Single />
                 ) :(
-                  <Synthesis subQuestions = {question.subQuestions}/>
+                  <Synthesis okHandle={this.okHandle} changeScore={this.changeRate} moveCard={this.moveCard} delete={this.delete} subQuestions = {question.subQuestions}/>
                 )
               )}
             </Form.Item>
