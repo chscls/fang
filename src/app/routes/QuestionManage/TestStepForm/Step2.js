@@ -73,18 +73,7 @@ class TestStep2 extends React.PureComponent {
   targetScore=(value)=>{
     this.setState({defaultScore:value})
   }
-  handle = (index, e) => {
-    const items = this.state.items;
-
-    items[index].checked = e.target.checked;
-
-    this.setState({
-      items,
-      flag: !this.state.flag,
-      indeterminate: this.checkLength(items) < items.length,
-      checkAll: this.checkLength(items) === items.length,
-    });
-  };
+ 
   changeScore = () => {
     
      var ids = []

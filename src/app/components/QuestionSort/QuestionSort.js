@@ -18,6 +18,7 @@ export default class QuestionSort extends React.PureComponent {
             defaultScore: 1,
             selectQuestionIds: [],
             questionModal: false,
+            flag:false,
         }
     }
     targetScore = (value) => {
@@ -137,6 +138,18 @@ export default class QuestionSort extends React.PureComponent {
         this.setState({ selectQuestionIds: ids });
 
     };
+    handle = (index, e) => {
+        const items = this.state.items;
+    
+        items[index].checked = e.target.checked;
+    
+        this.setState({
+          items,
+          flag: !this.state.flag,
+          indeterminate: this.checkLength(items) < items.length,
+          checkAll: this.checkLength(items) === items.length,
+        });
+      };
     okHandle = () => {
         if (this.props.okHandle) {
             this.props.okHandle(this.state.selectQuestionIds, test => {
@@ -204,7 +217,7 @@ export default class QuestionSort extends React.PureComponent {
                 dataSource={data2}
                 renderItem={item => (
                     <List.Item key={item.index}>
-                        <Card index={item.index} id={item.index + 1} moveCard={this.moveCard} disabled={confirmLoading} checked={item.checked} delete={this.delete.bind(this, item.index)} item={item} />
+                        <Card index={item.index} id={item.index + 1} moveCard={this.moveCard} disabled={confirmLoading} handle={this.handle.bind(this, item.index)} checked={item.checked} delete={this.delete.bind(this, item.index)} item={item} />
                     </List.Item>
                 )}
             />
