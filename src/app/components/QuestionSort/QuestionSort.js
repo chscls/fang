@@ -15,7 +15,7 @@ export default class QuestionSort extends React.PureComponent {
             indeterminate: true,
             checkAll: false,
             items: this.props.items ? this.props.items : [],
-            defaultScore: 1,
+            defaultScore: this.props.defaultScore,
             selectQuestionIds: [],
             questionModal: false,
             flag:false,
