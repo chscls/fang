@@ -15,7 +15,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 import QuestionList from '../QuestionList';
 import { InputNumber } from 'antd';
-
+import QuestionSort from '../../../components/QuestionSort/QuestionSort';
 const formItemLayout = {
   labelCol: {
     span: 1,
@@ -287,7 +287,10 @@ class TestStep2 extends React.PureComponent {
              {test.title}
             </Form.Item>
             <Form.Item {...formItemLayout} label="题目">
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
+
+
+            <QuestionSort items= {this.state.items}/>
+             {/*  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
                 disabled={confirmLoading}
                 indeterminate={this.state.indeterminate}
                 onChange={this.onCheckAllChange}
@@ -323,7 +326,7 @@ class TestStep2 extends React.PureComponent {
                     <Card index={item.index} id={item.index+1} moveCard={this.moveCard}  disabled={confirmLoading} checked={item.checked} handle={this.handle.bind(this,item.index)} delete={this.delete.bind(this,item.index)} item={item} />
                   </List.Item>
                 )}
-              />
+              /> */}
             </Form.Item>
             <Form.Item
               style={{ marginBottom: 8 }}

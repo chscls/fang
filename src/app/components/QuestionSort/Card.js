@@ -3,7 +3,6 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { Icon, Checkbox ,Button} from 'antd';
 import ItemTypes from './ItemTypes';
 import { findDOMNode } from 'react-dom';
-import config from '../../../config';
 const cardSource = {
   beginDrag(props) {
     return {

@@ -4,7 +4,6 @@ import { Form, Icon, Input, Button, Popconfirm, Divider, List, Avatar, Checkbox,
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
-import QuestionList from '../QuestionList';
 import { InputNumber } from 'antd';
 import QuestionList from '../../routes/QuestionManage/QuestionList';
 export default class QuestionSort extends React.PureComponent {
@@ -169,7 +168,7 @@ export default class QuestionSort extends React.PureComponent {
 
         const data2 = this.state.items;
         const alreadyIds = data2.map(row => row.q.id).join(',');
-        return
+        return(
         <div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Checkbox
                 disabled={confirmLoading}
@@ -224,7 +223,7 @@ export default class QuestionSort extends React.PureComponent {
                     handleSelect={this.handleSelect}
                 />
             </Modal>
-        </div>
+        </div>)
     }
 
 }
