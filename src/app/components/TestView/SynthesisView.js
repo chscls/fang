@@ -49,11 +49,11 @@ export default class SynthesisView extends PureComponent {
                   <li key={i}>
                       {question.subQuestions[an.index].type == 'single' ? (
                           <SingleView question={question.subQuestions[an.index]} answer={an} />
-                      ) : question.type == 'mutiply' ? (
+                      ) : question.subQuestions[an.index].type == 'mutiply' ? (
                           <MutiplyView question={question.subQuestions[an.index]} answer={an}/>
-                      ) : question.type == 'judge' ? (
+                      ) : question.subQuestions[an.index].type == 'judge' ? (
                           <JudgeView question={qquestion.subQuestions[an.index]} answer={an}/>
-                      ) : question.type == 'fill' ? (
+                      ) : question.subQuestions[an.index].type == 'fill' ? (
                           <FillView question={question.subQuestions[an.index]} answer={an}/>
                       ) : (
                           <AskView question={question.subQuestions[an.index]} answer={an}/>
@@ -67,7 +67,7 @@ export default class SynthesisView extends PureComponent {
            
               return (
                   <li key={i}>
-                      {question.type == 'single' ? (
+                      {que.type == 'single' ? (
                           <SingleView question={que} />
                       ) : question.type == 'mutiply' ? (
                           <MutiplyView question={que} />

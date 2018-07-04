@@ -18,11 +18,12 @@ export default class AskView extends PureComponent {
   render() {
     const { size, question, answer,isCheck } = this.props;
     const isQuestionnaire = question.isQuestionnaire;
-
-    const item = question.items[0];
     
+    const item = question.items[0];
+ 
     return (
       <div style={this.props.style}>
+      
         {question.isRich ? (
           <div dangerouslySetInnerHTML={{ __html: question.title }} />
         ) : (
