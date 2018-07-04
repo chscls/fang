@@ -36,6 +36,9 @@ export default class SynthesisView extends PureComponent {
             <div> {question.title}</div>
           )}
         {!isQuestionnaire ? (
+          
+          
+          
           answer ? <RadioGroup defaultValue={defaultValue}>
             {answer.orders.map((r, i) => {
               return (
@@ -58,6 +61,10 @@ export default class SynthesisView extends PureComponent {
                 );
               })}
             </RadioGroup>
+
+
+
+
         ) : (
             <div>
               {state.items.map((r, i) => {
