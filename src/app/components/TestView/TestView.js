@@ -132,6 +132,7 @@ export default class TestView extends PureComponent {
             } else {
                 questions = this.props.test.questions
             }
+           
             return (
 
                 <ul style={{ backgroundColor: '#91d5ff' }}>
