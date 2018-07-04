@@ -53,14 +53,16 @@ class QuestionStep2 extends React.PureComponent {
         payload: { id: id },
         callback: question => {
           const orgItems =[]
-          const items = question.items;
-          for (let i = 0; i < items.length; i++) {
-            orgItems.push(items[i])
-           }
+          var items;
+         
           
          
           
           if (question.type == 'single' || question.type == 'mutiply') {
+            for (let i = 0; i < items.length; i++) {
+              orgItems.push(items[i])
+             }
+             items = question.items;
             if (items.length == 0) {
               items.push({ content: '', isSolution: false, isRich: false });
               items.push({ content: '', isSolution: false, isRich: false });
@@ -68,6 +70,10 @@ class QuestionStep2 extends React.PureComponent {
               items.push({ content: '', isSolution: false, isRich: false });
             }
           } else if (question.type == 'judge') {
+            for (let i = 0; i < items.length; i++) {
+              orgItems.push(items[i])
+             }
+            items = question.items;
             if (items.length == 0) {
               items.push({ content: '对', isSolution: false, isRich: false });
               items.push({ content: '错', isSolution: false, isRich: false });
@@ -90,14 +96,21 @@ class QuestionStep2 extends React.PureComponent {
               }
             }
           }else if (question.type == 'synthesis') {
-            const items = [];
-
+            
+            items =[];
+            for (let i = 0; i < items.length; i++) {
+              orgItems.push(items[i])
+             }
             for (var i = 0; i < question.subQuestions.length; i++) {
-              items[i] = { index: i, q: question.subQuestions[i], checked: false };
+              items.push({ index: i, q: question.subQuestions[i], checked: false });
             }
-  
+            
             
           }else {
+            items = question.items;
+            for (let i = 0; i < items.length; i++) {
+              orgItems.push(items[i])
+             }
             if (items.length == 0) {
               items.push({ content: '', isSolution: false, isRich: false });
             }
@@ -205,7 +218,7 @@ class QuestionStep2 extends React.PureComponent {
     const subQuestionConfigs = this.state.subQuestionConfigs ;
     const isQuestionnaire = this.state.isQuestionnaire;
     const type = this.state.type;
-
+   
     const onPrev = () => {
       dispatch(routerRedux.push(`/question-manage/question-add/info/${this.state.id}`));
     };

@@ -44,7 +44,7 @@ export default class Synthesis extends PureComponent {
 
     const state = this.state;
     const isQuestionnaire = state.isQuestionnaire;
-
+    
     return (
       <div>
         <QuestionSort 

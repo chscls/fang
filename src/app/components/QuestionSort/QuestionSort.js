@@ -206,7 +206,7 @@ export default class QuestionSort extends React.PureComponent {
 
                 <Popconfirm title={<InputNumber onChange={this.targetScore} defaultValue={1} />} onConfirm={this.changeScore} okText="确定" cancelText="取消">
                     <Button loading={confirmLoading} type="primary" >
-                        调分
+                        {this.props.isTest?"调分数占比":"调分"}
               </Button>
                 </Popconfirm>
 
