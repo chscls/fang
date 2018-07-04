@@ -6,7 +6,11 @@ const FormItem = Form.Item;
 const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
-import config from '../../config';
+import SingleView from './SingleView';
+import JudgeView from './JudgeView';
+import MutiplyView from './MutiplyView';
+import FillView from './FillView';
+import AskView from './AskView';
 export default class SynthesisView extends PureComponent {
   constructor(props) {
     super(props);
@@ -40,38 +44,39 @@ export default class SynthesisView extends PureComponent {
        
 
          answer ? <ul style={{ backgroundColor: '#91d5ff' }}>
-          { question.subQuestions.map((question, i) => {
+          { answer.answers.map((an, i) => {
               return (
                   <li key={i}>
-                      {question.type == 'single' ? (
-                          <SingleView question={question} />
+                      {question.subQuestions[an.index].type == 'single' ? (
+                          <SingleView question={question.subQuestions[an.index]} answer={an} />
                       ) : question.type == 'mutiply' ? (
-                          <MutiplyView question={question} />
+                          <MutiplyView question={question.subQuestions[an.index]} answer={an}/>
                       ) : question.type == 'judge' ? (
-                          <JudgeView question={question} />
+                          <JudgeView question={qquestion.subQuestions[an.index]} answer={an}/>
                       ) : question.type == 'fill' ? (
-                          <FillView question={question} />
+                          <FillView question={question.subQuestions[an.index]} answer={an}/>
                       ) : (
-                          <AskView question={question} />
+                          <AskView question={question.subQuestions[an.index]} answer={an}/>
                       ) 
                       }
                   </li>
               );
           })}
-      </ul>: <ul style={{ backgroundColor: '#91d5ff' }}>
-          { answer.answers.map((answer, i) => {
+      </ul>:<ul style={{ backgroundColor: '#91d5ff' }}>
+          { question.subQuestions.map((que, i) => {
+           
               return (
                   <li key={i}>
-                      {question.subQuestions[answer.index].type == 'single' ? (
-                          <SingleView question={question.subQuestions[answer.index]} answer={answer} />
+                      {question.type == 'single' ? (
+                          <SingleView question={que} />
                       ) : question.type == 'mutiply' ? (
-                          <MutiplyView question={question.subQuestions[answer.index]} answer={answer}/>
+                          <MutiplyView question={que} />
                       ) : question.type == 'judge' ? (
-                          <JudgeView question={qquestion.subQuestions[answer.index]} answer={answer}/>
+                          <JudgeView question={que} />
                       ) : question.type == 'fill' ? (
-                          <FillView question={question.subQuestions[answer.index]} answer={answer}/>
+                          <FillView question={que} />
                       ) : (
-                          <AskView question={question.subQuestions[answer.index]} answer={answer}/>
+                          <AskView question={que} />
                       ) 
                       }
                   </li>

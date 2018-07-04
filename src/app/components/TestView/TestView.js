@@ -148,7 +148,7 @@ export default class TestView extends PureComponent {
                                     <FillView question={question} />
                                 ) : question.type == 'ask' ? (
                                     <AskView question={question} />
-                                ) : <SynthesisView question={questions[answer.index]}/>
+                                ) : <SynthesisView question={question}/>
                                 }
                             </li>
                         );
