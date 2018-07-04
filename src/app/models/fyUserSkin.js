@@ -1,7 +1,7 @@
-import { query, remove, add } from '../services/FySkinMngSvc';
+import { query, remove, add } from '../services/FyUserSkinMngSvc';
 
 export default {
-  namespace: 'fySkin',
+  namespace: 'fyUserSkin',
 
   state: {
     data: {

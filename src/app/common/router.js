@@ -27,6 +27,11 @@ const appRouter = [
     component: () => import('../routes/SystemManage/SkinList'),
     authority: 'admin',
   },{
+    path: '/question-manage/user-skin-list',
+    models: [require(`../models/fyUserSkin`)],
+    component: () => import('../routes/QuestionManage/UserSkinList'),
+    authority: 'admin',
+  },{
     path: '/system-manage/adSpace-list',
     models: [require(`../models/fyAdSpace`)],
     component: () => import('../routes/SystemManage/AdSpaceList'),

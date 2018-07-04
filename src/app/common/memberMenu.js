@@ -40,6 +40,10 @@ export default function getMenu(isAdmin){
               name: '订单查询',
               icon: questionMng==''?null:'shopping-cart',
               path: `${questionMng}order-list`
+            }  ,{
+              name: '我的皮肤',
+              icon: questionMng==''?null:'skin',
+              path: `${questionMng}user-skin-list`
             } ,{
               name: '回收站',
               icon:questionMng==''?null:'delete',
