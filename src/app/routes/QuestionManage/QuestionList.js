@@ -70,10 +70,16 @@ export default class QuestionList extends PureComponent {
       };
     }
     const { dispatch } = this.props;
-    dispatch({
-      type: 'fyQuestion/fetch',
-      payload: params,
-    });
+   
+      dispatch({
+        type: 'fyQuestion/fetch',
+        payload: {
+          ...params,
+          type:params.type==null||params.type==""?'single,mutiply,judge,fill,ask':params.type
+          }
+        
+      });
+ 
   };
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
@@ -320,7 +326,52 @@ export default class QuestionList extends PureComponent {
   render() {
     const { fyQuestion: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
-
+    const filter = this.props.isTest!=null&&!this.props.isTest? [
+      {
+        text: '单选',
+        value: 'single',
+      },
+      {
+        text: '多选',
+        value: 'mutiply',
+      },
+      {
+        text: '判断',
+        value: 'judge',
+      },
+      {
+        text: '填空',
+        value: 'fill',
+      },
+      {
+        text: '问答',
+        value: 'ask',
+      }
+    ]:[
+      {
+        text: '单选',
+        value: 'single',
+      },
+      {
+        text: '多选',
+        value: 'mutiply',
+      },
+      {
+        text: '判断',
+        value: 'judge',
+      },
+      {
+        text: '填空',
+        value: 'fill',
+      },
+      {
+        text: '问答',
+        value: 'ask',
+      },{
+        text: '综合',
+        value: 'synthesis',
+      }
+    ]
     const columns = [
       
       {
@@ -343,31 +394,7 @@ export default class QuestionList extends PureComponent {
       {
         title: '题型',
         dataIndex: 'type',
-        filters: [
-          {
-            text: '单选',
-            value: 'single',
-          },
-          {
-            text: '多选',
-            value: 'mutiply',
-          },
-          {
-            text: '判断',
-            value: 'judge',
-          },
-          {
-            text: '填空',
-            value: 'fill',
-          },
-          {
-            text: '问答',
-            value: 'ask',
-          },{
-            text: '综合',
-            value: 'synthesis',
-          },
-        ],
+        filters: filter,
        
         render(val) {
           return (

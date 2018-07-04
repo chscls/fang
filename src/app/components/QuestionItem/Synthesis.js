@@ -57,7 +57,7 @@ export default class Synthesis extends PureComponent {
         defaultScore={this.props.defaultRate}
         delete={this.props.delete}
         changeScore={this.props.changeScore}
-        selfId={this.props.selfId}
+    
         />
       </div>
     );

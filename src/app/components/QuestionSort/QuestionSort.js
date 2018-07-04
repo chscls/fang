@@ -184,14 +184,6 @@ export default class QuestionSort extends React.PureComponent {
         const data2 = this.state.items;
         var alreadyIds = data2.map(row => row.q?row.q.id:row.id).join(',')
       
-        if(this.props.selfId!=null){
-            if(alreadyIds!=""){
-                alreadyIds=alreadyIds+","+this.props.selfId;
-            }else{
-                alreadyIds=this.props.selfId;
-            }
-          
-        } 
        
         return(
         <div>
@@ -246,6 +238,7 @@ export default class QuestionSort extends React.PureComponent {
                     alreadyIds={alreadyIds}
                     isSelect={true}
                     handleSelect={this.handleSelect}
+                    isTest={false}
                 />
             </Modal>
         </div>)

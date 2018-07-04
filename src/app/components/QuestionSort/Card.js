@@ -94,8 +94,8 @@ export default class Card extends React.PureComponent {
           )
         )}
 
-        &nbsp;&nbsp;{question.score?<span style={{width:40,display:'inline-block'}}>{question.score+'分'}</span>:
-        <span style={{width:40,display:'inline-block'}}>{question.rate*100+'%占比'}</span>}
+        &nbsp;&nbsp;{question.score?<span style={{width:80,display:'inline-block'}}>{question.score+'分'}</span>:
+        <span style={{width:80,display:'inline-block'}}>{question.rate.toFixed(2)*100+'%占比'}</span>}
         
         &nbsp;&nbsp;
         
