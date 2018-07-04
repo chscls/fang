@@ -46,7 +46,7 @@ export default class SynthesisView extends PureComponent {
          answer ? <ul style={{ backgroundColor: '#91d5ff' }}>
           { answer.answers.map((an, i) => {
               return (
-                  <li key={i}>
+                  <li key={i} type="1">
                       {question.subQuestions[an.index].type == 'single' ? (
                           <SingleView question={question.subQuestions[an.index]} answer={an} />
                       ) : question.subQuestions[an.index].type == 'mutiply' ? (
@@ -66,7 +66,7 @@ export default class SynthesisView extends PureComponent {
           { question.subQuestions.map((que, i) => {
            
               return (
-                  <li key={i}>
+                  <li key={i} type="1">
                       {que.type == 'single' ? (
                           <SingleView question={que} />
                       ) : question.type == 'mutiply' ? (
