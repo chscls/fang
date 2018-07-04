@@ -64,7 +64,13 @@ const menuData = [
         name: '目录管理',
         path: 'catalog-list',
         authority: 'admin',
+      },{
+        name: '皮肤管理',
+        path: 'skin-list',
+        authority: 'admin',
       },
+
+     
     ],
   },
   {

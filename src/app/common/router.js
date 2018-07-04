@@ -22,6 +22,11 @@ const appRouter = [
     component: () => import('../routes/SystemManage/AdList'),
     authority: 'admin',
   },{
+    path: '/system-manage/skin-list',
+    models: [require(`../models/fySkin`)],
+    component: () => import('../routes/SystemManage/SkinList'),
+    authority: 'admin',
+  },{
     path: '/system-manage/adSpace-list',
     models: [require(`../models/fyAdSpace`)],
     component: () => import('../routes/SystemManage/AdSpaceList'),
