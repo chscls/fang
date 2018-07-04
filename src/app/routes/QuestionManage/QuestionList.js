@@ -75,7 +75,7 @@ export default class QuestionList extends PureComponent {
         type: 'fyQuestion/fetch',
         payload: {
           ...params,
-          type:params.type==null||params.type==""?'single,mutiply,judge,fill,ask':params.type
+          type:params.type==null||params.type==""?(this.props.isQuestion?'single,mutiply,judge,fill,ask':""):params.type
           }
         
       });
@@ -326,7 +326,7 @@ export default class QuestionList extends PureComponent {
   render() {
     const { fyQuestion: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
-    const filter = this.props.isTest!=null&&!this.props.isTest? [
+    const filter = this.props.isQuestion!=null?[
       {
         text: '单选',
         value: 'single',
