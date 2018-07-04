@@ -115,7 +115,8 @@ export default class RichEditor extends PureComponent {
 
           <div> <button title="斜体" className="ql-italic" /></div>
           <div> <button title="下划线" className="ql-underline" /></div>
-         
+          <div> <button title="代码" className="ql-code" /></div>
+          
           <Upload style={{ cursor: "pointer" }}{...props}>
             <Icon type="picture" />
           </Upload>
