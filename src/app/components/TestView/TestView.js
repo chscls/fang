@@ -14,6 +14,7 @@ import JudgeView from '../../components/TestView/JudgeView';
 import MutiplyView from '../../components/TestView/MutiplyView';
 import FillView from '../../components/TestView/FillView';
 import AskView from '../../components/TestView/AskView';
+import SynthesisView from '../../components/TestView/SynthesisView';
 import moment from 'moment';
 @connect(({ loading, fyTestRecord }) => ({
 
@@ -103,7 +104,7 @@ export default class TestView extends PureComponent {
                                             <FillView question={questions[answer.index]} answer={answer} />
                                         ) : questions[answer.index].type == 'ask' ? (
                                             <AskView question={questions[answer.index]} answer={answer} />
-                                        ) : <SingleView question={questions[answer.index]} answer={answer} />
+                                        ) : <SynthesisView question={questions[answer.index]} answer={answer} />
                                         }
 
 
