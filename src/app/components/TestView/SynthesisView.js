@@ -37,30 +37,51 @@ export default class SynthesisView extends PureComponent {
           )}
         {!isQuestionnaire ? (
           
-          
-          
-          answer ? <RadioGroup defaultValue={defaultValue}>
-            {answer.orders.map((r, i) => {
+       
+
+         answer ? <ul style={{ backgroundColor: '#91d5ff' }}>
+          { question.subQuestions.map((question, i) => {
               return (
-                <div key={i}>
-                  {String.fromCharCode(i + 65)}、{' '}
-                  <Radio value={r} key={r} disabled={r != defaultValue} />
-                  {r.isRich ? <div dangerouslySetInnerHTML={{ __html:items[r].content }} /> :items[r].content}
-                </div>
+                  <li key={i}>
+                      {question.type == 'single' ? (
+                          <SingleView question={question} />
+                      ) : question.type == 'mutiply' ? (
+                          <MutiplyView question={question} />
+                      ) : question.type == 'judge' ? (
+                          <JudgeView question={question} />
+                      ) : question.type == 'fill' ? (
+                          <FillView question={question} />
+                      ) : (
+                          <AskView question={question} />
+                      ) 
+                      }
+                  </li>
               );
-            })}
-          </RadioGroup>
-            : <RadioGroup defaultValue={defaultValue}>
-              {items.map((r, i) => {
-                return (
-                  <div key={i}>
-                    {String.fromCharCode(i + 65)}、{' '}
-                    <Radio value={i} key={i} disabled={i != defaultValue} />
-                    {r.isRich ? <div dangerouslySetInnerHTML={{ __html: r.content }} /> : r.content}
-                  </div>
-                );
-              })}
-            </RadioGroup>
+          })}
+      </ul>: <ul style={{ backgroundColor: '#91d5ff' }}>
+          { answer.answers.map((answer, i) => {
+              return (
+                  <li key={i}>
+                      {question.subQuestions[answer.index].type == 'single' ? (
+                          <SingleView question={question.subQuestions[answer.index]} answer={answer} />
+                      ) : question.type == 'mutiply' ? (
+                          <MutiplyView question={question.subQuestions[answer.index]} answer={answer}/>
+                      ) : question.type == 'judge' ? (
+                          <JudgeView question={qquestion.subQuestions[answer.index]} answer={answer}/>
+                      ) : question.type == 'fill' ? (
+                          <FillView question={question.subQuestions[answer.index]} answer={answer}/>
+                      ) : (
+                          <AskView question={question.subQuestions[answer.index]} answer={answer}/>
+                      ) 
+                      }
+                  </li>
+              );
+          })}
+      </ul>
+
+
+          
+         
 
 
 
