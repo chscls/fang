@@ -180,6 +180,7 @@ class TestStep2 extends React.PureComponent {
                 defaultScore={1}
                 delete={this.delete}
                 changeScore={this.changeScore}
+                isQuestion = {false}
               />
 
             </Form.Item>

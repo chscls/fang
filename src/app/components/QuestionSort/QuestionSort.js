@@ -238,7 +238,7 @@ export default class QuestionSort extends React.PureComponent {
                     alreadyIds={alreadyIds}
                     isSelect={true}
                     handleSelect={this.handleSelect}
-                    isQuestion={true}
+                    isQuestion={this.props.isQuestion}
                 />
             </Modal>
         </div>)
