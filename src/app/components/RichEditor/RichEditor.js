@@ -29,7 +29,7 @@ export default class RichEditor extends PureComponent {
   constructor(props) {
     super(props);
     const value = props.value || {};
-    var x = value.content;
+    var x = value.editorHtml;
     
     this.id = 'toolbar' + (((1 + Math.random()) * 0x10000000) | 0).toString(16).substring(1);
     this.modules = {
