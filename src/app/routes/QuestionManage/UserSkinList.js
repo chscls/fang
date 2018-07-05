@@ -336,8 +336,8 @@ export default class UserSkinList extends PureComponent {
         render: val => `¥ ${val.toFixed(2)}`
       },{
         title: '图片',
-        dataIndex: 'skin',
-        render: val =>  <img src={config.httpServer+val.img} style={{width:50}}/>
+      
+        render: val =>  <img src={config.httpServer+val.skin.img} style={{width:50}}/>
       },{
         title: '购买时间',
         dataIndex: 'buyTime',
