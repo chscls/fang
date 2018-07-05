@@ -28,7 +28,9 @@ function beforeUpload(file) {
 export default class RichEditor extends PureComponent {
   constructor(props) {
     super(props);
-
+    const value = props.value || {};
+    var x = value.content;
+    
     this.id = 'toolbar' + (((1 + Math.random()) * 0x10000000) | 0).toString(16).substring(1);
     this.modules = {
       toolbar: {
@@ -39,7 +41,7 @@ export default class RichEditor extends PureComponent {
 
     this.state = {
       showGongshi:false,
-      editorHtml: this.props.defaultValue == null ? '' : this.props.defaultValue,
+      editorHtml: x?x:(this.props.defaultValue == null ? '' : this.props.defaultValue)
     };
     window.latex=(gs)=>{
      
@@ -56,6 +58,13 @@ export default class RichEditor extends PureComponent {
   
     }
   }
+  triggerChange = changedValue => {
+    // Should provide an event to pass value to Form.
+    const onChange = this.props.onChange;
+    if (onChange) {
+      onChange(Object.assign({}, this.state, changedValue));
+    }
+  };
   showGongshi=()=>{
     this.setState({showGongshi:true})
   }
@@ -67,6 +76,7 @@ export default class RichEditor extends PureComponent {
     if (this.props.onChangeValue) {
       this.props.onChangeValue(content.replace(config.httpServer, ""));
     }
+    this.triggerChange({ editorHtml: content });
   }
 
   render() {

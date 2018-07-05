@@ -23,6 +23,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import config from '../../config';
 import styles from './SkinList.less';
+import RichEditor from '../../components/RichEditor/RichEditor';
 const uploadUrl = config.uploadUrl
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -102,6 +103,12 @@ const CreateForm = Form.create()(props => {
           )}
         </div>
       </FormItem> 
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
+        {form.getFieldDecorator('description', {
+          initialValue:{content:currentObj.description}
+      
+        })(<RichEditor  className="ant-row ant-form-item" />)}
+      </FormItem>
     </Modal>
   );
 });
