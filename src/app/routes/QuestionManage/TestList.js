@@ -357,7 +357,9 @@ export default class TestList extends PureComponent {
       },
     });
   };
-  
+  changeSkin=(id)=>{
+
+  }
   cancelScreen = e => {
     this.setState({ screenVisible: false });
   };
@@ -452,28 +454,8 @@ export default class TestList extends PureComponent {
               : val == 'totalLimit' ? '总限时' : '竞赛',
       },
       {
-        title: '试卷状态',
-        dataIndex: 'status',
-        filters: [
-          {
-            text: '创建中',
-            value: 'create',
-          },
-          {
-            text: '进行中',
-            value: 'process',
-          },
-          {
-            text: '已结束',
-            value: 'complete',
-          }
-        ],
-        render:val =>
-        val == 'create' ? '创建中' : val == 'process' ? '进行中' : '已结束',
-      },
-      {
         title: '上架状态',
-        dataIndex: 'saleStatus',
+        dataIndex: 'status',
         render:val =>
         val == 'create' ? '待上架' : val == 'apply' ? '审核中' : val == 'refuse' ? '不通过':'已上架'
       },
@@ -495,7 +477,8 @@ export default class TestList extends PureComponent {
             {record.saleStatus=='apply'?"":<Divider type="vertical" />}
             
             <Link to={`/question-manage/testRecord-detail/${record.code}`}>统计与批阅</Link>
-           
+            <Divider type="vertical" />
+            <a onClick={this.changeSkin.bind(this, record.id)}>换肤</a>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
           </Fragment>
