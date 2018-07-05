@@ -78,7 +78,13 @@ export default class RichEditor extends PureComponent {
     }
     this.triggerChange({ editorHtml: content.replace(config.httpServer, "") });
   }
-
+  componentWillReceiveProps(nextProps) {
+    // Should be a controlled component.
+    if ('value' in nextProps) {
+      const value = nextProps.value;
+      this.setState(value);
+    }
+  }
   render() {
     const props = {
       name: 'file',
