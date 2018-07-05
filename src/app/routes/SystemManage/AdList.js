@@ -27,7 +27,7 @@ import AdSpaceList from './AdSpaceList';
 import { beforeUpload } from '../../../utils/utils';
 import { allSettled } from 'rsvp';
 
-const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
+const uploadUrl = config.httpServer;
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>

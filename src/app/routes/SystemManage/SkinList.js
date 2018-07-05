@@ -16,30 +16,47 @@ import {
   DatePicker,
   Modal,
   message,
-  Badge,
+  Upload,
   Divider,
 } from 'antd';
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-
+import config from '../../config';
 import styles from './SkinList.less';
-
+const uploadUrl = config.uploadUrl
 const FormItem = Form.Item;
 const { Option } = Select;
+import { beforeUpload } from '../../../utils/utils';
 const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e && e.fileList;
+}
 const CreateForm = Form.create()(props => {
   const { modalVisible, form, handleAdd, handleModalVisible, currentObj } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      handleAdd(fieldsValue,()=>{
+      var x = fieldsValue.img;
+      if (x == null || x.length == 0) {
+        return
+      }
+
+      var y = x[x.length - 1].response
+    
+      handleAdd({
+        ...fieldsValue,
+        img: y
+      },()=>{
         form.resetFields();
-      })
+      });
     });
   };
   return (
@@ -55,7 +72,36 @@ const CreateForm = Form.create()(props => {
           rules: [{ required: true, message: '请输入名称...' }],
         })(<Input placeholder="请输入名称" />)}
       </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="原价">
+        {form.getFieldDecorator('orgPrice', {
+          initialValue: currentObj.orgPrice||0
+         
+        })(<InputNumber min={0} placeholder="请输入名称" />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="现价">
+        {form.getFieldDecorator('price', {
+          initialValue: currentObj.price||0
       
+        })(<InputNumber min={0} placeholder="请输入名称" />)}
+      </FormItem>
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label={`图片100*100`} >
+        <div className="dropbox">
+          {form.getFieldDecorator('img', {
+            valuePropName: 'fileList',
+            getValueFromEvent: normFile,
+          })(
+            <Upload.Dragger name="file" action={uploadUrl} multiple={false} beforeUpload={beforeUpload.bind(this, 100, 100, (msg) => {
+              message.error("请选择" + msg + "宽度的图片")
+            })} >
+              <p className="ant-upload-drag-icon">
+                <Icon type="inbox" />
+              </p>
+              <p className="ant-upload-text">Click or drag file to this area to upload</p>
+              <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+            </Upload.Dragger>
+          )}
+        </div>
+      </FormItem> 
     </Modal>
   );
 });
