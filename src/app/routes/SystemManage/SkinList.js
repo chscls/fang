@@ -333,8 +333,19 @@ export default class SkinList extends PureComponent {
         title: '名称',
         dataIndex: 'name',
       },{
-        title: 'code',
+        title: '价格',
+        dataIndex: 'price',
+
+      },{
+        title: '原价',
+        dataIndex: 'orgPrice',
+
+      },{
+        title: '唯一码',
         dataIndex: 'code',
+      },{
+        title: '状态',
+        dataIndex: 'status',
       },{
         title: '图片',
         dataIndex: 'img',
