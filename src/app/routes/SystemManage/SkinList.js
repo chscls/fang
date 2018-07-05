@@ -231,8 +231,8 @@ export default class SkinList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="关键字">
-              {getFieldDecorator('keyword')(<Input placeholder="请输入" />)}
+            <FormItem label="code">
+              {getFieldDecorator('code')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -324,7 +324,7 @@ export default class SkinList extends PureComponent {
     const { fySkin: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
-    const columns =this.props.isSelect?[
+    const columns =[
       {
         title: 'id',
         dataIndex: 'id',
@@ -333,35 +333,12 @@ export default class SkinList extends PureComponent {
         title: '名称',
         dataIndex: 'name',
       },{
-        title: '关键字',
-        dataIndex: 'keyword',
+        title: 'code',
+        dataIndex: 'code',
       },{
-        title: '宽度',
-        dataIndex: 'width',
-      },{
-        title: '高度',
-        dataIndex: 'height',
-      },{
-        title: '创建时间',
-        dataIndex: 'createTime',
-        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
-      }]: [
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
-      {
-        title: '名称',
-        dataIndex: 'name',
-      },{
-        title: '关键字',
-        dataIndex: 'keyword',
-      },{
-        title: '宽度',
-        dataIndex: 'width',
-      },{
-        title: '高度',
-        dataIndex: 'height',
+        title: '图片',
+        dataIndex: 'img',
+        render: val =>  <img src={val} style={{width:50}}/>
       },{
         title: '创建时间',
         dataIndex: 'createTime',
@@ -391,21 +368,7 @@ export default class SkinList extends PureComponent {
       currentObj: this.state.currentObj,
     };
 
-    return (this.props.isSelect?<Card bordered={false}>
-      <div className={styles.tableList}>
-        <div className={styles.tableListForm}>{this.renderForm()}</div>
-      
-        <StandardTable
-          selectedRows={selectedRows}
-          loading={loading}
-          data={data}
-          columns={columns}
-          rowKey="id"
-          onSelectRow={this.handleSelectRows}
-          onChange={this.handleStandardTableChange}
-        />
-      </div>
-    </Card>:
+    return(
       <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
