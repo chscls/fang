@@ -381,10 +381,12 @@ export default class SkinList extends PureComponent {
       },{
         title: '价格',
         dataIndex: 'price',
+        render: val => `¥ ${val.toFixed(2)}`
 
       },{
         title: '原价',
         dataIndex: 'orgPrice',
+        render: val => `¥ ${val.toFixed(2)}`
 
       },{
         title: '唯一码',

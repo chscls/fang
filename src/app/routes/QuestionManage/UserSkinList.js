@@ -23,7 +23,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from './UserSkinList.less';
-
+import config from '../../config';
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -335,11 +335,11 @@ export default class UserSkinList extends PureComponent {
       },{
         title: '购买价格',
         dataIndex: 'buyPrice',
-
+        render: val => `¥ ${val.toFixed(2)}`
       },{
         title: '图片',
         dataIndex: 'skin',
-        render: val =>   <img src={val.img} style={{width:50}}/>
+        render: val =>  <img src={config.httpServer+val} style={{width:50}}/>
       },{
         title: '高度',
         dataIndex: 'height',
