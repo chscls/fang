@@ -325,10 +325,7 @@ export default class UserSkinList extends PureComponent {
     const { selectedRows, modalVisible } = this.state;
 
     const columns =[
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
+     
       {
         title: '名称',
         dataIndex: 'skin',
@@ -340,10 +337,7 @@ export default class UserSkinList extends PureComponent {
       },{
         title: '图片',
         dataIndex: 'skin',
-        render: val =>  <img src={config.httpServer+val} style={{width:50}}/>
-      },{
-        title: '高度',
-        dataIndex: 'height',
+        render: val =>  <img src={config.httpServer+val.img} style={{width:50}}/>
       },{
         title: '购买时间',
         dataIndex: 'buyTime',
