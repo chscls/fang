@@ -70,16 +70,17 @@ export default class QuestionList extends PureComponent {
       };
     }
     const { dispatch } = this.props;
-   
-      dispatch({
-        type: 'fyQuestion/fetch',
-        payload: {
-          ...params,
-          type:params.type==null||params.type==""?(this.props.isQuestion?'single,mutiply,judge,fill,ask':""):params.type
-          }
-        
-      });
- 
+
+    dispatch({
+      type: 'fyQuestion/fetch',
+      payload: {
+        ...params,
+        type: params.type == null || params.type == "" ? (this.props.isQuestion ? 'single,mutiply,judge,fill,ask' : "") : params.type,
+        status: this.props.isQuestion != null ? 'complete' : params.status
+      }
+
+    });
+
   };
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
@@ -162,12 +163,12 @@ export default class QuestionList extends PureComponent {
         formValues: values,
       });
 
-      const pagination=this.props.fyQuestion.data.pagination
+      const pagination = this.props.fyQuestion.data.pagination
       const params = {
         pageNo: pagination.current,
         pageSize: pagination.pageSize,
         ...values,
-      
+
       };
       this.getPage(params);
     });
@@ -201,7 +202,7 @@ export default class QuestionList extends PureComponent {
         this.setState({
           modalVisible: false,
         });
-       
+
         this.getPage();
       },
     });
@@ -214,15 +215,15 @@ export default class QuestionList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="标题">
-              {getFieldDecorator('title',{
+              {getFieldDecorator('title', {
                 initialValue: '',
               })(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="标签">
-              {getFieldDecorator('tag',{
-                initialValue:'',
+              {getFieldDecorator('tag', {
+                initialValue: '',
               })(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
@@ -254,7 +255,7 @@ export default class QuestionList extends PureComponent {
               {getFieldDecorator('title')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          
+
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <span style={{ float: 'right', marginBottom: 24 }}>
@@ -326,7 +327,7 @@ export default class QuestionList extends PureComponent {
   render() {
     const { fyQuestion: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
-    const filter = this.props.isQuestion!=null?[
+    const filter = this.props.isQuestion != null ? [
       {
         text: '单选',
         value: 'single',
@@ -347,47 +348,47 @@ export default class QuestionList extends PureComponent {
         text: '问答',
         value: 'ask',
       }
-    ]:[
-      {
-        text: '单选',
-        value: 'single',
-      },
-      {
-        text: '多选',
-        value: 'mutiply',
-      },
-      {
-        text: '判断',
-        value: 'judge',
-      },
-      {
-        text: '填空',
-        value: 'fill',
-      },
-      {
-        text: '问答',
-        value: 'ask',
-      },{
-        text: '综合',
-        value: 'synthesis',
-      }
-    ]
+    ] : [
+        {
+          text: '单选',
+          value: 'single',
+        },
+        {
+          text: '多选',
+          value: 'mutiply',
+        },
+        {
+          text: '判断',
+          value: 'judge',
+        },
+        {
+          text: '填空',
+          value: 'fill',
+        },
+        {
+          text: '问答',
+          value: 'ask',
+        }, {
+          text: '综合',
+          value: 'synthesis',
+        }
+      ]
     const columns = [
-      
+
       {
         title: '标题(点击可预览)',
         width: 400,
         render: record => (
           <Tooltip
             overlayStyle={{ minWidth: 400 }}
-            title={<TestView question={record}/>}
-            
+            title={<TestView question={record} />}
+
           >
-           <a> {record.isRich ? (
-              <div  dangerouslySetInnerHTML={{ __html: record.title  }} />
+            <a> {record.isRich ? (
+              <div dangerouslySetInnerHTML={{ __html: record.title }} />
             ) : (
-              <Ellipsis lines={3}>{record.title}</Ellipsis>
-            )}</a>
+                <Ellipsis lines={3}>{record.title}</Ellipsis>
+              )}</a>
           </Tooltip>
         ),
       },
@@ -395,16 +396,15 @@ export default class QuestionList extends PureComponent {
         title: '题型',
         dataIndex: 'type',
         filters: filter,
-       
+
         render(val) {
           return (
             <span>
-              {' '}
               {val == 'single'
                 ? '单选'
                 : val == 'mutiply'
                   ? '多选'
-                  : val == 'judge' ? '判断' : val == 'fill' ? '填空' :val == 'ask' ? '问答':'综合'}
+                  : val == 'judge' ? '判断' : val == 'fill' ? '填空' : val == 'ask' ? '问答' : '综合'}
             </span>
           );
         },
@@ -434,7 +434,7 @@ export default class QuestionList extends PureComponent {
             value: 100,
           },
         ],
-       
+
         render(val) {
           return <Rate disabled={true} value={val / 25 + 1} />;
         },
@@ -442,8 +442,8 @@ export default class QuestionList extends PureComponent {
       {
         title: '标签',
         render(record) {
-          return <div>{record.tags.map((tag)=>{
-            return  <Tag color="blue">{tag}</Tag>
+          return <div>{record.tags.map((tag) => {
+            return <Tag color="blue">{tag}</Tag>
           })}</div>
         }
       },
@@ -451,30 +451,14 @@ export default class QuestionList extends PureComponent {
         title: '创建时间',
         dataIndex: 'createTime',
         sorter: true,
-        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
-      },{
+        render: val => moment(val).format('YYYY-MM-DD HH:mm')
+      }, {
         title: '更新时间',
         dataIndex: 'updateTime',
-        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
-      },
-      {
+        render: val => moment(val).format('YYYY-MM-DD HH:mm')
+      }, this.props.isQuestion != null ? {
         title: '状态',
         dataIndex: 'status',
-        filters: [
-          {
-            text: status[0],
-            value: 'create',
-          },
-          {
-            text: status[1],
-            value: 'check',
-          },
-          {
-            text: status[2],
-            value: 'complete',
-          },
-        ],
-      
         render(val) {
           var x = 0;
           if (val == 'check') x = 1;
@@ -482,7 +466,33 @@ export default class QuestionList extends PureComponent {
 
           return <Badge status={statusMap[x]} text={status[x]} />;
         },
-      },
+      } :
+        {
+          title: '状态',
+          dataIndex: 'status',
+          filters: [
+            {
+              text: status[0],
+              value: 'create',
+            },
+            {
+              text: status[1],
+              value: 'check',
+            },
+            {
+              text: status[2],
+              value: 'complete',
+            },
+          ],
+
+          render(val) {
+            var x = 0;
+            if (val == 'check') x = 1;
+            if (val == 'complete') x = 2;
+
+            return <Badge status={statusMap[x]} text={status[x]} />;
+          },
+        },
       {
         title: '操作',
         render: record => (
@@ -515,39 +525,39 @@ export default class QuestionList extends PureComponent {
         />
       </div>
     ) : (
-      <PageHeaderLayout title="">
-        <Card bordered={false}>
-          <div className={styles.tableList}>
-            <div className={styles.tableListForm}>{this.renderForm()}</div>
-            <div className={styles.tableListOperator}>
-              <Link to="/question-manage/question-add/info/0">
-                <Button icon="plus" type="primary">
-                  新建
+        <PageHeaderLayout title="">
+          <Card bordered={false}>
+            <div className={styles.tableList}>
+              <div className={styles.tableListForm}>{this.renderForm()}</div>
+              <div className={styles.tableListOperator}>
+                <Link to="/question-manage/question-add/info/0">
+                  <Button icon="plus" type="primary">
+                    新建
                 </Button>
-              </Link>
-              {selectedRows.length > 0 && (
-                <span>
-                  <Button type="danger"  onClick={this.batchDelete.bind(this)}>批量刪除</Button>
-                  <Dropdown overlay={menu}>
-                    <Button>
-                      更多操作 <Icon type="down" />
-                    </Button>
-                  </Dropdown>
-                </span>
-              )}
+                </Link>
+                {selectedRows.length > 0 && (
+                  <span>
+                    <Button type="danger" onClick={this.batchDelete.bind(this)}>批量刪除</Button>
+                    <Dropdown overlay={menu}>
+                      <Button>
+                        更多操作 <Icon type="down" />
+                      </Button>
+                    </Dropdown>
+                  </span>
+                )}
+              </div>
+              <StandardTable
+                selectedRows={selectedRows}
+                loading={loading}
+                data={data}
+                columns={columns}
+                rowKey="id"
+                onSelectRow={this.handleSelectRows}
+                onChange={this.handleStandardTableChange}
+              />
             </div>
-            <StandardTable
-              selectedRows={selectedRows}
-              loading={loading}
-              data={data}
-              columns={columns}
-              rowKey="id"
-              onSelectRow={this.handleSelectRows}
-              onChange={this.handleStandardTableChange}
-            />
-          </div>
-        </Card>
-      </PageHeaderLayout>
-    );
+          </Card>
+        </PageHeaderLayout>
+      );
   }
 }
