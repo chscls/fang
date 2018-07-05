@@ -331,7 +331,8 @@ export default class UserSkinList extends PureComponent {
       },
       {
         title: '名称',
-        dataIndex: 'name',
+        dataIndex: 'skin',
+        render: val => val.name
       },{
         title: '购买价格',
         dataIndex: 'buyPrice',
