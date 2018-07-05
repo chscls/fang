@@ -13,7 +13,7 @@ import {
   Dropdown,
   Menu,
   InputNumber,
-  DatePicker,
+  Tooltip,
   Modal,
   message,
   Upload,
@@ -395,7 +395,16 @@ export default class SkinList extends PureComponent {
       },
       {
         title: '名称',
-        dataIndex: 'name',
+        render: record => (
+          <Tooltip
+            overlayStyle={{ minWidth: 400 }}
+            title={ <div  dangerouslySetInnerHTML={{ __html: record.description  }} />}
+            
+          >
+           <a> {record.name }</a>
+          </Tooltip>
+        ),
+        
       },{
         title: '价格',
         dataIndex: 'price',
