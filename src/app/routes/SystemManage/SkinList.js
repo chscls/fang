@@ -395,7 +395,7 @@ export default class SkinList extends PureComponent {
       },{
         title: '图片',
         dataIndex: 'img',
-        render: val =>  <img src={val} style={{width:50}}/>
+        render: val =>  <img src={config.httpServer+val} style={{width:50}}/>
       },{
         title: '创建时间',
         dataIndex: 'createTime',
