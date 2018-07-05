@@ -383,6 +383,9 @@ export default class TestList extends PureComponent {
       },{
         title: '总分',
         dataIndex: 'score',
+      },{
+        title: '皮肤',
+        dataIndex: 'skin',
       },
       {
         title: '重做次数',
