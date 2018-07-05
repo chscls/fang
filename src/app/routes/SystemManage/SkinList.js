@@ -8,6 +8,7 @@ import {
   Form,
   Input,
   Select,
+  Badge,
   Icon,
   Button,
   Dropdown,
@@ -32,8 +33,8 @@ const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
-const statusMap = ['default', 'processing', 'success', 'error'];
-const status = ['关闭', '运行中', '已上线', '异常'];
+const statusMap = ['error',  'success'];
+const status = ['已下架', '已上架'];
 const normFile = (e) => {
   if (Array.isArray(e)) {
     return e;
@@ -421,6 +422,13 @@ export default class SkinList extends PureComponent {
       },{
         title: '状态',
         dataIndex: 'status',
+        render(val) {
+          var x = 0;
+          if (val == 'check') x = 1;
+          if (val == 'complete') x = 2;
+
+          return <Badge status={statusMap[x]} text={status[x]} />;
+        },
       },{
         title: '图片',
         dataIndex: 'img',
