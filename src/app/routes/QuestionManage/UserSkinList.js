@@ -347,17 +347,7 @@ export default class UserSkinList extends PureComponent {
         title: '购买时间',
         dataIndex: 'buyTime',
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
-      },
-      {
-        title: '操作',
-        render: record => (
-          <Fragment>
-            <a onClick={this.modify.bind(this, record)}>修改</a>
-            <Divider type="vertical" />
-            <a onClick={this.delete.bind(this, record.id)}>删除</a>
-          </Fragment>
-        ),
-      },
+      }
     ];
 
     const menu = (
@@ -377,21 +367,7 @@ export default class UserSkinList extends PureComponent {
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
-            <div className={styles.tableListOperator}>
-              <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
-                新建
-              </Button>
-              {selectedRows.length > 0 && (
-                <span>
-                  <Button onClick={this.batchDelete.bind(this)}>批量刪除</Button>
-                  {/* <Dropdown overlay={menu}>
-                    <Button>
-                      更多操作 <Icon type="down" />
-                    </Button>
-                  </Dropdown> */}
-                </span>
-              )}
-            </div>
+            
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
