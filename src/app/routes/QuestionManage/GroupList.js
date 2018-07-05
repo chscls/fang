@@ -317,19 +317,12 @@ export default class GroupList extends PureComponent {
     const { fyGroup: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
-    const columns = this.props.isSelect? [
+    const columns =  [
       
       {
         title: '名称',
         dataIndex: 'name',
-      }
-      
-    ]:[
-      
-      {
-        title: '名称',
-        dataIndex: 'name',
-      },
+      },this.props.isSelect?{}:
       {
         title: '操作',
         render: record => (
