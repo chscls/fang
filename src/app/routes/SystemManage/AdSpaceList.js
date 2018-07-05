@@ -341,7 +341,7 @@ export default class AdSpaceList extends PureComponent {
     const { fyAdSpace: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
 
-    const columns =this.props.isSelect?[
+    const columns =[ 
       {
         title: 'id',
         dataIndex: 'id',
@@ -362,28 +362,7 @@ export default class AdSpaceList extends PureComponent {
         title: '创建时间',
         dataIndex: 'createTime',
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
-      }]: [
-      {
-        title: 'id',
-        dataIndex: 'id',
-      },
-      {
-        title: '名称',
-        dataIndex: 'name',
-      },{
-        title: '关键字',
-        dataIndex: 'keyword',
-      },{
-        title: '宽度',
-        dataIndex: 'width',
-      },{
-        title: '高度',
-        dataIndex: 'height',
-      },{
-        title: '创建时间',
-        dataIndex: 'createTime',
-        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
-      },
+      },this.props.isSelect?{}:
       {
         title: '操作',
         render: record => (
