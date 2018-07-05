@@ -38,7 +38,7 @@ export default class RichEditor extends PureComponent {
         handlers: {},
       },
     };
-
+   
     this.state = {
       showGongshi:false,
       editorHtml: x?x:(this.props.defaultValue == null ? '' : this.props.defaultValue)

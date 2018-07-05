@@ -47,17 +47,28 @@ const CreateForm = Form.create()(props => {
       if (err) return;
       var x = fieldsValue.img;
       if (x == null || x.length == 0) {
-        return
-      }
-
-      var y = x[x.length - 1].response
     
       handleAdd({
         ...fieldsValue,
-        img: y
+        description:fieldsValue.description.editorHtml,
+        
       },()=>{
         form.resetFields();
       });
+        
+      }else{
+        var y = x[x.length - 1].response
+    
+        handleAdd({
+          ...fieldsValue,
+          description:fieldsValue.description.editorHtml,
+          img: y
+        },()=>{
+          form.resetFields();
+        });
+      }
+
+      
     });
   };
   return (
@@ -105,7 +116,7 @@ const CreateForm = Form.create()(props => {
       </FormItem> 
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="描述">
         {form.getFieldDecorator('description', {
-          initialValue:{content:currentObj.description}
+          initialValue:{editorHtml:currentObj.description}
       
         })(<RichEditor  className="ant-row ant-form-item" />)}
       </FormItem>
