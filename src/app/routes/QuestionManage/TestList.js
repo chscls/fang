@@ -32,8 +32,8 @@ const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
-const statusMap = ['default', 'processing', 'success', 'error'];
-const status = ['关闭', '运行中', '已上线', '异常'];
+    const statusMap = ['default',  'warning','error','success'];
+    const status = ['待上架', '审核中','被拒绝','已上架'];
 
 @connect(({ rule, loading, fyTest }) => ({
   fyTest,
@@ -456,8 +456,13 @@ export default class TestList extends PureComponent {
       {
         title: '上架状态',
         dataIndex: 'status',
-        render:val =>
-        val == 'create' ? '待上架' : val == 'apply' ? '审核中' : val == 'refuse' ? '不通过':'已上架'
+        render(val) {
+          var x = 0;
+          if (val == 'check') x = 1;
+          if (val == 'refuse') x = 2;
+          if (val == 'sale') x = 3;
+          return <Badge status={statusMap[x]} text={status[x]} />;
+        },
       },
       {
         title: '创建时间',

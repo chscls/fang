@@ -38,7 +38,7 @@ const getValue = obj =>
     .map(key => obj[key])
     .join(',');
    
-const statusMap = ['error', 'warning', 'success'];
+const statusMap = ['default', 'warning', 'success'];
 const status = ['创建中', '审核中', '已上线'];
 
 @connect(({ rule, loading, fyQuestion }) => ({

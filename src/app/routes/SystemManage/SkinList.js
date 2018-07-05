@@ -33,7 +33,7 @@ const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
-const statusMap = ['error',  'success'];
+const statusMap = ['default',  'success'];
 const status = ['已下架', '已上架'];
 const normFile = (e) => {
   if (Array.isArray(e)) {
@@ -424,8 +424,8 @@ export default class SkinList extends PureComponent {
         dataIndex: 'status',
         render(val) {
           var x = 0;
-          if (val == 'check') x = 1;
-          if (val == 'complete') x = 2;
+          if (val == 'sale') x = 1;
+       
 
           return <Badge status={statusMap[x]} text={status[x]} />;
         },
