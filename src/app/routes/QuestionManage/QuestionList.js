@@ -452,6 +452,10 @@ export default class QuestionList extends PureComponent {
         dataIndex: 'createTime',
         sorter: true,
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
+      },{
+        title: '更新时间',
+        dataIndex: 'updateTime',
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '状态',

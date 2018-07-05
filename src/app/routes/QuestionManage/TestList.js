@@ -464,6 +464,10 @@ export default class TestList extends PureComponent {
         sorter: true,
         dataIndex: 'createTime',
         render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
+      },{
+        title: '更新时间',
+        dataIndex: 'updateTime',
+        render: val =>    moment(val).format('YYYY-MM-DD HH:mm')
       },
       {
         title: '操作',
