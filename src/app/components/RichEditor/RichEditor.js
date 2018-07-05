@@ -76,7 +76,7 @@ export default class RichEditor extends PureComponent {
     if (this.props.onChangeValue) {
       this.props.onChangeValue(content.replace(config.httpServer, ""));
     }
-    this.triggerChange({ editorHtml: content });
+    this.triggerChange({ editorHtml: content.replace(config.httpServer, "") });
   }
 
   render() {
