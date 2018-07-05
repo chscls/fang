@@ -385,7 +385,8 @@ export default class TestList extends PureComponent {
         dataIndex: 'score',
       },{
         title: '皮肤',
-        dataIndex: 'skin',
+      
+        render: val =>  val.skin?val.skin.name:"默认"
       },
       {
         title: '重做次数',
