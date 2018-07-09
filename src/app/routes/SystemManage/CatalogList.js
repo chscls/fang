@@ -37,7 +37,7 @@ const CreateForm = Form.create()(props => {
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      handleAdd(fieldsValue,()=>{
+      handleAdd(fieldsValue, () => {
         form.resetFields();
       })
     });
@@ -168,12 +168,12 @@ export default class CatalogList extends PureComponent {
         formValues: values,
       });
 
-      const pagination=this.props.fyCatalog.data.pagination
+      const pagination = this.props.fyCatalog.data.pagination
       const params = {
         pageNo: pagination.current,
         pageSize: pagination.pageSize,
         ...values,
-      
+
       };
       this.getPage(params);
     });
@@ -192,7 +192,7 @@ export default class CatalogList extends PureComponent {
     }
   };
 
-  handleAdd = (fields,back) => {
+  handleAdd = (fields, back) => {
     var params = {
       word: fields.word,
     };
@@ -203,13 +203,13 @@ export default class CatalogList extends PureComponent {
       type: 'fyCatalog/add',
       payload: params,
       callback: res => {
-       
-          message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
-          this.setState({
-            modalVisible: false,
-          });
-          this.getPage();
-          if(back) back()
+
+        message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
+        this.setState({
+          modalVisible: false,
+        });
+        this.getPage();
+        if (back) back()
       },
     });
   };
@@ -310,18 +310,41 @@ export default class CatalogList extends PureComponent {
       },
     });
   };
+  formatTree = (list) => {
+   
+    for (var i = 0;  i < list.length;i++) {
+    
+      if (list[i].children&&list[i].children.length>0) {
+        this.formatTree(list[i].children)
+       
+
+      }else{
+        list[i]={
+          ...list[i],
+          children:null
+        };
+      }
+    }
+  
+    return list
+  }
   render() {
     const { fyCatalog: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
-
+    var list = this.formatTree(data.list)
+   
+    var datax = {
+      ...data,
+      list:list
+    }
     const columns = [
       {
         title: 'id',
         dataIndex: 'id',
       },
       {
-        title: '单词',
-        dataIndex: 'word',
+        title: '名称',
+        dataIndex: 'name',
       },
       {
         title: '操作',
@@ -370,7 +393,7 @@ export default class CatalogList extends PureComponent {
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
-              data={data}
+              data={datax}
               columns={columns}
               rowKey="id"
               onSelectRow={this.handleSelectRows}
