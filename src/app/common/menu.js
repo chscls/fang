@@ -65,6 +65,10 @@ const menuData = [
         path: 'catalog-list',
         authority: 'admin',
       },{
+        name: '展示管理',
+        path: 'show-list',
+        authority: 'admin',
+      },{
         name: '皮肤管理',
         path: 'skin-list',
         authority: 'admin',
