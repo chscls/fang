@@ -83,7 +83,7 @@ export default class Card extends React.PureComponent {
       item,
     } = this.props;
     const opacity = isDragging ? 0 : 1;
-    const question = item.q
+   
     return (
       <div style={{ width: '100%',opacity: 'opacity',wordBreak:'break-all'}}>
         {connectDragSource(
@@ -94,22 +94,16 @@ export default class Card extends React.PureComponent {
           )
         )}
 
-        &nbsp;&nbsp;{question.score?<span style={{width:80,display:'inline-block'}}>{question.score+'分'}</span>:
-        <span style={{width:80,display:'inline-block'}}>{question.rate.toFixed(2)*100+'%占比'}</span>}
         
-        &nbsp;&nbsp;
         
         <Checkbox
          disabled={this.props.disabled}
-          value={question.id}
+          value={item.id}
           checked={item.checked}
           onChange={this.props.handle}
-        />&nbsp;&nbsp;{this.props.index+1}.&nbsp;&nbsp;
-        {question.isRich ? (
-          <div dangerouslySetInnerHTML={{ __html: question.title  }} />
-        ) : (
-        question.title
-        )}
+        />&nbsp;&nbsp;{this.props.index+1}.
+        {item.name}
+      
        
       </div>
     );

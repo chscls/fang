@@ -19,7 +19,7 @@ export default class ShowEdit extends React.PureComponent {
         this.state = {
             indeterminate: true,
             checkAll: false,
-            items: this.props.items ? this.props.items : [],
+            items:  [],
             defaultScore: this.props.defaultScore,
             selectQuestionIds: [],
             questionModal: false,
@@ -29,26 +29,23 @@ export default class ShowEdit extends React.PureComponent {
     }
     componentDidMount(){
         const id = this.props.match.params.id;
-        this.props.dispatch({
-          type: 'fyShow/clear',
-          payload: null,
-        });
-        if (id == 0) {
-          this.setState({ isReady: true });
-        } else {
           this.props.dispatch({
             type: 'fyShow/find',
             payload: { id: id },
-            callback: test => {
-              this.setState({
-                isReady: true,
-                isQuestionnaire: test.isQuestionnaire,
-                isNoOrder:test.isNoOrder,
-                mode: test.mode,
-              });
-            },
+            callback:(show)=>{
+                var items=this.state.items
+                for(var i=0;i<show.list.length;i++){
+                    items.push({
+                        ...show.list[i],
+                        checked:false,
+                        index:i
+                        
+                    })
+                }
+            }
           });
-        }
+       
+        
     }
     targetScore = (value) => {
         this.setState({ defaultScore: value })
@@ -211,8 +208,9 @@ export default class ShowEdit extends React.PureComponent {
         const { confirmLoading, initLoading } = this.props
 
         const data2 = this.state.items;
-        var alreadyIds = data2.map(row => row.q?row.q.id:row.id).join(',')
-      
+       
+        var alreadyIds = data2.map(row => row.id).join(',')
+       
        
         return(
         <div>
@@ -229,17 +227,7 @@ export default class ShowEdit extends React.PureComponent {
                 插入题目
               </Button>
             &nbsp; &nbsp;
-              {this.checkLength(this.state.items) > 0 ?
-
-
-
-                <Popconfirm title={<InputNumber onChange={this.targetScore} defaultValue={1} />} onConfirm={this.changeScore} okText="确定" cancelText="取消">
-                    <Button loading={confirmLoading} type="primary" >
-                        {this.props.isTest?"调分数占比":"调分"}
-              </Button>
-                </Popconfirm>
-
-                : ""}&nbsp; &nbsp;
+           
               {this.checkLength(this.state.items) > 0 ? <Button type="primary" onClick={this.delete} loading={confirmLoading} >
                 剔除
               </Button> : ""}
