@@ -1,4 +1,4 @@
-import { query, remove, add,find } from '../services/FyShowMngSvc';
+import { query, remove, add,find, addCatalog } from '../services/FyShowMngSvc';
 
 export default {
   namespace: 'fyShow',
@@ -17,7 +17,19 @@ export default {
         type: 'ok',
         payload: null,
       });
+    },* addCatalog({ payload, callback }, { call, put }) {
+   
+      const response = yield call(  addCatalog, payload);
+      if(!response){yield put({type: 'nom'});return }
+     
+        yield put({
+          type: 'ok',
+          payload: response,
+        });
+        if(callback)callback(response)
     },
+
+   
     *fetch({ payload }, { call, put }) {
       const response = yield call(query, payload);
       if(!response){yield put({type: 'nom'});return }

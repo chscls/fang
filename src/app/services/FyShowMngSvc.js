@@ -19,6 +19,15 @@ export async function remove(params) {
   });
 }
 
+export async function addCatalog(params) {
+  return request(`${ad}/addCatalog`, {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'post',
+    },
+  });
+}
 export async function add(params) {
   return request(`${ad}/add`, {
     method: 'POST',

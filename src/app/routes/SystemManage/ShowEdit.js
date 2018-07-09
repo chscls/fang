@@ -161,7 +161,7 @@ export default class ShowEdit extends React.PureComponent {
         }
     }
     handleSelect = ids => {
-
+        
         this.setState({ selectQuestionIds: ids });
 
     };
@@ -178,22 +178,24 @@ export default class ShowEdit extends React.PureComponent {
         });
       };
     okHandle = () => {
-        if (this.props.okHandle) {
-            this.props.okHandle(this.state.selectQuestionIds, test => {
-                key = key + 1;
-                const items = [];
-                const x = test.questions?test.questions:test.subQuestions
-                for (var i = 0; i < x.length; i++) {
-                    items[i] = { index: i, q: x[i], checked: false };
+        this.props.dispatch({
+            type:"fyShow/addCatalog",
+            payload:this.state.selectQuestionIds,
+            callback:(show)=>{
+                var items=this.state.items
+                for(var i=0;i<show.list.length;i++){
+                    items.push({
+                        ...show.list[i],
+                        checked:false,
+                        index:i
+                        
+                    })
                 }
-                this.setState({
-                    questionModal: false,
-                    items,
-                });
-
-            })
-        };
+                this.setState({items,  questionModal: false})
+            }
+        })
     }
+      
     checkLength(items) {
         var count = 0;
         for (var i = 0; i < items.length; i++) {
