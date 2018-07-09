@@ -24,7 +24,7 @@ import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import config from '../../config';
 import styles from './CatalogList.less';
 import { beforeUpload } from '../../../utils/utils';
-const uploadUrl = config.httpServer;
+const uploadUrl = config.uploadUrl;
 const FormItem = Form.Item;
 const { Option } = Select;
 const getValue = obj =>
@@ -44,10 +44,11 @@ const CreateForm = Form.create()(props => {
       }
 
       var y = x[x.length - 1].response
-      handleAdd(
-        {...fieldsValue,
-        img: y}
-        , () => {
+      console.log(y)
+      handleAdd({
+        ...fieldsValue,
+        img: y
+      }, () => {
         form.resetFields();
       })
     });

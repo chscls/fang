@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import theme from 'react-quill/dist/quill.snow.css';
 import config from '../../config';
 import { Modal, Button, message, Icon, Upload } from 'antd';
-const uploadUrl = config.httpServer + '/services/PublicSvc/upload';
+const uploadUrl = config.uploadUrl;
 /*
  * Event handler to be attached using Quill toolbar module
  * http://quilljs.com/docs/modules/toolbar/
