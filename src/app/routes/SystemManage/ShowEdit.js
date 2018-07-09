@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { Form, Icon, Input, Button, Popconfirm, Divider, List, Avatar, Checkbox, Modal } from 'antd';
+import { Form, Icon, Input, Button, Popconfirm, Divider, List, Avatar, Checkbox, Modal,message } from 'antd';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
@@ -33,7 +33,7 @@ export default class ShowEdit extends React.PureComponent {
             type: 'fyShow/find',
             payload: { id: id },
             callback:(show)=>{
-                var items=this.state.items
+                var items=[]
                 for(var i=0;i<show.list.length;i++){
                     items.push({
                         ...show.list[i],
@@ -42,6 +42,7 @@ export default class ShowEdit extends React.PureComponent {
                         
                     })
                 }
+                this.setState({items})
             }
           });
        
@@ -179,10 +180,11 @@ export default class ShowEdit extends React.PureComponent {
       };
     okHandle = () => {
         this.props.dispatch({
-            type:"fyShow/addCatalog",
-            payload:this.state.selectQuestionIds,
+            type: 'fyShow/addCatalog',
+            payload: { id: this.props.match.params.id,ids:this.state.selectQuestionIds },
+          
             callback:(show)=>{
-                var items=this.state.items
+                var items=[]
                 for(var i=0;i<show.list.length;i++){
                     items.push({
                         ...show.list[i],
@@ -191,6 +193,7 @@ export default class ShowEdit extends React.PureComponent {
                         
                     })
                 }
+                message.info("执行成功");
                 this.setState({items,  questionModal: false})
             }
         })

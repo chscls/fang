@@ -17,9 +17,9 @@ export default {
         type: 'ok',
         payload: null,
       });
-    },* addCatalog({ payload, callback }, { call, put }) {
+    },*addCatalog({ payload, callback }, { call, put }) {
    
-      const response = yield call(  addCatalog, payload);
+      const response = yield call(addCatalog, payload);
       if(!response){yield put({type: 'nom'});return }
      
         yield put({
