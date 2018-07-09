@@ -12,6 +12,12 @@ export default {
   },
 
   effects: {
+    *clear({ payload, callback }, { call, put }) {
+      yield put({
+        type: 'ok',
+        payload: null,
+      });
+    },
     *fetch({ payload }, { call, put }) {
       const response = yield call(query, payload);
       if(!response){yield put({type: 'nom'});return }
@@ -32,7 +38,7 @@ export default {
       if(!response){yield put({type: 'nom'});return }
      
         yield put({
-          type: 'bean',
+          type: 'ok',
           payload: response,
         });
         if(callback)callback(response)
@@ -42,7 +48,7 @@ export default {
       if(!response){yield put({type: 'nom'});return }
      
         yield put({
-          type: 'bean',
+          type: 'ok',
           payload: response,
         });
 
@@ -66,7 +72,7 @@ export default {
         data: action.payload,
       };
     },
-    bean(state, action) {
+    ok(state, action) {
       return {
         ...state,
         show: action.payload

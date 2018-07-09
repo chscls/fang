@@ -5,6 +5,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 import { InputNumber } from 'antd';
+import { connect } from 'dva';
 import QuestionList from '../../routes/QuestionManage/QuestionList';
 var key = 1;
 @DragDropContext(HTML5Backend)
@@ -23,7 +24,7 @@ export default class ShowEdit extends React.PureComponent {
             selectQuestionIds: [],
             questionModal: false,
             flag:false,
-            isReady
+            isReady:false,
         }
     }
     componentDidMount(){

@@ -23,6 +23,7 @@ import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import config from '../../config';
 import styles from './ShowList.less';
+import { routerRedux } from 'dva/router';
 import { beforeUpload } from '../../../utils/utils';
 const uploadUrl = config.httpServer;
 const FormItem = Form.Item;
@@ -63,10 +64,22 @@ const CreateForm = Form.create()(props => {
       <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="名称">
         {form.getFieldDecorator('name', {
           initialValue: currentObj.name,
-          rules: [{ required: true, message: '请输入姓名...' }],
-        })(<Input placeholder="请输入姓名" />)}
+          rules: [{ required: true, message: '请输入名称...' }],
+        })(<Input placeholder="请输入名称" />)}
       </FormItem>
-    
+      {currentObj.showIds&&currentObj.showIds.length>0?
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="类型">
+      {currentObj.type=="catalog"?"目录":"品牌"}
+      </FormItem>:
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="类型">
+        {form.getFieldDecorator('type', {
+          initialValue: currentObj.type||"catalog"
+        
+        })(<Select placeholder="请选择" style={{ width: '100%' }}>
+        <Option value="catalog">目录</Option>
+        <Option value="brand">品牌</Option>
+      </Select>)}
+      </FormItem>}
      
       
     </Modal>
@@ -370,6 +383,11 @@ export default class ShowList extends PureComponent {
       {
         title: '名称',
         dataIndex: 'name',
+      },
+      {
+        title: '类型',
+        dataIndex: 'type',
+        render: val => val=="catalog"?"目录":"品牌"
       },
       {
         title: '操作',
