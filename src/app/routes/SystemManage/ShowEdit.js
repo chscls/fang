@@ -137,29 +137,31 @@ export default class ShowEdit extends React.PureComponent {
         var ids = []
         for (var i = 0; i < this.state.items.length; i++) {
             if (!this.state.items[i].checked) {
-                ids.push(this.state.items[i].q.id)
+                ids.push(this.state.items[i].id)
             }
         }
-        if (this.props.delete) {
 
-            this.props.delete(ids.map(id => id).join(','), test => {
-                const x = test.questions?test.questions:test.subQuestions
-                key = key + 1;
-                const items = [];
-
-                for (var i = 0; i < x.length; i++) {
-                    items[i] = { index: i, q:x[i], checked: false };
+        this.props.dispatch({
+            type: 'fyShow/deleteCatalog',
+            payload: { id: this.props.match.params.id,ids:ids.map(id => id).join(',')},
+          
+            callback:(show)=>{
+                var items=[]
+                for(var i=0;i<show.list.length;i++){
+                    items.push({
+                        ...show.list[i],
+                        checked:false,
+                        index:i
+                        
+                    })
                 }
-                this.setState({
-                    questionModal: false,
-                    items,
-                });
+                message.info("执行成功");
+                this.setState({items,  questionModal: false})
+            }
+        })
+    
 
-
-            });
-
-
-        }
+        
     }
     handleSelect = ids => {
         
