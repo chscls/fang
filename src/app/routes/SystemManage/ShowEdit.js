@@ -6,6 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 import { InputNumber } from 'antd';
 import { connect } from 'dva';
+import config from '../../config';
 import CatalogList from '../../routes/SystemManage/CatalogList';
 var key = 1;
 @DragDropContext(HTML5Backend)
@@ -245,6 +246,11 @@ export default class ShowEdit extends React.PureComponent {
                 dataSource={data2}
                 renderItem={item => (
                     <List.Item key={item.index}>
+                     <List.Item.Meta
+              avatar={<Avatar src={config.httpServer+item.img} />}
+              title={<a href="https://ant.design">{item.name}</a>}
+              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            />
                         <Card index={item.index} id={item.index + 1} moveCard={this.moveCard} disabled={confirmLoading} handle={this.handle.bind(this, item.index)} checked={item.checked} delete={this.delete.bind(this, item.index)} item={item} />
                     </List.Item>
                 )}

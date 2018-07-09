@@ -86,6 +86,12 @@ export default class Card extends React.PureComponent {
    
     return (
       <div style={{ width: '100%',opacity: 'opacity',wordBreak:'break-all'}}>
+         <Checkbox
+         disabled={this.props.disabled}
+          value={item.id}
+          checked={item.checked}
+          onChange={this.props.handle}
+        />
         {connectDragSource(
           connectDropTarget(
             <a title="按住不放可拖住调整顺序">
@@ -96,13 +102,7 @@ export default class Card extends React.PureComponent {
 
         
         
-        <Checkbox
-         disabled={this.props.disabled}
-          value={item.id}
-          checked={item.checked}
-          onChange={this.props.handle}
-        />&nbsp;&nbsp;{this.props.index+1}.
-        {item.name}
+     
       
        
       </div>
