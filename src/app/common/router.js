@@ -41,6 +41,11 @@ const appRouter = [
     models: [require(`../models/fyCatalog`)],
     component: () => import('../routes/SystemManage/CatalogList'),
     authority: 'admin',
+  },{
+    path: '/system-manage/show-list',
+    models: [require(`../models/fyShow`)],
+    component: () => import('../routes/SystemManage/ShowList'),
+    authority: 'admin',
   },
   {
     path: '/question-manage/question-list',
