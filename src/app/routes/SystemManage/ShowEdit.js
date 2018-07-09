@@ -135,8 +135,9 @@ export default class ShowEdit extends React.PureComponent {
     }
     delete = () => {
         var ids = []
+    
         for (var i = 0; i < this.state.items.length; i++) {
-            if (!this.state.items[i].checked) {
+            if (this.state.items[i].checked) {
                 ids.push(this.state.items[i].id)
             }
         }
@@ -172,7 +173,7 @@ export default class ShowEdit extends React.PureComponent {
         const items = this.state.items;
     
         items[index].checked = e.target.checked;
-    
+      
         this.setState({
           items,
           flag: !this.state.flag,
