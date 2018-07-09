@@ -33,7 +33,7 @@ const getValue = obj =>
 const statusMap = ['default', 'processing', 'success', 'error'];
 const status = ['关闭', '运行中', '已上线', '异常'];
 const CreateForm = Form.create()(props => {
-  const { modalVisible, form, handleAdd, handleModalVisible, currentObj } = props;
+  const { modalVisible, form, handleAdd, handleModalVisible, currentObj,parent } = props;
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -49,9 +49,12 @@ const CreateForm = Form.create()(props => {
       onOk={okHandle}
       onCancel={() => handleModalVisible()}
     >
-      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="单词">
-        {form.getFieldDecorator('word', {
-          initialValue: currentObj.word,
+     {parent.id?<FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="父目录">
+       {parent.name}
+      </FormItem>:""}
+      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label="名称">
+        {form.getFieldDecorator('name', {
+          initialValue: currentObj.name,
           rules: [{ required: true, message: '请输入姓名...' }],
         })(<Input placeholder="请输入姓名" />)}
       </FormItem>
@@ -71,6 +74,8 @@ export default class CatalogList extends PureComponent {
     selectedRows: [],
     formValues: {},
     currentObj: {},
+    parent:{}
+    
   };
 
   componentDidMount() {
@@ -178,7 +183,9 @@ export default class CatalogList extends PureComponent {
       this.getPage(params);
     });
   };
-
+  addChild=(parent)=>{
+    this.setState({modalVisible:true,parent:parent});
+  }
   handleModalVisible = flag => {
     if (flag) {
       this.setState({
@@ -194,10 +201,13 @@ export default class CatalogList extends PureComponent {
 
   handleAdd = (fields, back) => {
     var params = {
-      word: fields.word,
+      ...fields
     };
     if (this.state.currentObj.id) {
       params.id = this.state.currentObj.id;
+    }
+    if(this.state.parent.id){
+      params.parentId = this.state.parent.id;
     }
     this.props.dispatch({
       type: 'fyCatalog/add',
@@ -207,6 +217,7 @@ export default class CatalogList extends PureComponent {
         message.success(this.state.currentObj.id ? '修改成功' : '添加成功');
         this.setState({
           modalVisible: false,
+          parent:{}
         });
         this.getPage();
         if (back) back()
@@ -350,6 +361,8 @@ export default class CatalogList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
+             <a onClick={this.addChild.bind(this, record)}>添加子目录</a>
+            <Divider type="vertical" />
             <a onClick={this.modify.bind(this, record)}>修改</a>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
@@ -368,13 +381,14 @@ export default class CatalogList extends PureComponent {
       handleAdd: this.handleAdd,
       handleModalVisible: this.handleModalVisible,
       currentObj: this.state.currentObj,
+      parent:this.state.parent
     };
 
     return (
       <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
-            <div className={styles.tableListForm}>{this.renderForm()}</div>
+          {/*   <div className={styles.tableListForm}>{this.renderForm()}</div> */}
             <div className={styles.tableListOperator}>
               <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
                 新建
