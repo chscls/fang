@@ -114,6 +114,12 @@ const CreateForm = Form.create()(props => {
 }))
 @Form.create()
 export default class CatalogList extends PureComponent {
+  constructor(props){
+
+    super(props)
+ 
+  }
+  
   state = {
     modalVisible: false,
     expandForm: false,
@@ -135,6 +141,7 @@ export default class CatalogList extends PureComponent {
       params = {
         pageNo: pagination.current ? pagination.current : 1,
         pageSize: pagination.pageSize ? pagination.pageSize : 10,
+     
         ...this.state.formValues,
       };
     }
@@ -201,6 +208,9 @@ export default class CatalogList extends PureComponent {
     this.setState({
       selectedRows: rows,
     });
+     if (this.props.handleSelect) {
+      this.props.handleSelect(rows.map(row => row.id).join(','));
+    }
   };
 
   handleSearch = e => {
