@@ -1,7 +1,7 @@
 
 
 
-const httpServer='http://localhost:52000'
+const httpServer='https://www.zymoocs.com/ptd'
 const config = {
   oauthServer: 'http://192.168.1.220:5000',
   httpServer: httpServer,

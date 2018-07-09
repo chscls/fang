@@ -73,7 +73,7 @@ export default {
           type: 'ok',
           payload: response,
         });
-
+        if(callback)callback(response)
    
     },
     *remove({ payload, callback }, { call, put }) {
