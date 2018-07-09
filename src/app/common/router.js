@@ -46,6 +46,11 @@ const appRouter = [
     models: [require(`../models/fyShow`)],
     component: () => import('../routes/SystemManage/ShowList'),
     authority: 'admin',
+  },{
+    path: '/system-manage/show-edit/:id',
+    models: [require(`../models/fyShow`)],
+    component: () => import('../routes/SystemManage/ShowEdit'),
+    authority: 'admin',
   },
   {
     path: '/question-manage/question-list',

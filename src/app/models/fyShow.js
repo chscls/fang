@@ -1,9 +1,10 @@
-import { query, remove, add } from '../services/FyShowMngSvc';
+import { query, remove, add,find } from '../services/FyShowMngSvc';
 
 export default {
   namespace: 'fyShow',
 
   state: {
+    show:{},
     data: {
       list: [],
       pagination: {},
@@ -25,20 +26,27 @@ export default {
           },
         },
       });
+    },*find({ payload, callback }, { call, put }) {
+   
+      const response = yield call( find, payload);
+      if(!response){yield put({type: 'nom'});return }
+     
+        yield put({
+          type: 'bean',
+          payload: response,
+        });
+        if(callback)callback(response)
     },
     *add({ payload, callback }, { call, put }) {
       const response = yield call(add, payload);
       if(!response){yield put({type: 'nom'});return }
-      if (response) {
+     
         yield put({
-          type: 'nom',
+          type: 'bean',
           payload: response,
         });
 
-        if (callback) callback({ suc: true, obj: response });
-      } else {
-        if (callback) callback({ suc: false, obj: payload });
-      }
+   
     },
     *remove({ payload, callback }, { call, put }) {
       const response = yield call(remove, payload);
@@ -56,6 +64,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    bean(state, action) {
+      return {
+        ...state,
+        show: action.payload
       };
     },
     nom(state, action) {

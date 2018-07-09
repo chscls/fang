@@ -5,6 +5,9 @@ const ad = config.httpServer + '/services/FyShowMngSvc';
 export async function query(params) {
   return request(`${ad}/query`, params);
 }
+export async function find(params) {
+  return request(`${ad}/find`, params);
+}
 
 export async function remove(params) {
   return request(`${ad}/remove`, {

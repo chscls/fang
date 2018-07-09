@@ -38,16 +38,8 @@ const CreateForm = Form.create()(props => {
   const okHandle = () => {
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-      var x = fieldsValue.img;
-      if (x == null || x.length == 0) {
-        return
-      }
-
-      var y = x[x.length - 1].response
-      handleAdd(
-        {...fieldsValue,
-        img: y}
-        , () => {
+ 
+      handleAdd(fieldsValue, () => {
         form.resetFields();
       })
     });
@@ -358,6 +350,9 @@ export default class ShowList extends PureComponent {
   
     return list
   }
+  edit=(record)=>{
+    this.props.dispatch(routerRedux.push(`/system-manage/show-edit/${record.id}`));
+  }
   render() {
     const { fyShow: { data }, loading } = this.props;
     const { selectedRows, modalVisible } = this.state;
@@ -380,8 +375,11 @@ export default class ShowList extends PureComponent {
         title: '操作',
         render: record => (
           <Fragment>
+              <a onClick={this.edit.bind(this, record)}>编辑包含</a>
+            <Divider type="vertical" />
              <a onClick={this.addChild.bind(this, record)}>添加子目录</a>
             <Divider type="vertical" />
+            
             <a onClick={this.modify.bind(this, record)}>修改</a>
             <Divider type="vertical" />
             <a onClick={this.delete.bind(this, record.id)}>删除</a>
