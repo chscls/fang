@@ -6,7 +6,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Card from './Card';
 import { InputNumber } from 'antd';
 import { connect } from 'dva';
-import QuestionList from '../../routes/QuestionManage/QuestionList';
+import CatalogList from '../../routes/SystemManage/CatalogList';
 var key = 1;
 @DragDropContext(HTML5Backend)
 @connect(({ loading, fyShow }) => ({
@@ -205,7 +205,7 @@ export default class ShowEdit extends React.PureComponent {
         return count;
       }
     render() {
-        const { confirmLoading, initLoading } = this.props
+        const {fyShow:{show}, confirmLoading, initLoading } = this.props
 
         const data2 = this.state.items;
        
@@ -224,7 +224,7 @@ export default class ShowEdit extends React.PureComponent {
               </Checkbox>
 
             <Button type="primary" onClick={this.openQuestions} loading={confirmLoading} >
-                插入题目
+            {show.type=="catalog"?"插入目录":"插入品牌"}
               </Button>
             &nbsp; &nbsp;
            
@@ -243,19 +243,19 @@ export default class ShowEdit extends React.PureComponent {
             />
 
             <Modal
-                title="插入题目"
+                title={show.type=="catalog"?"插入目录":"插入品牌"}
                 visible={this.state.questionModal}
                 onOk={this.okHandle}
                 width={1800}
                 onCancel={() => this.handleModalVisible()}
                 confirmLoading={confirmLoading}
             >
-                <QuestionList
+                <CatalogList
                     key={key}
                     alreadyIds={alreadyIds}
                     isSelect={true}
                     handleSelect={this.handleSelect}
-                    isQuestion={this.props.isQuestion}
+                 
                 />
             </Modal>
         </div>)

@@ -416,7 +416,7 @@ export default class CatalogList extends PureComponent {
       {
         title: '模板',
         dataIndex: 'templete',
-      },
+      },this.props.isSelect?{}:
       {
         title: '操作',
         render: record => (
@@ -448,8 +448,8 @@ export default class CatalogList extends PureComponent {
       <PageHeaderLayout title="">
         <Card bordered={false}>
           <div className={styles.tableList}>
-          {/*   <div className={styles.tableListForm}>{this.renderForm()}</div> */}
-            <div className={styles.tableListOperator}>
+         
+           {this.props.isSelect?"": <div className={styles.tableListOperator}>
               <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
                 新建
               </Button>
@@ -463,7 +463,7 @@ export default class CatalogList extends PureComponent {
                   </Dropdown>
                 </span>
               )}
-            </div>
+            </div>}
             <StandardTable
               selectedRows={selectedRows}
               loading={loading}
